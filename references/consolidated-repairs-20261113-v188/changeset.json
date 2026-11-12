@@ -1,0 +1,3257 @@
+{
+  "release": "consolidated-repairs-20261113-v188",
+  "source_manifest": {
+    "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\qualified-source-r3.json",
+    "sha256": "d7c907610969f728d3d07c98935b90d5063daec492d976bb841b44576aa69878"
+  },
+  "parent_archive_sha256": "59e48481f40311759b629fadd9ff5d5ecb2c5e222070f61f16b15dcae8ea98d7",
+  "parent_manifests": {
+    "online": {
+      "path": "G:\\els\\releases\\online\\consolidated-repairs-20261112-v187\\rollup-manifest.json",
+      "sha256": "e9702db1f0450c055cfcaa1a1103b48af126903d9a4dcf1dc766c8e7f0826ba5"
+    },
+    "local": {
+      "path": "G:\\els\\releases\\local\\unified-server-1d9bf1dc353a66a5-3755f8cbd302\\local-business-manifest.json",
+      "sha256": "c95a8cdfa075ed70040ca802bcacbccf25dcfb8452c784c944f5978a6f922f8e"
+    },
+    "launchers": {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v187-final\\launcher-preview-v187\\signedFriends.signed.json",
+      "sha256": "cf125ac8333fcc355575edf379aebe21237dd8b328a2fc838d9a14b29cc343cf"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "7a9f77b16565ac0525b0bafce40de2af898c207b262754453efeae0849d6e12d",
+      "size": 72161,
+      "scope": "server",
+      "parent_sha256": "62a906f5b772a0a76a479dea46445d25f5a3896640e90414e47ba6580f05481f",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\application.py",
+            "sha256": "7a9f77b16565ac0525b0bafce40de2af898c207b262754453efeae0849d6e12d"
+          }
+        }
+      ],
+      "online_parent_sha256": "62a906f5b772a0a76a479dea46445d25f5a3896640e90414e47ba6580f05481f"
+    },
+    {
+      "path": "els_server/data/formal_pve_economy.json",
+      "sha256": "c986616c18b046ce138a7f7415e9541debb0c60322e77345642199872c5bc2bc",
+      "size": 288742,
+      "scope": "server",
+      "parent_sha256": "2a670458040862879cc035143f63af529455ce3e129657b57146ed33273480c7",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\data\\formal_pve_economy.json",
+            "sha256": "c986616c18b046ce138a7f7415e9541debb0c60322e77345642199872c5bc2bc"
+          }
+        }
+      ],
+      "online_parent_sha256": "2a670458040862879cc035143f63af529455ce3e129657b57146ed33273480c7"
+    },
+    {
+      "path": "els_server/data/formal_pve_economy.manifest.json",
+      "sha256": "73ace5679da28d75d6cc9f191974ae0859b2cbe613d616ab66bb0f28550c5087",
+      "size": 206,
+      "scope": "server",
+      "parent_sha256": "bdb2f9d5a848f50683109845bfa00c5c6418de47b0c0e0c8a4e56433be4205e0",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\data\\formal_pve_economy.manifest.json",
+            "sha256": "73ace5679da28d75d6cc9f191974ae0859b2cbe613d616ab66bb0f28550c5087"
+          }
+        }
+      ],
+      "online_parent_sha256": "bdb2f9d5a848f50683109845bfa00c5c6418de47b0c0e0c8a4e56433be4205e0"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "sha256": "1c6be6a5e3e057e46e6ae5a6f432059a0511a432dbfb703ca0c03748b6808d36",
+      "size": 242790,
+      "scope": "server",
+      "parent_sha256": "3671d1efc36629198845008bdfbb25d443a4b70ed53537d5e69015cd58ece3b9",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\data\\ordinary_misc_loot.json",
+            "sha256": "1c6be6a5e3e057e46e6ae5a6f432059a0511a432dbfb703ca0c03748b6808d36"
+          }
+        }
+      ],
+      "online_parent_sha256": "3671d1efc36629198845008bdfbb25d443a4b70ed53537d5e69015cd58ece3b9"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "sha256": "7a600b371b8a2ad35146564a8ef9231c4b8af42eebfc8a6fa8c47667598793b8",
+      "size": 182,
+      "scope": "server",
+      "parent_sha256": "1b06827d0727e8bb35f744d7e0d213b4e58d1eeddc37d7d972bb1f44d067c4f6",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\data\\ordinary_misc_loot.manifest.json",
+            "sha256": "7a600b371b8a2ad35146564a8ef9231c4b8af42eebfc8a6fa8c47667598793b8"
+          }
+        }
+      ],
+      "online_parent_sha256": "1b06827d0727e8bb35f744d7e0d213b4e58d1eeddc37d7d972bb1f44d067c4f6"
+    },
+    {
+      "path": "els_server/diagnostic_reports.py",
+      "sha256": "425d178c7d21c1b08def373dcfc48e2235ce0e73f71ffdcd229aa2d7e687fe8c",
+      "size": 24024,
+      "scope": "server",
+      "parent_sha256": "536f85e98ce194e8957a33a298791bdd470cd3280413fbcb2588f02c29fb7020",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\diagnostic_reports.py",
+            "sha256": "425d178c7d21c1b08def373dcfc48e2235ce0e73f71ffdcd229aa2d7e687fe8c"
+          }
+        }
+      ],
+      "online_parent_sha256": "536f85e98ce194e8957a33a298791bdd470cd3280413fbcb2588f02c29fb7020"
+    },
+    {
+      "path": "els_server/domain/anniversary_exchange.py",
+      "sha256": "e278fae702057a94b3a06d6f0f21124d91da92c8d3f5b1f985f1d2f3620c3197",
+      "size": 3439,
+      "scope": "server",
+      "parent_sha256": "30dac946b7f9fe1439bb87598282a1c44e3a03c12c4b67debbe1607596ed47a5",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\domain\\anniversary_exchange.py",
+            "sha256": "e278fae702057a94b3a06d6f0f21124d91da92c8d3f5b1f985f1d2f3620c3197"
+          }
+        }
+      ],
+      "online_parent_sha256": "30dac946b7f9fe1439bb87598282a1c44e3a03c12c4b67debbe1607596ed47a5"
+    },
+    {
+      "path": "els_server/domain/ariel_attendance_mark.py",
+      "sha256": "b8ff428fadd87e53bca4ff5853a59200c5e01aabde12a397fb601466a1e4fdc9",
+      "size": 6755,
+      "scope": "server",
+      "parent_sha256": "1652538939c5ea29c8e8691308689f200b675abf18cdb173f252495552cff8a8",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\ariel_attendance_mark.py",
+            "sha256": "b8ff428fadd87e53bca4ff5853a59200c5e01aabde12a397fb601466a1e4fdc9"
+          }
+        }
+      ],
+      "online_parent_sha256": "1652538939c5ea29c8e8691308689f200b675abf18cdb173f252495552cff8a8"
+    },
+    {
+      "path": "els_server/domain/aurora_group_admission.py",
+      "sha256": "5e6abdae12ec502431373fcd9061049f3c167c89dc5690fb768a921a94ae0f43",
+      "size": 6376,
+      "scope": "server",
+      "parent_sha256": "6bf9b09eb15361b7cce433c4b6046d4179e030c53259fab2f0f326218571b977",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\aurora_group_admission.py",
+            "sha256": "5e6abdae12ec502431373fcd9061049f3c167c89dc5690fb768a921a94ae0f43"
+          }
+        }
+      ],
+      "online_parent_sha256": "6bf9b09eb15361b7cce433c4b6046d4179e030c53259fab2f0f326218571b977"
+    },
+    {
+      "path": "els_server/domain/blacksmith_enhancement_flow.py",
+      "sha256": "f7af325ef0bd37d1410dc999e963a66a636797511c4d572eb0dccd560b7d2c25",
+      "size": 1802,
+      "scope": "server",
+      "parent_sha256": "6a05cd65661c0f69360761ed8aab5a19ec5f6879659d6bbdc590582c1655fd0f",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\blacksmith_enhancement_flow.py",
+            "sha256": "f7af325ef0bd37d1410dc999e963a66a636797511c4d572eb0dccd560b7d2c25"
+          }
+        }
+      ],
+      "online_parent_sha256": "6a05cd65661c0f69360761ed8aab5a19ec5f6879659d6bbdc590582c1655fd0f"
+    },
+    {
+      "path": "els_server/domain/boosting_2026_force_equipment.py",
+      "sha256": "480210b78e81a9367d98ad98f38edbef2581197faf0f5c5cdb8ca23b85b7f7ca",
+      "size": 6775,
+      "scope": "server",
+      "parent_sha256": "e953b13d49993134841e0a55f19a17f5765f3ae50ee45341777ad9b0d32a1ceb",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\boosting_2026_force_equipment.py",
+            "sha256": "480210b78e81a9367d98ad98f38edbef2581197faf0f5c5cdb8ca23b85b7f7ca"
+          }
+        }
+      ],
+      "online_parent_sha256": "e953b13d49993134841e0a55f19a17f5765f3ae50ee45341777ad9b0d32a1ceb"
+    },
+    {
+      "path": "els_server/domain/boosting_2026_force_extraction.py",
+      "sha256": "820c6b3e0784a041ad3ebbd79e3b5debe997fd9a3774b6cf7d7091103cdb8552",
+      "size": 2117,
+      "scope": "server",
+      "parent_sha256": "ae63456acc3d1f6a3362c9111ed82c6674ef94f265f96bfe7a4855124299883c",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\boosting_2026_force_extraction.py",
+            "sha256": "820c6b3e0784a041ad3ebbd79e3b5debe997fd9a3774b6cf7d7091103cdb8552"
+          }
+        }
+      ],
+      "online_parent_sha256": "ae63456acc3d1f6a3362c9111ed82c6674ef94f265f96bfe7a4855124299883c"
+    },
+    {
+      "path": "els_server/domain/challenge_repeat_rewards.py",
+      "sha256": "4daf5edd479e2a87bb94eea15d44998ff14ae6da503e7fae3beb785faeecac22",
+      "size": 3669,
+      "scope": "server",
+      "parent_sha256": "564fab2ed6ec32cbd03f750c109d0cf68cd5649bc2f9dbc5c0bb9fe424a7ed55",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\challenge_repeat_rewards.py",
+            "sha256": "4daf5edd479e2a87bb94eea15d44998ff14ae6da503e7fae3beb785faeecac22"
+          }
+        }
+      ],
+      "online_parent_sha256": "564fab2ed6ec32cbd03f750c109d0cf68cd5649bc2f9dbc5c0bb9fe424a7ed55"
+    },
+    {
+      "path": "els_server/domain/companion_flow.py",
+      "sha256": "ecf7f09cbdaf0cbd3e87158750d03e705a77c5a3e10732a0f68dcf484a8edca5",
+      "size": 3931,
+      "scope": "server",
+      "parent_sha256": "bbafac8cef291e5c3a39d3208dafa70f69dd896f05b4a74e9c402b337bd35186",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\companion_flow.py",
+            "sha256": "ecf7f09cbdaf0cbd3e87158750d03e705a77c5a3e10732a0f68dcf484a8edca5"
+          }
+        }
+      ],
+      "online_parent_sha256": "bbafac8cef291e5c3a39d3208dafa70f69dd896f05b4a74e9c402b337bd35186"
+    },
+    {
+      "path": "els_server/domain/consumable_flow.py",
+      "sha256": "7a245ebc0abd1d47b89e233a5234e4349c76e76ca32d85bc7d1eb3d9b7ffc835",
+      "size": 1859,
+      "scope": "server",
+      "parent_sha256": "b4702bbb8730097467012ac80dc91f673af2440eae33304cc19f692e9ec9bd19",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\consumable_flow.py",
+            "sha256": "7a245ebc0abd1d47b89e233a5234e4349c76e76ca32d85bc7d1eb3d9b7ffc835"
+          }
+        }
+      ],
+      "online_parent_sha256": "b4702bbb8730097467012ac80dc91f673af2440eae33304cc19f692e9ec9bd19"
+    },
+    {
+      "path": "els_server/domain/dungeon_diagnostics.py",
+      "sha256": "4eeed6e67e856b924d0e3e623a8462d11583deef43155acc669ce10264627c25",
+      "size": 5133,
+      "scope": "server",
+      "parent_sha256": "f2819749bcdd69a94d9470243413bbde2aac38d6ca53a8a3ca8515e831ee9fd7",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\dungeon_diagnostics.py",
+            "sha256": "4eeed6e67e856b924d0e3e623a8462d11583deef43155acc669ce10264627c25"
+          }
+        }
+      ],
+      "online_parent_sha256": "f2819749bcdd69a94d9470243413bbde2aac38d6ca53a8a3ca8515e831ee9fd7"
+    },
+    {
+      "path": "els_server/domain/elixir_flow.py",
+      "sha256": "d2c01e071b4e8747c758ac93ba0d789bd4ad8d99a3c4fdf769283e243156e566",
+      "size": 8077,
+      "scope": "server",
+      "parent_sha256": "7b8622f92d4c4045aa5dcf38dc5e435d29296eb34e343545ba0c3c23dc06497c",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\elixir_flow.py",
+            "sha256": "d2c01e071b4e8747c758ac93ba0d789bd4ad8d99a3c4fdf769283e243156e566"
+          }
+        }
+      ],
+      "online_parent_sha256": "7b8622f92d4c4045aa5dcf38dc5e435d29296eb34e343545ba0c3c23dc06497c"
+    },
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "sha256": "e4073d7f9f3c2c13cd503bad66e6e7cbc70709b580ae8ba3d5fe800a9fdf3e62",
+      "size": 12139,
+      "scope": "server",
+      "parent_sha256": "032db347a9326fe07c50d265e9026d37aeb69b9b45ccc218b8985c34e1bacde7",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\environment_buff_flow.py",
+            "sha256": "e4073d7f9f3c2c13cd503bad66e6e7cbc70709b580ae8ba3d5fe800a9fdf3e62"
+          }
+        }
+      ],
+      "online_parent_sha256": "032db347a9326fe07c50d265e9026d37aeb69b9b45ccc218b8985c34e1bacde7"
+    },
+    {
+      "path": "els_server/domain/equipment_ui_flow.py",
+      "sha256": "304cdb2a8500f529088c3ab498c5821a1acd4514d001d83b8edc0a993389b8a5",
+      "size": 9722,
+      "scope": "server",
+      "parent_sha256": "df43cd3fdc9c651003f23f1e6801f0a9fa454a2b00cabed6149091621ad4377e",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\equipment_ui_flow.py",
+            "sha256": "304cdb2a8500f529088c3ab498c5821a1acd4514d001d83b8edc0a993389b8a5"
+          }
+        }
+      ],
+      "online_parent_sha256": "df43cd3fdc9c651003f23f1e6801f0a9fa454a2b00cabed6149091621ad4377e"
+    },
+    {
+      "path": "els_server/domain/fashion_state.py",
+      "sha256": "4cf71d68eb28a2c2997d1b5cdf1ae6f8d3102713f7a6998a3f0c260768a76787",
+      "size": 6912,
+      "scope": "server",
+      "parent_sha256": "541f461cd536807d3ef1dc71305b5c560f8db75b60345b2b03134f0abe4eb076",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\fashion_state.py",
+            "sha256": "4cf71d68eb28a2c2997d1b5cdf1ae6f8d3102713f7a6998a3f0c260768a76787"
+          }
+        }
+      ],
+      "online_parent_sha256": "541f461cd536807d3ef1dc71305b5c560f8db75b60345b2b03134f0abe4eb076"
+    },
+    {
+      "path": "els_server/domain/first_story_population.py",
+      "sha256": "3d891d95bbef66bc3bb8cb82825ac4ffed34daa3d589a5121c6d4b4e6e7e447b",
+      "size": 2286,
+      "scope": "server",
+      "parent_sha256": "33f62291004d0b3549bde00184ae0843a8ed2e69e763ac21f51a2aa52e430198",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\first_story_population.py",
+            "sha256": "3d891d95bbef66bc3bb8cb82825ac4ffed34daa3d589a5121c6d4b4e6e7e447b"
+          }
+        }
+      ],
+      "online_parent_sha256": "33f62291004d0b3549bde00184ae0843a8ed2e69e763ac21f51a2aa52e430198"
+    },
+    {
+      "path": "els_server/domain/force_drop_balance.py",
+      "sha256": "830b5dc5abee633b6c3f42c1e8744275dbdc3e788a5eb2c2ca20f5104aa6b326",
+      "size": 2815,
+      "scope": "server",
+      "parent_sha256": null,
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\force_drop_balance.py",
+            "sha256": "830b5dc5abee633b6c3f42c1e8744275dbdc3e788a5eb2c2ca20f5104aa6b326"
+          }
+        }
+      ],
+      "online_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/formal_pve_economy.py",
+      "sha256": "5aca4c80c3a8fd16f24c38237895f4c3d4a5ab35575046ad888bca22b1c33448",
+      "size": 9474,
+      "scope": "server",
+      "parent_sha256": "a2dfd6059f04c4eedc15c02a3dfe337adcfea8bfcdd476f583121fbc922c200e",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\formal_pve_economy.py",
+            "sha256": "5aca4c80c3a8fd16f24c38237895f4c3d4a5ab35575046ad888bca22b1c33448"
+          }
+        }
+      ],
+      "online_parent_sha256": "a2dfd6059f04c4eedc15c02a3dfe337adcfea8bfcdd476f583121fbc922c200e"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "sha256": "ea5460cda69a597e34237332ee773a281a6dd420ca0a1c8cf596bdfb51330c57",
+      "size": 51342,
+      "scope": "server",
+      "parent_sha256": "ee3637da015e4b9541511c828a67727237e17c78cc01a9809e98d59aae047e3a",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\friends_dungeon.py",
+            "sha256": "ea5460cda69a597e34237332ee773a281a6dd420ca0a1c8cf596bdfb51330c57"
+          }
+        }
+      ],
+      "online_parent_sha256": "ee3637da015e4b9541511c828a67727237e17c78cc01a9809e98d59aae047e3a"
+    },
+    {
+      "path": "els_server/domain/friends_racing.py",
+      "sha256": "92298935317d31095d3e23e0a786f2a2208a7ef852e9bd93fc17a97822ed578f",
+      "size": 25181,
+      "scope": "server",
+      "parent_sha256": "57c135a150a5bfb508e55826391b317a06be8afca3b3f7da82ff3c8e7a6cc431",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\friends_racing.py",
+            "sha256": "92298935317d31095d3e23e0a786f2a2208a7ef852e9bd93fc17a97822ed578f"
+          }
+        }
+      ],
+      "online_parent_sha256": "57c135a150a5bfb508e55826391b317a06be8afca3b3f7da82ff3c8e7a6cc431"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "sha256": "9d246fa3d1e24163d2e9b7ddd8c0868746e5de60e4c62022afcbb572ef5bc718",
+      "size": 27167,
+      "scope": "server",
+      "parent_sha256": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\domain\\friends_spawns.py",
+            "sha256": "9d246fa3d1e24163d2e9b7ddd8c0868746e5de60e4c62022afcbb572ef5bc718"
+          }
+        }
+      ],
+      "online_parent_sha256": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd"
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "sha256": "3fd7fd034652421a05f4a748bcd7470633de0154e69a08f7637e5bfbcad3b089",
+      "size": 29098,
+      "scope": "server",
+      "parent_sha256": "2252f12c01de70f0c6a40f3f0edb917fb2fa8be7c42bc3b7839dc36a7f3ccbe1",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\friends_world.py",
+            "sha256": "3fd7fd034652421a05f4a748bcd7470633de0154e69a08f7637e5bfbcad3b089"
+          }
+        }
+      ],
+      "online_parent_sha256": "2252f12c01de70f0c6a40f3f0edb917fb2fa8be7c42bc3b7839dc36a7f3ccbe1"
+    },
+    {
+      "path": "els_server/domain/group_wear.py",
+      "sha256": "bd1ba7c3aa247c3f8a23bd840b07397fde85b7306e76423cd202c04b5bc9d6c6",
+      "size": 10339,
+      "scope": "server",
+      "parent_sha256": "c491315c2b70ba3209da77eb9b75ab2ff6cbcd670da002a00c847ec40a19b109",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\group_wear.py",
+            "sha256": "bd1ba7c3aa247c3f8a23bd840b07397fde85b7306e76423cd202c04b5bc9d6c6"
+          }
+        }
+      ],
+      "online_parent_sha256": "c491315c2b70ba3209da77eb9b75ab2ff6cbcd670da002a00c847ec40a19b109"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "4f90cc56f8d1129f4f5f7c6ff84734b5325a284bf7b15ba33b2a07d728d9dc0d",
+      "size": 170553,
+      "scope": "server",
+      "parent_sha256": "0aa5b129a48d204cea2f9731cb9e6589783a34df32f9677ae426784db2de1a9c",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\local_session.py",
+            "sha256": "4f90cc56f8d1129f4f5f7c6ff84734b5325a284bf7b15ba33b2a07d728d9dc0d"
+          }
+        }
+      ],
+      "online_parent_sha256": "0aa5b129a48d204cea2f9731cb9e6589783a34df32f9677ae426784db2de1a9c"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_flow.py",
+      "sha256": "df01e4a815aa9467dd2ec5b539abca4d6734a3fbd55b05c8de9e0c0e33d69aed",
+      "size": 4592,
+      "scope": "server",
+      "parent_sha256": "4f6fcda16177072dd23d21f33afd82720deede9aa2163493bd211b78dfdcb2d4",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\npc_exchange_flow.py",
+            "sha256": "6cba9e573e2fff77ebdbdbfc51809e416a6e1ea1e2e0e3e8eae518c272f77c18"
+          }
+        },
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\domain\\npc_exchange_flow.py",
+            "sha256": "79430f6a3adeb9a56f12722ada179783aa1998eb993061fbecb7b74e427defcb"
+          }
+        }
+      ],
+      "online_parent_sha256": "4f6fcda16177072dd23d21f33afd82720deede9aa2163493bd211b78dfdcb2d4"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_rules.py",
+      "sha256": "1c018f03c3091404cbc622d8833a64d1da8e2e13fde1b955dbe1828e102300ea",
+      "size": 6495,
+      "scope": "server",
+      "parent_sha256": "59d0d63b77a084b7be04265848d24151cfb339b074ff3a709ec7759ff5f31b6c",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\domain\\npc_exchange_rules.py",
+            "sha256": "1c018f03c3091404cbc622d8833a64d1da8e2e13fde1b955dbe1828e102300ea"
+          }
+        }
+      ],
+      "online_parent_sha256": "59d0d63b77a084b7be04265848d24151cfb339b074ff3a709ec7759ff5f31b6c"
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "sha256": "74ceeba6974626067d70ddae1a9dd49cc89db362185d4abf3bc9c48482f1fe0c",
+      "size": 13991,
+      "scope": "server",
+      "parent_sha256": "0fe1ef76433b777bcbca77bd7157add33f72e1ba0f1ae1cb6858e8de8e1be56f",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\ordinary_misc_loot.py",
+            "sha256": "74ceeba6974626067d70ddae1a9dd49cc89db362185d4abf3bc9c48482f1fe0c"
+          }
+        }
+      ],
+      "online_parent_sha256": "0fe1ef76433b777bcbca77bd7157add33f72e1ba0f1ae1cb6858e8de8e1be56f"
+    },
+    {
+      "path": "els_server/domain/ordinary_skill_pages.py",
+      "sha256": "37465d0e87b227e7790197518f4c80dd8261eda3436eb6c9ba6e4f8bdcba1476",
+      "size": 8270,
+      "scope": "server",
+      "parent_sha256": "7bc49ad7806cf665dfe4e0c3c75bd83b04117615b5af80223e2f8ad6923b589a",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\ordinary_skill_pages.py",
+            "sha256": "37465d0e87b227e7790197518f4c80dd8261eda3436eb6c9ba6e4f8bdcba1476"
+          }
+        }
+      ],
+      "online_parent_sha256": "7bc49ad7806cf665dfe4e0c3c75bd83b04117615b5af80223e2f8ad6923b589a"
+    },
+    {
+      "path": "els_server/domain/paid_enhancement.py",
+      "sha256": "3f70d37b6ad188242f25ce023ca852a02552d33a72c96394f971f8edb92bfc41",
+      "size": 4899,
+      "scope": "server",
+      "parent_sha256": "4e693de857f058fdf5cc12957113c78883d76f6a1d92f99c1808d84aa027f5f6",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\paid_enhancement.py",
+            "sha256": "3f70d37b6ad188242f25ce023ca852a02552d33a72c96394f971f8edb92bfc41"
+          }
+        }
+      ],
+      "online_parent_sha256": "4e693de857f058fdf5cc12957113c78883d76f6a1d92f99c1808d84aa027f5f6"
+    },
+    {
+      "path": "els_server/domain/party_commands.py",
+      "sha256": "dc800b5c441dcb3b41f83bfd1dad20e4d825cb07f8528351774e1cb6440f2b06",
+      "size": 6074,
+      "scope": "server",
+      "parent_sha256": "e505d359f190a37f72afbcd8d661de1ce505d992ec91d4e163904ab9ec8b2ce2",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\party_commands.py",
+            "sha256": "dc800b5c441dcb3b41f83bfd1dad20e4d825cb07f8528351774e1cb6440f2b06"
+          }
+        }
+      ],
+      "online_parent_sha256": "e505d359f190a37f72afbcd8d661de1ce505d992ec91d4e163904ab9ec8b2ce2"
+    },
+    {
+      "path": "els_server/domain/party_entry_consent.py",
+      "sha256": "9041cbe6172b97b0baf818813b4a6349aa27db5ba7f1d21cff52c6f4766c53d6",
+      "size": 5083,
+      "scope": "server",
+      "parent_sha256": "39b1529ead887f612a29490abecd38d7bbdf3b404dac4baaa528d4764fc398f7",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\party_entry_consent.py",
+            "sha256": "9041cbe6172b97b0baf818813b4a6349aa27db5ba7f1d21cff52c6f4766c53d6"
+          }
+        }
+      ],
+      "online_parent_sha256": "39b1529ead887f612a29490abecd38d7bbdf3b404dac4baaa528d4764fc398f7"
+    },
+    {
+      "path": "els_server/domain/party_recruitment.py",
+      "sha256": "750a5af53cf80af2e2e247176c06f2f8f5208b94514719f9a8f93e4ad4c2fd5b",
+      "size": 24010,
+      "scope": "server",
+      "parent_sha256": "6dce83c6daeb1b1186b8aaae95028de082d9493755d01b4767557107a3c5fe3a",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\party_recruitment.py",
+            "sha256": "750a5af53cf80af2e2e247176c06f2f8f5208b94514719f9a8f93e4ad4c2fd5b"
+          }
+        }
+      ],
+      "online_parent_sha256": "6dce83c6daeb1b1186b8aaae95028de082d9493755d01b4767557107a3c5fe3a"
+    },
+    {
+      "path": "els_server/domain/party_selection.py",
+      "sha256": "152cf92c2a95f8ddfc4725e6af52d2c7f68d66da80f8dff2a5ae2ec8d129ba81",
+      "size": 2931,
+      "scope": "server",
+      "parent_sha256": "57555a0b7ff6b823d78192babb185a3f1d43e7d33937d2b3c605b32cfe3cbc78",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\party_selection.py",
+            "sha256": "152cf92c2a95f8ddfc4725e6af52d2c7f68d66da80f8dff2a5ae2ec8d129ba81"
+          }
+        }
+      ],
+      "online_parent_sha256": "57555a0b7ff6b823d78192babb185a3f1d43e7d33937d2b3c605b32cfe3cbc78"
+    },
+    {
+      "path": "els_server/domain/party_type.py",
+      "sha256": "5bf0cafcdc4f9b851bc3eee2f3e562024fae4d0b699e07b0ca19813f2622a9cb",
+      "size": 1975,
+      "scope": "server",
+      "parent_sha256": null,
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\party_type.py",
+            "sha256": "5bf0cafcdc4f9b851bc3eee2f3e562024fae4d0b699e07b0ca19813f2622a9cb"
+          }
+        }
+      ],
+      "online_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/pet_battle_lobby.py",
+      "sha256": "a9deb76fdcea08d26aab8121ecaa00e547af1865fd5b4cc34232e1d13099bfc1",
+      "size": 10915,
+      "scope": "server",
+      "parent_sha256": "33fe4d194da019c3a7d8129d85a1c4472b3ad1efee7a910a12ec4e0343241e52",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\pet_battle_lobby.py",
+            "sha256": "a9deb76fdcea08d26aab8121ecaa00e547af1865fd5b4cc34232e1d13099bfc1"
+          }
+        }
+      ],
+      "online_parent_sha256": "33fe4d194da019c3a7d8129d85a1c4472b3ad1efee7a910a12ec4e0343241e52"
+    },
+    {
+      "path": "els_server/domain/pet_trainer_exchange_flow.py",
+      "sha256": "df518be561b04b503041acda170fcfbca1644cc32387ff30cee3907a048b71a6",
+      "size": 2214,
+      "scope": "server",
+      "parent_sha256": "e73a1ee6a2f459bc3d385b68c2bb609f056d6c50b8768a552da504a91435a117",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\pet_trainer_exchange_flow.py",
+            "sha256": "df518be561b04b503041acda170fcfbca1644cc32387ff30cee3907a048b71a6"
+          }
+        }
+      ],
+      "online_parent_sha256": "e73a1ee6a2f459bc3d385b68c2bb609f056d6c50b8768a552da504a91435a117"
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "sha256": "53d607feda3998166bead9ffdcd9227d9a149aa770e53bae2841867658968e33",
+      "size": 25738,
+      "scope": "server",
+      "parent_sha256": "49b9b686a6f55750d58a9a9cb60d06193d3d90d377a28e5ec509b6a0854d7154",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\pve_economy_flow.py",
+            "sha256": "53d607feda3998166bead9ffdcd9227d9a149aa770e53bae2841867658968e33"
+          }
+        }
+      ],
+      "online_parent_sha256": "49b9b686a6f55750d58a9a9cb60d06193d3d90d377a28e5ec509b6a0854d7154"
+    },
+    {
+      "path": "els_server/domain/pvp_material_exchange_flow.py",
+      "sha256": "4bec3f4352789b86ba92f38068670e126dc8d687e88c6485d8f81753dd3b7d0d",
+      "size": 1973,
+      "scope": "server",
+      "parent_sha256": "bcc14b532666eae9493de9f51faf5ad2dfd2d337ffc30145ee2b86c157e29baf",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\pvp_material_exchange_flow.py",
+            "sha256": "4bec3f4352789b86ba92f38068670e126dc8d687e88c6485d8f81753dd3b7d0d"
+          }
+        }
+      ],
+      "online_parent_sha256": "bcc14b532666eae9493de9f51faf5ad2dfd2d337ffc30145ee2b86c157e29baf"
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "6ebe7c7dc1505cb75a5179b0efad0bd7af765360d29a9af98e9d08108c67654f",
+      "size": 37934,
+      "scope": "server",
+      "parent_sha256": "7a941617367b91500f2cdc9e44c7057e0d58720ec42d29e29f1f9cff8ae9b17f",
+      "origins": [
+        {
+          "group": "own_v187_followups",
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\fixes\\candidate\\els_server\\domain\\quest_flow.py",
+            "sha256": "6ebe7c7dc1505cb75a5179b0efad0bd7af765360d29a9af98e9d08108c67654f"
+          }
+        }
+      ],
+      "online_parent_sha256": "7a941617367b91500f2cdc9e44c7057e0d58720ec42d29e29f1f9cff8ae9b17f"
+    },
+    {
+      "path": "els_server/domain/raid_party.py",
+      "sha256": "40e177ea483597bd413a2f80f01268c87bf09aab96102605d4b1e51e2a705a8f",
+      "size": 4088,
+      "scope": "server",
+      "parent_sha256": "8596aa3c5b5c4fa705c50cc9262be1a2a78f4767a1faecba86ba3beae565f6e5",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\raid_party.py",
+            "sha256": "40e177ea483597bd413a2f80f01268c87bf09aab96102605d4b1e51e2a705a8f"
+          }
+        }
+      ],
+      "online_parent_sha256": "8596aa3c5b5c4fa705c50cc9262be1a2a78f4767a1faecba86ba3beae565f6e5"
+    },
+    {
+      "path": "els_server/domain/regional_material_exchange_flow.py",
+      "sha256": "d80803cb7a29533dae0d2527278f1a596af0e7b3d506bbd103619509ad304e3b",
+      "size": 2742,
+      "scope": "server",
+      "parent_sha256": "a5a2a717a87f15a60eacf1b650120b97c44005381b92eae20968880e9cb51fb2",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\regional_material_exchange_flow.py",
+            "sha256": "d80803cb7a29533dae0d2527278f1a596af0e7b3d506bbd103619509ad304e3b"
+          }
+        }
+      ],
+      "online_parent_sha256": "a5a2a717a87f15a60eacf1b650120b97c44005381b92eae20968880e9cb51fb2"
+    },
+    {
+      "path": "els_server/domain/resonance_allocation_flow.py",
+      "sha256": "b1b906c7550c1facdb22ccf6f08ab193ba4690f34c3d3b0c2e9a042eeec0393a",
+      "size": 9351,
+      "scope": "server",
+      "parent_sha256": "df154a298f89ec23e4475b01bf2a028f6509f7e2e887ffd652db5c37817918fc",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\resonance_allocation_flow.py",
+            "sha256": "b1b906c7550c1facdb22ccf6f08ab193ba4690f34c3d3b0c2e9a042eeec0393a"
+          }
+        }
+      ],
+      "online_parent_sha256": "df154a298f89ec23e4475b01bf2a028f6509f7e2e887ffd652db5c37817918fc"
+    },
+    {
+      "path": "els_server/domain/resonance_period_flow.py",
+      "sha256": "c60842febb0028f487592f1e9b4ac20a32e221fa91ad0c96808dfb18e7b7dc4d",
+      "size": 1235,
+      "scope": "server",
+      "parent_sha256": "6cdb815daf644ed65dc9599b036c457a7ee65719d81ceb88891814167c6edecc",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\resonance_period_flow.py",
+            "sha256": "c60842febb0028f487592f1e9b4ac20a32e221fa91ad0c96808dfb18e7b7dc4d"
+          }
+        }
+      ],
+      "online_parent_sha256": "6cdb815daf644ed65dc9599b036c457a7ee65719d81ceb88891814167c6edecc"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "sha256": "dbb0022da027254e5293b7408a6c2cca7b1af2b992cfaf3354f5e0f510c36089",
+      "size": 1034030,
+      "scope": "server",
+      "parent_sha256": "6ca6e5c13b39e45fb84f6a4a970d2d5362b243b2d440c970d73cbf492110342e",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\domain\\scene_retirement_sources.py",
+            "sha256": "dbb0022da027254e5293b7408a6c2cca7b1af2b992cfaf3354f5e0f510c36089"
+          }
+        }
+      ],
+      "online_parent_sha256": "6ca6e5c13b39e45fb84f6a4a970d2d5362b243b2d440c970d73cbf492110342e"
+    },
+    {
+      "path": "els_server/domain/secret_fragment_exchange_flow.py",
+      "sha256": "f7ff096310519021e370d207a30b02e63faf8ff916c18c3fef25a5fb27558160",
+      "size": 1883,
+      "scope": "server",
+      "parent_sha256": "1b5a567a939f7eda863ed4fcd45c1409785fb66fe2f36deb53794643d554365d",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\secret_fragment_exchange_flow.py",
+            "sha256": "f7ff096310519021e370d207a30b02e63faf8ff916c18c3fef25a5fb27558160"
+          }
+        }
+      ],
+      "online_parent_sha256": "1b5a567a939f7eda863ed4fcd45c1409785fb66fe2f36deb53794643d554365d"
+    },
+    {
+      "path": "els_server/domain/skill_traits.py",
+      "sha256": "b22976806178e5e702a6e46471e9f91aec445edf97621de38b237b5e3bd05c29",
+      "size": 4486,
+      "scope": "server",
+      "parent_sha256": "fba8b04897c5c4a91ee4bd8ef6140607f761d160414964eb47a05622e9112634",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\skill_traits.py",
+            "sha256": "b22976806178e5e702a6e46471e9f91aec445edf97621de38b237b5e3bd05c29"
+          }
+        }
+      ],
+      "online_parent_sha256": "fba8b04897c5c4a91ee4bd8ef6140607f761d160414964eb47a05622e9112634"
+    },
+    {
+      "path": "els_server/domain/story_controller_retirements.py",
+      "sha256": "af755bfbc336e863130647423687db9cd04f0399399e534e0c0c5b6cbd3cd51e",
+      "size": 93716,
+      "scope": "server",
+      "parent_sha256": "063a678c7ae1e0fbf28bd136af227e4125332b1e427a005959af9b2e54e0bf05",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\domain\\story_controller_retirements.py",
+            "sha256": "af755bfbc336e863130647423687db9cd04f0399399e534e0c0c5b6cbd3cd51e"
+          }
+        }
+      ],
+      "online_parent_sha256": "063a678c7ae1e0fbf28bd136af227e4125332b1e427a005959af9b2e54e0bf05"
+    },
+    {
+      "path": "els_server/domain/summons.py",
+      "sha256": "d23823af02b8dde011828c62bf846d8a2f21b199e1d4dc93e65ac0ca2440d671",
+      "size": 7000,
+      "scope": "server",
+      "parent_sha256": "dd5ab563c67310be0b6ee79db9527babc65c8b6dc9fe7064fe3644a05799e090",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\domain\\summons.py",
+            "sha256": "d23823af02b8dde011828c62bf846d8a2f21b199e1d4dc93e65ac0ca2440d671"
+          }
+        }
+      ],
+      "online_parent_sha256": "dd5ab563c67310be0b6ee79db9527babc65c8b6dc9fe7064fe3644a05799e090"
+    },
+    {
+      "path": "els_server/domain/title_flow.py",
+      "sha256": "23fb16b0a994964ecb0dbc0d1533a6fb8f1e19596acf0fe806ce3a32d95bfc0d",
+      "size": 7797,
+      "scope": "server",
+      "parent_sha256": "0c7d6a3ea372001595d285de2cd958504690a017cef27d992e6117066472921d",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\title_flow.py",
+            "sha256": "23fb16b0a994964ecb0dbc0d1533a6fb8f1e19596acf0fe806ce3a32d95bfc0d"
+          }
+        }
+      ],
+      "online_parent_sha256": "0c7d6a3ea372001595d285de2cd958504690a017cef27d992e6117066472921d"
+    },
+    {
+      "path": "els_server/domain/town_growth_exchange.py",
+      "sha256": "b0e92aaf3935b573b5aa8b7f46f76d42bd3266b71ec98f1f80ba8a068eed900e",
+      "size": 4803,
+      "scope": "server",
+      "parent_sha256": "1ca273b846120ce68c3b0c186a9174fd54d4b8c8f40334b34272838b8d3910cd",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\town_growth_exchange.py",
+            "sha256": "b0e92aaf3935b573b5aa8b7f46f76d42bd3266b71ec98f1f80ba8a068eed900e"
+          }
+        }
+      ],
+      "online_parent_sha256": "1ca273b846120ce68c3b0c186a9174fd54d4b8c8f40334b34272838b8d3910cd"
+    },
+    {
+      "path": "els_server/domain/tutorial_quests.py",
+      "sha256": "52db4f5f119d63b60a8c1d3525779b4b33c0ec90d29ef51e04ad603236c116e5",
+      "size": 9911,
+      "scope": "server",
+      "parent_sha256": "d6e96b76a23b8bdf55b59105553ad28229b6531706fbacc956b07937fb3927c0",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\tutorial_quests.py",
+            "sha256": "52db4f5f119d63b60a8c1d3525779b4b33c0ec90d29ef51e04ad603236c116e5"
+          }
+        }
+      ],
+      "online_parent_sha256": "d6e96b76a23b8bdf55b59105553ad28229b6531706fbacc956b07937fb3927c0"
+    },
+    {
+      "path": "els_server/domain/union_party.py",
+      "sha256": "e74dd1d6c5476ea569703e845611174d85455a8b90da5e94ffc3977b5341a3a0",
+      "size": 16589,
+      "scope": "server",
+      "parent_sha256": "74bf7f5f6ca79865ee6246425cf02299da74573ff8046d704a75102eed0f68a1",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\domain\\union_party.py",
+            "sha256": "e74dd1d6c5476ea569703e845611174d85455a8b90da5e94ffc3977b5341a3a0"
+          }
+        }
+      ],
+      "online_parent_sha256": "74bf7f5f6ca79865ee6246425cf02299da74573ff8046d704a75102eed0f68a1"
+    },
+    {
+      "path": "els_server/protocol/adventure_checklist_messages.py",
+      "sha256": "52e13b43a45036e0baf37f9775062a91adbab91aa67961fcce8c80a5bbae6a94",
+      "size": 1172,
+      "scope": "server",
+      "parent_sha256": "95df1f5994a2cfdc9da8deafd7dd7b73764f36417666a8c26fc3a0e75975a18c",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\adventure_checklist_messages.py",
+            "sha256": "52e13b43a45036e0baf37f9775062a91adbab91aa67961fcce8c80a5bbae6a94"
+          }
+        }
+      ],
+      "online_parent_sha256": "95df1f5994a2cfdc9da8deafd7dd7b73764f36417666a8c26fc3a0e75975a18c"
+    },
+    {
+      "path": "els_server/protocol/anvil_messages.py",
+      "sha256": "f117c9bb52cd6319980aac67cfb923fca086bd77748adf67e3f2a42638eaa78d",
+      "size": 1163,
+      "scope": "server",
+      "parent_sha256": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\anvil_messages.py",
+            "sha256": "f117c9bb52cd6319980aac67cfb923fca086bd77748adf67e3f2a42638eaa78d"
+          }
+        }
+      ],
+      "online_parent_sha256": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e"
+    },
+    {
+      "path": "els_server/protocol/artifact_messages.py",
+      "sha256": "3c5e1c084b23bb8eaf10176e6d1e872ee3790f8e8a883debcca2683af137c193",
+      "size": 2027,
+      "scope": "server",
+      "parent_sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\artifact_messages.py",
+            "sha256": "3c5e1c084b23bb8eaf10176e6d1e872ee3790f8e8a883debcca2683af137c193"
+          }
+        }
+      ],
+      "online_parent_sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3"
+    },
+    {
+      "path": "els_server/protocol/artifact_socket_messages.py",
+      "sha256": "ac9cfdaae1efc479d3f3537b87447cf95d58068bffaaa56f42a6c367b72c94e1",
+      "size": 1695,
+      "scope": "server",
+      "parent_sha256": "1963fbf4661e8f530133776356b017c1c46ab38b9e042faffe25ed4e98d25178",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\artifact_socket_messages.py",
+            "sha256": "ac9cfdaae1efc479d3f3537b87447cf95d58068bffaaa56f42a6c367b72c94e1"
+          }
+        }
+      ],
+      "online_parent_sha256": "1963fbf4661e8f530133776356b017c1c46ab38b9e042faffe25ed4e98d25178"
+    },
+    {
+      "path": "els_server/protocol/bag_expansion_messages.py",
+      "sha256": "3802474a4b559b8dbbdfe508777a2e9e004fbe687a4e3d94568fa72f6793e458",
+      "size": 1005,
+      "scope": "server",
+      "parent_sha256": "93e293d5f1495906cef05d1d41bbb33c1d3ce4752870bd97b64360dd5021908b",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\bag_expansion_messages.py",
+            "sha256": "3802474a4b559b8dbbdfe508777a2e9e004fbe687a4e3d94568fa72f6793e458"
+          }
+        }
+      ],
+      "online_parent_sha256": "93e293d5f1495906cef05d1d41bbb33c1d3ce4752870bd97b64360dd5021908b"
+    },
+    {
+      "path": "els_server/protocol/bank_messages.py",
+      "sha256": "75cde0f39d65183134eaa1ebb6c53c9cf7e3ce4bad5041677894c5108017ff3e",
+      "size": 3984,
+      "scope": "server",
+      "parent_sha256": "a98b41b746775ba7621674fdc60fb59b79effe5b4e85c2fcf82073ca12c94162",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\bank_messages.py",
+            "sha256": "75cde0f39d65183134eaa1ebb6c53c9cf7e3ce4bad5041677894c5108017ff3e"
+          }
+        }
+      ],
+      "online_parent_sha256": "a98b41b746775ba7621674fdc60fb59b79effe5b4e85c2fcf82073ca12c94162"
+    },
+    {
+      "path": "els_server/protocol/bank_view_messages.py",
+      "sha256": "e212bf59895e059c01c58a0367bdc3efa63e8233f1c283310a50d6047171e5dc",
+      "size": 1765,
+      "scope": "server",
+      "parent_sha256": "cc65f24054c55a6941f22bd44932538c377d66243d8aeb1fa8195e78bc912e20",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\bank_view_messages.py",
+            "sha256": "e212bf59895e059c01c58a0367bdc3efa63e8233f1c283310a50d6047171e5dc"
+          }
+        }
+      ],
+      "online_parent_sha256": "cc65f24054c55a6941f22bd44932538c377d66243d8aeb1fa8195e78bc912e20"
+    },
+    {
+      "path": "els_server/protocol/career_messages.py",
+      "sha256": "05f22906d0d00e17a6a6ec2f3c72bfe77deb4029b6168f0f225273b742bc249a",
+      "size": 4996,
+      "scope": "server",
+      "parent_sha256": "a9dcc15cbec8fc2a1399bed7c808a7a0bdd7984b580063846c3b0677738f0e71",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\career_messages.py",
+            "sha256": "05f22906d0d00e17a6a6ec2f3c72bfe77deb4029b6168f0f225273b742bc249a"
+          }
+        }
+      ],
+      "online_parent_sha256": "a9dcc15cbec8fc2a1399bed7c808a7a0bdd7984b580063846c3b0677738f0e71"
+    },
+    {
+      "path": "els_server/protocol/cartridge_recipe679_messages.py",
+      "sha256": "e73b8eab88020d10860e011f030d1cea2da969782631da6385504db8e9dc0d4b",
+      "size": 1741,
+      "scope": "server",
+      "parent_sha256": "d20af8617c5b5bd5e203a494971dd39fecfaf4dc4240530f4564ea5184b273ed",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\cartridge_recipe679_messages.py",
+            "sha256": "e73b8eab88020d10860e011f030d1cea2da969782631da6385504db8e9dc0d4b"
+          }
+        }
+      ],
+      "online_parent_sha256": "d20af8617c5b5bd5e203a494971dd39fecfaf4dc4240530f4564ea5184b273ed"
+    },
+    {
+      "path": "els_server/protocol/character_custom_messages.py",
+      "sha256": "e9b9486d615a4488e32ec82af6c3c77052f92b5d74691b10c80835c8ac832130",
+      "size": 5290,
+      "scope": "server",
+      "parent_sha256": "99784e6224e79e19a1123d4af218521b33d82943e53171a8c53c8b74406d84f8",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\character_custom_messages.py",
+            "sha256": "e9b9486d615a4488e32ec82af6c3c77052f92b5d74691b10c80835c8ac832130"
+          }
+        }
+      ],
+      "online_parent_sha256": "99784e6224e79e19a1123d4af218521b33d82943e53171a8c53c8b74406d84f8"
+    },
+    {
+      "path": "els_server/protocol/character_messages.py",
+      "sha256": "115a5ed46bf7b99609593d3339a4fd056e430e86373ccc60be9b4f12af212ced",
+      "size": 3486,
+      "scope": "server",
+      "parent_sha256": "ca6095de845200817d6357141345888bf6ad925a7499266d40d5a4b8674705e8",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\protocol\\character_messages.py",
+            "sha256": "115a5ed46bf7b99609593d3339a4fd056e430e86373ccc60be9b4f12af212ced"
+          }
+        }
+      ],
+      "online_parent_sha256": "ca6095de845200817d6357141345888bf6ad925a7499266d40d5a4b8674705e8"
+    },
+    {
+      "path": "els_server/protocol/character_selection_messages.py",
+      "sha256": "c88e253568382e50f8615dabbc007e4e5a0e324d0ecde90022a6d182ba2444b9",
+      "size": 2046,
+      "scope": "server",
+      "parent_sha256": "9b45618830ba10a8cbbc324c0d0b10096739808698c7f47f2635d07a332e46c5",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\character_selection_messages.py",
+            "sha256": "c88e253568382e50f8615dabbc007e4e5a0e324d0ecde90022a6d182ba2444b9"
+          }
+        }
+      ],
+      "online_parent_sha256": "9b45618830ba10a8cbbc324c0d0b10096739808698c7f47f2635d07a332e46c5"
+    },
+    {
+      "path": "els_server/protocol/chip_circuit_transfer_messages.py",
+      "sha256": "0d60eacce3be77c20e6ea030f86516ee9c814835ccbd143e10bdd4ecab88b000",
+      "size": 1385,
+      "scope": "server",
+      "parent_sha256": "f4fd1d2e347df50bee11838e0342c67d7a2162b1f4eb9d5f0046ba44bfc9eaa7",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\chip_circuit_transfer_messages.py",
+            "sha256": "0d60eacce3be77c20e6ea030f86516ee9c814835ccbd143e10bdd4ecab88b000"
+          }
+        }
+      ],
+      "online_parent_sha256": "f4fd1d2e347df50bee11838e0342c67d7a2162b1f4eb9d5f0046ba44bfc9eaa7"
+    },
+    {
+      "path": "els_server/protocol/companion_messages.py",
+      "sha256": "97a0fdd1c3b793ae97e5cbd4866f56450ab9a37610e8dee4965b41d4589bb7a1",
+      "size": 4790,
+      "scope": "server",
+      "parent_sha256": "8cdcac890173f1dcdf2c330aac38d93cb19ae2ec4ca9e5fcd8092f45bf5e54d8",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\companion_messages.py",
+            "sha256": "97a0fdd1c3b793ae97e5cbd4866f56450ab9a37610e8dee4965b41d4589bb7a1"
+          }
+        }
+      ],
+      "online_parent_sha256": "8cdcac890173f1dcdf2c330aac38d93cb19ae2ec4ca9e5fcd8092f45bf5e54d8"
+    },
+    {
+      "path": "els_server/protocol/consumable_messages.py",
+      "sha256": "cb7ec4fbc3071b391ffb152a62531db3e026cc71dd8e78a413f2ca33fe46eab6",
+      "size": 1273,
+      "scope": "server",
+      "parent_sha256": "94903695773e55066233fb69ea4cc206fec7ef2326b7e41eac6f23838f844f6d",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\consumable_messages.py",
+            "sha256": "cb7ec4fbc3071b391ffb152a62531db3e026cc71dd8e78a413f2ca33fe46eab6"
+          }
+        }
+      ],
+      "online_parent_sha256": "94903695773e55066233fb69ea4cc206fec7ef2326b7e41eac6f23838f844f6d"
+    },
+    {
+      "path": "els_server/protocol/coupon_messages.py",
+      "sha256": "8c1471ae495072e156d960679aade6164b9ea873c3fe06e770b431235ae6febf",
+      "size": 3780,
+      "scope": "server",
+      "parent_sha256": "3edaf8944d60452f4bbb3d5fd9334850849db8694f7d5ab92c31500f74cf4fee",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\coupon_messages.py",
+            "sha256": "8c1471ae495072e156d960679aade6164b9ea873c3fe06e770b431235ae6febf"
+          }
+        }
+      ],
+      "online_parent_sha256": "3edaf8944d60452f4bbb3d5fd9334850849db8694f7d5ab92c31500f74cf4fee"
+    },
+    {
+      "path": "els_server/protocol/cube_messages.py",
+      "sha256": "e78cf4d3bd1eb803bdc4e0f4ef7e373617713012024e07dc5bcd3d30779c219f",
+      "size": 783,
+      "scope": "server",
+      "parent_sha256": "04a6d83ff39f82c0618ed3550a2f5294f4c0d2f89ac1b1d0d72771fc72c993aa",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\cube_messages.py",
+            "sha256": "e78cf4d3bd1eb803bdc4e0f4ef7e373617713012024e07dc5bcd3d30779c219f"
+          }
+        }
+      ],
+      "online_parent_sha256": "04a6d83ff39f82c0618ed3550a2f5294f4c0d2f89ac1b1d0d72771fc72c993aa"
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "sha256": "14657e1bde828335893d68ade9dbb87397b4579a8f5cc9ffe7eccbb19d1e3082",
+      "size": 18083,
+      "scope": "server",
+      "parent_sha256": "e25de278d805bf5d5bc1bb7354d8f20e904a45912a472c63fccf90064dc80466",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\dungeon_messages.py",
+            "sha256": "14657e1bde828335893d68ade9dbb87397b4579a8f5cc9ffe7eccbb19d1e3082"
+          }
+        }
+      ],
+      "online_parent_sha256": "e25de278d805bf5d5bc1bb7354d8f20e904a45912a472c63fccf90064dc80466"
+    },
+    {
+      "path": "els_server/protocol/el_shard_identification_messages.py",
+      "sha256": "e817e05ca5ab4874fe90f1fd4d9c95bc284b4e6a40d95be245f92335a45a2219",
+      "size": 875,
+      "scope": "server",
+      "parent_sha256": "5d507a43244c66987c7ed77f7942ecf8a6f32e6f4f98cda0c09789a225687fac",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\el_shard_identification_messages.py",
+            "sha256": "e817e05ca5ab4874fe90f1fd4d9c95bc284b4e6a40d95be245f92335a45a2219"
+          }
+        }
+      ],
+      "online_parent_sha256": "5d507a43244c66987c7ed77f7942ecf8a6f32e6f4f98cda0c09789a225687fac"
+    },
+    {
+      "path": "els_server/protocol/el_shard_messages.py",
+      "sha256": "b2f5a8ee6db41ba092ee827fd5d8991b5d2a313bee1ae0de805664b1b0db4c1d",
+      "size": 881,
+      "scope": "server",
+      "parent_sha256": "b62891d3462d89366a59bbfef9bf70b2d85c7159f9de32ad729872927bddc359",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\el_shard_messages.py",
+            "sha256": "b2f5a8ee6db41ba092ee827fd5d8991b5d2a313bee1ae0de805664b1b0db4c1d"
+          }
+        }
+      ],
+      "online_parent_sha256": "b62891d3462d89366a59bbfef9bf70b2d85c7159f9de32ad729872927bddc359"
+    },
+    {
+      "path": "els_server/protocol/ep_shop_messages.py",
+      "sha256": "8a5e2a1fc90d23d49bd89cf9b2500ca2b21cdd581058fa6a3bf3813e49f7f4e6",
+      "size": 5145,
+      "scope": "server",
+      "parent_sha256": "90b8ffabc8480e87eaa88a3d7d695a31074f08c2cdf120fc8dab97a4a095973c",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\ep_shop_messages.py",
+            "sha256": "8a5e2a1fc90d23d49bd89cf9b2500ca2b21cdd581058fa6a3bf3813e49f7f4e6"
+          }
+        }
+      ],
+      "online_parent_sha256": "90b8ffabc8480e87eaa88a3d7d695a31074f08c2cdf120fc8dab97a4a095973c"
+    },
+    {
+      "path": "els_server/protocol/equipment_cartridge_messages.py",
+      "sha256": "05667890f3556dfac340bba1058bc662132e99bcafe551034ffca5fd6c2c8a99",
+      "size": 4133,
+      "scope": "server",
+      "parent_sha256": "cea0ae22004c797c6c31b1effef103e904b713664c921e3f8946dda4f7b95dbb",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\equipment_cartridge_messages.py",
+            "sha256": "05667890f3556dfac340bba1058bc662132e99bcafe551034ffca5fd6c2c8a99"
+          }
+        }
+      ],
+      "online_parent_sha256": "cea0ae22004c797c6c31b1effef103e904b713664c921e3f8946dda4f7b95dbb"
+    },
+    {
+      "path": "els_server/protocol/equipment_chip_messages.py",
+      "sha256": "36d3b54abf63ae50ae927747e205e0d5eefebead745ba4145c9633a61dd60aa7",
+      "size": 2097,
+      "scope": "server",
+      "parent_sha256": "59ff6e69de483dff6974920a5f706752c4c16062db3bfc80c7b8b14d5f6cc483",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\equipment_chip_messages.py",
+            "sha256": "36d3b54abf63ae50ae927747e205e0d5eefebead745ba4145c9633a61dd60aa7"
+          }
+        }
+      ],
+      "online_parent_sha256": "59ff6e69de483dff6974920a5f706752c4c16062db3bfc80c7b8b14d5f6cc483"
+    },
+    {
+      "path": "els_server/protocol/equipment_circuit_messages.py",
+      "sha256": "13605d4de396d087e53f2c478a303dd5e022fa1fc37593da09f071d70c4fbb96",
+      "size": 1894,
+      "scope": "server",
+      "parent_sha256": "f00fed9b102a91abca4b4a2cbe917aae8efd4ffb41caffccec339ace188c9d72",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\equipment_circuit_messages.py",
+            "sha256": "13605d4de396d087e53f2c478a303dd5e022fa1fc37593da09f071d70c4fbb96"
+          }
+        }
+      ],
+      "online_parent_sha256": "f00fed9b102a91abca4b4a2cbe917aae8efd4ffb41caffccec339ace188c9d72"
+    },
+    {
+      "path": "els_server/protocol/equipment_engrave_messages.py",
+      "sha256": "bc22632f449c8e908f01d5ac71a80f3b7d9fd21b15220f89eeaf2cb6541d00c5",
+      "size": 1674,
+      "scope": "server",
+      "parent_sha256": "e6a55c64636e171e33b9c17d112a5e75a982d59d90b3605c09f026331591f169",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\equipment_engrave_messages.py",
+            "sha256": "bc22632f449c8e908f01d5ac71a80f3b7d9fd21b15220f89eeaf2cb6541d00c5"
+          }
+        }
+      ],
+      "online_parent_sha256": "e6a55c64636e171e33b9c17d112a5e75a982d59d90b3605c09f026331591f169"
+    },
+    {
+      "path": "els_server/protocol/equipment_reforge_messages.py",
+      "sha256": "21d6d56f2e0a4c599e376e2fb649112a21206745b44920f7b2608745de0c6beb",
+      "size": 2287,
+      "scope": "server",
+      "parent_sha256": "70da046201c2fe76a83f9c8d9da03f716f3797180eec247bc219b0722d6eb15a",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\equipment_reforge_messages.py",
+            "sha256": "21d6d56f2e0a4c599e376e2fb649112a21206745b44920f7b2608745de0c6beb"
+          }
+        }
+      ],
+      "online_parent_sha256": "70da046201c2fe76a83f9c8d9da03f716f3797180eec247bc219b0722d6eb15a"
+    },
+    {
+      "path": "els_server/protocol/equipment_reforge_transfer_messages.py",
+      "sha256": "cd905fd2e777e9e24b0c12d6c3b7b67d877bc5bf37de273e36e5c1c8687bb01d",
+      "size": 3610,
+      "scope": "server",
+      "parent_sha256": "87e51647c1105d21ff8f6545ef3ff349973a1fe9b901878a436992dffab2aa97",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\equipment_reforge_transfer_messages.py",
+            "sha256": "cd905fd2e777e9e24b0c12d6c3b7b67d877bc5bf37de273e36e5c1c8687bb01d"
+          }
+        }
+      ],
+      "online_parent_sha256": "87e51647c1105d21ff8f6545ef3ff349973a1fe9b901878a436992dffab2aa97"
+    },
+    {
+      "path": "els_server/protocol/equipment_spell_exchange.py",
+      "sha256": "0311a52e02ddb38773e650923150635c248231e823c2a514160e027eebb6b7f3",
+      "size": 998,
+      "scope": "server",
+      "parent_sha256": "fa29bdb05be7dc911e2d6fb5a94a7240c42a764c284b2066dd8e127444ef6bc3",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\equipment_spell_exchange.py",
+            "sha256": "0311a52e02ddb38773e650923150635c248231e823c2a514160e027eebb6b7f3"
+          }
+        }
+      ],
+      "online_parent_sha256": "fa29bdb05be7dc911e2d6fb5a94a7240c42a764c284b2066dd8e127444ef6bc3"
+    },
+    {
+      "path": "els_server/protocol/exascale_color_messages.py",
+      "sha256": "83fc4b5e0a456e384ece617b53dcafa500f8f6bf750bd35b8af7afc4036729be",
+      "size": 1299,
+      "scope": "server",
+      "parent_sha256": "060603762b2622a69c7dec1f06c004a646b14b515f67aa935951c78f0a3c220a",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\exascale_color_messages.py",
+            "sha256": "83fc4b5e0a456e384ece617b53dcafa500f8f6bf750bd35b8af7afc4036729be"
+          }
+        }
+      ],
+      "online_parent_sha256": "060603762b2622a69c7dec1f06c004a646b14b515f67aa935951c78f0a3c220a"
+    },
+    {
+      "path": "els_server/protocol/feta_exchange_messages.py",
+      "sha256": "a417c4bb34007128b26c873c94ed7043f52cc751fb4bae78f86cd11eb14f4f42",
+      "size": 1559,
+      "scope": "server",
+      "parent_sha256": "5a59b8d6aafac561fee08244d78edcc6599bf1a0fddbfc5f942434337714e5be",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\feta_exchange_messages.py",
+            "sha256": "a417c4bb34007128b26c873c94ed7043f52cc751fb4bae78f86cd11eb14f4f42"
+          }
+        }
+      ],
+      "online_parent_sha256": "5a59b8d6aafac561fee08244d78edcc6599bf1a0fddbfc5f942434337714e5be"
+    },
+    {
+      "path": "els_server/protocol/fish_exchange_messages.py",
+      "sha256": "f693a25792a4bf7313b10bf77ce73bc62929d9e2585d8434197335849f62be4c",
+      "size": 1820,
+      "scope": "server",
+      "parent_sha256": "e325ed6ec76f2d7860302cab62dc0f543f3c9b430bfd3184a296ef228afee6dd",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\fish_exchange_messages.py",
+            "sha256": "48d5b3c5f8ec1ceba285a32a9458f27fc4cb39fb8587789e2203f78d7dce9e50"
+          }
+        },
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\protocol\\fish_exchange_messages.py",
+            "sha256": "729b18d16c210d82a95afa11fb38f27d1d98fb623a9536bed8280ac82c16ab81"
+          }
+        }
+      ],
+      "online_parent_sha256": "e325ed6ec76f2d7860302cab62dc0f543f3c9b430bfd3184a296ef228afee6dd"
+    },
+    {
+      "path": "els_server/protocol/flask_messages.py",
+      "sha256": "b12071ee0a38c039b29b375f6ac12972ca56d15e465fd9e970c5883bdcf1c6aa",
+      "size": 2935,
+      "scope": "server",
+      "parent_sha256": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\flask_messages.py",
+            "sha256": "b12071ee0a38c039b29b375f6ac12972ca56d15e465fd9e970c5883bdcf1c6aa"
+          }
+        }
+      ],
+      "online_parent_sha256": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369"
+    },
+    {
+      "path": "els_server/protocol/friend_messages.py",
+      "sha256": "3f29e7b83a4aeb502fdac8a4fcfc330f4bfb5427c8d2dcebbd4e540d22bbdcf6",
+      "size": 5163,
+      "scope": "server",
+      "parent_sha256": "4bff980fa24285de19f68537eb4c9abcf5b81907aa61e8768baf0383abf720a9",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\friend_messages.py",
+            "sha256": "3f29e7b83a4aeb502fdac8a4fcfc330f4bfb5427c8d2dcebbd4e540d22bbdcf6"
+          }
+        }
+      ],
+      "online_parent_sha256": "4bff980fa24285de19f68537eb4c9abcf5b81907aa61e8768baf0383abf720a9"
+    },
+    {
+      "path": "els_server/protocol/housing_layout_messages.py",
+      "sha256": "ffec1dd645696fa8bd65eaae4537d6f2b85e195e16d18c4cbafacc22d1838255",
+      "size": 4865,
+      "scope": "server",
+      "parent_sha256": "3716c180f3e6cf85f3ebe9fc43c0feb90eea02eee12bfb2a62cff009bdad9de6",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\housing_layout_messages.py",
+            "sha256": "ffec1dd645696fa8bd65eaae4537d6f2b85e195e16d18c4cbafacc22d1838255"
+          }
+        }
+      ],
+      "online_parent_sha256": "3716c180f3e6cf85f3ebe9fc43c0feb90eea02eee12bfb2a62cff009bdad9de6"
+    },
+    {
+      "path": "els_server/protocol/housing_population_messages.py",
+      "sha256": "c55c856cacca77c24d1a981286148234c737b09dfe155010405a52de126c93c9",
+      "size": 2372,
+      "scope": "server",
+      "parent_sha256": "2f0af39ee0790abdf31348eaa4310d531c512a41b40336cd6ad9aed32eed6387",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\housing_population_messages.py",
+            "sha256": "c55c856cacca77c24d1a981286148234c737b09dfe155010405a52de126c93c9"
+          }
+        }
+      ],
+      "online_parent_sha256": "2f0af39ee0790abdf31348eaa4310d531c512a41b40336cd6ad9aed32eed6387"
+    },
+    {
+      "path": "els_server/protocol/housing_preset_messages.py",
+      "sha256": "56c77df3268d7d5a0465526c980235bf8f6c3f43753e915b91a38d85973d8d73",
+      "size": 596,
+      "scope": "server",
+      "parent_sha256": "bb0008925ad398ecaa760bf9f700c0f3cf6f1e0c70f24ef57df16b13c96f5ab8",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\housing_preset_messages.py",
+            "sha256": "56c77df3268d7d5a0465526c980235bf8f6c3f43753e915b91a38d85973d8d73"
+          }
+        }
+      ],
+      "online_parent_sha256": "bb0008925ad398ecaa760bf9f700c0f3cf6f1e0c70f24ef57df16b13c96f5ab8"
+    },
+    {
+      "path": "els_server/protocol/hunter_sphere_messages.py",
+      "sha256": "9cb72fe159bc316a2d0b47abe2dbd9bfd82cc1915fc130128148646cf4c46ec6",
+      "size": 1832,
+      "scope": "server",
+      "parent_sha256": "79e53ed00572d838e160ca6a273bb17d91bc26dfb97dcba96a90fdcec19a5c74",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\hunter_sphere_messages.py",
+            "sha256": "9cb72fe159bc316a2d0b47abe2dbd9bfd82cc1915fc130128148646cf4c46ec6"
+          }
+        }
+      ],
+      "online_parent_sha256": "79e53ed00572d838e160ca6a273bb17d91bc26dfb97dcba96a90fdcec19a5c74"
+    },
+    {
+      "path": "els_server/protocol/ice_messages.py",
+      "sha256": "f9cfe68ec7c74bacd83482aa1d3280e731233ee33b50259659ee22b7525d99fc",
+      "size": 7865,
+      "scope": "server",
+      "parent_sha256": "56b5dd76c7ea2aed3b3e58618e7d3ad97b652ba41e5cce0edb83605cc7b5cde3",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\ice_messages.py",
+            "sha256": "f9cfe68ec7c74bacd83482aa1d3280e731233ee33b50259659ee22b7525d99fc"
+          }
+        }
+      ],
+      "online_parent_sha256": "56b5dd76c7ea2aed3b3e58618e7d3ad97b652ba41e5cce0edb83605cc7b5cde3"
+    },
+    {
+      "path": "els_server/protocol/identification_messages.py",
+      "sha256": "169e40d6cb1e215f44ee96165e4f9214de6b18105fdfd0c5e236e81e924f0658",
+      "size": 1350,
+      "scope": "server",
+      "parent_sha256": "6107478da5fcf9e3921b710982105446eaee541b0850605829506bc85c2e1ba8",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\identification_messages.py",
+            "sha256": "169e40d6cb1e215f44ee96165e4f9214de6b18105fdfd0c5e236e81e924f0658"
+          }
+        }
+      ],
+      "online_parent_sha256": "6107478da5fcf9e3921b710982105446eaee541b0850605829506bc85c2e1ba8"
+    },
+    {
+      "path": "els_server/protocol/inventory_action_messages.py",
+      "sha256": "1bc4cda5c73dbedc0f6bff091e55d61e18185e732e986f10aef469c5378c4472",
+      "size": 1649,
+      "scope": "server",
+      "parent_sha256": "55b29f92ffb5bfaa4c9618a945333c2d0984765eea407b39b3062e05a5566119",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\inventory_action_messages.py",
+            "sha256": "1bc4cda5c73dbedc0f6bff091e55d61e18185e732e986f10aef469c5378c4472"
+          }
+        }
+      ],
+      "online_parent_sha256": "55b29f92ffb5bfaa4c9618a945333c2d0984765eea407b39b3062e05a5566119"
+    },
+    {
+      "path": "els_server/protocol/inventory_management_messages.py",
+      "sha256": "42f0e80722262a0270659cc12b27a7ff33608c5a3383b764aeed5ef36d0b0773",
+      "size": 4521,
+      "scope": "server",
+      "parent_sha256": "1f7cb252d66a949a5a49449705853bfdd47d26386f3305a483667e588222c6e3",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\inventory_management_messages.py",
+            "sha256": "42f0e80722262a0270659cc12b27a7ff33608c5a3383b764aeed5ef36d0b0773"
+          }
+        }
+      ],
+      "online_parent_sha256": "1f7cb252d66a949a5a49449705853bfdd47d26386f3305a483667e588222c6e3"
+    },
+    {
+      "path": "els_server/protocol/mailbox_extras.py",
+      "sha256": "7ce4d0223faec0a8a4d4fc9581f467c795c299893c2ddd9726c433c713a459ec",
+      "size": 2189,
+      "scope": "server",
+      "parent_sha256": "4c33798f6484d34d311658d770e1436a064538ce8e6a66c4b9994ce85848b82c",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\mailbox_extras.py",
+            "sha256": "7ce4d0223faec0a8a4d4fc9581f467c795c299893c2ddd9726c433c713a459ec"
+          }
+        }
+      ],
+      "online_parent_sha256": "4c33798f6484d34d311658d770e1436a064538ce8e6a66c4b9994ce85848b82c"
+    },
+    {
+      "path": "els_server/protocol/modern_synthesis_messages.py",
+      "sha256": "4b2de66ff0812b762cedeb44a67f978657e56f4e2daf2fd0a7adb365eca3418e",
+      "size": 1290,
+      "scope": "server",
+      "parent_sha256": "79b368daae2cd8817186ba20cf967a7c8e7cb8c88bc22a77c35c3e292ea7a50a",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\modern_synthesis_messages.py",
+            "sha256": "4b2de66ff0812b762cedeb44a67f978657e56f4e2daf2fd0a7adb365eca3418e"
+          }
+        }
+      ],
+      "online_parent_sha256": "79b368daae2cd8817186ba20cf967a7c8e7cb8c88bc22a77c35c3e292ea7a50a"
+    },
+    {
+      "path": "els_server/protocol/mount_messages.py",
+      "sha256": "b8244ecd23c8627a7f63d7ad52116cd95b005dff8658cf89ee7c37e999690a1e",
+      "size": 2355,
+      "scope": "server",
+      "parent_sha256": "7faedad83a1258aa232f393f38090c45022d675faa4061e8a1d17544c0dd7b62",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\mount_messages.py",
+            "sha256": "b8244ecd23c8627a7f63d7ad52116cd95b005dff8658cf89ee7c37e999690a1e"
+          }
+        }
+      ],
+      "online_parent_sha256": "7faedad83a1258aa232f393f38090c45022d675faa4061e8a1d17544c0dd7b62"
+    },
+    {
+      "path": "els_server/protocol/mount_racing_messages.py",
+      "sha256": "ff8d131f24bbc53e52ca783e2e35aad1abb92c9a76ae65d365c8134e48f391e9",
+      "size": 5357,
+      "scope": "server",
+      "parent_sha256": "4316ec51d6459b95dcd38c5b646d59912c93a5cb5d06f676bfb4e1529ba1a38e",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\mount_racing_messages.py",
+            "sha256": "ff8d131f24bbc53e52ca783e2e35aad1abb92c9a76ae65d365c8134e48f391e9"
+          }
+        }
+      ],
+      "online_parent_sha256": "4316ec51d6459b95dcd38c5b646d59912c93a5cb5d06f676bfb4e1529ba1a38e"
+    },
+    {
+      "path": "els_server/protocol/neblon_role_change_messages.py",
+      "sha256": "1da616fd0af3ba592cea45cdc64eba2afb9b05bc090a969b6a8b18f0073fab28",
+      "size": 1436,
+      "scope": "server",
+      "parent_sha256": "6561744c9c3d252c8f597f7b07740d04ee33e0d3cedab927c438419e7be5b59a",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\neblon_role_change_messages.py",
+            "sha256": "1da616fd0af3ba592cea45cdc64eba2afb9b05bc090a969b6a8b18f0073fab28"
+          }
+        }
+      ],
+      "online_parent_sha256": "6561744c9c3d252c8f597f7b07740d04ee33e0d3cedab927c438419e7be5b59a"
+    },
+    {
+      "path": "els_server/protocol/npc_sale_messages.py",
+      "sha256": "74df3affe13cc7a990fec8f85122e98ab9d3a1fa69a9b0947201f9dc5489e7ec",
+      "size": 2510,
+      "scope": "server",
+      "parent_sha256": "179491813896ee91894f8fd431614ffe587b062adbb02c54a1b9657875066fdb",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\npc_sale_messages.py",
+            "sha256": "74df3affe13cc7a990fec8f85122e98ab9d3a1fa69a9b0947201f9dc5489e7ec"
+          }
+        }
+      ],
+      "online_parent_sha256": "179491813896ee91894f8fd431614ffe587b062adbb02c54a1b9657875066fdb"
+    },
+    {
+      "path": "els_server/protocol/npc_trade_messages.py",
+      "sha256": "291594b2c2579845b7e80ca7731a0a61c8f1da75cc7ca61ad18265243da895c7",
+      "size": 2312,
+      "scope": "server",
+      "parent_sha256": "0ff487b5645fe1ac3e12fee1c3795b5ba6ff86c6c118844b9ac30459c44558dd",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\npc_trade_messages.py",
+            "sha256": "291594b2c2579845b7e80ca7731a0a61c8f1da75cc7ca61ad18265243da895c7"
+          }
+        }
+      ],
+      "online_parent_sha256": "0ff487b5645fe1ac3e12fee1c3795b5ba6ff86c6c118844b9ac30459c44558dd"
+    },
+    {
+      "path": "els_server/protocol/npc_training_messages.py",
+      "sha256": "82f22b27e9edfcf251f1feb6320944729f3a9a1282626c527049acd78a45690e",
+      "size": 824,
+      "scope": "server",
+      "parent_sha256": "02eb5fe166952b52933fe4b7379e8663f69d0e4bbf88778a7273ea6bde64fcc3",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\npc_training_messages.py",
+            "sha256": "82f22b27e9edfcf251f1feb6320944729f3a9a1282626c527049acd78a45690e"
+          }
+        }
+      ],
+      "online_parent_sha256": "02eb5fe166952b52933fe4b7379e8663f69d0e4bbf88778a7273ea6bde64fcc3"
+    },
+    {
+      "path": "els_server/protocol/paid_enhancement_messages.py",
+      "sha256": "bcdb39cba0c17ccbbb4a89af826e145be72262c93c1cb15c5feb2b158356087c",
+      "size": 1777,
+      "scope": "server",
+      "parent_sha256": "0e30005a6bd1e529ef95855defe3a5540cbd485248dd39031220e59b75652d6c",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\paid_enhancement_messages.py",
+            "sha256": "bcdb39cba0c17ccbbb4a89af826e145be72262c93c1cb15c5feb2b158356087c"
+          }
+        }
+      ],
+      "online_parent_sha256": "0e30005a6bd1e529ef95855defe3a5540cbd485248dd39031220e59b75652d6c"
+    },
+    {
+      "path": "els_server/protocol/pet_bag_messages.py",
+      "sha256": "f90082c8093a4eb85b933aeba37c1484a7082a10a2e5e0f4d4f9df0f0a67375f",
+      "size": 1871,
+      "scope": "server",
+      "parent_sha256": "10e345408f875389120baaf2e126403692726d7e091135a6a6fb962f2e3737c3",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\pet_bag_messages.py",
+            "sha256": "f90082c8093a4eb85b933aeba37c1484a7082a10a2e5e0f4d4f9df0f0a67375f"
+          }
+        }
+      ],
+      "online_parent_sha256": "10e345408f875389120baaf2e126403692726d7e091135a6a6fb962f2e3737c3"
+    },
+    {
+      "path": "els_server/protocol/pet_battle_lobby_messages.py",
+      "sha256": "c537ad0dcda712cadee8b9540da5064f7a5bef363c26fdf5edcb5a5f374fe89e",
+      "size": 1407,
+      "scope": "server",
+      "parent_sha256": "e72edcdd5c7c17cd9122b141602c370f93f7682c08c1b179f571274a40db2c8b",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\pet_battle_lobby_messages.py",
+            "sha256": "c537ad0dcda712cadee8b9540da5064f7a5bef363c26fdf5edcb5a5f374fe89e"
+          }
+        }
+      ],
+      "online_parent_sha256": "e72edcdd5c7c17cd9122b141602c370f93f7682c08c1b179f571274a40db2c8b"
+    },
+    {
+      "path": "els_server/protocol/pet_expedition_messages.py",
+      "sha256": "c4895de9740b514bb03d9d9e5db8ea14f66abde2d36e81e9d8066312c4f27aab",
+      "size": 4328,
+      "scope": "server",
+      "parent_sha256": "381bdc069db97449ee89abb552588ab5c03567c8c8ec52e8250253c134a0c421",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\pet_expedition_messages.py",
+            "sha256": "c4895de9740b514bb03d9d9e5db8ea14f66abde2d36e81e9d8066312c4f27aab"
+          }
+        }
+      ],
+      "online_parent_sha256": "381bdc069db97449ee89abb552588ab5c03567c8c8ec52e8250253c134a0c421"
+    },
+    {
+      "path": "els_server/protocol/pet_progression_messages.py",
+      "sha256": "f5b91b41e68b64786949e63d8565ba0e6e9e2e5835afa4cbde9c7ca85879b8fa",
+      "size": 1527,
+      "scope": "server",
+      "parent_sha256": "97f058d8072c4402a091b2015a1e4dc1892bc500536e835e81a76fe4f7f2a1bc",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\pet_progression_messages.py",
+            "sha256": "f5b91b41e68b64786949e63d8565ba0e6e9e2e5835afa4cbde9c7ca85879b8fa"
+          }
+        }
+      ],
+      "online_parent_sha256": "97f058d8072c4402a091b2015a1e4dc1892bc500536e835e81a76fe4f7f2a1bc"
+    },
+    {
+      "path": "els_server/protocol/pet_support_messages.py",
+      "sha256": "8213c48484eb02a3a2b378be98e8aa7ea8272c8bb0feb0c30e7e90ed64573894",
+      "size": 2031,
+      "scope": "server",
+      "parent_sha256": "c9b7ff1f6cf2247f63755308b7b91c8f9b23c2a6698bf43871043a54551843f6",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\pet_support_messages.py",
+            "sha256": "8213c48484eb02a3a2b378be98e8aa7ea8272c8bb0feb0c30e7e90ed64573894"
+          }
+        }
+      ],
+      "online_parent_sha256": "c9b7ff1f6cf2247f63755308b7b91c8f9b23c2a6698bf43871043a54551843f6"
+    },
+    {
+      "path": "els_server/protocol/player_trade_messages.py",
+      "sha256": "b282b19da2b7fb8a0d2be665aecad010114c10fb48ee77be8c8e06399eeff3c4",
+      "size": 3181,
+      "scope": "server",
+      "parent_sha256": "48b9130d891436414000a1d10b04e13b48c1fab36d340b885dcee5db60f92a06",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\player_trade_messages.py",
+            "sha256": "b282b19da2b7fb8a0d2be665aecad010114c10fb48ee77be8c8e06399eeff3c4"
+          }
+        }
+      ],
+      "online_parent_sha256": "48b9130d891436414000a1d10b04e13b48c1fab36d340b885dcee5db60f92a06"
+    },
+    {
+      "path": "els_server/protocol/purifier_exchange_messages.py",
+      "sha256": "19c61ca618065bc8cb09a50469ce32006311f14eb86e1d7b4d2a06a96f62a0c8",
+      "size": 2129,
+      "scope": "server",
+      "parent_sha256": "c5e04d5b85d386a12e386922f1fedae733059323c8619a759e3a8303b4b01dd6",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\purifier_exchange_messages.py",
+            "sha256": "19c61ca618065bc8cb09a50469ce32006311f14eb86e1d7b4d2a06a96f62a0c8"
+          }
+        }
+      ],
+      "online_parent_sha256": "c5e04d5b85d386a12e386922f1fedae733059323c8619a759e3a8303b4b01dd6"
+    },
+    {
+      "path": "els_server/protocol/pvp_match_messages.py",
+      "sha256": "3fd0626d8529ea9be9c87b9ed71d286767ea35fcd5572cb6609c9303b2a2ee6f",
+      "size": 3889,
+      "scope": "server",
+      "parent_sha256": "324eb6127083ed30331e2393e6ee1fc4aad1651b4a9e071f869222eef71aa727",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\pvp_match_messages.py",
+            "sha256": "3fd0626d8529ea9be9c87b9ed71d286767ea35fcd5572cb6609c9303b2a2ee6f"
+          }
+        }
+      ],
+      "online_parent_sha256": "324eb6127083ed30331e2393e6ee1fc4aad1651b4a9e071f869222eef71aa727"
+    },
+    {
+      "path": "els_server/protocol/quest_messages.py",
+      "sha256": "3f9142e5a5064f00111901e85b0b549623c95c5322c24856a9f2565170928b8e",
+      "size": 4606,
+      "scope": "server",
+      "parent_sha256": "28552b73bddfab8e8eed92f3e9db69081209b41033735f081d265756020af330",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\quest_messages.py",
+            "sha256": "3f9142e5a5064f00111901e85b0b549623c95c5322c24856a9f2565170928b8e"
+          }
+        }
+      ],
+      "online_parent_sha256": "28552b73bddfab8e8eed92f3e9db69081209b41033735f081d265756020af330"
+    },
+    {
+      "path": "els_server/protocol/reforge_scroll_messages.py",
+      "sha256": "2e4e999450c92ed59470a937790654bf37d8de08f76e0f116bba0e25b9aee7ae",
+      "size": 691,
+      "scope": "server",
+      "parent_sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\reforge_scroll_messages.py",
+            "sha256": "2e4e999450c92ed59470a937790654bf37d8de08f76e0f116bba0e25b9aee7ae"
+          }
+        }
+      ],
+      "online_parent_sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8"
+    },
+    {
+      "path": "els_server/protocol/shop_messages.py",
+      "sha256": "7c9ebab73a9e8e62c1435cfb0baef9222a1668c56759083673e3e74f81bfe682",
+      "size": 6284,
+      "scope": "server",
+      "parent_sha256": "f97ea2dffeec0ffbe49db99b20ca05b687ae3eaf4576f820d924607e741c0ee4",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\shop_messages.py",
+            "sha256": "7c9ebab73a9e8e62c1435cfb0baef9222a1668c56759083673e3e74f81bfe682"
+          }
+        }
+      ],
+      "online_parent_sha256": "f97ea2dffeec0ffbe49db99b20ca05b687ae3eaf4576f820d924607e741c0ee4"
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "sha256": "53a8dcb9f458ed53980e1ddc2adb295b06c3447d72ec92be4f824261cd1a8e1c",
+      "size": 18310,
+      "scope": "server",
+      "parent_sha256": "5eed03d4462703d77d48b0adb8f6d7cf640aa46d24711967f76b93cfbb9fccd9",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\social_messages.py",
+            "sha256": "53a8dcb9f458ed53980e1ddc2adb295b06c3447d72ec92be4f824261cd1a8e1c"
+          }
+        }
+      ],
+      "online_parent_sha256": "5eed03d4462703d77d48b0adb8f6d7cf640aa46d24711967f76b93cfbb9fccd9"
+    },
+    {
+      "path": "els_server/protocol/spell_socket_messages.py",
+      "sha256": "476532b93b131d992ee15ec66bd5786086279818502b5296dc9cef5bf4455608",
+      "size": 1682,
+      "scope": "server",
+      "parent_sha256": "44db0bceb9f76b9c148d279b9f463ba015649020d2f465c7e78b8110d9364965",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\spell_socket_messages.py",
+            "sha256": "476532b93b131d992ee15ec66bd5786086279818502b5296dc9cef5bf4455608"
+          }
+        }
+      ],
+      "online_parent_sha256": "44db0bceb9f76b9c148d279b9f463ba015649020d2f465c7e78b8110d9364965"
+    },
+    {
+      "path": "els_server/protocol/tenebros_capacity_messages.py",
+      "sha256": "9f376da6a27ccc9a2b665b6a2c936f9f819c6af315c042472f21e094cea06381",
+      "size": 1480,
+      "scope": "server",
+      "parent_sha256": "de3105e524962af36efa8591b0fcec92cef7ba9a5a5a6d2df613205e910a6fca",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\tenebros_capacity_messages.py",
+            "sha256": "9f376da6a27ccc9a2b665b6a2c936f9f819c6af315c042472f21e094cea06381"
+          }
+        }
+      ],
+      "online_parent_sha256": "de3105e524962af36efa8591b0fcec92cef7ba9a5a5a6d2df613205e910a6fca"
+    },
+    {
+      "path": "els_server/protocol/tenebros_conversion_messages.py",
+      "sha256": "43703997971d7e673b40d7a816f835092dc48e89a59c86a1461d4cfa9872ccff",
+      "size": 1149,
+      "scope": "server",
+      "parent_sha256": "edca87d3cedb09994693840e4390997865bc4a36c17f4caf894f839a6c5a846f",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\tenebros_conversion_messages.py",
+            "sha256": "43703997971d7e673b40d7a816f835092dc48e89a59c86a1461d4cfa9872ccff"
+          }
+        }
+      ],
+      "online_parent_sha256": "edca87d3cedb09994693840e4390997865bc4a36c17f4caf894f839a6c5a846f"
+    },
+    {
+      "path": "els_server/protocol/tenebros_identification_messages.py",
+      "sha256": "f5f5c3426f72ad35a07924f44ded6c88932aca9d44b67f1b88436b4b13183fe2",
+      "size": 953,
+      "scope": "server",
+      "parent_sha256": "4d3063487955062335ca8f26e75becab3c25e3fb2d7f49ad7e2c791f7f53a2c2",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\tenebros_identification_messages.py",
+            "sha256": "f5f5c3426f72ad35a07924f44ded6c88932aca9d44b67f1b88436b4b13183fe2"
+          }
+        }
+      ],
+      "online_parent_sha256": "4d3063487955062335ca8f26e75becab3c25e3fb2d7f49ad7e2c791f7f53a2c2"
+    },
+    {
+      "path": "els_server/protocol/tenebros_storage_messages.py",
+      "sha256": "3cbd9ed8683b3c723de005bf55bd2d5f4d71295a897c0a27966e4aa9f6f42a80",
+      "size": 4220,
+      "scope": "server",
+      "parent_sha256": "59f59e3896f332d2f5302eadf53f54a04e06b1421fef3aed78808f31353cde48",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\tenebros_storage_messages.py",
+            "sha256": "3cbd9ed8683b3c723de005bf55bd2d5f4d71295a897c0a27966e4aa9f6f42a80"
+          }
+        }
+      ],
+      "online_parent_sha256": "59f59e3896f332d2f5302eadf53f54a04e06b1421fef3aed78808f31353cde48"
+    },
+    {
+      "path": "els_server/protocol/title_messages.py",
+      "sha256": "259e2ab6750cfc15c14944f43340cf881f6dfe0a8e9716168cb043564999131b",
+      "size": 3428,
+      "scope": "server",
+      "parent_sha256": "ff29b250dfde0f1db2b9240ff9742656580ff6d84968b54087a9789e60a198d1",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\title_messages.py",
+            "sha256": "259e2ab6750cfc15c14944f43340cf881f6dfe0a8e9716168cb043564999131b"
+          }
+        }
+      ],
+      "online_parent_sha256": "ff29b250dfde0f1db2b9240ff9742656580ff6d84968b54087a9789e60a198d1"
+    },
+    {
+      "path": "els_server/protocol/wardrobe_messages.py",
+      "sha256": "18c19e09b91437bf5af1eb06b3da891077fdf8d56f32b1c57fa861933d1d7ac8",
+      "size": 8752,
+      "scope": "server",
+      "parent_sha256": "eace89354ba82c4694c0c532f55ed9ddfb83797313c6d844b149e914dfcce4d8",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\wardrobe_messages.py",
+            "sha256": "18c19e09b91437bf5af1eb06b3da891077fdf8d56f32b1c57fa861933d1d7ac8"
+          }
+        }
+      ],
+      "online_parent_sha256": "eace89354ba82c4694c0c532f55ed9ddfb83797313c6d844b149e914dfcce4d8"
+    },
+    {
+      "path": "els_server/protocol/wedding_messages.py",
+      "sha256": "5ad561c30587465dfed91a71c2fba57690a50c617ddcf5910c86eb24632659b6",
+      "size": 9649,
+      "scope": "server",
+      "parent_sha256": "6e20d952e333b32e1859e5fca483804b43d9a02abcabf6c33633d7c2ec138f28",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\protocol\\wedding_messages.py",
+            "sha256": "5ad561c30587465dfed91a71c2fba57690a50c617ddcf5910c86eb24632659b6"
+          }
+        }
+      ],
+      "online_parent_sha256": "6e20d952e333b32e1859e5fca483804b43d9a02abcabf6c33633d7c2ec138f28"
+    },
+    {
+      "path": "els_server/storage/artifact_socket_expansion.py",
+      "sha256": "2f8188ae12368e9acf0dc51b2796e49ad9fe63c8cb4ff215ac883d1a57988a8c",
+      "size": 2938,
+      "scope": "server",
+      "parent_sha256": "23816b302851b96c6861f356e97f9f5818de89a7529c626056b8a7331fe0277f",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\artifact_socket_expansion.py",
+            "sha256": "2f8188ae12368e9acf0dc51b2796e49ad9fe63c8cb4ff215ac883d1a57988a8c"
+          }
+        }
+      ],
+      "online_parent_sha256": "23816b302851b96c6861f356e97f9f5818de89a7529c626056b8a7331fe0277f"
+    },
+    {
+      "path": "els_server/storage/artifact_transfer.py",
+      "sha256": "06feb330c977fe796acc02b986f0518a6fcb8ef36ed4883fdfe24c06e2b64cea",
+      "size": 6060,
+      "scope": "server",
+      "parent_sha256": "a4b97866aeac45b838f22f71b8fa3f11243262889a7fc84f7e48320fcdb10da6",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\artifact_transfer.py",
+            "sha256": "06feb330c977fe796acc02b986f0518a6fcb8ef36ed4883fdfe24c06e2b64cea"
+          }
+        }
+      ],
+      "online_parent_sha256": "a4b97866aeac45b838f22f71b8fa3f11243262889a7fc84f7e48320fcdb10da6"
+    },
+    {
+      "path": "els_server/storage/blacksmith_enhancement.py",
+      "sha256": "5549a707878a85c508eeccefc754726651ddb8f231e6801f90d6074ca9ee9ce7",
+      "size": 6793,
+      "scope": "server",
+      "parent_sha256": "704f11bf3517006ebb9bc6ed6dc1d7f9b8f61ffdf8f0788ad64c7c50dd0be2ac",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\blacksmith_enhancement.py",
+            "sha256": "5549a707878a85c508eeccefc754726651ddb8f231e6801f90d6074ca9ee9ce7"
+          }
+        }
+      ],
+      "online_parent_sha256": "704f11bf3517006ebb9bc6ed6dc1d7f9b8f61ffdf8f0788ad64c7c50dd0be2ac"
+    },
+    {
+      "path": "els_server/storage/character_lifecycle.py",
+      "sha256": "40f14371bdc56d2411bab017874dac978652fb3be71711276f67cfdaabfa7310",
+      "size": 7728,
+      "scope": "server",
+      "parent_sha256": "f00b877ff090032ca9090b02c0cf69510db19aede755b9825dd2a9998fbc3b5e",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\els_server\\storage\\character_lifecycle.py",
+            "sha256": "40f14371bdc56d2411bab017874dac978652fb3be71711276f67cfdaabfa7310"
+          }
+        }
+      ],
+      "online_parent_sha256": "f00b877ff090032ca9090b02c0cf69510db19aede755b9825dd2a9998fbc3b5e"
+    },
+    {
+      "path": "els_server/storage/collection_synergy.py",
+      "sha256": "f53cabfcfc0f400d9e89b333058b530a54afb8872d6328f1ce9ffa5420fd29da",
+      "size": 9035,
+      "scope": "server",
+      "parent_sha256": "5afaeb0006772ad9dcd469b15762d11d0beea8018632183c831dee17ee97b57b",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\collection_synergy.py",
+            "sha256": "f53cabfcfc0f400d9e89b333058b530a54afb8872d6328f1ce9ffa5420fd29da"
+          }
+        }
+      ],
+      "online_parent_sha256": "5afaeb0006772ad9dcd469b15762d11d0beea8018632183c831dee17ee97b57b"
+    },
+    {
+      "path": "els_server/storage/force_reward_mail.py",
+      "sha256": "ca1ceb5f56bb39b7a301af6abdc5cd25cde2d9767d8e880b6416a131e55f49ff",
+      "size": 3243,
+      "scope": "server",
+      "parent_sha256": null,
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\force_reward_mail.py",
+            "sha256": "ca1ceb5f56bb39b7a301af6abdc5cd25cde2d9767d8e880b6416a131e55f49ff"
+          }
+        }
+      ],
+      "online_parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/gm_item_mail.py",
+      "sha256": "0da2021df8fa11ae62e9210c3dfafb9f14621cfcddf04f0acf401661870174bb",
+      "size": 2691,
+      "scope": "server",
+      "parent_sha256": null,
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\gm_item_mail.py",
+            "sha256": "0da2021df8fa11ae62e9210c3dfafb9f14621cfcddf04f0acf401661870174bb"
+          }
+        }
+      ],
+      "online_parent_sha256": "0da2021df8fa11ae62e9210c3dfafb9f14621cfcddf04f0acf401661870174bb"
+    },
+    {
+      "path": "els_server/storage/inventory_management.py",
+      "sha256": "6a3f2f75c94730d9a9d28427238e3f392e747ff93a7210c8fd148dd85b2ccfac",
+      "size": 10489,
+      "scope": "server",
+      "parent_sha256": "734a190eae305a53393572cd90a93fb8e420c4c288cf4382e0c72ee8163f484e",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\inventory_management.py",
+            "sha256": "6a3f2f75c94730d9a9d28427238e3f392e747ff93a7210c8fd148dd85b2ccfac"
+          }
+        }
+      ],
+      "online_parent_sha256": "734a190eae305a53393572cd90a93fb8e420c4c288cf4382e0c72ee8163f484e"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "sha256": "a73ee99e7fc61a40642b64ad1f286c9162173da1db13b33b033ff71fc7b9ae54",
+      "size": 36610,
+      "scope": "server",
+      "parent_sha256": "758c192c7dd4484ff9a948214fb9552dfac93a6348cabb2e900bf579cd65e4c3",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\inventory_state.py",
+            "sha256": "a73ee99e7fc61a40642b64ad1f286c9162173da1db13b33b033ff71fc7b9ae54"
+          }
+        }
+      ],
+      "online_parent_sha256": "758c192c7dd4484ff9a948214fb9552dfac93a6348cabb2e900bf579cd65e4c3"
+    },
+    {
+      "path": "els_server/storage/material_exchange.py",
+      "sha256": "a19111ea2f8bbda1ccbe32d2e9e07fc7ab8c08bc729940eaa0a44f546add544f",
+      "size": 6122,
+      "scope": "server",
+      "parent_sha256": "fe392cf16f23ec498456ccb95f40c7dfff617ffdbddc3a3a7c34ed830be0c45b",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\material_exchange.py",
+            "sha256": "a19111ea2f8bbda1ccbe32d2e9e07fc7ab8c08bc729940eaa0a44f546add544f"
+          }
+        }
+      ],
+      "online_parent_sha256": "fe392cf16f23ec498456ccb95f40c7dfff617ffdbddc3a3a7c34ed830be0c45b"
+    },
+    {
+      "path": "els_server/storage/paid_enhancement.py",
+      "sha256": "ed3faf595930b72c121f6982c3060852c0c4b218312cf037bbefabb77b691629",
+      "size": 5560,
+      "scope": "server",
+      "parent_sha256": "9ede54fa64a53dad14937ae4ff22a21dc5f4b793de0baa4099ec7f4458dc5af9",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\paid_enhancement.py",
+            "sha256": "ed3faf595930b72c121f6982c3060852c0c4b218312cf037bbefabb77b691629"
+          }
+        }
+      ],
+      "online_parent_sha256": "9ede54fa64a53dad14937ae4ff22a21dc5f4b793de0baa4099ec7f4458dc5af9"
+    },
+    {
+      "path": "els_server/storage/pet_support.py",
+      "sha256": "56f370e8ef768187ffd828589e83981865bfa0da6d8e038b69d6dc7d945c792b",
+      "size": 17168,
+      "scope": "server",
+      "parent_sha256": "6bb195767466726b588b7e1ad28577a481a88c6bc898628404a7b808148afbe8",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\pet_support.py",
+            "sha256": "56f370e8ef768187ffd828589e83981865bfa0da6d8e038b69d6dc7d945c792b"
+          }
+        }
+      ],
+      "online_parent_sha256": "6bb195767466726b588b7e1ad28577a481a88c6bc898628404a7b808148afbe8"
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "sha256": "e3fac59fbec4aa51f861dbe4bbd315c35de50552cd67d4986d099c5ec1ec376b",
+      "size": 18170,
+      "scope": "server",
+      "parent_sha256": "2b1fdda2d93883d011ddd43330e26d44c58884cd2729002654b62a7b11d988ae",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\player_mail.py",
+            "sha256": "e3fac59fbec4aa51f861dbe4bbd315c35de50552cd67d4986d099c5ec1ec376b"
+          }
+        }
+      ],
+      "online_parent_sha256": "8484a975f14bbdfbd28bbcdc217b2b637c32537e5fc9530ab58fe1f10f9babc0",
+      "online_sha256": "06e19ebd8a9453623d3819e3830cd390bc1e20a8ccb332d727196c03375c64b8",
+      "online_size": 18456
+    },
+    {
+      "path": "els_server/storage/quick_slots.py",
+      "sha256": "d89003601a4eb03e2f3d96020ae93c813a16bdab57b56527f6a27df8831169cf",
+      "size": 4177,
+      "scope": "server",
+      "parent_sha256": "5f7638888b9f344b7afb49fd5c18a642c911dcc0bdc9ec00583d807c36dcbe31",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\storage\\quick_slots.py",
+            "sha256": "d89003601a4eb03e2f3d96020ae93c813a16bdab57b56527f6a27df8831169cf"
+          }
+        }
+      ],
+      "online_parent_sha256": "5f7638888b9f344b7afb49fd5c18a642c911dcc0bdc9ec00583d807c36dcbe31"
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "sha256": "ba8196af266098b6cc00c5c00a1104f56c5dabf4ff999d56e438f53351e10baf",
+      "size": 26478,
+      "scope": "server",
+      "parent_sha256": "c02ceb6179b05f5a5411fa783cb78c9dd9e292266a8b2d92f71fbbdba4a92ac3",
+      "origins": [
+        {
+          "group": "gameplay",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\gameplay-candidate-manifest.json",
+            "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\reward_state.py",
+            "sha256": "ba8196af266098b6cc00c5c00a1104f56c5dabf4ff999d56e438f53351e10baf"
+          }
+        }
+      ],
+      "online_parent_sha256": "c02ceb6179b05f5a5411fa783cb78c9dd9e292266a8b2d92f71fbbdba4a92ac3"
+    },
+    {
+      "path": "els_server/transport.py",
+      "sha256": "353b6ec6fd26fc7e5cf76179c373c9732bf5a032e620b488ebd253dee92f321d",
+      "size": 37634,
+      "scope": "server",
+      "parent_sha256": "3580a4bc4258ac278193ffd39bba83f2f3ad6e52cd11cd46eb36672694768946",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\els_server\\transport.py",
+            "sha256": "353b6ec6fd26fc7e5cf76179c373c9732bf5a032e620b488ebd253dee92f321d"
+          }
+        }
+      ],
+      "online_parent_sha256": "3580a4bc4258ac278193ffd39bba83f2f3ad6e52cd11cd46eb36672694768946"
+    },
+    {
+      "path": "tools/client_compatibility.py",
+      "sha256": "e213e6b4a132c1550d958072b991e2870864286339d5eec386ce080a780ae2aa",
+      "size": 18776,
+      "scope": "support",
+      "parent_sha256": "72aec863025fee40a01fd9720ba9e4c08e61a74ca460b8add1be3fbfa62acdab",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\tools\\client_compatibility.py",
+            "sha256": "e213e6b4a132c1550d958072b991e2870864286339d5eec386ce080a780ae2aa"
+          }
+        }
+      ]
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "sha256": "ac7d195efee08b20da81c809f7758b6f74987fbd76198d7d030cdf8f2b3ffd05",
+      "size": 25382,
+      "scope": "support",
+      "parent_sha256": "430a1570931addef9293e3f8d10fb60b40c3ae81222e46a891b29130078e8e62",
+      "origins": [
+        {
+          "group": "combined_support_registry",
+          "sources": [
+            {
+              "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate-manifest.json",
+              "sha256": "7aef6d6bd7cca00c6a64b24fd6b04f982533ab1410354fdc517a29dc9cfb9ff4"
+            },
+            {
+              "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate-manifest.json",
+              "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+            },
+            {
+              "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate-manifest.json",
+              "sha256": "276c8925dfe6a07fa07791cb62a43b376994c1f133a12ad8c9ec3c7cfe80e441"
+            },
+            {
+              "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\fixes\\candidate-manifest.json",
+              "sha256": "96538e076f5429e85b7702ee37d3a95f587827155adc9d313b18abb3ad7a934f"
+            },
+            {
+              "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\launcher\\candidate-manifest.json",
+              "sha256": "9777276b445f784db942772aab39986ff5779168f9d359f611244726f68d86a9"
+            }
+          ]
+        },
+        {
+          "group": "title_order_revision",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v2\\candidate-manifest.json",
+            "sha256": "6cb2d2ae9068bd77e5068ef62254c1cc915f1ffa722fdfe1c445a1634a6f14b9"
+          },
+          "reason": "Rebind the two corrected support leaves; no profile policy or address changes"
+        },
+        {
+          "group": "title_order_revision",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v3\\candidate-manifest.json",
+            "sha256": "9fa43e1e804c38c4abcc603ebcdbab9b7c7d340650db114e0e6eb8c7427c0775"
+          },
+          "reason": "Rebind the two corrected support leaves; no profile policy or address changes"
+        }
+      ]
+    },
+    {
+      "path": "tools/dx11_resource_compat.js",
+      "sha256": "61e6d40532dbde9faac6f2365823ec29bb29f147d5a3925018fdcf3a9e53f306",
+      "size": 6135,
+      "scope": "support",
+      "parent_sha256": "3219345b91375cfa74862c9ee8a094df7aa1ec5741b04ee3af1ed09c8603f9a2",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\tools\\dx11_resource_compat.js",
+            "sha256": "61e6d40532dbde9faac6f2365823ec29bb29f147d5a3925018fdcf3a9e53f306"
+          }
+        }
+      ]
+    },
+    {
+      "path": "tools/group_wear_sync.js",
+      "sha256": "3d793b59c6ae30edcb469bbfcdfaff1aa3a28872da939ee5236bdcc8df171078",
+      "size": 23463,
+      "scope": "support",
+      "parent_sha256": "38ed2a089f90f13d1b6190b5ea75430a544d977c7fffc3318d3bdd52ec08842d",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\tools\\group_wear_sync.js",
+            "sha256": "ac5508370e0933b1ac56779c48254289d2c1bb5628e6f1270b57e25acfc9fd76"
+          }
+        },
+        {
+          "group": "title_order_revision",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v2\\candidate-manifest.json",
+            "sha256": "6cb2d2ae9068bd77e5068ef62254c1cc915f1ffa722fdfe1c445a1634a6f14b9"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v2\\candidate\\tools\\group_wear_sync.js",
+            "sha256": "d8bf428a711053c8d760bcfce602527dd915ade34531658442d3241713e96a92"
+          }
+        },
+        {
+          "group": "title_order_revision",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v3\\candidate-manifest.json",
+            "sha256": "9fa43e1e804c38c4abcc603ebcdbab9b7c7d340650db114e0e6eb8c7427c0775"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v3\\candidate\\tools\\group_wear_sync.js",
+            "sha256": "3d793b59c6ae30edcb469bbfcdfaff1aa3a28872da939ee5236bdcc8df171078"
+          }
+        }
+      ]
+    },
+    {
+      "path": "tools/native_cache_sync.js",
+      "scope": "support",
+      "parent_sha256": "cef0eb40d934ac43f89202f409b3fc3949d494fae78c92c0e27a7386fe31afc4",
+      "online_parent_sha256": "cef0eb40d934ac43f89202f409b3fc3949d494fae78c92c0e27a7386fe31afc4",
+      "origins": [
+        {
+          "group": "title_order_revision",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v2\\candidate-manifest.json",
+            "sha256": "6cb2d2ae9068bd77e5068ef62254c1cc915f1ffa722fdfe1c445a1634a6f14b9"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v2\\candidate\\tools\\native_cache_sync.js",
+            "sha256": "86e866d9b2cc23e8bbe903e1501a28761a9d35c0c79ccda3ebf0cfe1c1ac8ccd"
+          }
+        },
+        {
+          "group": "title_order_revision",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v3\\candidate-manifest.json",
+            "sha256": "9fa43e1e804c38c4abcc603ebcdbab9b7c7d340650db114e0e6eb8c7427c0775"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\revision-v3\\candidate\\tools\\native_cache_sync.js",
+            "sha256": "ed394dae685ca5f71701479f5d5560695be93affcd6f077481fc544278abebe0"
+          }
+        }
+      ],
+      "sha256": "ed394dae685ca5f71701479f5d5560695be93affcd6f077481fc544278abebe0",
+      "size": 39549
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "sha256": "3c3d48cea5f63664613311586c371abd3fb91dd15b335bef00310ba39a3bbbb2",
+      "size": 6460,
+      "scope": "support",
+      "parent_sha256": "f0112e295c22c852b5bae9d626b4decf8d89e7422076600cd97bf3bdad2642b4",
+      "origins": [
+        {
+          "group": "support",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\support-candidate-manifest.json",
+            "sha256": "4fb3d544f3a3a22cb0e44de152364a3b6ab3dbf2ac6a889fd1dfb8f7871e5a06"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\support\\candidate\\tools\\native_cache_sync.py",
+            "sha256": "3c3d48cea5f63664613311586c371abd3fb91dd15b335bef00310ba39a3bbbb2"
+          }
+        }
+      ]
+    },
+    {
+      "path": "tools/native_group_wear_sync.py",
+      "sha256": "16ca6abf5d440c4c69c0ab857a2c67022f24d9025fa3d94be1561070c75cfea0",
+      "size": 3057,
+      "scope": "support",
+      "parent_sha256": "fc17e0d241fe52ea3ec41f78c63eca13d9bd773190ad86bb4705d85a1756cd96",
+      "origins": [
+        {
+          "group": "party",
+          "manifest": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-integration\\provenance\\party-candidate-manifest.json",
+            "sha256": "5975253c9d1fc70f79de3aed6c57d67ac10d0d6951d3828fa2aac32a3b0aec19"
+          },
+          "source": {
+            "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\party\\candidate\\tools\\native_group_wear_sync.py",
+            "sha256": "16ca6abf5d440c4c69c0ab857a2c67022f24d9025fa3d94be1561070c75cfea0"
+          }
+        }
+      ]
+    }
+  ],
+  "removed_files": [
+    {
+      "path": "tools/rosso_reward_refresh.js",
+      "parent_sha256": "239f7954e8cded2bdd49309bf8f76ee1eb0add261661c79caebcf85821829869"
+    }
+  ]
+}

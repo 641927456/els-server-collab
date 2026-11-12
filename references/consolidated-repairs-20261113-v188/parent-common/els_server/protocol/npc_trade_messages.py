@@ -1,0 +1,45 @@
+"""Native EA/EB purchase and 567/568 repurchase records."""
+import struct
+from els_server.domain.fashion_state import record
+from els_server.protocol.protocol_codec import Event
+
+
+def opening_ack(house, selector):
+    # Native 2302830 uses the echoed house and selector to open its local
+    # shop (0), manufacture (1), or exchange (2) catalog.
+    return Event(0x201, kind=0x51d, payload=struct.pack('>iiIIIIiI', 0, house, 0, 0, 0, 0, selector, 0))
+
+
+def purchase_request(payload):
+    if not isinstance(payload, bytes) or len(payload) < 19:
+        raise ValueError('Merchant purchase length')
+    flag, mode, count = struct.unpack_from('>BHI', payload)
+    if flag != 0 or mode != 0 or not 1 <= count <= 36 or len(payload) != 11+8*count:
+        raise ValueError('Unsupported merchant purchase mode/vector')
+    entries = [struct.unpack_from('>ii', payload, 7+8*n) for n in range(count)]
+    merchant = struct.unpack_from('>i', payload, 7+8*count)[0]
+    if merchant <= 0 or len({t for t, q in entries}) != count or any(t <= 0 or not 1 <= q <= 99 for t, q in entries):
+        raise ValueError('Merchant purchase identity/count')
+    return entries, merchant
+
+
+def purchase_ack(ed, changes=(), result=0, *, ap=0):
+    # EB -> 102C8A0 writes the same absolute AP as specialization 6E8.
+    return struct.pack('>iQiI', result, ed, ap, len(changes))+b''.join(record(i) for i in changes)
+
+
+def repurchase_request(payload):
+    # Parse only the bounded prefix. The complete variable-length record is
+    # compared byte-for-byte with the authoritative sale instance in storage.
+    if not isinstance(payload, bytes) or not 332 <= len(payload) <= 2048:
+        raise ValueError('Repurchase record length')
+    index = struct.unpack_from('>i', payload)[0]
+    quantity = struct.unpack_from('>i', payload, 20)[0]
+    merchant = struct.unpack_from('>i', payload, len(payload)-4)[0]
+    if not 0 <= index < 8 or not 1 <= quantity <= 10000 or merchant <= 0:
+        raise ValueError('Repurchase index/count/context')
+    return index, quantity, merchant, payload[4:-4]
+
+
+def repurchase_ack(ed, index=0, quantity=0, changes=(), result=0, *, ap=0):
+    return struct.pack('>iiQiiI', result, index, ed, ap, quantity, len(changes))+b''.join(record(i) for i in changes)

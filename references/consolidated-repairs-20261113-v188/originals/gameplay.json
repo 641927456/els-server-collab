@@ -1,0 +1,328 @@
+{
+  "ok": true,
+  "status": "composed_verification_pending",
+  "parent_release": "consolidated-repairs-20261112-v187",
+  "parent_local": "unified-server-1d9bf1dc353a66a5-3755f8cbd302",
+  "base": "G:\\els\\releases\\local\\unified-server-1d9bf1dc353a66a5-3755f8cbd302",
+  "parent_current_sha256": "8e761c35093a22d51ec74342c83f40ed886523930dd34395ccef97fe990dbc96",
+  "online_current_sha256": "21fbe1a450abfd93ef58661d61dd31fe4428ec93838856e3499071f122ab52db",
+  "source_manifests": {
+    "force": {
+      "path": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate-manifest.json",
+      "sha256": "1b5e2b4a5c1f7946982c0a97599b98f89107c378618a398c750dba3c9616cb64"
+    },
+    "tirnog": {
+      "path": "G:\\els\\analysis\\tirnog-shadow-scroll-drop-audit-20261112-v1\\repair-v2\\candidate-manifest.json",
+      "sha256": "6139835ad61fda61a9f1cddfd8513a272d09f001bf81efb9e5619e6a813fa1c6"
+    },
+    "contracts": {
+      "path": "G:\\els\\analysis\\shared-contract-variants-20261112-v1\\review-v2\\manifest.json",
+      "sha256": "64ca3dd88de19e4bf6c2cfdcfe5b295eb5b6e33a76b99b5bf5454209aaefe8e9"
+    },
+    "coexistence": {
+      "path": "G:\\els\\analysis\\coexistence-buff-feedback-20261112-v1\\repair-v1\\candidate-manifest.json",
+      "sha256": "8064693912e1a2edd3135a0334f1dbd4cdc297ae5ce13606de481dcf33c4fe67"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/data/formal_pve_economy.json",
+      "parent_sha256": "2a670458040862879cc035143f63af529455ce3e129657b57146ed33273480c7",
+      "sha256": "c986616c18b046ce138a7f7415e9541debb0c60322e77345642199872c5bc2bc",
+      "size": 288742,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\data\\formal_pve_economy.json",
+          "sha256": "c986616c18b046ce138a7f7415e9541debb0c60322e77345642199872c5bc2bc"
+        }
+      ],
+      "online_parent_sha256": "2a670458040862879cc035143f63af529455ce3e129657b57146ed33273480c7",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\data\\formal_pve_economy.json"
+    },
+    {
+      "path": "els_server/data/formal_pve_economy.manifest.json",
+      "parent_sha256": "bdb2f9d5a848f50683109845bfa00c5c6418de47b0c0e0c8a4e56433be4205e0",
+      "sha256": "73ace5679da28d75d6cc9f191974ae0859b2cbe613d616ab66bb0f28550c5087",
+      "size": 206,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\data\\formal_pve_economy.manifest.json",
+          "sha256": "73ace5679da28d75d6cc9f191974ae0859b2cbe613d616ab66bb0f28550c5087"
+        }
+      ],
+      "online_parent_sha256": "bdb2f9d5a848f50683109845bfa00c5c6418de47b0c0e0c8a4e56433be4205e0",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\data\\formal_pve_economy.manifest.json"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "parent_sha256": "3671d1efc36629198845008bdfbb25d443a4b70ed53537d5e69015cd58ece3b9",
+      "sha256": "1c6be6a5e3e057e46e6ae5a6f432059a0511a432dbfb703ca0c03748b6808d36",
+      "size": 242790,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\data\\ordinary_misc_loot.json",
+          "sha256": "09a07a37c9067ef2d787bb23a295ed44256a59dcb70edc5141b17b238c6fede5"
+        },
+        {
+          "source": "tirnog",
+          "candidate": "G:\\els\\analysis\\tirnog-shadow-scroll-drop-audit-20261112-v1\\repair-v2\\candidate\\els_server\\data\\ordinary_misc_loot.json",
+          "sha256": "8909223185880097473cad502dc5ebe5511b36df92d79ced38231914fdd1f4cc"
+        }
+      ],
+      "online_parent_sha256": "3671d1efc36629198845008bdfbb25d443a4b70ed53537d5e69015cd58ece3b9",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\data\\ordinary_misc_loot.json"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "parent_sha256": "1b06827d0727e8bb35f744d7e0d213b4e58d1eeddc37d7d972bb1f44d067c4f6",
+      "sha256": "7a600b371b8a2ad35146564a8ef9231c4b8af42eebfc8a6fa8c47667598793b8",
+      "size": 182,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\data\\ordinary_misc_loot.manifest.json",
+          "sha256": "4f0f890c237ca959a657a17fa1868c2fbaa80ceba5cc5f22461f7b63538764f6"
+        },
+        {
+          "source": "tirnog",
+          "candidate": "G:\\els\\analysis\\tirnog-shadow-scroll-drop-audit-20261112-v1\\repair-v2\\candidate\\els_server\\data\\ordinary_misc_loot.manifest.json",
+          "sha256": "5aebce778908ba562638720a9887346238c14593eafb8214a371b18b0fd447e6"
+        }
+      ],
+      "online_parent_sha256": "1b06827d0727e8bb35f744d7e0d213b4e58d1eeddc37d7d972bb1f44d067c4f6",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\data\\ordinary_misc_loot.manifest.json"
+    },
+    {
+      "path": "els_server/domain/challenge_repeat_rewards.py",
+      "parent_sha256": "564fab2ed6ec32cbd03f750c109d0cf68cd5649bc2f9dbc5c0bb9fe424a7ed55",
+      "sha256": "4daf5edd479e2a87bb94eea15d44998ff14ae6da503e7fae3beb785faeecac22",
+      "size": 3669,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\domain\\challenge_repeat_rewards.py",
+          "sha256": "4daf5edd479e2a87bb94eea15d44998ff14ae6da503e7fae3beb785faeecac22"
+        }
+      ],
+      "online_parent_sha256": "564fab2ed6ec32cbd03f750c109d0cf68cd5649bc2f9dbc5c0bb9fe424a7ed55",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\challenge_repeat_rewards.py"
+    },
+    {
+      "path": "els_server/domain/elixir_flow.py",
+      "parent_sha256": "7b8622f92d4c4045aa5dcf38dc5e435d29296eb34e343545ba0c3c23dc06497c",
+      "sha256": "d2c01e071b4e8747c758ac93ba0d789bd4ad8d99a3c4fdf769283e243156e566",
+      "size": 8077,
+      "sources": [
+        {
+          "source": "coexistence",
+          "candidate": "G:\\els\\analysis\\coexistence-buff-feedback-20261112-v1\\repair-v1\\candidate\\els_server\\domain\\elixir_flow.py",
+          "sha256": "d2c01e071b4e8747c758ac93ba0d789bd4ad8d99a3c4fdf769283e243156e566"
+        }
+      ],
+      "online_parent_sha256": "7b8622f92d4c4045aa5dcf38dc5e435d29296eb34e343545ba0c3c23dc06497c",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\elixir_flow.py"
+    },
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "parent_sha256": "032db347a9326fe07c50d265e9026d37aeb69b9b45ccc218b8985c34e1bacde7",
+      "sha256": "e4073d7f9f3c2c13cd503bad66e6e7cbc70709b580ae8ba3d5fe800a9fdf3e62",
+      "size": 12139,
+      "sources": [
+        {
+          "source": "coexistence",
+          "candidate": "G:\\els\\analysis\\coexistence-buff-feedback-20261112-v1\\repair-v1\\candidate\\els_server\\domain\\environment_buff_flow.py",
+          "sha256": "e4073d7f9f3c2c13cd503bad66e6e7cbc70709b580ae8ba3d5fe800a9fdf3e62"
+        }
+      ],
+      "online_parent_sha256": "032db347a9326fe07c50d265e9026d37aeb69b9b45ccc218b8985c34e1bacde7",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\environment_buff_flow.py"
+    },
+    {
+      "path": "els_server/domain/first_story_population.py",
+      "parent_sha256": "33f62291004d0b3549bde00184ae0843a8ed2e69e763ac21f51a2aa52e430198",
+      "sha256": "3d891d95bbef66bc3bb8cb82825ac4ffed34daa3d589a5121c6d4b4e6e7e447b",
+      "size": 2286,
+      "sources": [
+        {
+          "source": "contracts",
+          "candidate": "G:\\els\\analysis\\shared-contract-variants-20261112-v1\\candidate\\els_server\\domain\\first_story_population.py",
+          "sha256": "3d891d95bbef66bc3bb8cb82825ac4ffed34daa3d589a5121c6d4b4e6e7e447b"
+        }
+      ],
+      "online_parent_sha256": "33f62291004d0b3549bde00184ae0843a8ed2e69e763ac21f51a2aa52e430198",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\first_story_population.py"
+    },
+    {
+      "path": "els_server/domain/force_drop_balance.py",
+      "parent_sha256": null,
+      "sha256": "830b5dc5abee633b6c3f42c1e8744275dbdc3e788a5eb2c2ca20f5104aa6b326",
+      "size": 2815,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\domain\\force_drop_balance.py",
+          "sha256": "830b5dc5abee633b6c3f42c1e8744275dbdc3e788a5eb2c2ca20f5104aa6b326"
+        }
+      ],
+      "online_parent_sha256": null,
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\force_drop_balance.py"
+    },
+    {
+      "path": "els_server/domain/formal_pve_economy.py",
+      "parent_sha256": "a2dfd6059f04c4eedc15c02a3dfe337adcfea8bfcdd476f583121fbc922c200e",
+      "sha256": "5aca4c80c3a8fd16f24c38237895f4c3d4a5ab35575046ad888bca22b1c33448",
+      "size": 9474,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\domain\\formal_pve_economy.py",
+          "sha256": "6626e72835634258e41729d90961fdfde4c3737cd18feeb80c9c27985c6aab07"
+        },
+        {
+          "source": "tirnog",
+          "candidate": "G:\\els\\analysis\\tirnog-shadow-scroll-drop-audit-20261112-v1\\repair-v2\\candidate\\els_server\\domain\\formal_pve_economy.py",
+          "sha256": "64fb00ba030c6044ed03fd034920622e30537efde59e67fa5ee1e2dbcd84ce62"
+        }
+      ],
+      "online_parent_sha256": "a2dfd6059f04c4eedc15c02a3dfe337adcfea8bfcdd476f583121fbc922c200e",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\formal_pve_economy.py"
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "parent_sha256": "0fe1ef76433b777bcbca77bd7157add33f72e1ba0f1ae1cb6858e8de8e1be56f",
+      "sha256": "74ceeba6974626067d70ddae1a9dd49cc89db362185d4abf3bc9c48482f1fe0c",
+      "size": 13991,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\domain\\ordinary_misc_loot.py",
+          "sha256": "b89c7029a147217d5382aa7ee8f6f3f1348e28b07a086a61937911ec0149a878"
+        },
+        {
+          "source": "tirnog",
+          "candidate": "G:\\els\\analysis\\tirnog-shadow-scroll-drop-audit-20261112-v1\\repair-v2\\candidate\\els_server\\domain\\ordinary_misc_loot.py",
+          "sha256": "e3b56575795ffb0c5e111522e35349b7957821fb8eb27df8aab1d36f5aef2775"
+        }
+      ],
+      "online_parent_sha256": "0fe1ef76433b777bcbca77bd7157add33f72e1ba0f1ae1cb6858e8de8e1be56f",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\ordinary_misc_loot.py"
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "parent_sha256": "49b9b686a6f55750d58a9a9cb60d06193d3d90d377a28e5ec509b6a0854d7154",
+      "sha256": "53d607feda3998166bead9ffdcd9227d9a149aa770e53bae2841867658968e33",
+      "size": 25738,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\domain\\pve_economy_flow.py",
+          "sha256": "53d607feda3998166bead9ffdcd9227d9a149aa770e53bae2841867658968e33"
+        }
+      ],
+      "online_parent_sha256": "49b9b686a6f55750d58a9a9cb60d06193d3d90d377a28e5ec509b6a0854d7154",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\pve_economy_flow.py"
+    },
+    {
+      "path": "els_server/domain/tutorial_quests.py",
+      "parent_sha256": "d6e96b76a23b8bdf55b59105553ad28229b6531706fbacc956b07937fb3927c0",
+      "sha256": "52db4f5f119d63b60a8c1d3525779b4b33c0ec90d29ef51e04ad603236c116e5",
+      "size": 9911,
+      "sources": [
+        {
+          "source": "contracts",
+          "candidate": "G:\\els\\analysis\\shared-contract-variants-20261112-v1\\candidate\\els_server\\domain\\tutorial_quests.py",
+          "sha256": "52db4f5f119d63b60a8c1d3525779b4b33c0ec90d29ef51e04ad603236c116e5"
+        }
+      ],
+      "online_parent_sha256": "d6e96b76a23b8bdf55b59105553ad28229b6531706fbacc956b07937fb3927c0",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\domain\\tutorial_quests.py"
+    },
+    {
+      "path": "els_server/storage/force_reward_mail.py",
+      "parent_sha256": null,
+      "sha256": "ca1ceb5f56bb39b7a301af6abdc5cd25cde2d9767d8e880b6416a131e55f49ff",
+      "size": 3243,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\storage\\force_reward_mail.py",
+          "sha256": "ca1ceb5f56bb39b7a301af6abdc5cd25cde2d9767d8e880b6416a131e55f49ff"
+        }
+      ],
+      "online_parent_sha256": null,
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\force_reward_mail.py"
+    },
+    {
+      "path": "els_server/storage/gm_item_mail.py",
+      "parent_sha256": null,
+      "sha256": "0da2021df8fa11ae62e9210c3dfafb9f14621cfcddf04f0acf401661870174bb",
+      "size": 2691,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\storage\\gm_item_mail.py",
+          "sha256": "0da2021df8fa11ae62e9210c3dfafb9f14621cfcddf04f0acf401661870174bb"
+        }
+      ],
+      "online_parent_sha256": "0da2021df8fa11ae62e9210c3dfafb9f14621cfcddf04f0acf401661870174bb",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\gm_item_mail.py",
+      "role": "Existing module admitted as common dependency; only recipient reader is reached by common mailbox. No GM administration entry added."
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "758c192c7dd4484ff9a948214fb9552dfac93a6348cabb2e900bf579cd65e4c3",
+      "sha256": "a73ee99e7fc61a40642b64ad1f286c9162173da1db13b33b033ff71fc7b9ae54",
+      "size": 36610,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\storage\\inventory_state.py",
+          "sha256": "a73ee99e7fc61a40642b64ad1f286c9162173da1db13b33b033ff71fc7b9ae54"
+        }
+      ],
+      "online_parent_sha256": "758c192c7dd4484ff9a948214fb9552dfac93a6348cabb2e900bf579cd65e4c3",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\inventory_state.py"
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "parent_sha256": "2b1fdda2d93883d011ddd43330e26d44c58884cd2729002654b62a7b11d988ae",
+      "sha256": "e3fac59fbec4aa51f861dbe4bbd315c35de50552cd67d4986d099c5ec1ec376b",
+      "size": 18170,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\storage\\player_mail.py",
+          "sha256": "e3fac59fbec4aa51f861dbe4bbd315c35de50552cd67d4986d099c5ec1ec376b"
+        }
+      ],
+      "online_parent_sha256": "8484a975f14bbdfbd28bbcdc217b2b637c32537e5fc9530ab58fe1f10f9babc0",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\player_mail.py",
+      "role": "Common reader now retains the pre-existing online GM recipient guards and new Force recipient guards; exact same common/online candidate."
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "parent_sha256": "c02ceb6179b05f5a5411fa783cb78c9dd9e292266a8b2d92f71fbbdba4a92ac3",
+      "sha256": "ba8196af266098b6cc00c5c00a1104f56c5dabf4ff999d56e438f53351e10baf",
+      "size": 26478,
+      "sources": [
+        {
+          "source": "force",
+          "candidate": "G:\\els\\analysis\\force-drop-balance-20261113-v2\\candidate\\els_server\\storage\\reward_state.py",
+          "sha256": "ba8196af266098b6cc00c5c00a1104f56c5dabf4ff999d56e438f53351e10baf"
+        }
+      ],
+      "online_parent_sha256": "c02ceb6179b05f5a5411fa783cb78c9dd9e292266a8b2d92f71fbbdba4a92ac3",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v188-work\\gameplay\\candidate\\els_server\\storage\\reward_state.py"
+    }
+  ],
+  "online_overlay_updates": {
+    "els_server/storage/player_mail.py": "common and online candidate become identical; replace old overlay entry",
+    "els_server/storage/gm_item_mail.py": "previous online-only module becomes identical common dependency"
+  },
+  "original_EXE_KOM_changes": 0,
+  "installed": false,
+  "Git_submitted": false
+}
