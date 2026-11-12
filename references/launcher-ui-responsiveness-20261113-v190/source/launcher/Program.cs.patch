@@ -1,0 +1,91 @@
+--- a/Program.cs
++++ b/Program.cs
+@@ -453,7 +453,7 @@
+             Font=new Font("Microsoft YaHei UI",9); ForeColor=Ink;BackColor=Theme.Canvas; AutoScaleMode=AutoScaleMode.Dpi;
+             try {Icon=Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);}catch{}
+             BuildDesign();
+-            AcceptButton=login;if(LaunchMode.Local)ConfigureLocal();else LoadSaved();RefreshModeDesign();InitializeServerStatus();
++            AcceptButton=login;if(LaunchMode.Local)ConfigureLocal();else LoadSaved();RefreshModeDesign();InitializeServerStatus();ActiveControl=login;
+             remember.CheckedChanged+=delegate {if(!proofMode&&!switchingMode)Save();};
+             nameBox.TextChanged+=delegate {if(nameBox.Text.Trim()!=tokenName)token=null;if(passwordName!=null&&nameBox.Text.Trim()!=passwordName){rememberedPassword=null;passwordName=null;passwordBox.Clear();}};
+             FormClosing+=delegate(object sender,FormClosingEventArgs e) {if(busy) {e.Cancel=true;WindowState=FormWindowState.Minimized;}};
+@@ -481,7 +481,20 @@
+             finally{checkingUpdate=false;if(!IsDisposed){MotionEffects.Busy(update,false);MotionEffects.Progress(update,-1);update.Enabled=true;}}
+         }
+         void AddLabel(TableLayoutPanel layout,string text,int row) {layout.Controls.Add(new Label {Text=text,Dock=DockStyle.Fill,ForeColor=Ink},0,row);}
+-        void SetBusy(bool value) {if(value)busy=true;localChoice.Enabled=onlineChoice.Enabled=sourceBrowse.Enabled=sourcePull.Enabled=!value;accountContinue.Enabled=browse.Enabled=login.Enabled=register.Enabled=recover.Enabled=nameBox.Enabled=passwordBox.Enabled=remember.Enabled=!value;MotionEffects.Busy(activeOperation??login,value);if(!value){activeOperation=null;}journeyProgress.Active=value;UseWaitCursor=value;busy=value;}
++        Control focusBeforeBusy;
++        void SetBusy(bool value) {
++            if(value){busy=true;focusBeforeBusy=ActiveControl;}
++            localChoice.Enabled=onlineChoice.Enabled=sourceBrowse.Enabled=sourcePull.Enabled=!value;
++            accountContinue.Enabled=browse.Enabled=login.Enabled=register.Enabled=recover.Enabled=nameBox.Enabled=passwordBox.Enabled=remember.Enabled=!value;
++            MotionEffects.Busy(activeOperation??login,value);
++            if(value)ActiveControl=null;
++            else {
++                if(ActiveControl==null&&accountPanel.Visible)ActiveControl=nameBox.TextLength==0?nameBox:passwordBox;
++                else if(ActiveControl==null&&focusBeforeBusy!=null&&focusBeforeBusy.CanSelect)ActiveControl=focusBeforeBusy;
++                focusBeforeBusy=null;activeOperation=null;
++            }
++            journeyProgress.Active=value;UseWaitCursor=value;busy=value;
++        }
+         void Status(string text,bool error=false) {feedback.Text=text;journeyProgress.Failed=error;feedback.ForeColor=error?Theme.Coral:Theme.Muted;if(error)MotionEffects.Feedback(activeOperation??login,false);}
+         void Progress(string text) {if(!IsDisposed)BeginInvoke((Action)(()=>Status(text)));}
+         void LoadSaved() {
+@@ -576,7 +589,7 @@
+             if(!File.Exists(clientPath)) {DiagnosticService.Update(diagnosticAttempt,"client_not_selected",null,true);SetSettingsOpen(true);Status("请先选择客户端目录。",true);return;}
+             string name=nameBox.Text.Trim(),password=PasswordForAuth();
+             if(name.Length==0||(token==null&&password.Length==0)){DiagnosticService.Update(diagnosticAttempt,"credentials_missing",null,true);SetAccountOpen(true);Status("请输入账号和密码。",true);return;}
+-            SetBusy(true);Status("正在登录…");string config=null;
++            SetBusy(true);Status("正在登录…");string config=null;bool restartElevated=false;
+             try {
+                 {
+                 DiagnosticService.Update(diagnosticAttempt,"login");
+@@ -585,8 +598,9 @@
+                 if(!Program.Ok(result)){DiagnosticService.Update(diagnosticAttempt,"authentication_failed",null,true);token=null;Save();SetAccountOpen(true);Status(Program.Error(result),true);return;}
+                 CommitAuthenticated(result,name,password);
+                 }
++                Status("登录成功，正在准备运行组件…");
+                 DiagnosticService.Update(diagnosticAttempt,"component_update");
+-                string root;try{root=await Task.Run(()=>LaunchMode.Prepare(Progress));DiagnosticService.BindRuntime(diagnosticAttempt,root);}catch(Exception error){DiagnosticService.ComponentFailure(diagnosticAttempt,error);Status("运行组件更新未完成，可打开“诊断与反馈”提交本次记录；原环境已保留。",true);return;}
++                string root;try{root=await Task.Run(()=>{string prepared=LaunchMode.Prepare(Progress);DiagnosticService.BindRuntime(diagnosticAttempt,prepared);return prepared;});}catch(Exception error){DiagnosticService.ComponentFailure(diagnosticAttempt,error);Status("运行组件更新未完成，可打开“诊断与反馈”提交本次记录；原环境已保留。",true);return;}
+                 string logs=Path.Combine(Program.DataRoot,"logs");Directory.CreateDirectory(logs);
+                 {
+                     config=Path.Combine(Program.DataRoot,"sessions",Guid.NewGuid().ToString("N")+".json");
+@@ -598,8 +612,9 @@
+                 string launchLog=DiagnosticService.LogPath(diagnosticAttempt,"game-launch.log");
+                 int code=await Task.Run(()=>Program.RunPython(root,args,launchLog));
+                 DiagnosticService.Update(diagnosticAttempt,code==0?"game_exit":"game_failed",code,true);
+-                if(code==0){MotionEffects.Feedback(login,true);Status("游戏已退出，可以再次启动。");}else ShowLaunchFailure(launchLog);
++                if(code==0){MotionEffects.Feedback(login,true);Status("游戏已退出，可以再次启动。");}else restartElevated=ShowLaunchFailure(launchLog);
+             }catch {RefreshSelectedServerStatus();DiagnosticService.Update(diagnosticAttempt,"launcher_error",null,true);Status("连接或启动未能完成，请检查网络后重试。",true);}finally {if(config!=null&&File.Exists(config))File.Delete(config);SetBusy(false);}
++            if(restartElevated)Close();
+         }
+         async Task OpenDiagnostics(){
+             if(openingDiagnostics)return;openingDiagnostics=true;diagnostics.Enabled=false;MotionEffects.Busy(diagnostics,true);
+@@ -610,10 +625,25 @@
+                 using(var dialog=new DiagnosticsForm(DiagnosticService.Choices(),(id,note)=>DiagnosticService.Generate(root,id,note,selectedClient,account,credential),bundle=>DiagnosticService.Upload(root,bundle,selectedClient,account,credential),!String.IsNullOrEmpty(credential)&&!String.IsNullOrEmpty(account))){dialog.ShowDialog(this);}
+             }catch {Status("诊断工具暂未准备完成，请稍后重试。",true);}finally{openingDiagnostics=false;MotionEffects.Busy(diagnostics,false);diagnostics.Enabled=true;}
+         }
+-        void ShowLaunchFailure(string logPath) {
++        bool ShowLaunchFailure(string logPath) {
+             RefreshSelectedServerStatus();
++            if(LaunchElevation.Required(logPath)) {
++                if(!LaunchElevation.IsElevated()) {
++                    Status("游戏需要管理员权限，正在请求 Windows 授权…");
++                    try {LaunchElevation.Restart();return true;}
++                    catch(System.ComponentModel.Win32Exception error) {
++                        Status(error.NativeErrorCode==1223?"已取消管理员授权，游戏尚未启动。可再次点击启动重试。":"申请管理员权限失败（Windows 错误 "+error.NativeErrorCode+"）。请检查系统权限后重试。",true);
++                        return false;
++                    }
++                }
++                string elevatedReason="启动器已以管理员权限运行，但 Windows 仍拒绝启动游戏（错误 740）。请检查客户端的兼容性和权限设置。";
++                Status(elevatedReason,true);
++                MessageBox.Show(this,elevatedReason,"朋友服",MessageBoxButtons.OK,MessageBoxIcon.Information);
++                return false;
++            }
+             string reason=Program.LaunchFailure(logPath);Status(reason,true);
+             MessageBox.Show(this,reason+"\n\n可点击登录器下方“诊断与反馈”，生成并上传本次报告。\n诊断日志：\n"+logPath,"朋友服",MessageBoxButtons.OK,MessageBoxIcon.Information);
++            return false;
+         }
+     }
+     class TutorialRecoveryForm:ProofForm {
