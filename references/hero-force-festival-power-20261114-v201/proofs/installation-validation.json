@@ -1,0 +1,144 @@
+{
+  "online": {
+    "ok": true,
+    "release": "hero-force-festival-power-20261114-v201",
+    "public": {
+      "ok": true,
+      "public_tls": true,
+      "actual_runtime_only": true,
+      "test": {
+        "ok": true,
+        "phase": "test",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          "Actual shared Hero120010 entry/consent/B3; both owned actors remove passive and Mod Force and use one ordinary potion, with exact saved debit/loadout",
+          "Native-shaped festival admission persists source20000 and sends the exact UID/source notice after ready; keep saved1503 for cold login",
+          "Client-origin raw current-form CP, actual TLS entry and AD replay, cold facts"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2086,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "32c65f7144094cad7ee6038533ba5834148c61aa1056ec7276e33d0c6ab197e0",
+          "server-addon": "d59bb4d9ba96ce53f0222d14dbcb58f8a6a5f6f6faf04401dd5518f06cd967f4"
+        },
+        "signed_target_manifest_sha256": "5cfc57c1b22cc96293cbbea331b9c5a52a4561f0888575a35a4aea7b9244c8a8"
+      },
+      "retire": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          "Cold festival login restores exact source; wrong source refused and original return225/227 clears only the owned origin, no fee",
+          "Client-origin raw current-form CP, actual TLS entry and AD replay, cold facts"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2086,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "32c65f7144094cad7ee6038533ba5834148c61aa1056ec7276e33d0c6ab197e0",
+          "server-addon": "d59bb4d9ba96ce53f0222d14dbcb58f8a6a5f6f6faf04401dd5518f06cd967f4"
+        },
+        "signed_target_manifest_sha256": "5cfc57c1b22cc96293cbbea331b9c5a52a4561f0888575a35a4aea7b9244c8a8"
+      },
+      "expected_game_authentications": 8,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "cold": {
+      "ok": true,
+      "read_only": true,
+      "retired": true,
+      "roles": [
+        {
+          "scenario": "hero_force",
+          "potion_debit": 1,
+          "force_removed_in_dungeon": true,
+          "ED": 1000
+        },
+        {
+          "scenario": "hero_force",
+          "potion_debit": 1,
+          "force_removed_in_dungeon": true,
+          "ED": 1000
+        },
+        {
+          "scenario": "festival",
+          "map": 20000,
+          "persisted_source": false,
+          "source_cleared_after_return": true,
+          "ED": 1000
+        },
+        {
+          "scenario": "client_power",
+          "ok": true,
+          "read_only": true,
+          "client_origin_fixture": true,
+          "native_session": false,
+          "current_form_unrounded": true,
+          "facts": [
+            {
+              "side": 0,
+              "raw": 3999.5,
+              "basis_points": 2000
+            },
+            {
+              "side": 1,
+              "raw": 4000.5,
+              "basis_points": 2500
+            }
+          ],
+          "ERP_level": 201,
+          "kill_receipts": 2,
+          "replayed_without_extra_fact": true
+        }
+      ]
+    },
+    "public_tls": true,
+    "candidate_pid": 3500,
+    "requirements_sha256": "c3da9a42956e97e3e81aa61bb608ef6762d2fa7928a517d215dae4349f5dd108",
+    "started_utc": "2026-11-13T21:53:30.615521+00:00",
+    "completed_utc": "2026-11-13T21:54:33.818055+00:00",
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "local": {
+    "ok": true,
+    "release": "hero-force-festival-power-20261114-v201",
+    "runtime": "G:\\els\\releases\\local\\unified-server-5568c69052c46a28-77d6cabc58ca",
+    "signed_files": 2086,
+    "runtime_manifest_sha256": "5cfc57c1b22cc96293cbbea331b9c5a52a4561f0888575a35a4aea7b9244c8a8",
+    "shared_server_files": 1546,
+    "observed_seconds": 122.0873834,
+    "ordinary_player_entry_open": false,
+    "stable_launcher_promoted": false,
+    "completed_utc": "2026-11-13T21:58:34.711154+00:00"
+  },
+  "updater": {
+    "ok": true,
+    "stable_parent": "launcher-v200-c3c3f32483fcf523",
+    "tag": "launcher-v201-5eb27b289546628f",
+    "exe_sha256": "5eb27b289546628f24bec42521f30071e5cc5969c8fff5342cf647bb37bde601",
+    "signed_files": 2086,
+    "client_files": 110,
+    "server_addon_files": 1986,
+    "embedded_resources": 6,
+    "public_fresh_client": true,
+    "public_fresh_server_addon": true,
+    "public_upgrade": true,
+    "default_service_not_downloaded": true,
+    "full_and_chunk_cleanup": true,
+    "old_backup_preserved": true,
+    "game_started": false
+  }
+}
