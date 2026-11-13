@@ -1,0 +1,205 @@
+{
+  "release": "integrated-gameplay-20261113-v192",
+  "version": 192,
+  "parent_commit": "04be1c37d86c08458cf0a6824ba121af957c55d1",
+  "integration_base": "f9c7bf58123c47d4ab490d73863d544304560a58",
+  "inherited_runtime_source_commit": "04be1c37d86c08458cf0a6824ba121af957c55d1",
+  "inherited_launcher_logic_commit": "043caac543434c490587a7e051778512694fbdd8",
+  "production_files": [
+    {
+      "path": "els_server/domain/identification_ui.py",
+      "size": 16741,
+      "sha256": "dfeb5d8cb27c334b5505336a375392af42389c6f1999158c4fbda78b0e9fb4f2",
+      "parent_sha256": "d5d7d54b2319010bc955fec3d4cb874c497469387cff63be61aed7d7509a78b1",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/identification_ui.json",
+      "size": 6615350,
+      "sha256": "1c2b25a43e61e4e2f7302f63bfb88b78165dd8294da5b160d2279798680e75fe",
+      "parent_sha256": "f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/growth_guide_boxes.json",
+      "size": 460696,
+      "sha256": "1681e6ec9bbc4725916547ce1b0219765fb163e6061d4f654c230a3ab300e11a",
+      "parent_sha256": "2b550c0401c886404a8ae00c7d9c1571568ef7de7cdf06f7df893a192c3d51a3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/growth_guide_boxes.manifest.json",
+      "size": 94,
+      "sha256": "04f90beb1327f0d4c4c0d2ca71d8baf18821cfadaec7d9bcc02e97f22b127f78",
+      "parent_sha256": "b8ddb9ca0f35c5c4774b4a9f39a9ced802b1247e35d5708a5ad0f4adf6461533",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/equipment_tuning.py",
+      "size": 4428,
+      "sha256": "e97ed7e8bb104e24f93216c6c3ab59ff8ee295174408092e75b41f166fb65cb2",
+      "parent_sha256": "789efaf227083a4606521c03cf14599a191152ddfcfe7be925dfff839b9e019d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/equipment_tuning.py",
+      "size": 4075,
+      "sha256": "c8cec103f90a80ee252eba292131a623e9f44eb44fdc011062454f57b0e46ad7",
+      "parent_sha256": "8a3a5818f77c725f6a69ff45a9b1857368bc89446fe6cf348f2e3698f1ea8669",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/equipment_tuning_native.json",
+      "size": 46991,
+      "sha256": "d6d1718657f26dc5a629c788fdce31bbd4e1dff20c02870430fa5c7fcf3e55a4",
+      "parent_sha256": "b99164acd31ef0c0efb48cbd3139bbcbab827fe4a1c465f8867428a449564dfe",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/equipment_tuning_native.manifest.json",
+      "size": 94,
+      "sha256": "295fa3351f93a343330536b0751969eb348e27f695ca3390a7eeef143d37c60d",
+      "parent_sha256": "386276324b027adf78129c10c3de6cdb55a5a585a250bfe8ad123037f7bc7529",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/normal_party.py",
+      "size": 6735,
+      "sha256": "8dea10f1582356566250a714ed062a5223a7aab67a957c0d7128dc36b158df51",
+      "parent_sha256": "376a4f44e65756a8bcbf61949055191836f3267be75930bda382513418192943",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/party_recruitment.py",
+      "size": 23999,
+      "sha256": "efd766e60aae84917840e8297a30b3a1bc59497cdca44bdcfb1382dfd7ef3ad6",
+      "parent_sha256": "750a5af53cf80af2e2e247176c06f2f8f5208b94514719f9a8f93e4ad4c2fd5b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/party_selection.py",
+      "size": 3788,
+      "sha256": "68baf6e6a9355fe99ad9f190bd67704383fa33ccaa5298f857b223efc51f7793",
+      "parent_sha256": "152cf92c2a95f8ddfc4725e6af52d2c7f68d66da80f8dff2a5ae2ec8d129ba81",
+      "scope": "server"
+    },
+    {
+      "path": "tools/group_wear_sync.js",
+      "size": 24671,
+      "sha256": "a7565a15a6d1616334f0bbd5d11ff454f7e65d05f29f485252b071b628788246",
+      "parent_sha256": "3d793b59c6ae30edcb469bbfcdfaff1aa3a28872da939ee5236bdcc8df171078",
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_cache_sync.js",
+      "size": 39621,
+      "sha256": "34849a65c0b293ae43e9ef125006ebab322f0c0aafc9db81567d21e849fe93a7",
+      "parent_sha256": "ed394dae685ca5f71701479f5d5560695be93affcd6f077481fc544278abebe0",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/application.py",
+      "size": 72529,
+      "sha256": "9e7e4a487e59b39a2900ce11677e9dd6c2219d8013172f275681ca33fea5a73f",
+      "parent_sha256": "7a9f77b16565ac0525b0bafce40de2af898c207b262754453efeae0849d6e12d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/abyss_weapon_2026.py",
+      "size": 5205,
+      "sha256": "2306d30e61af9ba70bffd9ad5085163c583795b8b117f8aa6379186bb7a56680",
+      "parent_sha256": "59401335b2ddd3b22fba8392a9ae82f3a0d3219fc9488f1f5d7525f59a901d2d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/abyss_weapon_boxes.py",
+      "size": 4739,
+      "sha256": "84716f2cfb840e80dc9b812e8869906d3b062b1114172ba0b4d2c586eb91104d",
+      "parent_sha256": "d8b405fc5e4b800a222896d83287a7ff272c06403c0c92251dadbed1c4c01aae",
+      "scope": "server"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "size": 25339,
+      "sha256": "2c42be08769cd100c87a5e2967e073f8950baf5e1b024c5d5e63250d124d42f0",
+      "parent_sha256": "5049c65824f4ef10dc35b149bedcba018bda972316129f9493ac53ebcfc6b2f1",
+      "scope": "support"
+    },
+    {
+      "path": "tools/authorized-main-state-scope.json",
+      "size": 27328,
+      "sha256": "321a295cd397aa3a2c67b31f33445ae83ea795789cf9ec9c50fd771c3155c2e9",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/dungeon_arm_stub.js",
+      "size": 1236,
+      "sha256": "132c53588e6d6455dc142cab118a5495aa2186349fefb7ab22c778749971ebca",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/dungeon_main_buff.c",
+      "size": 5648,
+      "sha256": "44d8a61ce51a3fb92fd983f512548aa43de1ccdc5cf055174edd19242b8f9a0a",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/dungeon_main_buff.js",
+      "size": 4734,
+      "sha256": "db96f7bda8a44b6b364a04d8a4a4617492fd18a31180c998e5fa613ea2cf7e41",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/dungeon_main_buff.py",
+      "size": 3210,
+      "sha256": "c2f415b3c1aeed3d8d12604684bf29ef2de841b85e6b732329729f099eda889a",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "size": 6634,
+      "sha256": "dca5e65b462a4d0660702ee7557e1d36a5ec393a9415928136415b3218e53669",
+      "parent_sha256": "3c3d48cea5f63664613311586c371abd3fb91dd15b335bef00310ba39a3bbbb2",
+      "scope": "support"
+    }
+  ],
+  "generated_launcher_files": [
+    {
+      "path": "AutoUpdate.cs",
+      "size": 14740,
+      "sha256": "b32042506c39cbac481c539e2d730b1d37d43e966507e80e31be3b376e2c8f50",
+      "parent_sha256": "07e02fbbe77c134e7130a90aa30142e84961de4194d50401e668c8eb7fa5f4b4",
+      "generated_only": true
+    },
+    {
+      "path": "UIScrollRuntimeCohort.cs",
+      "size": 2437,
+      "sha256": "f0c90805065d08b5114ca3f41d7e0b821f1deb6e0ee013db6b730244967a60fe",
+      "parent_sha256": "f4938047597ee942892df39692e65c8ff717d3e66bb247b25bf3026803b6d661",
+      "generated_only": true
+    },
+    {
+      "path": "resources/ui-scroll-signedFriends.signed.json",
+      "size": 788037,
+      "sha256": "4fc78c22852c56ec1bc0672a47c8fb24eafd4b32111e5d165727c2b3a2e520e1",
+      "parent_sha256": "678eb6dc930df6e588033db3661c9cec2a151cd3668fa65ddf347d7bf4cbe4a2",
+      "generated_only": true
+    }
+  ],
+  "launcher_logic_changes": 0,
+  "runtime_archive_sha256": "85e2f0582c658ab5863e17f0a8049ee8f33c8783cd0b298a2461c97b2b727439",
+  "original_EXE_KOM_changes": 0,
+  "source_inputs_sha256": "95f9401a358e6a61856a500e9171d402749f96f68edf2f0b9bc66ad70e28e14d",
+  "source_candidates": {
+    "equipment": "866685ad1eaaba95da9c055959dc6ab5580d4d63ff17c8222e2f42f4435df289",
+    "party": "3a0cdd5f41f7e0aa55b0af1059de50d0af33fe99c0fe9ce11ec0c4be2ab84fee",
+    "gift": "326699562915cd3f0cbe63d96bbfd88204983e637d8bceac9da77c55637ebe15",
+    "buff": "bdeb20eae71e009ef4dcef4b90fced4ba8ef88c49f63a10b4296a6671511ede4"
+  },
+  "private_data_included": false
+}
