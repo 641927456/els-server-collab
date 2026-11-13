@@ -1,0 +1,102 @@
+{
+  "online": {
+    "ok": true,
+    "release": "third-job-skill-slots-20261113-v196",
+    "public": {
+      "ok": true,
+      "public_tls": true,
+      "actual_runtime_only": true,
+      "test": {
+        "ok": true,
+        "phase": "test",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          "Owned third-job ticket consumed; four native 123 updates follow the skill snapshot; other character unchanged"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "actual_runtime_only": true,
+        "signed_target_archive_sha256": "3669b593f12302e049f8c05cd3f8febc8f20a06cbc87e33084182e48e15d180e",
+        "signed_target_manifest_sha256": "d397d92283e8563a53cdac28b21ee0734eaed3846f644cc74771010be2b5ed6b",
+        "files_verified": 3004
+      },
+      "retire": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          "Both characters cold login with the expected original or replacement skills"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "actual_runtime_only": true,
+        "signed_target_archive_sha256": "3669b593f12302e049f8c05cd3f8febc8f20a06cbc87e33084182e48e15d180e",
+        "signed_target_manifest_sha256": "d397d92283e8563a53cdac28b21ee0734eaed3846f644cc74771010be2b5ed6b",
+        "files_verified": 3004
+      },
+      "expected_game_authentications": 4,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "cold": {
+      "ok": true,
+      "read_only": true,
+      "retired": true,
+      "roles": [
+        {
+          "third_job": true,
+          "slots": [
+            21113,
+            21114,
+            21115,
+            21251,
+            21026
+          ],
+          "ticket_consumed": true
+        },
+        {
+          "third_job": false,
+          "slots": [
+            21100,
+            21101,
+            21102,
+            21246,
+            21026
+          ],
+          "ticket_consumed": false
+        }
+      ]
+    },
+    "public_tls": true,
+    "candidate_pid": 3048,
+    "requirements_sha256": "583211b6c91be851992f7236649f8b2e1c2f354936a5a58c9088c68ca50042e0",
+    "started_utc": "2026-11-13T14:53:25.314205+00:00",
+    "completed_utc": "2026-11-13T14:53:42.101441+00:00",
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "local": {
+    "ok": true,
+    "release": "third-job-skill-slots-20261113-v196",
+    "runtime": "G:\\els\\releases\\local\\unified-server-540b80eca5493837-68f02eda36f6",
+    "signed_files": 3004,
+    "runtime_manifest_sha256": "7c261cacaa3f949d14d2a42615deb57a9bb373f15e7d6878e178fafd6eff9d3e",
+    "shared_server_files": 1540,
+    "observed_seconds": 122.63206539999999,
+    "ordinary_player_entry_open": false,
+    "stable_launcher_promoted": false,
+    "completed_utc": "2026-11-13T14:59:20.686233+00:00"
+  },
+  "updater": {
+    "ok": true,
+    "stable_parent": "launcher-v195-2da78d72e374e2d1",
+    "tag": "launcher-v196-5f95e15e28715628",
+    "exe_sha256": "5f95e15e287156286399f038e4862242cebc4ce7607275fb716a3b6abcc6ad37",
+    "signed_files": 3004,
+    "update_downloaded": 4,
+    "cold_install": true,
+    "bridge_retained": true
+  }
+}
