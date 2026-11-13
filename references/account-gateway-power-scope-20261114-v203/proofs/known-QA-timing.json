@@ -1,0 +1,74 @@
+{
+  "ok": true,
+  "pid": 5960,
+  "captured": "2026-11-13T23:49:21.877133+00:00",
+  "known_qa_connections": 2,
+  "other_requests": 0,
+  "groups": [
+    {
+      "cohort": "known_QA",
+      "mode": "player_initialized",
+      "kind": "0x28",
+      "total": {
+        "n": 2,
+        "p50": 378.47,
+        "p95": 484.57,
+        "maximum": 484.57,
+        "over500": 0,
+        "over2000": 0
+      }
+    },
+    {
+      "cohort": "known_QA",
+      "mode": "town_ready",
+      "kind": "0x227",
+      "total": {
+        "n": 2,
+        "p50": 373.94,
+        "p95": 469.87,
+        "maximum": 469.87,
+        "over500": 0,
+        "over2000": 0
+      }
+    },
+    {
+      "cohort": "known_QA",
+      "mode": "solo",
+      "kind": "0xad",
+      "total": {
+        "n": 4,
+        "p50": 105.8,
+        "p95": 225.25,
+        "maximum": 225.25,
+        "over500": 0,
+        "over2000": 0
+      }
+    },
+    {
+      "cohort": "known_QA",
+      "mode": "characters_ready",
+      "kind": "0x485",
+      "total": {
+        "n": 2,
+        "p50": 58.27,
+        "p95": 81.91,
+        "maximum": 81.91,
+        "over500": 0,
+        "over2000": 0
+      }
+    }
+  ],
+  "source": {
+    "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\residual-sample-234920.json",
+    "sha256": "5c4cc1e81a3daf450c19dd7bb0428d426d273ae23dea427e0cee2e4a512dc620"
+  },
+  "installed": {
+    "els_server/domain/client_reward_power.py": "ead088f16c0551aa0e033ec42d0392469e9e020a141daece0f4f29407a5eb272",
+    "els_server/domain/skill_state.py": "fb5c6133926873ee4f30fe36a8009715aaf10d4ad93cf61f6266c626c3ae5461",
+    "els_server/storage/careers.py": "2303ec7b2b7ad44d972a9d704e5bd4ad7cb5a7b76ad7ab60cb3084107fea50e8",
+    "els_server/storage/local_state.py": "47a3654cfbd1d9994f24e56851bdc1035bd9ac7923815cd2ba1427d27f86e523"
+  },
+  "natural_player_latency": false,
+  "sixteen_role_comparison": false,
+  "natural_acceleration_percentage_not_established": true
+}
