@@ -1,0 +1,116 @@
+{
+  "online": {
+    "ok": true,
+    "release": "latency-attendance-fishing-20261113-v197",
+    "public": {
+      "ok": true,
+      "public_tls": true,
+      "actual_runtime_only": true,
+      "test": {
+        "ok": true,
+        "phase": "test",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          "50 ED activation, attendance and one reward; makeup consumes its coupon; specific refusal codes preserve final counts",
+          "Held theme rod real timed settlement, repair, fish exchange and account-bound teaching followup; full life bag and exhausted VIP reject"
+        ],
+        "native_error_codes": [
+          3025,
+          1919,
+          3026,
+          3022,
+          3029,
+          717,
+          3022,
+          3027
+        ],
+        "native_lookup_texts": {
+          "717": "签到失败。",
+          "1919": "选择了无法领取的累计签到奖励。",
+          "3022": "已领取奖励。",
+          "3025": "未激活签到。",
+          "3026": "今天已完成签到。",
+          "3027": "补签道具使用失败。",
+          "3029": "无法补签。"
+        },
+        "natural_GUI": false,
+        "natural_battle": false,
+        "actual_runtime_only": true,
+        "signed_target_archive_sha256": "c1a44b737bf8579ae06101e951bed3eac7d85fa70d3976fb933222eba553b625",
+        "signed_target_manifest_sha256": "ba66b23ca71dd650c417be5b4a09f81cc150215559c3448d2c4193c4093eb4e7",
+        "files_verified": 3004
+      },
+      "retire": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          "Both accounts cold login with the expected attendance and reward flags"
+        ],
+        "native_error_codes": [],
+        "native_lookup_texts": {},
+        "natural_GUI": false,
+        "natural_battle": false,
+        "actual_runtime_only": true,
+        "signed_target_archive_sha256": "c1a44b737bf8579ae06101e951bed3eac7d85fa70d3976fb933222eba553b625",
+        "signed_target_manifest_sha256": "ba66b23ca71dd650c417be5b4a09f81cc150215559c3448d2c4193c4093eb4e7",
+        "files_verified": 3004
+      },
+      "expected_game_authentications": 4,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "cold": {
+      "ok": true,
+      "read_only": true,
+      "retired": true,
+      "roles": [
+        {
+          "attended": 1,
+          "claims": 1,
+          "reward_count": 200,
+          "ed": 4985950,
+          "coupon_consumed": false
+        },
+        {
+          "attended": 2,
+          "claims": 1,
+          "reward_count": 200,
+          "ed": 500,
+          "coupon_consumed": true
+        }
+      ]
+    },
+    "public_tls": true,
+    "candidate_pid": 4928,
+    "requirements_sha256": "e12e955d78ea1c9cd136b2e28c0abaccabf6b67337833e4565b210431af04f0d",
+    "started_utc": "2026-11-13T16:40:09.829118+00:00",
+    "completed_utc": "2026-11-13T16:41:37.116412+00:00",
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "local": {
+    "ok": true,
+    "release": "latency-attendance-fishing-20261113-v197",
+    "runtime": "G:\\els\\releases\\local\\unified-server-32d75b7a1620597c-78c9f3e1a575",
+    "signed_files": 3004,
+    "runtime_manifest_sha256": "db373962f53b49c8dd410885905d1cbdecec3c2cd3da2162e5ff3377fe227f93",
+    "shared_server_files": 1540,
+    "observed_seconds": 122.9269994,
+    "ordinary_player_entry_open": false,
+    "stable_launcher_promoted": false,
+    "completed_utc": "2026-11-13T16:47:41.750970+00:00"
+  },
+  "updater": {
+    "ok": true,
+    "stable_parent": "launcher-v196-5f95e15e28715628",
+    "tag": "launcher-v197-4bad2e2cdb5bb415",
+    "exe_sha256": "4bad2e2cdb5bb41503a39c014ae7bc3417142ed1131b1361e408532fc84e5fb0",
+    "signed_files": 3004,
+    "update_downloaded": 40,
+    "cold_install": true,
+    "bridge_retained": true
+  }
+}
