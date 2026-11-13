@@ -16,6 +16,7 @@ FROZEN_MODE_FIXTURES={
     'launchers/friends-v38/ModeDesign.cs':'d2fa60f75a8a4f3c45e759c233ac0f63fb570961203c15c3c69b1855540cefb6',
 }
 FROZEN_RANDOM_PASSWORD_PROGRAMS={
+    'references/lean-runtime-eve-shop-20261114-v198/source/Program.cs':'cb783af6fa0d82537290db8f7e358c6b315f28a794c0b9e00dff0b7e3e34093a',
     'references/consolidated-repairs-20261113-v188/launcher-source/Program.cs':'48e6b7c5063896f64b98423c16dbbaf9306337588c1ecbf07debfd7300d1b8fc',
     'references/three-session-startup-v127-20261109-v1/source/launcher/Program.cs':'d0783966ddc756436b669cb2e1e4046d19f301da1083a8ba2d9bd6149e8fff09',
     'refs/unified-ip-auth-runtime-20261104-v2/source/launcher/Program.cs':'8ba2b8c7be2f70092eadf0c0d22ab886316f964a75715a95d6ef061dfa051634',

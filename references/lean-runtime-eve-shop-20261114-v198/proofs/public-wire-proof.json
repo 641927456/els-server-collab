@@ -1,0 +1,76 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "TLS": {
+        "ok": true,
+        "phase": "test",
+        "public_network": false,
+        "actual_TLS": true,
+        "cases": [
+          "Eve ordinary first job and 108 second job: two 50 ED purchases, native career/skill notices, duplicate new operation rejected",
+          "Eve ordinary first job and 109 second job: two 50 ED purchases, native career/skill notices, duplicate new operation rejected"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false
+      },
+      "cold": {
+        "ok": true,
+        "read_only": true,
+        "retired": false,
+        "roles": [
+          {
+            "unit_type": 5,
+            "unit_class": 108,
+            "ED": 900,
+            "career_service_items_remaining": 0
+          },
+          {
+            "unit_type": 5,
+            "unit_class": 109,
+            "ED": 900,
+            "career_service_items_remaining": 0
+          }
+        ]
+      }
+    },
+    {
+      "TLS": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": false,
+        "actual_TLS": true,
+        "cases": [
+          "Both Eve careers and exact 900 ED cold login after completed public purchases"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false
+      },
+      "cold": {
+        "ok": true,
+        "read_only": true,
+        "retired": true,
+        "roles": [
+          {
+            "unit_type": 5,
+            "unit_class": 108,
+            "ED": 900,
+            "career_service_items_remaining": 0
+          },
+          {
+            "unit_type": 5,
+            "unit_class": 109,
+            "ED": 900,
+            "career_service_items_remaining": 0
+          }
+        ]
+      }
+    }
+  ],
+  "actual_GameServer_TLS": true,
+  "python": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+  "sqlite": "3.54.1",
+  "GIL_enabled": false,
+  "paired_signed_files": 2078,
+  "natural_GUI": false
+}
