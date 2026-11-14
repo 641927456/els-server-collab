@@ -1,0 +1,3 @@
+# latency-attendance-fishing-20261113-v197
+
+40 changed service leaves on installed V196, plus one unchanged leaf carried for compatible rollback. Reduces gameplay queue/read work and fixes attendance refusals and existing fishing rods. Six compatible rollback readers/writers are retained without restoring databases. Exact signed inputs and gated online/local validation are complete. Final player opening and PR update follow this commit. Source is archived under source/; the repository top-level development tree is preserved. Natural GUI and long multiplayer fishing remain unverified. Isolated timings do not establish a live performance gain. Test harnesses require the exact private versioned resources; no credentials or player databases are included.

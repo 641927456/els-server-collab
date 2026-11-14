@@ -1,0 +1,309 @@
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let key=sessionStorage.getItem('els-gm-key')||'',state=null,selected=null,itemsOffset=0,itemTotal=0,searchTimer,refreshing=false,tab='overview',confirmResolve=null,ratesDirty=false,pendingGive=null,itemSearchGeneration=0,ratesRevision=0;
+const tabs={overview:'运行概览',players:'在线玩家',accounts:'账号与角色',events:'活动管理',items:'物品发放',announcements:'游戏公告',rates:'掉落率与强化',history:'操作记录',maintenance:'维护与备份',cash:'账号现金',coupons:'兑换码管理',settings:'服务参数'};
+const phases={town_ready:'城镇中',dungeon_active:'副本中',dungeon_ready:'准备副本',character_ready:'角色选择',closing:'断开中'};
+const actions={start:'开服',stop:'关服',give:'物品发放','batch-give':'全服道具发放','formal-drops':'普通副本掉落倍率',announce:'游戏公告',rates:'概率调整',events:'活动配置',backup:'双库备份','set-level':'调整等级','cash-credit':'账号现金充值','coupon-issue':'发行兑换码','coupon-revoke':'撤销兑换码','selected2026':'签到与助力活动配置','server-settings':'服务参数配置','cancel-announcement':'取消公告'};
+function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
+function targetEndpointLabel(status){
+    const host=status?.game_host,port=status?.game_port;
+    if(typeof host!=='string'||!host||host.length>253||host.trim()!==host||!Number.isInteger(port)||port<1||port>65535)return '目标未确认';
+    if(!/^[A-Za-z0-9.:-]+$/.test(host))return '目标未确认';
+    let display=host;
+    if(host.includes(':')){
+        try{new URL('http://['+host+']:'+port+'/')}catch{return '目标未确认'}
+        display='['+host+']';
+    }else if(/^\d+\.\d+\.\d+\.\d+$/.test(host)){
+        if(host.split('.').some(part=>Number(part)>255))return '目标未确认';
+    }else if(!host.split('.').every(part=>/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?$/.test(part)))return '目标未确认';
+    return '游戏监听 '+display+':'+port;
+}
+function renderTarget(status=null){$('#targetEndpoint').textContent=targetEndpointLabel(status)}
+let errorTimer,toastTimer;
+function error(e){$('#error').textContent=e.message||String(e);$('#error').hidden=false;clearTimeout(errorTimer);errorTimer=setTimeout(()=>$('#error').hidden=true,10000)}
+function toast(t){$('#toast').textContent=t;$('#toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').hidden=true,6000)}
+async function api(path,value){const r=await fetch('/api/'+path,{method:value?'POST':'GET',headers:{'X-GM-Key':key,...(value?{'Content-Type':'application/json'}:{})},...(value?{body:JSON.stringify(value)}:{})});const b=await r.json();if(!r.ok){if(r.status===401){renderTarget();if(!$('#loginDialog').open)$('#loginDialog').showModal()}const problem=Error(b.error||'请求失败');problem.status=r.status;throw problem}return b.result}
+function empty(target,title='暂无在线玩家',subtitle='游戏服务启动并有玩家进入游戏后，将在这里显示。'){const box=el('div','empty-state');box.append(el('span','empty-symbol','♙'),el('span','',title),el('p','',subtitle));target.replaceChildren(box)}
+function showTab(name){tab=name;$$('.page').forEach(p=>p.classList.toggle('active',p.id===name));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));$('#crumb').textContent=tabs[name];if(name==='items'){loadFacets();loadItems()}if(name==='accounts')loadAccounts();if(name==='events'&&state&&!eventsDirty)renderEvents();if(name==='history')loadHistory();if(name==='maintenance')loadLogs();if(name==='settings')loadServerSettings();if(name==='events')loadSelectedActivities();window.scrollTo(0,0)}
+$$('[data-tab]').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));$$('[data-jump]').forEach(b=>b.onclick=()=>showTab(b.dataset.jump));
+function careerName(role){return role.class_name||('未知职业 #'+role.unit_class)}
+function playerTable(target,players){if(!players.length)return empty(target);const outer=el('div','table-scroll'),t=el('table'),head=el('tr');['角色','账号 / UID','职业 / 等级','位置 / 状态','操作'].forEach(v=>head.append(el('th','',v)));const thead=el('thead');thead.append(head);const body=el('tbody');players.forEach(p=>{const tr=el('tr'),name=el('td'),a=el('span','player-tag',p.unit_name||'角色');name.append(a,el('strong','',p.name));tr.append(name,el('td','',p.account+' / '+p.uid),el('td','',careerName(p)+' · Lv. '+p.level),el('td','',(phases[p.phase]||p.phase)+' · '+(p.map||'—')));const td=el('td'),btn=el('button','text-button','发物品 →');btn.onclick=()=>{showTab('items');setGiveMode(false);$('#recipient').value=p.session};td.append(btn);tr.append(td);body.append(tr)});t.append(thead,body);outer.append(t);target.replaceChildren(outer)}
+function updateRecipients(){const current=$('#recipient').value;$('#recipient').replaceChildren();if(!state.players.length){$('#recipient').append(new Option('暂无在线角色',''));return}$('#recipient').append(new Option('请选择在线角色',''));state.players.forEach(p=>$('#recipient').append(new Option(p.name+' · '+careerName(p)+' · Lv.'+p.level+' · '+p.account,p.session)));if(state.players.some(p=>p.session===current))$('#recipient').value=current}
+async function refresh(){if(refreshing)return;if(!key){renderTarget();return}refreshing=true;try{state=await api('status');renderTarget(state);const names={running:'运行中',starting:'启动中',stopping:'关闭中',stopped:'已停止'};$('#serverState').textContent=state.external_listener?'外部服务运行':names[state.phase]||state.phase;$('#serverMessage').textContent=state.message;$('#playerCount').textContent=state.players.length;$('#navCount').textContent=state.players.length;$('#gamePort').textContent=state.game_port;$('#currentChannel').textContent=state.channel_name||'频道名称未读取';$('#revision').textContent='v'+state.rates.revision;$('#statusBadge').textContent=state.ready?'运行中':names[state.phase]||'未就绪';$('#statusBadge').classList.toggle('online',state.ready);$('#serviceDetail').textContent=state.external_listener?'检测到非本管理器启动的服务，等待正式接入':state.ready?'游戏服务与管理通道已就绪':state.message;$('#lastUpdated').textContent='更新于 '+new Date().toLocaleTimeString('zh-CN',{hour12:false});$$('.start-action').forEach(b=>b.disabled=state.owned||state.external_listener||['starting','stopping'].includes(state.phase));$$('.stop-action').forEach(b=>b.disabled=!state.owned||state.phase==='stopping');$('#giveButton').disabled=!selected||!state.ready;playerTable($('#overviewPlayers'),state.players.slice(0,5));playerTable($('#playersTable'),state.players);updateRecipients();renderJobs();if(typeof renderBatchControls==='function')renderBatchControls();$('#saveRates').disabled=!state.ready;$('#saveEvents').disabled=!state.ready;if(!ratesDirty)renderRates();if(!eventsDirty&&!$('#eventCards').contains(document.activeElement))renderEvents();renderActivityCalendar();renderFormalDrops()}catch(e){renderTarget();$('#saveRates').disabled=true;$('#saveEvents').disabled=true;$('#formalDropsFields').disabled=true;error(e)}finally{refreshing=false}}
+$('#refresh').onclick=refresh;$$('.refresh-action').forEach(b=>b.onclick=refresh);
+$('#loginForm').onsubmit=async e=>{e.preventDefault();key=$('#accessKey').value.trim();try{const authenticated=await api('status');renderTarget(authenticated);sessionStorage.setItem('els-gm-key',key);$('#accessKey').value='';$('#loginError').textContent='';$('#loginDialog').close();await refresh()}catch(e){renderTarget();$('#loginError').textContent=e.message}};
+$('#loginDialog').addEventListener('cancel',e=>e.preventDefault());$('#logout').onclick=()=>{sessionStorage.removeItem('els-gm-key');key='';renderTarget();location.reload()};
+function icon(row){const wrap=el('span','item-image');if(row.icon){const im=el('img');im.src='/icons/'+encodeURIComponent(row.icon);im.alt=row.icon_original===false?'原图缺失，显示分类占位图':row.name;im.loading='lazy';wrap.append(im);if(row.icon_original===false){wrap.classList.add('fallback-icon');wrap.title='当前客户端缺少此原始贴图，显示分类占位图'}}else wrap.textContent='暂无图标';return wrap}
+function choose(row){selected=row;$$('.item-card').forEach(c=>c.classList.toggle('selected',Number(c.dataset.id)===row.id));const box=$('#selectedItem');box.className='selected-item';const text=el('div');text.append(el('strong','',row.name),el('small','',(row.icon_original===false?'原图缺失 · ':'')+row.category_name+' · #'+row.id+' · 最大堆叠 '+row.stack+(row.level?' · Lv.'+row.level:'')));box.replaceChildren(icon(row),text);$('#giveButton').disabled=!state?.ready;pendingGive=null;$('#deliveryReceipt').hidden=true;$('#deliveryReceipt').textContent='';updateFavorite();renderBatchControls()}
+let draggedCatalogItem = null;
+const catalogDragType = 'application/x-els-gm-item';
+function startCatalogDrag(event, item) {
+    draggedCatalogItem = item;
+    event.dataTransfer.setData(catalogDragType, String(item.id));
+    event.dataTransfer.effectAllowed = 'copy';
+}
+function bindCatalogDrop(target, receive) {
+    target.addEventListener('dragover', event => {
+        if (!draggedCatalogItem || !event.dataTransfer.types.includes(catalogDragType)) return;
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
+        target.classList.add('drag-over');
+    });
+    target.addEventListener('dragleave', event => {
+        if (!target.contains(event.relatedTarget)) target.classList.remove('drag-over');
+    });
+    target.addEventListener('drop', event => {
+        target.classList.remove('drag-over');
+        const item = draggedCatalogItem;
+        if (!item || event.dataTransfer.getData(catalogDragType) !== String(item.id)) return;
+        event.preventDefault();
+        draggedCatalogItem = null;
+        receive(item);
+    });
+}
+bindCatalogDrop($('#selectedItem'), choose);
+async function loadItems(){const generation=++itemSearchGeneration;try{const q=new URLSearchParams({q:$('#search').value,group:$('#bagFilter').value,offset:itemsOffset,category:$('#categoryFilter').value,sort:$('#sortFilter').value,ids:$('#favoritesOnly').checked?(favorites.size?[...favorites].join(','):'0'):'',icons:$('#iconsOnly').checked?'1':'0'});const data=await api('items?'+q);if(generation!==itemSearchGeneration)return;itemTotal=data.total;$('#itemTotal').textContent='共 '+data.total.toLocaleString()+' 种可发放物品';const grid=$('#itemGrid');grid.replaceChildren();for(const row of data.rows){const b=el('button','item-card'+(selected?.id===row.id?' selected':''));b.dataset.id=row.id;b.title=row.name+' (#'+row.id+')';b.append(icon(row),el('strong','',row.name),el('small','',(row.icon_original===false?'原图缺失 · ':'')+row.category_name+' · #'+row.id));b.draggable=true;b.onclick=()=>catalogItemClick(row);b.ondragstart=e=>startCatalogDrag(e,row);b.ondragend=()=>{draggedCatalogItem=null};grid.append(b)}if(!data.rows.length)empty(grid,'没有匹配的物品','尝试其他名称或物品编号。');$('#itemPage').textContent=(Math.floor(itemsOffset/48)+1)+' / '+Math.max(1,Math.ceil(data.total/48));$('#prevItems').disabled=itemsOffset===0;$('#nextItems').disabled=itemsOffset+48>=data.total}catch(e){if(generation===itemSearchGeneration)error(e)}}
+$('#search').oninput=()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{itemsOffset=0;loadItems()},300)};['#bagFilter','#iconsOnly'].forEach(s=>$(s).onchange=()=>{itemsOffset=0;loadItems()});$('#prevItems').onclick=()=>{itemsOffset=Math.max(0,itemsOffset-48);loadItems()};$('#nextItems').onclick=()=>{itemsOffset+=48;loadItems()};
+function confirm(title,text,word='',reason=''){if(confirmResolve)return Promise.resolve(null);$('#confirmTitle').textContent=title;$('#confirmText').textContent=text;$('#confirmReason').value=reason;$('#confirmWord').value='';$('#confirmWordLabel').hidden=!word;$('#confirmWord').required=!!word;$('#confirmWordLabel').firstChild.textContent=word?'输入“'+word+'”确认':'';$('#confirmDialog').showModal();return new Promise(resolve=>{confirmResolve={resolve,word}})}
+function finishConfirm(result){$('#confirmDialog').close();confirmResolve?.resolve(result);confirmResolve=null}$('#cancelConfirm').onclick=()=>finishConfirm(null);$('#confirmDialog').addEventListener('cancel',e=>{e.preventDefault();finishConfirm(null)});$('#confirmForm').onsubmit=e=>{e.preventDefault();if(confirmResolve.word&&$('#confirmWord').value!==confirmResolve.word)return error(Error('确认文字不匹配'));finishConfirm({operation_id:crypto.randomUUID(),reason:$('#confirmReason').value,confirm:$('#confirmWord').value})};
+async function action(button,fn){button.disabled=true;try{await fn()}catch(e){error(e)}finally{button.disabled=false;refresh()}}
+$$('.start-action').forEach(b=>b.onclick=()=>action(b,async()=>{const v=await confirm('启动游戏服务','将使用配置中的朋友服账号库和游戏存档启动服务。','开服');if(v)toast((await api('start',v)).message)}));
+$$('.stop-action').forEach(b=>b.onclick=()=>action(b,async()=>{const v=await confirm('正常关闭游戏服务','在线玩家将断开连接。服务端完成事务、保存数据并关闭监听后才显示已停止。','关服');if(v)toast((await api('stop',v)).message)}));
+$$('.backup-action').forEach(b=>b.onclick=()=>action(b,async()=>{const v=await confirm('创建双库备份','将备份游戏库、账号库与配置，并检查备份完整性。');if(v){const r=await api('backup',v);toast(r.message+'：'+r.directory)}}));
+$('#giveForm').onsubmit=async e=>{e.preventDefault();if(!selected)return error(Error('请先选择物品'));const p=state.players.find(p=>p.session===$('#recipient').value);if(!p)return error(Error('请选择在线玩家'));await action($('#giveButton'),async()=>{const v=await confirm('确认物品发放','向 '+p.name+' 发放「'+selected.name+'」× '+$('#quantity').value+'。请核对角色和物品编号 #'+selected.id+'。','',$('#giveReason').value);if(!v)return;const value={...v,uid:p.uid,session:p.session,template:selected.id,quantity:Number($('#quantity').value)};const fingerprint=JSON.stringify({...value,operation_id:null});if(pendingGive?.fingerprint===fingerprint)value.operation_id=pendingGive.value.operation_id;else pendingGive={fingerprint,value};const r=await api('give',value);$('#deliveryReceipt').hidden=false;$('#deliveryReceipt').textContent=(r.replayed?'已存在发货回执，未重复发放。':'已落账并排队发送背包通知。')+' 操作编号：'+r.operation_id;pendingGive=null;toast('物品发放已保存')})};
+const DUBA_ANNOUNCEMENT='在所有杜巴们的共同努力下，水坝终于建成了！请通过‘建造吧！杜巴制造！’活动UI进行查看吧！';
+const invalidAnnouncementText=/[<>\u0000-\u001f\u007f]|#c/i;
+let guildPreviewTimer, guildPreviewRequest;
+let guildPreviewNames=[];
+let tickerAnimation;
+
+function announcementGuildIds() {
+    const ids=$('#announcementGuildIds').value.trim().split(/[\s,，、]+/);
+    const numbers=ids.map(Number);
+    if (ids.length>10||ids.some((id,i)=>!/^[1-9][0-9]*$/.test(id)||!Number.isSafeInteger(numbers[i]))
+        ||new Set(numbers).size!==numbers.length) throw Error('请输入按名次排列的 1–10 个不同公会编号');
+    return numbers;
+}
+
+function announcementRank(name, index) {
+    const line=document.createDocumentFragment();
+    const label=el('span','announcement-guild',name);
+    const rank=el('span','announcement-rank',`${index+1}位`);
+    line.append('* [',label,']公会在GUILD WAR排在[',rank,']。');
+    return line;
+}
+
+function renderAnnouncementPreview(display, text, guilds=[]) {
+    const horn=(display==='both'||display==='megaphone')&&!!text;
+    const systemChat=(display==='both'||display==='system')&&!!text;
+    const duba=display==='duba-dam-complete';
+    const bottom=systemChat||(['system-only','maintenance'].includes(display)&&!!text)||guilds.length>0;
+    $('#gameHorn').hidden=!horn;
+    $('#gameHornBody').textContent=horn?'：'+text:'';
+    const hasChat=horn||systemChat||duba||guilds.length>0;
+    $('#gameChatPanel').hidden=!hasChat;
+    $('#toggleAnnouncementChat').hidden=!hasChat;
+    const chat=$('#gameChat');
+    chat.replaceChildren();
+    if (systemChat) chat.append(el('p','','* '+text));
+    if (duba) chat.append(el('p','',DUBA_ANNOUNCEMENT));
+    for (const [index,name] of guilds.entries()) {
+        const line=el('p');
+        line.append(announcementRank(name,index));
+        chat.append(line);
+    }
+    tickerAnimation?.cancel();
+    $('#gameTicker').hidden=!bottom;
+    $('#replayAnnouncement').hidden=!bottom;
+    const ticker=$('#gameTickerBody');
+    ticker.replaceChildren();
+    if (guilds.length) ticker.append(announcementRank(guilds[0],0));
+    else if (bottom) ticker.textContent='* '+text;
+}
+
+function announcementPreviewStatus(message, failed=false) {
+    const label=$('#announcementPreviewStatus');
+    label.textContent=message;
+    label.dataset.error=String(failed);
+}
+
+function updateAnnouncementDisplay() {
+    const display=$('#announcementDisplay').value;
+    const guild=display==='guild-war-results';
+    const duba=display==='duba-dam-complete';
+    const scope=display==='both'||display==='system';
+    $('#announcementScopeField').hidden=!scope;
+    $('#announcementScope').disabled=!scope;
+    $('#announcementTextField').hidden=guild||duba;
+    $('#announcementText').disabled=guild||duba;
+    $('#announcementGuildField').hidden=!guild;
+    $('#announcementGuildIds').disabled=!guild;
+    $('#announcementGuildIds').required=guild;
+    const text=$('#announcementText').value;
+    clearTimeout(guildPreviewTimer);
+    guildPreviewRequest?.abort();
+    guildPreviewNames=[];
+    if (!guild&&!duba&&invalidAnnouncementText.test(text)) {
+        renderAnnouncementPreview(display,'');
+        announcementPreviewStatus('公告正文只接受纯文本，请移除控制字符和富文本标记。',true);
+        return;
+    }
+    renderAnnouncementPreview(display,text.trim()?text:'');
+    if (!guild) {
+        announcementPreviewStatus(duba?'客户端开启杜巴活动时显示此消息。':text.trim()?'':'输入正文后预览。');
+        return;
+    }
+    if (!$('#announcementGuildIds').value.trim()) {
+        announcementPreviewStatus('输入公会编号后预览实际公会名和名次。');
+        return;
+    }
+    let ids;
+    try { ids=announcementGuildIds(); }
+    catch (problem) { announcementPreviewStatus(problem.message,true); return; }
+    const request=new AbortController();
+    guildPreviewRequest=request;
+    announcementPreviewStatus('正在读取公会名称…');
+    guildPreviewTimer=setTimeout(async()=>{
+        try {
+            const response=await fetch('/api/announcement-preview',{
+                method:'POST', headers:{'X-GM-Key':key,'Content-Type':'application/json'},
+                body:JSON.stringify({guild_ids:ids}), signal:request.signal,
+            });
+            const body=await response.json();
+            if (!response.ok) throw Error(body.error||'无法读取公会名称');
+            if (request.signal.aborted) return;
+            guildPreviewNames=body.result.guilds;
+            renderAnnouncementPreview(display,text,guildPreviewNames);
+            announcementPreviewStatus('底边显示榜首，展开聊天栏可看完整名次。');
+        } catch (problem) {
+            if (!request.signal.aborted) announcementPreviewStatus(problem.message,true);
+        }
+    },180);
+}
+$('#announcementDisplay').onchange=updateAnnouncementDisplay;
+$('#announcementText').oninput=updateAnnouncementDisplay;
+$('#announcementGuildIds').oninput=updateAnnouncementDisplay;
+$('#toggleAnnouncementChat').onclick=event=>{
+    const button=event.currentTarget;
+    const collapsed=button.getAttribute('aria-expanded')==='true';
+    $('#gameChatPanel').dataset.collapsed=String(collapsed);
+    button.setAttribute('aria-expanded',String(!collapsed));
+    button.textContent=collapsed?'展开聊天':'收起聊天';
+};
+updateAnnouncementDisplay();
+$('#replayAnnouncement').onclick=()=>{
+    tickerAnimation?.cancel();
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const lane=$('#gameTickerWindow');
+    const line=$('#gameTickerBody');
+    const distance=lane.clientWidth+line.offsetWidth;
+    tickerAnimation=line.animate([
+        {transform:`translateX(${lane.clientWidth}px)`},
+        {transform:`translateX(${-line.offsetWidth}px)`},
+    ],{duration:Math.max(2300,distance/0.11),easing:'linear'});
+};
+function updateAnnouncementInterval() {
+    const repeat=Number($('#repeat').value)>1;
+    $('#interval').disabled=!repeat;
+    $('#announcementInterval').hidden=!repeat;
+}
+$('#repeat').oninput=updateAnnouncementInterval;
+updateAnnouncementInterval();
+$('#announceForm').onsubmit=event=>{
+    event.preventDefault();
+    const display=$('#announcementDisplay').value;
+    const options={display};
+    if (!$('#announcementScope').disabled) options.scope=$('#announcementScope').value;
+    if (!$('#announcementText').disabled) options.text=$('#announcementText').value;
+    const repeat=Number($('#repeat').value);
+    const interval=Number($('#interval').value);
+    action(event.submitter,async()=>{
+        if (!state?.ready) throw Error('游戏服务尚未就绪');
+        if (Object.hasOwn(options,'text')&&(!options.text.trim()||invalidAnnouncementText.test(options.text))) {
+            throw Error('公告正文只接受纯文本');
+        }
+        if (display==='guild-war-results') {
+            options.guild_ids=announcementGuildIds();
+        }
+        const mode=$('#announcementDisplay').selectedOptions[0].textContent;
+        const body=display==='duba-dam-complete'?DUBA_ANNOUNCEMENT
+            : display==='guild-war-results'?`排名顺序 · ${(guildPreviewNames.length?guildPreviewNames:options.guild_ids).join('、')}`
+                : options.text;
+        const timing=repeat>1?'\n共 '+repeat+' 次，每 '+interval+' 秒一次。':'';
+        const value=await confirm('发布游戏公告',mode+'\n'+body+timing,'',$('#announceReason').value);
+        if (!value) return;
+        const receipt=await api('announce',{...value,...options,repeat,interval});
+        toast('本轮已为 '+receipt.recipients+' 位角色排队'+(receipt.failed_recipients?'，'+receipt.failed_recipients+' 位排队失败':''));
+    });
+};
+function announcementTime(epoch) {
+    return new Date(epoch*1000).toLocaleString('zh-CN',{timeZone:'Asia/Hong_Kong',hour12:false})+'（UTC+8）';
+}
+function announcementCard(job, active) {
+    const node=el('div','job announcement-job');
+    node.append(el('strong','',job.sender||'系统公告'),el('p','notice-body',job.text));
+    if (active) {
+        node.append(el('small','','剩余 '+job.remaining+' 次 · 间隔 '+job.interval+' 秒'
+            +(job.next_at?' · 下次 '+announcementTime(job.next_at):'')));
+        const cancel=el('button','text-button','取消后续发送');
+        cancel.onclick=()=>action(cancel,async()=>{
+            const value=await confirm('取消重复公告',job.text);
+            if (value) await api('cancel-announcement',{...value,id:job.id});
+        });
+        node.append(cancel);
+    } else {
+        node.append(el('small','',job.state==='cancelled'?'已取消后续发送':'已执行完计划'));
+    }
+    if (job.last_at) node.append(el('small','','最近一轮 '+announcementTime(job.last_at)
+        +' · 排队 '+job.recipients+' 位'+(job.failed_recipients?' · 失败 '+job.failed_recipients+' 位':'')));
+    return node;
+}
+let announcementView='';
+function renderJobs() {
+    const plans=$('#announcementJobs'), history=$('#announcementHistory');
+    const active=state.announcements||[], recent=state.announcement_history||[];
+    const view=JSON.stringify([active,recent]);
+    if (view===announcementView) return;
+    announcementView=view;
+    plans.replaceChildren(...active.map(job=>announcementCard(job,true)));
+    history.replaceChildren(...recent.map(job=>announcementCard(job,false)));
+    if (!active.length) plans.append(el('p','scope','暂无重复计划'));
+    if (!recent.length) history.append(el('p','scope','暂无已结束的公告'));
+}
+let formalDropsDirty=false,formalDropsRevision=null;
+function renderFormalDrops(){
+    const config=state?.formal_drops;
+    $('#formalDropsFields').disabled=!config||!state.ready;
+    $('#formalDropsStatus').textContent=config?'':'当前运行版本未提供此配置，或管理通道尚未就绪。';
+    if(!config||formalDropsDirty)return;
+    formalDropsRevision=config.revision;
+    $('#formalDropsRevision').textContent='v'+config.revision;
+    $('#formalDropMultiplier').value=String(config.multiplier_bp/10000);
+}
+$('#formalDropMultiplier').oninput=()=>formalDropsDirty=true;
+$('#formalDropsForm').onsubmit=async e=>{
+    e.preventDefault();
+    await action(e.submitter,async()=>{
+        if(!state?.ready||!state.formal_drops)throw Error('请在游戏服务就绪后保存掉落倍率');
+        const expected_revision=formalDropsRevision;
+        const multiplier_bp=Math.round(Number($('#formalDropMultiplier').value)*10000);
+        const v=await confirm('保存普通副本掉落倍率',
+            '将适用来源的原概率调整为 '+multiplier_bp/10000+' 倍，后续新掉落判定生效。',
+            '', $('#formalDropsReason').value);
+        if(!v)return;
+        const result=await api('formal-drops',{operation_id:v.operation_id,reason:v.reason,expected_revision,multiplier_bp});
+        state.formal_drops=result;
+        formalDropsDirty=false;
+        renderFormalDrops();
+        toast('掉落倍率已保存');
+    });
+};
+function probabilityInput(kind,index,label,value,placeholder){const l=el('label','',label),input=el('input');input.type='number';input.min='0';input.max='100';input.step='.01';input.value=value===null?'':String(value/100);input.placeholder=placeholder;input.dataset.kind=kind;input.dataset.index=index;input.oninput=()=>ratesDirty=true;l.append(input,el('small','','% · 留空沿用默认'));return l}
+function renderRates(){if(!state)return;ratesRevision=state.rates.revision;$('#rateScope').textContent=state.scope;$('#experienceMultiplier').value=String(state.rates.experience_bp/10000);$('#dropInputs').replaceChildren(...Object.entries({ordinary:'普通怪物物品',boss:'BOSS 物品',chest:'宝箱物品',ed:'ED 掉落概率'}).map(([k,label])=>probabilityInput('drops',k,label,state.rates.drops[k],'默认规则')));$('#enhancementInputs').replaceChildren(...state.rates.enhancement.map((v,i)=>probabilityInput('enhancement',i,'+'+i+' → +'+(i+1),v,'默认 '+state.defaults[i]/100+'%')))}
+$('#resetRates').onclick=()=>{$$('#ratesForm input[data-kind]').forEach(i=>i.value='');$('#experienceMultiplier').value='1';ratesDirty=true;toast('已在表单中恢复默认，请保存后生效')};
+$('#ratesForm').onsubmit=async e=>{e.preventDefault();await action(e.submitter,async()=>{if(!state?.ready)throw Error('请在游戏服务就绪后保存概率配置');const expectedRevision=ratesRevision;const settings={drops:{},enhancement:[],experience_bp:Math.round(Number($('#experienceMultiplier').value)*10000)};$$('#ratesForm input[data-kind]').forEach(i=>{const n=i.value.trim()===''?null:Math.round(Number(i.value)*100);settings[i.dataset.kind][i.dataset.index]=n});const v=await confirm('保存概率配置','对后续强化与掉落判定生效，已发出的掉落不重新判定。','',$('#ratesReason').value);if(v){await api('rates',{...v,settings,expected_revision:expectedRevision});ratesDirty=false;toast('概率配置已保存')}})};
+function receiptSummary(r){const v=r.result;if(!v)return '等待确认执行结果';if(v.error)return v.error;if(r.action==='set-level')return '角色：'+v.name+' · Lv.'+v.before_level+' → Lv.'+v.level+' · 经验已同步 · 下次进入角色生效'+(v.backup?' · 备份：'+v.backup:'');if(r.action==='cash-credit')return '账号 #'+v.account_id+' · 增加 '+v.credited+' 现金 · 余额 '+v.after.balance;if(r.action==='server-settings')return v.message+' · 备份：'+v.backup;if(r.action==='selected2026')return '活动开关更新至 v'+v.revision;if(r.action==='give')return '角色：'+v.name+' · 物品 #'+v.template+' × '+v.quantity+' · 已保存并排队通知';if(r.action==='announce')return '已排队发送给 '+v.recipients+' 位角色 · 共 '+v.repeat+' 次';if(r.action==='events')return '活动配置更新至 v'+v.revision;if(r.action==='rates')return '概率配置更新至 v'+v.revision;if(r.action==='formal-drops')return '普通副本掉落倍率 '+v.multiplier_bp/10000+' 倍 · v'+v.revision;if(r.action==='batch-give')return (v.items?v.items.length+' 种道具':'物品 #'+v.template+' × '+v.quantity)+' · 接收 '+v.recipients+' · '+(v.delivery==='game-mail'?'邮件已保存':'背包已落账');if(r.action==='backup')return v.message+' · '+v.directory;return v.message||'操作已完成'}
+async function loadHistory(){try{const rows=await api('history'),box=$('#historyList');box.replaceChildren();if(!rows.length)return empty(box,'暂无操作记录','发货、公告、维护与概率调整均会记录在此。');for(const r of rows){const n=el('div','history-row'),h=el('div','history-top');h.append(el('strong','',actions[r.action]||r.action),el('span','',new Date(r.time*1000).toLocaleString('zh-CN',{hour12:false})));n.append(h,el('p','',(r.request.reason||'')+' · '+({done:'已执行',failed:'失败',pending:'结果待核实',unknown:'结果待核实'}[r.status]||r.status)),el('code','',r.id));if(r.result){n.append(el('p','',receiptSummary(r)));const details=el('details','receipt-details');details.append(el('summary','','查看原始回执'),el('pre','',JSON.stringify(r.result,null,2)));n.append(details)}box.append(n)}}catch(e){error(e)}}$('#refreshHistory').onclick=loadHistory;
+async function loadLogs(){try{$('#gameLogs').textContent=(await api('logs')).text}catch(e){error(e)}}$('#refreshLogs').onclick=loadLogs;
+if(location.hash.startsWith('#key=')){key=decodeURIComponent(location.hash.slice(5));history.replaceState(null,'',location.pathname);sessionStorage.setItem('els-gm-key',key)}
+if(!key)$('#loginDialog').showModal();else refresh();setInterval(()=>{if(!document.hidden&&!$('#loginDialog').open)refresh()},5000);

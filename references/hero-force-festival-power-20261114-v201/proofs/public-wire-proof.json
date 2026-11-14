@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "actual_TLS": true,
+  "public_network": false,
+  "native_session": false,
+  "source_bindings": {
+    "els_server/application.py": "fd3aa3e4b8455dcd4e56904e35c4e78d0da6b4578c2022560d478cc1c5d726d8",
+    "els_server/domain/apple_consumables.py": "7d8ac1938904c17a942f7ed41058af0e88161584e8d5548d4ce8c8f7ef2e3f2b",
+    "els_server/domain/client_power_inputs.py": "325a9a07eb39abb96df32b56d90dbf2944a21d24296f1eb39e40c30e34081207",
+    "els_server/domain/client_reward_power.py": "1eb5dd1835df7693147ea51b044007e776c877930e1886201bd69f5eae56301b",
+    "els_server/domain/elixir_economy.py": "765e439d1a0a4b3cd673c11c324a2aefae358adaf89f1959366794d0b2504c70",
+    "els_server/domain/festival_return_sync.py": "e86d376062e5b007cdc49cfb4217aa1c130fb040f20392b8de1997c3c03c47ed",
+    "els_server/domain/fishing_village1500.py": "dcff50ce2cb801055a12f92ca0a011024e5cfab45a82eeabc46c5d851d6f445e",
+    "els_server/domain/local_session.py": "051b420e76f4385a1b8e5e7d22e329bde3daddbf55f24a11713a2f4e5d9a38b3",
+    "els_server/domain/luciel_native_status.py": "3feafe5d4b0382afe415b9074634cb6b643992610715c206a24395341c231439",
+    "els_server/domain/reward_attributes.py": "444ace908af32b4bf6d16bd14d31f6250fb8ef656926af9f4da61ba2a8589ec8",
+    "els_server/domain/town_travel_flow.py": "34910787705c68ac423c3c4a2ea901d3dbf248f80d861c8a4245e4d6676f5e50",
+    "els_server/storage/elixir_economy.py": "c829e9857f600974b396828a463a636d4c01ad4e20dcc3243d305376bf9487fe",
+    "els_server/storage/festival_origins.py": "48e0de7bb6127c428cc82ee8bdcb4cee6491762f444c800550419a8acb5730f2",
+    "els_server/storage/greed_power.py": "f1934b207dec666b1e8488b3d23f4f0737d250df7a8aa47e69d1ee83ea26452f",
+    "els_server/storage/legacy_pve_exp.py": "cbb309409064b91d99c5c747d75b73406610059629d0d92e8520e9230d34129c",
+    "els_server/storage/position_writer.py": "bb9dcc41aa46851ec56f6fc7d0dcd62c5842121182065413a3862c45232d29e0",
+    "els_server/storage/town_travel.py": "70cbe69dfa258a716273064cbd81653608419dba277c130c6c7afe29759ce0f9"
+  },
+  "evidence": {
+    "three_feature_two_phase_TLS": {
+      "path": "G:\\els\\analysis\\publisher-v200-20261114-v2\\checks\\flow\\result.json",
+      "sha256": "09e654085853caba8cd0c13bd9b966d14557d07e076cb983e1d8dde27141bd05"
+    },
+    "final_three_read_only_cold": {
+      "path": "G:\\els\\analysis\\publisher-v201-20261114-v1\\checks\\flow\\final-three-cold.json",
+      "sha256": "a6c69f075972b88508f9cd89f7b2b59723d93c1e210237edca28b54daba70bb9"
+    },
+    "final_power_two_phase_TLS": {
+      "path": "G:\\els\\analysis\\publisher-v201-20261114-v1\\checks\\power-wire-v2\\result.json",
+      "sha256": "44245ba1eb332e2b624135c92f6c950378e762cabfdfd1b5816a24ea4e53ae6a"
+    },
+    "v200_inventory_read_equivalence": {
+      "path": "G:\\els\\analysis\\publisher-latency-20261114-v200\\source-acceptance.json",
+      "sha256": "54feb086eb023c94557734315867d95990310d9174d4ed6273221ac5f31daffb"
+    },
+    "final_CP_business": {
+      "path": "G:\\els\\analysis\\native-power-business-20261113-v1\\client-report-v3\\checks\\business-verification.json",
+      "sha256": "17e7ac4f0b01eee8c630bfc3ad8cb43d9517e1fe000ba676d1be6db91210f459"
+    }
+  },
+  "one_four_account_two_phase_run": false,
+  "fixture_failure_and_resolution": "The first final-runtime test phase completed all four cases. Its cold CP assertion exposed a fixture ERP threshold changed from 200 to 201 during version adaptation. Preserve that failed attempt; run the corrected CP case alone through both phases. Reuse the unchanged Hero/Force/festival two-phase TLS success, add final-runtime read-only cold evidence, and require all four cases again in the actual public delivery transaction.",
+  "owned_cleanup": {
+    "path": "G:\\els\\analysis\\publisher-v201-20261114-v1\\checks\\flow\\cleanup.json",
+    "sha256": "c40b3e07d4b320b38a85d9f23dd8e8858918f90f0fcfe1fd40ddec829381208f"
+  }
+}

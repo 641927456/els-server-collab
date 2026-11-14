@@ -1,0 +1,143 @@
+{
+  "release": "dungeon-stability-20261113-v194",
+  "version": 194,
+  "parent_commit": "5e50205d55c72835c4e1e7d307095092e38a9e80",
+  "integration_base": "f9c7bf58123c47d4ab490d73863d544304560a58",
+  "inherited_runtime_source_commit": "5e50205d55c72835c4e1e7d307095092e38a9e80",
+  "inherited_launcher_logic_commit": "043caac543434c490587a7e051778512694fbdd8",
+  "production_files": [
+    {
+      "path": "els_server/__main__.py",
+      "size": 8765,
+      "sha256": "e02b20b8e7e22d23cfb4388ee3d3d2e8e0df1a895ee7d85fa983963a739fc9b8",
+      "parent_sha256": "eee168089514688aa3851947755a84e51fe75bb0fa958261b7d02a8ad177ff9d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/fashion_state.py",
+      "size": 6957,
+      "sha256": "8dc9658f6307ae09f0eb0637569c066f04f2d4736fece54148c2e10cd15355b3",
+      "parent_sha256": "4cf71d68eb28a2c2997d1b5cdf1ae6f8d3102713f7a6998a3f0c260768a76787",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/fishing_equipment.py",
+      "size": 7076,
+      "sha256": "b3755da2d3b112aa85b0f00f702443533947265b551f903fc14b6fbf51da2ea2",
+      "parent_sha256": "271759527da2013c0f47d11370f844f12f53c3c0fadfdd45374af5dfb551d15b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "size": 53928,
+      "sha256": "4b6bcd5f8ffb55c1efa24b3e8754748895881c5ad8b820c9e5ff753819663f36",
+      "parent_sha256": "ea5460cda69a597e34237332ee773a281a6dd420ca0a1c8cf596bdfb51330c57",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/legacy_pve_exp.py",
+      "size": 9700,
+      "sha256": "7baa9e96ecb294c404c9855e7c884e605a7dcad9cf24f36c9553a1d679c940fe",
+      "parent_sha256": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/raid_economy_flow.py",
+      "size": 15051,
+      "sha256": "2a97dc2ef96be991fce5a2a94f312e29b11999ef5831646f13c862a2b5bde46b",
+      "parent_sha256": "8a3af464a78855d5701f2c788f6982422ff990919b9736e5fe1af0b2a622c65c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "size": 1036229,
+      "sha256": "72660216052820b7734f8511f5a1ce147194da55dfd592d4a8b66f9606b02bf9",
+      "parent_sha256": "dbb0022da027254e5293b7408a6c2cca7b1af2b992cfaf3354f5e0f510c36089",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/apple_consumables.py",
+      "size": 11132,
+      "sha256": "534bd47facedb8b13bd398afcb68d23b13cbf4ed86943ef755b56e04ac363e14",
+      "parent_sha256": "9be7636a09983f70ed742071f07825b5ff7863655180f01ff3ea2b285d9b9b60",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "size": 27548,
+      "sha256": "f3ffb345bc710fbe333d56ebafc2a8ef8c9c402d7dbbac0b8853fe42afc8a101",
+      "parent_sha256": "53d607feda3998166bead9ffdcd9227d9a149aa770e53bae2841867658968e33",
+      "scope": "server"
+    },
+    {
+      "path": "tools/dungeon_main_buff.c",
+      "size": 11704,
+      "sha256": "5b9f54268e13b2a417a535c8ad357270905b9b7b57ca898a4aca0cd0ed09b70e",
+      "parent_sha256": "44d8a61ce51a3fb92fd983f512548aa43de1ccdc5cf055174edd19242b8f9a0a",
+      "scope": "support"
+    },
+    {
+      "path": "tools/dungeon_main_buff.py",
+      "size": 5536,
+      "sha256": "006a8dfafda94640e120960f9f8947ab35761ca3bf1e9ef8a7c1d9dda5cac3a8",
+      "parent_sha256": "c2f415b3c1aeed3d8d12604684bf29ef2de841b85e6b732329729f099eda889a",
+      "scope": "support"
+    },
+    {
+      "path": "tools/dungeon_main_buff.js",
+      "size": 5710,
+      "sha256": "34604067866754d9734a7da974695aab1a77c158521b9378ddbb6b0c114f5041",
+      "parent_sha256": "db96f7bda8a44b6b364a04d8a4a4617492fd18a31180c998e5fa613ea2cf7e41",
+      "scope": "support"
+    },
+    {
+      "path": "tools/dungeon_passive_buff_scope.json",
+      "size": 30128,
+      "sha256": "a5bae57baf3395d68492d48e158c62942f32538f2d183d2bda53aaf1a816655b",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "size": 25456,
+      "sha256": "00f436a5bc0bf9c41181bb9d2aac9b37e57d33caaf6244b87822c020011b742c",
+      "parent_sha256": "2c42be08769cd100c87a5e2967e073f8950baf5e1b024c5d5e63250d124d42f0",
+      "scope": "support"
+    }
+  ],
+  "generated_launcher_files": [
+    {
+      "path": "AutoUpdate.cs",
+      "size": 14740,
+      "sha256": "130b3563862375f651956160c0e799d1dcc7a3a6c3389bafee3490dce05fb37b",
+      "parent_sha256": "0622d52d960c57cab8c498e57005fef45c46ebb692268a6f27a9f85f93ec5676",
+      "generated_only": true
+    },
+    {
+      "path": "UIScrollRuntimeCohort.cs",
+      "size": 2437,
+      "sha256": "f1d579d983d298e2c13b17dd54de7e3d3e6545849c5374402b1b7947e8bff4d6",
+      "parent_sha256": "dfb50cae0ced4de16a04963ac7bbc9d6c9359f245a1957dafdf98e6aaeb9660b",
+      "generated_only": true
+    },
+    {
+      "path": "resources/ui-scroll-signedFriends.signed.json",
+      "size": 788273,
+      "sha256": "9d5739c6ed902d9b19c563d8adf5c2e3455e89ec81993c402b2c9178a9445eae",
+      "parent_sha256": "84b22398acd9491ed329762056ed7086201b00f3130b0f481696ce3d4300f3ae",
+      "generated_only": true
+    }
+  ],
+  "launcher_logic_changes": 0,
+  "runtime_archive_sha256": "8c43e23073b8417881d7818d4448912dfb276156b54ca3768241ce68854b6065",
+  "original_EXE_KOM_changes": 0,
+  "source_inputs_sha256": "fc2c2f62a788eb49f98e7cd1a8e4a03ad0ca468b8645f2c551b2f594985b1a75",
+  "source_candidates": {
+    "server_log": "d4e83de55b50a9bb7b913941c8437b77deddc54c5caa4dfd16e628eba2ba464b",
+    "android_factory": "50020d034a8916e7daac261d587bb426e054725b8f8e381131dffb1fd01d9e50",
+    "quick_slots": "37060c766ddae72a6ed5bbefd972ba5348ea7f6f3fbe6030ec1997bb8e2b993a",
+    "monaterra": "010d87a2bebf03a7f029f17b2bbd66e7b79e75c437e739f7c18c32aeb60f9fb4",
+    "passive_buffs": "b11462c768ce55abe2186c3133dd0af140e2c4b107c3470afe4a2d23cb71d104"
+  },
+  "private_data_included": false
+}

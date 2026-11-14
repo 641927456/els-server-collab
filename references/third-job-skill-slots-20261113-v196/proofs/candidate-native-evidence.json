@@ -1,0 +1,369 @@
+{
+  "ok": true,
+  "server": "V195 with the four candidate files",
+  "candidate_files": [
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "parent_sha256": "45046cf21f939f98ef0a09b6c90424328a987044d1ec318eb5c72f51159918e9",
+      "candidate_sha256": "2f1b1dba3119bb2512f38990af71cd20e1a5be81eaeeeeebf5cc01070dbad52e"
+    },
+    {
+      "path": "els_server/protocol/career_messages.py",
+      "parent_sha256": "05f22906d0d00e17a6a6ec2f3c72bfe77deb4029b6168f0f225273b742bc249a",
+      "candidate_sha256": "90680aedbfe8a48800b7c825920946278c1c7121c1d6abf9f572efa87e450918"
+    },
+    {
+      "path": "els_server/storage/career_shop.py",
+      "parent_sha256": "999bd5169758cb34b57a2908c7ad059477f7d264a04ff7f1061f74512201949b",
+      "candidate_sha256": "565e44a34d2451d28e96f3286879e4d1004e2c892e8cb4fad9947f1736e38c94"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "parent_sha256": "0f734d0a8b2f7d3a4489c336c3701aeda190ff5b501092b3de221ed2dde1482f",
+      "candidate_sha256": "43c68887159999e664fa1654adb57e69c7e7dd3efc13ed810e42d697ae91b805"
+    }
+  ],
+  "client_support": "V195 signed",
+  "client_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "native_item_callback": true,
+  "natural_input": false,
+  "combat_cast_tested": false,
+  "before": {
+    "event": "third_job_before",
+    "phase": 0,
+    "cls": 66,
+    "cachedClass": 66,
+    "sameUnit": true,
+    "slots": [
+      {
+        "skill": 21100,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      },
+      {
+        "skill": 21101,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      },
+      {
+        "skill": 21102,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      },
+      {
+        "skill": 21246,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      },
+      {
+        "skill": 21026,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      }
+    ],
+    "ranks": {
+      "21026": 1,
+      "21100": 1,
+      "21101": 1,
+      "21113": 0,
+      "21114": 0,
+      "21246": 1,
+      "21251": 0
+    }
+  },
+  "after": {
+    "event": "third_job_after",
+    "phase": 1,
+    "cls": 79,
+    "cachedClass": 79,
+    "sameUnit": true,
+    "slots": [
+      {
+        "skill": 21113,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      },
+      {
+        "skill": 21114,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      },
+      {
+        "skill": 21115,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      },
+      {
+        "skill": 21251,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      },
+      {
+        "skill": 21026,
+        "level": 1,
+        "resolved": 0,
+        "type": 0,
+        "ready": 1
+      }
+    ],
+    "ranks": {
+      "21026": 1,
+      "21100": 1,
+      "21101": 1,
+      "21113": 1,
+      "21114": 1,
+      "21246": 1,
+      "21251": 1
+    }
+  },
+  "client_events": [
+    {
+      "event": "third_job_equip_ack",
+      "phase": 1,
+      "cls": 79,
+      "cachedClass": 79,
+      "sameUnit": true,
+      "slots": [
+        {
+          "skill": 21113,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21101,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21102,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21246,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21026,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        }
+      ],
+      "ranks": {}
+    },
+    {
+      "event": "third_job_equip_ack",
+      "phase": 1,
+      "cls": 79,
+      "cachedClass": 79,
+      "sameUnit": true,
+      "slots": [
+        {
+          "skill": 21113,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21114,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21102,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21246,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21026,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        }
+      ],
+      "ranks": {}
+    },
+    {
+      "event": "third_job_equip_ack",
+      "phase": 1,
+      "cls": 79,
+      "cachedClass": 79,
+      "sameUnit": true,
+      "slots": [
+        {
+          "skill": 21113,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21114,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21115,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21246,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21026,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        }
+      ],
+      "ranks": {}
+    },
+    {
+      "event": "third_job_equip_ack",
+      "phase": 1,
+      "cls": 79,
+      "cachedClass": 79,
+      "sameUnit": true,
+      "slots": [
+        {
+          "skill": 21113,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21114,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21115,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21251,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        },
+        {
+          "skill": 21026,
+          "level": 1,
+          "resolved": 0,
+          "type": 0,
+          "ready": 1
+        }
+      ],
+      "ranks": {}
+    }
+  ],
+  "request_kind": 537,
+  "reply_kinds": [
+    1209,
+    3157,
+    1206,
+    538,
+    671,
+    305,
+    1371,
+    291,
+    291,
+    291,
+    291,
+    43,
+    3369,
+    2981,
+    3162,
+    687
+  ],
+  "manual_equip_requests": 0,
+  "sqlite_slots": [
+    21113,
+    21114,
+    21115,
+    21251,
+    21026,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "sqlite_revision": 2,
+  "isolation": {
+    "client_closed": true,
+    "desktop_unchanged": true,
+    "client_unchanged": true
+  }
+}

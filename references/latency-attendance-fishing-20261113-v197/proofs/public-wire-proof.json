@@ -1,0 +1,95 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "TLS": {
+        "ok": true,
+        "phase": "test",
+        "public_network": false,
+        "actual_TLS": true,
+        "cases": [
+          "50 ED activation, attendance and one reward; makeup consumes its coupon; specific refusal codes preserve final counts",
+          "Held theme rod real timed settlement, repair, fish exchange and account-bound teaching followup; full life bag and exhausted VIP reject"
+        ],
+        "native_error_codes": [
+          3025,
+          1919,
+          3026,
+          3022,
+          3029,
+          717,
+          3022,
+          3027
+        ],
+        "native_lookup_texts": {
+          "717": "\u7b7e\u5230\u5931\u8d25\u3002",
+          "1919": "\u9009\u62e9\u4e86\u65e0\u6cd5\u9886\u53d6\u7684\u7d2f\u8ba1\u7b7e\u5230\u5956\u52b1\u3002",
+          "3022": "\u5df2\u9886\u53d6\u5956\u52b1\u3002",
+          "3025": "\u672a\u6fc0\u6d3b\u7b7e\u5230\u3002",
+          "3026": "\u4eca\u5929\u5df2\u5b8c\u6210\u7b7e\u5230\u3002",
+          "3027": "\u8865\u7b7e\u9053\u5177\u4f7f\u7528\u5931\u8d25\u3002",
+          "3029": "\u65e0\u6cd5\u8865\u7b7e\u3002"
+        },
+        "natural_GUI": false,
+        "natural_battle": false
+      },
+      "cold": {
+        "ok": true,
+        "read_only": true,
+        "retired": false,
+        "roles": [
+          {
+            "attended": 1,
+            "claims": 1,
+            "reward_count": 200,
+            "ed": 4985950,
+            "coupon_consumed": false
+          },
+          {
+            "attended": 2,
+            "claims": 1,
+            "reward_count": 200,
+            "ed": 500,
+            "coupon_consumed": true
+          }
+        ]
+      }
+    },
+    {
+      "TLS": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": false,
+        "actual_TLS": true,
+        "cases": [
+          "Both accounts cold login with the expected attendance and reward flags"
+        ],
+        "native_error_codes": [],
+        "native_lookup_texts": {},
+        "natural_GUI": false,
+        "natural_battle": false
+      },
+      "cold": {
+        "ok": true,
+        "read_only": true,
+        "retired": true,
+        "roles": [
+          {
+            "attended": 1,
+            "claims": 1,
+            "reward_count": 200,
+            "ed": 4985950,
+            "coupon_consumed": false
+          },
+          {
+            "attended": 2,
+            "claims": 1,
+            "reward_count": 200,
+            "ed": 500,
+            "coupon_consumed": true
+          }
+        ]
+      }
+    }
+  ]
+}

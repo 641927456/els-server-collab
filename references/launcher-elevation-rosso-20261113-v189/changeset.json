@@ -1,0 +1,74 @@
+{
+  "release": "launcher-elevation-rosso-20261113-v189",
+  "base": "f9c7bf58123c47d4ab490d73863d544304560a58",
+  "files": [
+    {
+      "path": "els_server/domain/formal_raid_economy.py",
+      "sha256": "8c97fe5a265c0ccf5a7c6f113a6b45dd7e832af3f47843eb61f8fd3591d52d56",
+      "parent_sha256": "51f6ad0526e1ccffd77b8753735155fde748afe6f51cfdc745ea54060c51605f",
+      "size": 8070,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/raid_economy_state.py",
+      "sha256": "2ed69c6484156277a0ebe8b55848eb9064d4596aad32ec7064b7b79ca80747f7",
+      "parent_sha256": "5dc5e2abc9ffc00159cfa9d9c5699d7ab654a9919ad9b857dfbd8e26d6a6b77a",
+      "size": 11945,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/formal_raid_economy.json",
+      "sha256": "e4c119372f30c586da23464fb65fb9270338df6a3b0c1fe42e353734db8f9617",
+      "parent_sha256": "bbd2dcd481c11d646d2d9d4f228494a93a4394934866fb66142bd2495834d97e",
+      "size": 37440,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/formal_raid_economy.manifest.json",
+      "sha256": "8bebd5a93a4940ee6f821e4d486b58c2bd7c37257178bf2067acafe3ed9d0260",
+      "parent_sha256": "2af3bb4e3e938078400cc83714dfb6a86ed9e735a0334cce3f99fd8b4dcda695",
+      "size": 206,
+      "scope": "server"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "sha256": "5049c65824f4ef10dc35b149bedcba018bda972316129f9493ac53ebcfc6b2f1",
+      "parent_sha256": "ac7d195efee08b20da81c809f7758b6f74987fbd76198d7d030cdf8f2b3ffd05",
+      "size": 25382,
+      "scope": "support"
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "sha256": "80d7ab0024f3122dbb93b8e58f6fe73acf5a4a7dd130d12b3d01d6dd82855fc1",
+      "parent_sha256": "e89c9d1ab6267cc87cb40f6d8f21034bf976c0cff0e7901df77516cfa5e9e02a",
+      "size": 34813,
+      "scope": "support"
+    },
+    {
+      "path": "LaunchElevation.cs",
+      "sha256": "e4bacfd07636aa1609ee3d5a2fb6b9195dd8529c434c7542d68c9308f80bb07a",
+      "parent_sha256": null,
+      "size": 1527
+    },
+    {
+      "path": "Program.cs",
+      "sha256": "c4251362a3ca8fccdf0ba560ea70c546e6fd7954a15a0980fe581d1c2110d596",
+      "parent_sha256": "48e6b7c5063896f64b98423c16dbbaf9306337588c1ecbf07debfd7300d1b8fc",
+      "size": 71147,
+      "encoding": "standard unified diff",
+      "parent_repository_path": "references/consolidated-repairs-20261113-v188/launcher-source/Program.cs",
+      "patch_sha256": "b061b1408f68d168b8fb21d6cbc8309893b6573a00bd6b74054ce82d1be69661"
+    }
+  ],
+  "source_inputs_sha256": "8796e7a6bbcfd69cb7561b5f40011d04dd1d9b34c21a4c6664780e9408fe85c4",
+  "source_manifest_sha256": {
+    "rosso": "eb3874756301512dc86a5ac850e3023be823b5ff74665374ddd137f68ae88c83",
+    "uac_v2": "3519243076c18ef5c1d4b51207ca03821812f63df52f164e029cc70f4fb9f74a"
+  },
+  "runtime_delta": 6,
+  "online_business_delta": 4,
+  "launcher_source_delta": 2,
+  "removed_files": [],
+  "original_EXE_KOM_changes": 0,
+  "private_data_included": false
+}

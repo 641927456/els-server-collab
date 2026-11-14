@@ -1,0 +1,96 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "TLS": {
+        "ok": true,
+        "phase": "test",
+        "public_network": false,
+        "actual_TLS": true,
+        "cases": [
+          "35-level Noah ordinary second-class change succeeds for 50 ED; under-level transcendence retains legal refusal 151",
+          "Finite52700 opens for 500 EP; two real 219 career changes replace 955 with only current contribution and remove unsupported synergy",
+          "Fresh owned-account Lithia admits tutorial/shared lifecycle, consumes encrypted battle report and delivers the next progress request without disconnect"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false
+      },
+      "cold": {
+        "ok": true,
+        "read_only": true,
+        "retired": false,
+        "roles": [
+          {
+            "scenario": "Noah",
+            "unit_type": 14,
+            "unit_class": 140,
+            "ED": 950,
+            "current_career_contribution_only": false
+          },
+          {
+            "scenario": "collection",
+            "unit_type": 1,
+            "unit_class": 152,
+            "ED": 1000,
+            "current_career_contribution_only": true
+          },
+          {
+            "scenario": "tutorial",
+            "unit_type": 15,
+            "level": 1,
+            "economy_unchanged": true
+          }
+        ]
+      }
+    },
+    {
+      "TLS": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": false,
+        "actual_TLS": true,
+        "cases": [
+          "Both final careers, exact ED/EP and current collection state restored on cold login"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false
+      },
+      "cold": {
+        "ok": true,
+        "read_only": true,
+        "retired": true,
+        "roles": [
+          {
+            "scenario": "Noah",
+            "unit_type": 14,
+            "unit_class": 140,
+            "ED": 950,
+            "current_career_contribution_only": false
+          },
+          {
+            "scenario": "collection",
+            "unit_type": 1,
+            "unit_class": 152,
+            "ED": 1000,
+            "current_career_contribution_only": true
+          },
+          {
+            "scenario": "tutorial",
+            "unit_type": 15,
+            "level": 1,
+            "economy_unchanged": true
+          }
+        ]
+      }
+    }
+  ],
+  "actual_GameServer_TLS": true,
+  "actual_diagnostic_log": true,
+  "legal_refusal_source_and_product": true,
+  "python": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+  "sqlite": "3.54.1",
+  "GIL_enabled": false,
+  "paired_signed_files": 2079,
+  "natural_GUI": false,
+  "historical_screenshot_exact_SKU_unknown": true
+}
