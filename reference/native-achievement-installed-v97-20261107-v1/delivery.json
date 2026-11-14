@@ -1,0 +1,70 @@
+{
+  "status": "ONLINE_LOCAL_LAUNCHER_INSTALLED",
+  "source_PR": 934,
+  "installed_source_head": "087e616b625f601a1bd225a2d22738f969d010f9",
+  "Git_submitted": true,
+  "Git_merge": false,
+  "online_release": "native-achievement-guild-expedition-history-20261107-v1",
+  "local_release": "unified-server-d6d532a5f9328581-168a7425da30",
+  "launcher_release": "launcher-achievement-guild-expedition-history-20261107-v97",
+  "launcher_version": 97,
+  "launcher_exe_sha256": "57c00990aa07392575f83d1e70546cb7958e7a988c4f931f7822769750676060",
+  "runtime_archive_sha256": "f50a2b35a454e215509f3457ffa01a602730b6e3e59d9988497bdcf8f4522d5e",
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "64806f2bcf15eed7b977ec51a1edba16cb543c6d06b6215b1fbfcc2dc053b3df",
+      "sha256": "14bd60be1b00c59ec68046e07e2317f8d562093355c5d2b68f59b9ca68c67f63"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "0aac34c456043efff12c6de4a4e7320b802a2e3b9b381cfb6e3b642bdecf4839",
+      "sha256": "e61dff9b9025020ae62a1fad45830ebee7db53f2d37e9e21367996ca859d96b7"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "9616398af88c44a31ebaf5d3a7c407c5385ce773002c521abc219814558aa4fb",
+      "sha256": "a61fe8a6580b95bb8c21e42725e2259dd86ee495d421703ecae2e663869c2405"
+    }
+  ],
+  "server_files": 1432,
+  "signed_components": 2873,
+  "exact_same_server_and_SQLite_DLL": true,
+  "panel_IP_hidden": true,
+  "local_IP": "127.0.0.1",
+  "connected_source_types": 36,
+  "connected_definitions": 224,
+  "remaining_other_source_types": 24,
+  "unresolved_original_reward_groups": 53,
+  "original_reward_substitution": false,
+  "new_schema_definitions": 0,
+  "online_observation_seconds": 122.24779810011387,
+  "local_observation_seconds": 131.8995022,
+  "launcher_observation_seconds": 122.01119446754456,
+  "ordinary_entry_open": true,
+  "owned_QA_authentication_cleaned": true,
+  "registration_slots_released": true,
+  "original_local_player_rows_retained": true,
+  "player_database_restore": false,
+  "old_local_signed_code_retired": true,
+  "recovery_backups_retained": true,
+  "own_stage_and_tasks_retired": true,
+  "runtime_updater_caches_removed": 3,
+  "retained_property_metadata_caches": 3,
+  "property_metadata_cleanup_rejected_by_policy": true,
+  "cleanup_rejection_reason": "blocked by policy",
+  "cleanup_retried": false,
+  "own_publication_locks_released": true,
+  "original_EXE_KOM_changes": 0,
+  "new_client_Hooks": 0,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "production_clock_patch": false,
+  "wider_project_complete": false,
+  "CI": {
+    "head": "087e616b625f601a1bd225a2d22738f969d010f9",
+    "run_id": 42355196347,
+    "source_check": "success",
+    "runtime_check": "skipped-main-only"
+  }
+}

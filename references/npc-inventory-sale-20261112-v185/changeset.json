@@ -1,0 +1,101 @@
+{
+  "release": "npc-inventory-sale-20261112-v185",
+  "source_manifest": {
+    "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\npc-sale-next-prep\\candidate-manifest.json",
+    "sha256": "50ba363ee57159cea966d37579881a82681519f44b43acc1a6bcbde297feb524"
+  },
+  "parent_archive_sha256": "2aecfcb93e3b6c94295625815cda2da7ff7517cde100762462e8d58095dbaa14",
+  "parent_manifests": {
+    "online": {
+      "path": "G:\\els\\releases\\online\\consolidated-gameplay-20261112-v184\\rollup-manifest.json",
+      "sha256": "c7e182e5985d7861f3810c67f3247c7d1a23c64eb30f4f00486870cc591a2dc2"
+    },
+    "local": {
+      "path": "G:\\els\\releases\\local\\unified-server-c77dbbff28d5cb80-b765d373f8a7\\local-business-manifest.json",
+      "sha256": "abd29dd54031517d67d0bcc2f1040607687d8bdad7c37a5df2498ba6be7e3acd"
+    },
+    "launchers": {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v184\\launcher-preview-v184\\signedFriends.signed.json",
+      "sha256": "420e6255cc60ecc42610b5f1205dbe00e735881324725d6215b37dc43625a155"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "519b29acfd0ffcb4eeab51d11370c030b3d619017c4f453a3909c1b6d4130111",
+      "online_parent_sha256": "519b29acfd0ffcb4eeab51d11370c030b3d619017c4f453a3909c1b6d4130111",
+      "sha256": "f859921f5e42c4670431988453738d1da03c4387232c1d30fe5c944d2c0c5851",
+      "size": 169222,
+      "scope": "server",
+      "author_parent_sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "author_candidate_sha256": "f460450affdaeaddbcd294e200b753fc5ed8e27b4beb2e2803eccc11e83753bb",
+      "rebased": true
+    },
+    {
+      "path": "els_server/domain/npc_sale.py",
+      "parent_sha256": "e91780c2c77cc8932a05745e3c9c20e7b74b43e74a609b19fc9c5a1ccf953e78",
+      "online_parent_sha256": "e91780c2c77cc8932a05745e3c9c20e7b74b43e74a609b19fc9c5a1ccf953e78",
+      "sha256": "97075c21e236e1b28a3d2dd532054508a05200ceae4190e30f06696dde53734b",
+      "size": 2650,
+      "scope": "server",
+      "author_parent_sha256": "e91780c2c77cc8932a05745e3c9c20e7b74b43e74a609b19fc9c5a1ccf953e78",
+      "author_candidate_sha256": "97075c21e236e1b28a3d2dd532054508a05200ceae4190e30f06696dde53734b",
+      "rebased": false
+    },
+    {
+      "path": "els_server/protocol/npc_sale_messages.py",
+      "parent_sha256": "058741fd48107259203dcefd03549fd21c1fd04a0651973f6f229d812276ab7f",
+      "online_parent_sha256": "058741fd48107259203dcefd03549fd21c1fd04a0651973f6f229d812276ab7f",
+      "sha256": "179491813896ee91894f8fd431614ffe587b062adbb02c54a1b9657875066fdb",
+      "size": 2483,
+      "scope": "server",
+      "author_parent_sha256": "058741fd48107259203dcefd03549fd21c1fd04a0651973f6f229d812276ab7f",
+      "author_candidate_sha256": "179491813896ee91894f8fd431614ffe587b062adbb02c54a1b9657875066fdb",
+      "rebased": false
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "7ac6f2b2397b8d65a9ad87b414d4ddc06990e9f042d85328b1843846cfaa33c8",
+      "online_parent_sha256": "7ac6f2b2397b8d65a9ad87b414d4ddc06990e9f042d85328b1843846cfaa33c8",
+      "sha256": "758c192c7dd4484ff9a948214fb9552dfac93a6348cabb2e900bf579cd65e4c3",
+      "size": 35895,
+      "scope": "server",
+      "author_parent_sha256": "30ac91851cd374f3fc9914a745b3ab7703a0c4355d93561b8e9465e1104a9ea8",
+      "author_candidate_sha256": "04cfa86966891ffb1754d4feddd934a208caeaeb9a0cc537acc22b3fa51a645a",
+      "rebased": true
+    },
+    {
+      "path": "els_server/storage/npc_sale.py",
+      "parent_sha256": "457b65808406efe4adf368eb6f06612acd416c5907d73a9b52692e53a7f38347",
+      "online_parent_sha256": "457b65808406efe4adf368eb6f06612acd416c5907d73a9b52692e53a7f38347",
+      "sha256": "bbe7e611c1f58e687829d7c2f811451a9078a74e75eebf82bec46aa4a2b79ffd",
+      "size": 5697,
+      "scope": "server",
+      "author_parent_sha256": "457b65808406efe4adf368eb6f06612acd416c5907d73a9b52692e53a7f38347",
+      "author_candidate_sha256": "bbe7e611c1f58e687829d7c2f811451a9078a74e75eebf82bec46aa4a2b79ffd",
+      "rebased": false
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "fcfa78e2ecf8f7718c623d27244012b1be67a569f10c279b86d54d0cc035c4e3",
+      "online_parent_sha256": "fcfa78e2ecf8f7718c623d27244012b1be67a569f10c279b86d54d0cc035c4e3",
+      "sha256": "0cb8c0e1d7017ee36402ebdae33c86b80e7585e7a219b5949753cbc899e5a97e",
+      "size": 14616,
+      "scope": "server",
+      "author_parent_sha256": "fcfa78e2ecf8f7718c623d27244012b1be67a569f10c279b86d54d0cc035c4e3",
+      "author_candidate_sha256": "0cb8c0e1d7017ee36402ebdae33c86b80e7585e7a219b5949753cbc899e5a97e",
+      "rebased": false
+    },
+    {
+      "path": "els_server/transport.py",
+      "parent_sha256": "45d23789ca49cacc48274b3a2a8b74c8e20941b9b7b34bfb902e0f086062beca",
+      "online_parent_sha256": "45d23789ca49cacc48274b3a2a8b74c8e20941b9b7b34bfb902e0f086062beca",
+      "sha256": "7bf6949bd35b42c7cb76ad1e09e2ae1340cc477884a6aa60d06a74e5e0ca6c55",
+      "size": 35912,
+      "scope": "server",
+      "author_parent_sha256": "45d23789ca49cacc48274b3a2a8b74c8e20941b9b7b34bfb902e0f086062beca",
+      "author_candidate_sha256": "7bf6949bd35b42c7cb76ad1e09e2ae1340cc477884a6aa60d06a74e5e0ca6c55",
+      "rebased": false
+    }
+  ]
+}
