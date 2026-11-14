@@ -1,0 +1,27 @@
+{
+  "ok": false,
+  "checks": [
+    "Real911 grants/debits once; insufficientED and wrongtown refuse; late encoding failure rolls back buff, journal andED; original producer replay adds nothing"
+  ],
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "production_clock_patch": false,
+  "production_probability_changed": false,
+  "retained_history_fixture": 98,
+  "error": "Traceback (most recent call last):\n  File \"G:/els/analysis/feature-closure-20261105-v1/achievement-v1/spa-buff-history-v1/test_live_spa.py\", line 104, in run\n    for peer in(a,b,c):await peer.query(0x48d,reply=0x48f)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\social-enhancement-history-v1\\delivery-qa\\achievement_protocol_client.py\", line 28, in query\n    await self.send(kind, payload)\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\social-enhancement-history-v1\\delivery-qa\\achievement_protocol_client.py\", line 13, in send\n    await self.writer.drain()\n  File \"asyncio\\streams.py\", line 386, in drain\n  File \"asyncio\\streams.py\", line 166, in _drain_helper\nConnectionResetError: Connection lost\n",
+  "errors": [
+    {
+      "event": "notification_error",
+      "connection": 2,
+      "error": "OperationalError('database is locked')"
+    }
+  ],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "f854527c525a65aab4dc6745ed7eb8b24c5c0fa43f74cb645ed7b2fc37674ad9",
+    "els_server/domain/environment_buff_flow.py": "33843be3fcd58019d17344e6a3dab1369dc3832b7c2c7363362bb36619bdc1ef",
+    "els_server/storage/achievement_history.py": "f5dd527a0c40a8d117ed91b70d642b74e66acd1ef07e5a262b73ad878ea5ed24",
+    "els_server/storage/achievement_profiles.py": "3a8777975f6bbff233dc5e2beaad847029de9c4c68a2266c4734313cdfe13a53",
+    "els_server/storage/environment_buffs.py": "6dcdeb1a640d2311f97f09c56e24cf3f80c930cf3bafd186bd0f7d21ff19c484"
+  }
+}
