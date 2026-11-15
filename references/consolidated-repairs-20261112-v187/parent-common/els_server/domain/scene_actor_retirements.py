@@ -1,0 +1,415 @@
+"""Finite static scene retirements; never infer retirement from class103 alone.
+
+Memory2's flowers, Altera Core's PD timer and the finite source list use pinned
+DYING_END scripts and pinned native class/script identities. Original expiry DTO/map/writer code establishes the admitted
+wire contract; the server only consumes an actual authenticated report. This
+module has no persistence, quest or reward consumer.
+"""
+import copy
+import math
+import struct
+import functools
+
+# Code-first recovery disables only the new admission; keep this reader.
+SCENE_ACTOR_RETIREMENTS_ENABLED=True
+GRAPH_SHA='3dd4f08d0d5271cc9d83937fddface52ce0730378e0c1f28d13220437ab54821'
+SCRIPT='LITHIA_MEMORY2_FLOWER.lua'
+SCRIPT_SHA='8498135f543cd12f05694ca1db6d9a7e48519df3e3036472d8a6fa32aa6bca0b'
+# Exact stage-wide native instance IDs, original source indexes and start points.
+FLOWER_SOURCES={12:(1,10),13:(2,11),14:(3,12),15:(4,13),16:(5,14),17:(6,15)}
+
+CORE_GRAPH_SHA='92fb9a602537def90092736f0403c60aefa3cee613a3947cbc67a4422f8b8b15'
+CORE_SCRIPT_SHA='7d7d9b099e03007f3c9a4f90bad0beb3994b07fa0d216dc894423e10433b233f'
+CORE_SOURCE=dict(template=343,source_index=1,points=[4],active=True,
+    gage=True,ally=False,team=1,no_drop=False,right=False,boss=False,
+    boss_lines=1,key_code=1,source_key_code=1,rate=100,offset=[0,0,0])
+
+
+def core_room(run):
+    return run is not None and (run.identity,run.stage,run.part)==(30302,2,0)
+
+
+def raid2_controller(run,npc):
+    if run is None or run.identity!=34140:return False
+    from els_server.domain.devildom1_raid2_controllers import CONTROLLERS,DEVILDOM1_RAID2_CONTROLLERS_ENABLED
+    return DEVILDOM1_RAID2_CONTROLLERS_ENABLED and (run.stage,npc.get('key'))in CONTROLLERS
+
+
+@functools.lru_cache(maxsize=1)
+def finite_sources():
+    from els_server.domain.scene_retirement_sources import RULES
+    result={}
+    for rule in RULES:
+        result.setdefault((rule['dungeon'],rule['stage'],rule['part']),[]).append(rule)
+    return result
+
+
+def claimed_sources(run,npc):
+    if run is None or npc.get('dynamic'):return ()
+    return tuple(r for r in finite_sources().get((run.identity,run.stage,run.part),())
+        if (r['source']['template'],r['source']['source_index'])==(npc.get('template'),npc.get('source_index')))
+
+
+def gate_predecessor_blocked(run):
+    """Keep an early native retirement until its original boss death arrives.
+
+    A shared-HP boss can retire without a direct killer. Only that form
+    needs the other boss's combat receipt; a direct kill uses the native gate.
+    """
+    for rule in finite_sources().get((run.identity,run.stage,run.part),()):
+        source=rule.get('gate_predecessor')
+        if source is None:continue
+        if (run.graph['source_sha256']!=rule['graph_sha']
+                or run.graph!=run.catalog.graph(run.identity,internal=True)
+                or run.catalog.manifest['source_sha256'].get(rule['script'])!=rule['script_sha']
+                or run.catalog.manifest['source_sha256'].get(rule['predecessor_script'])!=rule['predecessor_script_sha']):return True
+        target=[n for n in run.current['npcs']if n['template']==rule['source']['template']
+                and n.get('source_index')==rule['source']['source_index']]
+        if len(target)!=1:return True
+        target=target[0]
+        if (target.get('dynamic')or any(target.get(k)!=v for k,v in rule['source'].items()if k!='active')
+                or target['start_point']not in rule['source']['points']):return True
+        receipt=run.defeated.get(target['key'])
+        retirement_only=rule.get('gate_predecessor_for_retirement',False)
+        if receipt is None or retirement_only and receipt[4:5]!=b'\xff':continue
+        predecessors=[n for n in run.current['npcs']if n['template']==source['template']
+                and n.get('source_index')==source['source_index']]
+        if len(predecessors)!=1:return True
+        predecessor=predecessors[0]
+        receipt=run.defeated.get(predecessor['key'])
+        if (predecessor.get('dynamic')or any(predecessor.get(k)!=v for k,v in source.items())
+                or predecessor['start_point']not in source['points'] or receipt is None
+                or retirement_only and receipt[4:5] not in (b'\0',b'\1')):return True
+    return False
+
+
+def line_cleanup_ready(run,npc,rule):
+    # The true key object sends 30A before starting the camera. Its lane
+    # must already be clear in the original group; the fake portal cannot
+    # authorize the camera's later SetNowHP(0) on the other lane.
+    choice=rule['retirement_line_triggers'].get(npc['source_context'][5])
+    if choice is None:return False
+    trigger,lane=choice
+    return (run.catalog.manifest['source_sha256'].get(rule['retirement_line_script'])==rule['retirement_line_script_sha']
+        and (run.stage,run.part,run.visits,trigger) in getattr(run,'native_line_triggers',())
+        and not any(n['active'] and n.get('source_key_code')==lane and n['key'] not in run.defeated
+            for n in run.current['npcs']))
+
+
+def finite_source_rule(run,npc):
+    rows=[r for r in claimed_sources(run,npc)if all(npc.get(k)==v
+        for k,v in r['source'].items()if k!='active')]
+    if len(rows)!=1:return None
+    r=rows[0];source=r['source']
+    if (run.graph['source_sha256']!=r['graph_sha']or run.graph!=run.catalog.graph(run.identity,internal=True)
+            or run.catalog.manifest['source_sha256'].get(r['script'])!=r['script_sha']
+            or npc.get('start_point')not in source['points']
+            or sum(n is npc for n in run.current['npcs'])!=1
+            or sum(n.get('key')==npc.get('key')for n in run.current['npcs'])!=1):return None
+    from els_server.game_data import client_data
+    from els_server.domain.formal_npc_hp import initialized_maximum
+    native=client_data().npc(source['template'])
+    if(native['class_id']!=r.get('native_class',103) or native['is_npc']is not r.get('native_is_npc',True)
+            or native['script']!=r['native_script']):return None
+    # Identical declarations can occur in alternative groups. Reuse the
+    # emitted actor's original group context, including on an exact retry.
+    expected=dict(source,source_context=npc['source_context'])
+    hp=initialized_maximum(run,expected)
+    if npc['hp']!=hp:return None
+    trigger_source=r.get('retirement_trigger')
+    if trigger_source is not None:
+        # Require the controller's immediate DYING receipt before its cleanup.
+        # A class0 hostile cannot retire itself merely by imitating that DTO.
+        if run.catalog.manifest['source_sha256'].get(r['retirement_script'])!=r['retirement_script_sha']:return None
+        triggers=[n for n in run.current['npcs']if not n.get('dynamic')
+            and all(n.get(k)==v for k,v in trigger_source.items()if k!='active')
+            and n.get('start_point')in trigger_source['points']
+            and n['source_context'][:6]==npc['source_context'][:6]]
+        if len(triggers)!=1:return None
+        trigger=triggers[0]
+        if (trigger['active']is not False or trigger['key']not in run.defeated
+                or finite_source_rule(run,trigger)is None):return None
+    if 'retirement_line_triggers' in r and not line_cleanup_ready(run,npc,r):return None
+    if (r.get('requires_no_active_hostiles')and npc['key']not in run.defeated
+            and any(n['active']and n.get('team',1)!=0 and n['key']not in run.defeated
+                    for n in run.current['npcs'])):return None
+    return dict(source=source,hp=hp,retains_last_hit=r.get('retains_last_hit',False))
+
+
+def scene_room(run):
+    return run is not None and(run.identity==34140 or core_room(run)or(run.identity,run.stage,run.part)==(35260,0,1)
+        or(run.identity,run.stage,run.part)in finite_sources())
+
+
+def retirement_shape(report,owners,*,status=1,retains_last_hit=False):
+    # Source-pinned self-bombs can carry the original attacker or slot
+    # from the NPC object even though the retirement has no killer.
+    return(report['flag']==255 and report['status']==status
+        and report['source']==report['killer']==2**64-1 and report['extra_uid']==0
+        and (retains_last_hit or report['last_uid']in(0,2**64-4))
+        and not report['contribution']and not report['counters']
+        and set(report['readiness'])==set(owners)and all(v in(0,1)for v in report['readiness'].values()))
+
+
+def dynamic_retirement_shape(run, npc, report, owners, *, last_hit_participants=()):
+    if report['status'] != 3:
+        return retirement_shape(report, owners)
+    # The original siege tower ends its attached rock with ESCAPE_END.
+    # Bind it to its spawn part, including reports after a curtain move.
+    return ((run.identity, run.stage, npc['template']) == (33092, 0, 637)
+            and run.graph['source_sha256'] == 'c53ca760b30121b619ab4576048679d936bba18f1fddcf8edf896c034bee05c7'
+            and any(actor is npc for actor in run.parts[1]['npcs'])
+            and retirement_shape(report, owners, status=3, retains_last_hit=(
+                report['last_uid'] in owners or report['last_uid'] in last_hit_participants)))
+
+
+def core_source_rule(run,npc):
+    """The original hidden PD timer, never a class-wide retirement rule."""
+    if (npc.get('dynamic') or npc.get('key')!=0
+            or run.graph['source_sha256']!=CORE_GRAPH_SHA
+            or run.graph!=run.catalog.graph(run.identity)
+            or run.catalog.manifest['source_sha256'].get('PD_Monster.lua')!=CORE_SCRIPT_SHA
+            or any(npc.get(k)!=v for k,v in CORE_SOURCE.items() if k!='active')
+            or npc.get('start_point')!=4):return None
+    if run.graph['stages']['2']['parts']['0']['groups']!=[dict(index=-1,npcs=[CORE_SOURCE])]:return None
+    actors=[n for n in run.current['npcs'] if n.get('key')==0
+            or n.get('template')==343 and n.get('source_index')==1]
+    if len(actors)!=1 or actors[0] is not npc:return None
+    from els_server.game_data import client_data
+    from els_server.domain.formal_npc_hp import initialized_maximum
+    native=client_data().npc(343);hp=initialized_maximum(run,CORE_SOURCE)
+    if (native['class_id']!=103 or native['is_npc'] is not True
+            or native['script']!='PD_Monster.lua' or npc.get('hp')!=hp):return None
+    return dict(source=CORE_SOURCE,hp=hp)
+
+
+def source_rule(run,npc):
+    """Pure identity check; no class-wide, zero-ID or filename-family alias."""
+    if raid2_controller(run,npc):
+        from els_server.domain.devildom1_raid2_controllers import source_rule as raid2_source
+        return raid2_source(run,npc)
+    if core_room(run):return core_source_rule(run,npc)
+    if claimed_sources(run,npc):return finite_source_rule(run,npc)
+    if (run is None or (run.identity,run.stage,run.part)!=(35260,0,1)
+            or npc.get('dynamic') or npc.get('key') not in FLOWER_SOURCES):return None
+    index,point=FLOWER_SOURCES[npc['key']]
+    source=dict(template=9323,source_index=index,points=[point],active=True,
+        gage=True,ally=False,team=1,no_drop=False,right=False,boss=False,
+        boss_lines=1,key_code=-1,source_key_code=-1,rate=100,offset=[0,0,0])
+    if (run.graph['source_sha256']!=GRAPH_SHA or run.graph!=run.catalog.graph(run.identity)
+            or run.catalog.manifest['source_sha256'].get(SCRIPT)!=SCRIPT_SHA
+            or any(npc.get(k)!=v for k,v in source.items() if k!='active')
+            or npc.get('start_point')!=point):return None
+    groups=run.graph['stages']['0']['parts']['1']['groups']
+    declared=[(g['index'],n) for g in groups for n in g['npcs'] if n.get('source_index')==index]
+    if declared!=[(-1,source)]:return None
+    actors=[n for n in run.current['npcs'] if n.get('key')==npc['key']
+            or n.get('template')==9323 and n.get('source_index')==index]
+    if len(actors)!=1 or actors[0] is not npc:return None
+    from els_server.game_data import client_data
+    native=client_data().npc(9323)
+    if native['class_id']!=103 or native['script']!=SCRIPT or native['is_npc'] is not True:return None
+    from els_server.domain.formal_npc_hp import initialized_maximum
+    hp=initialized_maximum(run,source)
+    if npc.get('hp')!=hp:return None
+    return dict(source=source,hp=hp)
+
+
+def actor_context(run,index,previous=False):
+    """Use the declared actor's part for source/HP checks in the loaded B2."""
+    for part,value in run.parts.items():
+        if part!=run.part and not(previous and part<run.part):continue
+        actors=[n for n in value['npcs']if n.get('key')==index]
+        if len(actors)!=1:continue
+        source=run
+        if part!=run.part:
+            source=copy.copy(run);source.part=part
+            if run.hp_context is not None:
+                from els_server.domain.raid_economy_flow import _ShadowHP
+                source.hp_context=_ShadowHP(run,source)
+        return source,actors[0]
+    return run,None
+
+
+def request_retry(s,event,sequence,*,dispatcher=None,room=None,report=None):
+    """An accepted native255 request keeps its original scene after B2."""
+    if type(sequence)is not int or not 1<=sequence<2**32:return None
+    requests=getattr(s,'native_retirement_requests',{})
+    previous=requests.get(sequence);copied=False
+    run=s.dungeon_run
+    if (previous is None and report is not None and run is not None
+        and run.defeated.get(report['index'])==event.payload):
+        # A fresh-sequence ACK of an already retired old-part actor must also
+        # retain that actor's origin, before the generic late-AD ACK returns.
+        previous=next((value for value in requests.values()
+            if value[:2]==(run.run_id,bytes(event.payload))
+            and (value[2][0],value[2][2])==(run.stage,run.visits)),None)
+        copied=previous is not None
+    if previous is None:return None
+    if room is not None:
+        try:
+            if previous[3]=='story':
+                from els_server.domain.friends_story_retirements import _checked
+                _checked(dispatcher,room,s,event)
+            else:_checked_room(dispatcher,room,s,event)
+        except ValueError:return []
+    else:
+        from els_server.domain.dungeon_equipment_loot_flow import current_lease
+        if (s.dungeon_run is None or s.role!='game' or s.phase!='dungeon_active'
+            or not s.dungeon_substage_synced or not current_lease(s)
+            or event.performers!=(0,)or event.uid!=2**64-1 or event.target_uid!=2**64-1
+            or event.payload_mode!=0 or s.reward_run_id!=s.dungeon_run.run_id
+            or frozenset(getattr(s,'dungeon_participants',()))!=frozenset((s.account.uid,))):return []
+    if previous[:2]!=(s.dungeon_run.run_id,bytes(event.payload)):return []
+    from els_server.domain.dungeon_lifecycle import death_ack
+    replies=[death_ack()]
+    if copied:
+        from els_server.protocol.protocol_codec import encode_event
+        for reply in replies:encode_event(reply)
+        s.native_retirement_requests={**requests,sequence:previous}
+    return replies
+
+
+def remember_request(s,sequence,payload,source,category='story'):
+    s.native_retirement_requests={**getattr(s,'native_retirement_requests',{}),
+        sequence:(source.run_id,bytes(payload),(source.stage,source.part,source.visits),category)}
+
+
+
+def handle(s,event,report,request_sequence=None):
+    """Acknowledge only an admitted original report, after encoding all replies."""
+    if not SCENE_ACTOR_RETIREMENTS_ENABLED:return None
+    run=s.dungeon_run
+    source,npc=actor_context(run,report['index'],report['flag']==255)
+    core=core_room(source)
+    if not scene_room(source):return None
+    flower=(source.identity,source.stage,source.part)==(35260,0,1)
+    keys=(0,) if core else FLOWER_SOURCES if flower else ()
+    if npc is None:return [] if report['index'] in keys else None
+    if npc.get('dynamic'):return None
+    # Added sources supplement native255 only. Keep their existing ordinary
+    # script/combat reports on the original dispatcher and economic path.
+    if report['flag']!=255 and not(core or flower):return None
+    if report['index'] not in keys and not claimed_sources(source,npc):return None
+    rule=source_rule(source,npc)
+    if rule is None:return []
+    owner=s.account.uid
+    from els_server.domain.dungeon_equipment_loot_flow import current_lease
+    from els_server.domain.summons import valid_sentry_death
+    if (event.event_id!=0x202 or event.kind!=0xad or event.performers!=(0,)
+            or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
+            or s.role!='game' or s.phase!='dungeon_active' or not s.dungeon_substage_synced
+            or s.clear_notified or not current_lease(s)
+            or type(request_sequence)is not int or not 1<=request_sequence<2**32
+            or getattr(s,'reward_transaction',None) is not None
+            or getattr(s,'reward_run_id',None)!=run.run_id
+            or frozenset(getattr(s,'dungeon_participants',()))!=frozenset((owner,))
+            or flower and s.account.character()['unit_type']!=15
+            or not(valid_sentry_death(report,owner)if core or flower else retirement_shape(
+                report,(owner,),retains_last_hit=rule.get('retains_last_hit',False)))
+            or any(not math.isfinite(v) or abs(v)>1e7 for v in report['xyz'])
+            or report['hp_bits']!=struct.unpack('>I',struct.pack('>f',rule['hp']))[0]):return []
+    key=npc['key']
+    from els_server.domain.dungeon_lifecycle import death_ack,empty_reward_death_notice
+    from els_server.protocol.protocol_codec import encode_event
+    previous=run.defeated.get(key)
+    if previous is not None:
+        if previous!=event.payload or npc.get('active') is not False:return []
+        replies=[death_ack()]
+        for reply in replies:encode_event(reply)
+        remember_request(s,request_sequence,event.payload,source,'scene')
+        return replies
+    if npc.get('active')is not rule['source']['active']:return []
+    shadow,replies=prepare_retirement(s,event,npc,evaluate_gate=source.part==run.part and not s.part_end_notified)
+    adopt_retirement(s,shadow,npc)
+    remember_request(s,request_sequence,event.payload,source,'scene')
+    return replies
+
+
+def prepare_retirement(s,event,npc,*,evaluate_gate=True):
+    run=s.dungeon_run;key=npc['key']
+    shadow=copy.copy(s);shadow.dungeon_run=copy.copy(run)
+    shadow.dungeon_clock=copy.copy(s.dungeon_clock)
+    shadow.dungeon_run.defeated={**run.defeated,key:bytes(event.payload)}
+    shadow.defeated_npcs=shadow.dungeon_run.defeated
+    from els_server.domain.dungeon_flow import periodic
+    # Evaluate the existing source gate from the reported actor only; no
+    # quest, reward, actor, timer or separate gate report is manufactured.
+    from els_server.domain.dungeon_lifecycle import death_ack,empty_reward_death_notice
+    from els_server.protocol.protocol_codec import encode_event
+    replies=[death_ack(),empty_reward_death_notice(key,2**64-1)]
+    if evaluate_gate:replies+=periodic(shadow)
+    for reply in replies:encode_event(reply)
+    return shadow,replies
+
+
+def adopt_retirement(s,shadow,npc):
+    run=s.dungeon_run
+    for name in ('defeated','next','ready_at'):setattr(run,name,getattr(shadow.dungeon_run,name))
+    npc['active']=False;s.defeated_npcs=run.defeated
+    s.part_end_notified=shadow.part_end_notified
+    s.dungeon_clock.total=shadow.dungeon_clock.total;s.dungeon_clock.started=shadow.dungeon_clock.started
+
+
+def _checked_room(dispatcher,room,s,event):
+    """The existing static-scene lease, without story quest restrictions."""
+    from els_server.domain.friends_spawns import _checked_static_generation
+    from els_server.domain.dungeon_equipment_loot_flow import current_lease
+    import uuid
+    if (s is not room.leader or room.phase not in ('active','part_end')
+            or not 2<=len(room.members)<=room.peer_limit or event.event_id!=0x202 or event.kind!=0xad
+            or event.performers!=(0,)or event.uid!=2**64-1 or event.target_uid!=2**64-1
+            or event.payload_mode!=0):raise ValueError('Static scene retirement room')
+    _checked_static_generation(dispatcher,room)
+    if any(not current_lease(m)or m.clear_notified or m.dungeon_failed or m.gate_stage_loading
+            or getattr(m,'reward_transaction',None)is not None
+            or m.reward_run_id!=str(uuid.uuid5(uuid.UUID(room.seed),'reward:'+str(m.account.uid)))for m in room.members):
+        raise ValueError('Static scene retirement member lease')
+
+
+def shared_retirement(dispatcher,room,s,event,request_sequence=None):
+    """Consume the master's source-pinned retirement for loaded participants."""
+    if not SCENE_ACTOR_RETIREMENTS_ENABLED or s.dungeon_run is None:return None
+    from els_server.domain.dungeon_lifecycle import death_report,death_ack
+    from els_server.domain.party_commands import _prepared_boxes
+    from els_server.protocol.protocol_codec import encode_event
+    try:report=death_report(event.payload)
+    except ValueError:return []
+    source,actor=actor_context(s.dungeon_run,report['index'],report['flag']==255)
+    if not scene_room(source)or(source.identity,source.stage,source.part)==(35260,0,1):return None
+    if actor is None:return None
+    if report['flag']!=255 and not core_room(source):return None
+    if not core_room(source)and not claimed_sources(source,actor)and not raid2_controller(source,actor):return None
+    if type(request_sequence)is not int or not 1<=request_sequence<2**32:return []
+    try:_checked_room(dispatcher,room,s,event)
+    except ValueError:return []
+    owners=frozenset(m.account.uid for m in room.members)
+    if any(not math.isfinite(v) or abs(v)>1e7 for v in report['xyz']):return []
+    actors=[]
+    retains_last_hit=True
+    for member in room.members:
+        run=member.dungeon_run
+        context,npc=actor_context(run,report['index'],report['flag']==255)
+        rule=source_rule(context,npc) if npc is not None else None
+        if (rule is None or report['hp_bits']!=struct.unpack('>I',struct.pack('>f',rule['hp']))[0]):return []
+        retains_last_hit=retains_last_hit and rule.get('retains_last_hit',False)
+        actors.append((member,npc,rule['source']['active']))
+    if not retirement_shape(report,owners,retains_last_hit=retains_last_hit):return []
+    previous=[m.dungeon_run.defeated.get(report['index']) for m,_,_ in actors]
+    if any(v is not None for v in previous):
+        if not all(v==event.payload and n['active'] is False for v,(_,n,_) in zip(previous,actors)):return []
+        reply=[death_ack()]
+        for e in reply:encode_event(e)
+        remember_request(s,request_sequence,event.payload,source,'scene')
+        return reply
+    if any(n['active']is not active for _,n,active in actors):return []
+    evaluate_gate=source.part==s.dungeon_run.part and room.phase=='active'
+    prepared=[(m,n,*prepare_retirement(m,event,n,evaluate_gate=evaluate_gate)) for m,n,_ in actors]
+    deliveries=[(m,[e for e in replies if m is s or e.kind!=0xae]) for m,_,_,replies in prepared]
+    response=next(events for m,events in deliveries if m is s)
+    boxes=_prepared_boxes([(m,events) for m,events in deliveries if m is not s],response)
+    for member,npc,shadow,_ in prepared:adopt_retirement(member,shadow,npc)
+    for member,box in boxes.items():member.mailbox=box
+    remember_request(s,request_sequence,event.payload,source,'scene')
+    if evaluate_gate:dispatcher.part_wait(room)
+    return response
