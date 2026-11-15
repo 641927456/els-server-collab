@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "private_delivery_scenario": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "checks": [
+    "Stored worn counts use the maximum of one owned role; bag and foreign-account equipment do not count",
+    "Actual104/105 completes fourth armor and third/sixth accessories immediately; unwear and repeat remain stable",
+    "Actual guild create/invite/accept, both504arrivals, GuildAgit achievement display and normal return/leave/disband complete without stranded membership",
+    "Cold sibling shares account completion with independent display"
+  ],
+  "retained_equipment_level_ED_fixtures": true,
+  "natural_acquisition": false,
+  "natural_GUI": false,
+  "production_clock_patch": false,
+  "connected_source_types": 41,
+  "connected_definitions": 248,
+  "remaining_source_types": 19,
+  "unresolved_original_reward_groups": 53,
+  "new_tables": 0,
+  "new_indexes": 0,
+  "errors": [],
+  "actual_parent_release": "native-achievement-spa-buff-history-20261107-v2",
+  "actual_parent_manifest_sha256": "5df60c55312f418765bd2363e1d140df9d493da02cabc89aad80b2047230c6bb",
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "fe27e6f951c931d9054b60f7e8854fc080ffb967284a9b6c5e76f1da31bab23c",
+    "els_server/domain/guild_agit_flow.py": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e",
+    "els_server/storage/achievement_collections.py": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+    "els_server/storage/achievement_profiles.py": "5531b6886378a00208a5b99bea450f44a74147629122a0a40d900fb67a5e5ff0"
+  },
+  "scenario_sha256": {
+    "achievement_equipment_client.py": "877740bfa9415bff30a23b8eb73daadcd68c6119b0ba571b79ec3127c08f2195",
+    "achievement_fixture.py": "58a796d93736ecf9b43d06107815f5ec4a637db95de734d281e0c0f22b8d0855",
+    "achievement_protocol_client.py": "ae3d7fa5f2061156b586910cb3af31d23065ff734cd3c69e7b99ac3018992330"
+  }
+}

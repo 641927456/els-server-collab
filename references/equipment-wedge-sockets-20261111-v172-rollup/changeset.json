@@ -1,0 +1,31 @@
+{
+  "release": "title-socket-hidden-items-artifact-20261111-v172",
+  "patch_sha256": "a596f4aad4041d97c80c1284836c0d20a9f6b943cc42545e700beebb06d2b3a7",
+  "parents": {
+    "online": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "f8714987467c9195b008cb73e93f4328dd4cae93cb900e492995332906b9e2ed"
+    },
+    "local": {
+      "release": "unified-server-5ea03ca5f01728b3-d21f0c50eba1",
+      "manifest_sha256": "b73f5c2b5e816c7b4d949c75d86dd457873633d86144430569ae6e2af43034f8"
+    },
+    "launchers": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "edc8441c7d8f8001053f6240125244efce542331580e6f4b0213c06020c35ef4"
+    }
+  },
+  "files": [
+    {
+      "cohort": "sparring",
+      "path": "els_server/domain/sage_sockets.py",
+      "parent_sha256": "a406efae2c0e59f9f4ea5f6e5bbabe81fc6a7eb4bb546a1a710eed4ee090e171",
+      "sha256": "9089c84bdec597c5a389fc2985639cf5ca905262d4e70b3570101c689745ad64",
+      "size": 6735,
+      "source_parent_sha256": "a406efae2c0e59f9f4ea5f6e5bbabe81fc6a7eb4bb546a1a710eed4ee090e171",
+      "source_sha256": "9089c84bdec597c5a389fc2985639cf5ca905262d4e70b3570101c689745ad64",
+      "rebased": false,
+      "phase_version": 169
+    }
+  ]
+}

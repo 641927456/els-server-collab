@@ -1,0 +1,195 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "policy": "relationship-boxes-20261106-v1",
+  "user_rule": "11项等概率，每次获得一项（建议）",
+  "ring_price_ed": 50,
+  "ring_user_rule": "两种婚礼戒指各 50 ED（建议）",
+  "pool": [
+    {
+      "template": 77200,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "template": 111087,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "template": 109945,
+      "quantity": 5,
+      "weight": 1
+    },
+    {
+      "template": 109955,
+      "quantity": 3,
+      "weight": 1
+    },
+    {
+      "template": 130047,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "template": 130048,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "template": 130049,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "template": 130050,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "template": 130051,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "template": 130052,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "template": 130053,
+      "quantity": 1,
+      "weight": 1
+    }
+  ],
+  "readers": [
+    {
+      "template": 77200,
+      "name": "疲劳药水",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 300,
+      "record_sha256": "1a206d156b38dd939ab7e6ec52dd55040983ff8254179b666e9a524c777d877a",
+      "description": "可恢复30%的疲劳值的药水。"
+    },
+    {
+      "template": 111087,
+      "name": "复活石（3个）宝箱",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 300,
+      "record_sha256": "6f6f241d42e0fac92463c91a9c594f2f0de74fda14dd1ab5e33e4a3b942d5e27",
+      "description": "内含3个复活石的宝箱。"
+    }
+  ],
+  "native_rules": {
+    "111087": {
+      "m_KeyItemID": 0,
+      "m_iRessurectionCount": 3,
+      "m_iGiveCount": 0,
+      "m_ItemID": 111087,
+      "m_RequiredKeyCount": 0,
+      "m_UseCondition": {
+        "global": "USE_CONDITION.UC_ANYONE"
+      }
+    },
+    "160762": {
+      "m_KeyItemID": 0,
+      "m_iGiveCount": -1,
+      "m_ItemID": 160762,
+      "m_RequiredKeyCount": 0,
+      "m_UseCondition": {
+        "global": "USE_CONDITION.UC_ANYONE"
+      },
+      "1": {
+        "m_iItemGroupID": 999016645,
+        "m_cUnitClass": {
+          "global": "UNIT_CLASS.UC_NONE"
+        }
+      }
+    },
+    "277154": {
+      "m_KeyItemID": 0,
+      "m_iGiveCount": 0,
+      "m_ItemID": 277154,
+      "m_RequiredKeyCount": 0,
+      "m_UseCondition": {
+        "global": "USE_CONDITION.UC_ANYONE"
+      },
+      "1": {
+        "m_iItemGroupID": 191040,
+        "m_cUnitClass": {
+          "global": "UNIT_CLASS.UC_NONE"
+        }
+      }
+    }
+  },
+  "fixed_wedding": [
+    {
+      "template": 710159,
+      "quantity": 5
+    },
+    {
+      "template": 277155,
+      "quantity": 20
+    }
+  ],
+  "named_outputs": [
+    {
+      "template": 77200,
+      "name": "疲劳药水",
+      "quantity": 1
+    },
+    {
+      "template": 111087,
+      "name": "复活石（3个）宝箱",
+      "quantity": 1
+    },
+    {
+      "template": 109945,
+      "name": "魔法石",
+      "quantity": 5
+    },
+    {
+      "template": 109955,
+      "name": "高级魔法石",
+      "quantity": 3
+    },
+    {
+      "template": 130047,
+      "name": "艾尔结晶（未鉴定）",
+      "quantity": 1
+    },
+    {
+      "template": 130048,
+      "name": "艾尔结晶（火）",
+      "quantity": 1
+    },
+    {
+      "template": 130049,
+      "name": "艾尔结晶（水）",
+      "quantity": 1
+    },
+    {
+      "template": 130050,
+      "name": "艾尔结晶（风）",
+      "quantity": 1
+    },
+    {
+      "template": 130051,
+      "name": "艾尔结晶（地）",
+      "quantity": 1
+    },
+    {
+      "template": 130052,
+      "name": "艾尔结晶（暗）",
+      "quantity": 1
+    },
+    {
+      "template": 130053,
+      "name": "艾尔结晶（光）",
+      "quantity": 1
+    }
+  ],
+  "canonical_variants": "77200 and111087: ordinary current native items with exact official names/effects; same-name alternate IDs do not establish private random group contents"
+}
