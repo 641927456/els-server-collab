@@ -1,0 +1,14 @@
+{
+  "ok": false,
+  "tests": 3,
+  "errors": [
+    "Traceback (most recent call last):\n  File \"G:/els/analysis/feature-closure-20261105-v1/achievement-v1/guild-expedition-history-v1/test_sources.py\", line 34, in test_current_participation_thresholds_survive_later_departure\n    actors.append(dict(account_id=account,**actor.get(uid)))\n                  ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: dict() got multiple values for keyword argument 'account_id'\n"
+  ],
+  "failures": [],
+  "production_database_access": false,
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "14bd60be1b00c59ec68046e07e2317f8d562093355c5d2b68f59b9ca68c67f63",
+    "els_server/storage/achievement_history.py": "e61dff9b9025020ae62a1fad45830ebee7db53f2d37e9e21367996ca859d96b7",
+    "els_server/storage/achievement_profiles.py": "a61fe8a6580b95bb8c21e42725e2259dd86ee495d421703ecae2e663869c2405"
+  }
+}

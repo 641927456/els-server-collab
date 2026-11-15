@@ -1,0 +1,293 @@
+{
+  "ok": true,
+  "parent": "G:\\els\\releases\\online\\native-feature-closure-20261105-v1",
+  "source": "G:\\els\\analysis\\feature-closure-20261105-v1\\guild-independent-v3\\test-full-source",
+  "production_database_opened": false,
+  "added_literal_definitions": [
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_expedition_history_v2(guild_id INTEGER NOT NULL,week INTEGER NOT NULL,document TEXT NOT NULL,PRIMARY KEY(guild_id,week))",
+      "definitions": [
+        {
+          "path": "els_server/domain/guild_expedition.py",
+          "line": 108,
+          "source_sha256": "27c383e2c969ba0618822cb777f54c97c90b89332674ad94a3f7fa4185f59aca",
+          "kind": "TABLE",
+          "name": "native_guild_expedition_history_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_applications_v2( owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL, guild_id INTEGER NOT NULL REFERENCES native_guilds(id),message TEXT NOT NULL, created_at INTEGER NOT NULL,expires_at INTEGER NOT NULL,source_operation TEXT NOT NULL UNIQUE)",
+      "definitions": [
+        {
+          "path": "els_server/domain/guild_recruit.py",
+          "line": 24,
+          "source_sha256": "14e7e149160af4b57529e3b85d4ba37d910fc1af45d571cf5df2d75b950075f4",
+          "kind": "TABLE",
+          "name": "native_guild_applications_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_name_requests_v2( owner INTEGER PRIMARY KEY REFERENCES characters(uid),guild_id INTEGER NOT NULL REFERENCES native_guilds(id), lease TEXT NOT NULL,old_name TEXT NOT NULL,new_name TEXT NOT NULL,operation TEXT NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/domain/guild_rename.py",
+          "line": 13,
+          "source_sha256": "43622813b307753cf2963216955bbe0b917d88aa875b185a34ee876a732c1a90",
+          "kind": "TABLE",
+          "name": "native_guild_name_requests_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_rose_weapons_v2(owner INTEGER PRIMARY KEY REFERENCES characters(uid),weapon INTEGER NOT NULL CHECK(weapon BETWEEN 0 AND 3))",
+      "definitions": [
+        {
+          "path": "els_server/domain/guild_rose.py",
+          "line": 32,
+          "source_sha256": "9bd10909bf95ab0eb5bf6636f0849a2864a6d3a77a02628fcaa79a551966491f",
+          "kind": "TABLE",
+          "name": "native_guild_rose_weapons_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_rose_operations_v2(operation TEXT PRIMARY KEY,owner INTEGER NOT NULL,request_hash TEXT NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/domain/guild_rose.py",
+          "line": 33,
+          "source_sha256": "9bd10909bf95ab0eb5bf6636f0849a2864a6d3a77a02628fcaa79a551966491f",
+          "kind": "TABLE",
+          "name": "native_guild_rose_operations_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_economic_facts_v2( operation TEXT PRIMARY KEY,owner INTEGER NOT NULL REFERENCES characters(uid),dungeon INTEGER NOT NULL, kind TEXT NOT NULL,context_hash TEXT NOT NULL,basis_points INTEGER NOT NULL, created_at INTEGER NOT NULL,effects TEXT NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_economy.py",
+          "line": 34,
+          "source_sha256": "30ef24b5ee2550b64e6de1e32586298b4c0bb962263facf440c1238afc446c36",
+          "kind": "TABLE",
+          "name": "native_guild_economic_facts_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_quest_weeks_v2(owner INTEGER PRIMARY KEY REFERENCES characters(uid),week INTEGER NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_quests.py",
+          "line": 16,
+          "source_sha256": "91bff38905272d1bc00b3daa623334f0a1aeea057f960166aba3cc197e86ba2a",
+          "kind": "TABLE",
+          "name": "native_guild_quest_weeks_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_quest_history_v2(owner INTEGER NOT NULL,week INTEGER NOT NULL,state_json TEXT NOT NULL,PRIMARY KEY(owner,week))",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_quests.py",
+          "line": 17,
+          "source_sha256": "91bff38905272d1bc00b3daa623334f0a1aeea057f960166aba3cc197e86ba2a",
+          "kind": "TABLE",
+          "name": "native_guild_quest_history_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_quest_operations_v2( operation TEXT PRIMARY KEY,owner INTEGER NOT NULL,quest INTEGER NOT NULL,kind TEXT NOT NULL,week INTEGER NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_quests.py",
+          "line": 44,
+          "source_sha256": "91bff38905272d1bc00b3daa623334f0a1aeea057f960166aba3cc197e86ba2a",
+          "kind": "TABLE",
+          "name": "native_guild_quest_operations_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_quest_facts_v2(operation TEXT NOT NULL,owner INTEGER NOT NULL,week INTEGER NOT NULL,facts_json TEXT NOT NULL,PRIMARY KEY(operation,owner))",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_quests.py",
+          "line": 68,
+          "source_sha256": "91bff38905272d1bc00b3daa623334f0a1aeea057f960166aba3cc197e86ba2a",
+          "kind": "TABLE",
+          "name": "native_guild_quest_facts_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_reward_mail_v2( operation TEXT PRIMARY KEY,mail_id INTEGER NOT NULL UNIQUE REFERENCES game_mail(id),owner INTEGER NOT NULL, guild_id INTEGER NOT NULL,source_json TEXT NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_reward_mail.py",
+          "line": 16,
+          "source_sha256": "f5efc3a3b23a60a23fdfb4e320a3986983f9564a35aeee013a9ce710c2199433",
+          "kind": "TABLE",
+          "name": "native_guild_reward_mail_v2"
+        },
+        {
+          "path": "els_server/storage/guild_reward_mail.py",
+          "line": 44,
+          "source_sha256": "f5efc3a3b23a60a23fdfb4e320a3986983f9564a35aeee013a9ce710c2199433",
+          "kind": "TABLE",
+          "name": "native_guild_reward_mail_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_system_v2( guild_id INTEGER PRIMARY KEY REFERENCES native_guilds(id),document TEXT NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_system_state.py",
+          "line": 20,
+          "source_sha256": "6c555345507796f72d31053dabcca2773459626d6e89753d984e0fb404143235",
+          "kind": "TABLE",
+          "name": "native_guild_system_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_operations_v2( operation TEXT PRIMARY KEY,request_hash TEXT NOT NULL,guild_id INTEGER NOT NULL, owner INTEGER NOT NULL,kind INTEGER NOT NULL,result TEXT NOT NULL,created_at INTEGER NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_system_state.py",
+          "line": 22,
+          "source_sha256": "6c555345507796f72d31053dabcca2773459626d6e89753d984e0fb404143235",
+          "kind": "TABLE",
+          "name": "native_guild_operations_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_currency_entries_v2( operation TEXT PRIMARY KEY REFERENCES native_guild_operations_v2(operation), guild_id INTEGER NOT NULL REFERENCES native_guilds(id),coins INTEGER NOT NULL, banner_points INTEGER NOT NULL,source TEXT NOT NULL,created_at INTEGER NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_system_state.py",
+          "line": 25,
+          "source_sha256": "6c555345507796f72d31053dabcca2773459626d6e89753d984e0fb404143235",
+          "kind": "TABLE",
+          "name": "native_guild_currency_entries_v2"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_guild_departures_v2( owner INTEGER PRIMARY KEY,account_id INTEGER NOT NULL,guild_id INTEGER NOT NULL, departed_at INTEGER NOT NULL,operation TEXT NOT NULL UNIQUE)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_system_state.py",
+          "line": 29,
+          "source_sha256": "6c555345507796f72d31053dabcca2773459626d6e89753d984e0fb404143235",
+          "kind": "TABLE",
+          "name": "native_guild_departures_v2"
+        }
+      ]
+    }
+  ],
+  "removed_literal_definitions": [],
+  "new_tables": [
+    "native_guild_applications_v2",
+    "native_guild_currency_entries_v2",
+    "native_guild_departures_v2",
+    "native_guild_economic_facts_v2",
+    "native_guild_expedition_history_v2",
+    "native_guild_name_requests_v2",
+    "native_guild_operations_v2",
+    "native_guild_quest_facts_v2",
+    "native_guild_quest_history_v2",
+    "native_guild_quest_operations_v2",
+    "native_guild_quest_weeks_v2",
+    "native_guild_reward_mail_v2",
+    "native_guild_rose_operations_v2",
+    "native_guild_rose_weapons_v2",
+    "native_guild_system_v2"
+  ],
+  "new_indexes": [],
+  "new_schema_definitions": 15,
+  "startup_execution_not_inferred": true,
+  "raw_literal_delta": "G:\\els\\analysis\\feature-closure-20261105-v1\\guild-independent-v3\\schema-delta.json",
+  "raw_literal_delta_sha256": "6ed26f7f26366c0c50b7c605d74e61a5923511d965a0d6f71fe46df1b72d8fe3",
+  "changed_literal_definitions": [
+    {
+      "old": {
+        "sql": "CREATE TABLE IF NOT EXISTS native_guild_members( owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL, guild_id INTEGER NOT NULL REFERENCES native_guilds(id), grade INTEGER NOT NULL CHECK(grade IN(1,6)),joined_at INTEGER NOT NULL, source_operation TEXT NOT NULL UNIQUE)",
+        "definitions": [
+          {
+            "path": "els_server/storage/guild_membership_state.py",
+            "line": 99,
+            "source_sha256": "663f8d0091ce262968b521efa73e6127e33d1a824eab5c1a3781024c2b39521f",
+            "kind": "TABLE",
+            "name": "native_guild_members"
+          }
+        ]
+      },
+      "new": {
+        "sql": "CREATE TABLE IF NOT EXISTS native_guild_members( owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL, guild_id INTEGER NOT NULL REFERENCES native_guilds(id), grade INTEGER NOT NULL CHECK(grade BETWEEN 1 AND 6),joined_at INTEGER NOT NULL, source_operation TEXT NOT NULL UNIQUE)",
+        "definitions": [
+          {
+            "path": "els_server/storage/guild_membership_state.py",
+            "line": 123,
+            "source_sha256": "1ff5e07de6a594c5a2f7545043bf755bf115883a4f720014a105f94b0a0f22fd",
+            "kind": "TABLE",
+            "name": "native_guild_members"
+          }
+        ]
+      },
+      "activation": "next actual guild mutation in its existing SQL transaction"
+    }
+  ],
+  "transient_literal_definitions": [
+    {
+      "sql": "CREATE TABLE native_guild_members_upgrade(owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL,guild_id INTEGER NOT NULL REFERENCES native_guilds(id),grade INTEGER NOT NULL CHECK(grade BETWEEN 1 AND 6),joined_at INTEGER NOT NULL,source_operation TEXT NOT NULL UNIQUE)",
+      "definitions": [
+        {
+          "path": "els_server/storage/guild_membership_state.py",
+          "line": 119,
+          "source_sha256": "1ff5e07de6a594c5a2f7545043bf755bf115883a4f720014a105f94b0a0f22fd",
+          "kind": "TABLE",
+          "name": "native_guild_members_upgrade"
+        }
+      ]
+    }
+  ],
+  "startup_schema_names": [],
+  "startup_DDL_statements": 0,
+  "startup_index_definitions": 0,
+  "lazy_schema_names": [
+    "native_guild_applications_v2",
+    "native_guild_currency_entries_v2",
+    "native_guild_departures_v2",
+    "native_guild_economic_facts_v2",
+    "native_guild_expedition_history_v2",
+    "native_guild_name_requests_v2",
+    "native_guild_operations_v2",
+    "native_guild_quest_facts_v2",
+    "native_guild_quest_history_v2",
+    "native_guild_quest_operations_v2",
+    "native_guild_quest_weeks_v2",
+    "native_guild_reward_mail_v2",
+    "native_guild_rose_operations_v2",
+    "native_guild_rose_weapons_v2",
+    "native_guild_system_v2"
+  ],
+  "required_native_QA_schema_names": [
+    "native_guild_system_v2",
+    "native_guild_operations_v2",
+    "native_guild_currency_entries_v2"
+  ],
+  "transient_schema_names": [
+    "native_guild_members_upgrade"
+  ],
+  "migration_source_sha256": "1ff5e07de6a594c5a2f7545043bf755bf115883a4f720014a105f94b0a0f22fd",
+  "migration_preserves_rows": "INSERT SELECT within existing caller transaction, then rename",
+  "related_legacy_upgrade_proof": "G:\\els\\analysis\\feature-closure-20261105-v1\\guild-independent-v3\\economy-tls-1793884994192432700.json",
+  "publication_executed": false
+}

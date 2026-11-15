@@ -1,0 +1,52 @@
+{
+  "ok": true,
+  "head": "b80f24acd9347826c6607b65ac9027fc10239e2a",
+  "PR": 943,
+  "required_checks_passed": true,
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-07T15:02:53Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/641927456/els-server-collab/actions/runs/42383947603/job/128437240289",
+      "name": "source-check",
+      "startedAt": "2026-11-07T14:56:39Z",
+      "status": "COMPLETED",
+      "workflowName": "collaboration-checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-07T15:02:47Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/641927456/els-server-collab/actions/runs/42383943269/job/128437227184",
+      "name": "source-check",
+      "startedAt": "2026-11-07T14:56:36Z",
+      "status": "COMPLETED",
+      "workflowName": "collaboration-checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-07T14:56:37Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/641927456/els-server-collab/actions/runs/42383947603/job/128437241074",
+      "name": "runtime-check",
+      "startedAt": "2026-11-07T14:56:37Z",
+      "status": "COMPLETED",
+      "workflowName": "collaboration-checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-07T14:56:33Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/641927456/els-server-collab/actions/runs/42383943269/job/128437228032",
+      "name": "runtime-check",
+      "startedAt": "2026-11-07T14:56:34Z",
+      "status": "COMPLETED",
+      "workflowName": "collaboration-checks"
+    }
+  ],
+  "actual_reviewDecision": "",
+  "exact_head_merge_approval": false,
+  "merged": false,
+  "runtime_CI": "Existing main-only policy skips runtime-check on this PR; actual selected-runtime App/TLS remains required before installation"
+}

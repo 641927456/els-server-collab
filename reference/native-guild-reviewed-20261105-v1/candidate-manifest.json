@@ -1,0 +1,677 @@
+{
+  "revision": "native-guild-reviewed-20261105-v1",
+  "base_release": "native-market-progress-20261105-v1",
+  "base_manifest_sha256": "55e7b112d140170b72c5458f0f51935af072644a7f979bb7e2a87631236909c4",
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "483c24bda47ec1aaf2daae6536d8492ef05e25705a7fa542f5d13dffc8e2801d",
+      "bytes": 38294,
+      "base_sha256": "7014c91d311023b71e699e2006fdbf26123895ca7b511c569bcdc8f8c866581e"
+    },
+    {
+      "path": "els_server/data/guild_expedition_policy.json",
+      "sha256": "6d811c8fe32d900ad3f19c68a888b569e9d0497c47d45997546eb57f50d5ac83",
+      "bytes": 25,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_expedition_rewards.json",
+      "sha256": "2011f77bdec69598049ec8bf6de1205c308799d83aad3ab7266e1ffc6e5135c8",
+      "bytes": 353,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_profession_policy.json",
+      "sha256": "f0a386242afd5365c36d6e7d3f1eaad1a9ce7f43ad301a6490dee7dee9869313",
+      "bytes": 33,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_quests.json",
+      "sha256": "7afdc43b50de08a7e430fc618e4e75c9bfd4450a12da5be437d124bc9fe03115",
+      "bytes": 14891,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_seed_pouch_policy.json",
+      "sha256": "15ba11c4f852175cd5f372831cf1d6625608fe02aca8ee14c99ad1d8199e9104",
+      "bytes": 19,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_shop.json",
+      "sha256": "bd182ab643635a7481b2f1c5b1c79478b6674ce65d6098d8cad8d559d337040b",
+      "bytes": 45202,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_skill_tree.json",
+      "sha256": "5c11a24afbbf2f433d24a33de4c57700ece3e8fe3bcba417c25e3afd6fb47f4a",
+      "bytes": 1171,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_skins.json",
+      "sha256": "5a7fb96f8669da7a7b2d9805f515096b23cbece12f76eb12d06cabddcdc352e8",
+      "bytes": 3065,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_system.json",
+      "sha256": "cc9487cafd32effdcc6e3c3fdcd8f7e5cda8a0c9de14a2617e500953eb94f19d",
+      "bytes": 76899,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/consumable_flow.py",
+      "sha256": "cffcd4c2626aa361a5205483f48d1f74b34981390fd3ed7a8f23fc4f408e86df",
+      "bytes": 1438,
+      "base_sha256": "f334c62761518c0d8b13767625eb0ceff17e366db634966857e06f807b650923"
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "sha256": "97aea7d709a7052865b81e79ffc9449430091f9ec89d02a7c2577fbc2cccea05",
+      "bytes": 10096,
+      "base_sha256": "89ad08661ed9754831981ac9dbca84e0b7d1d39b300c57d27dfe4869c972df5d"
+    },
+    {
+      "path": "els_server/domain/cubes.py",
+      "sha256": "e9c87ab5a763a733048ccf303bfc561092f7cbb684ac5b7930cbb52170b15fb6",
+      "bytes": 6126,
+      "base_sha256": "5fad145032f6f0eb6515bfdc337bdcb9842e3d5bedcea822fb973b6425472e82"
+    },
+    {
+      "path": "els_server/domain/elixir_economy.py",
+      "sha256": "169eb01d1908cb1356062ebe190f9327523f78dafc221482b683e25925942f36",
+      "bytes": 4390,
+      "base_sha256": "780cd7364a3af150b0047310744c29dd686d66a607ac78cb547ca39e0848f371"
+    },
+    {
+      "path": "els_server/domain/elixir_flow.py",
+      "sha256": "7f677ced9a7284ff4efa971d212dc09fa52158a122a67480c4beb7b7a2abb90a",
+      "bytes": 7664,
+      "base_sha256": "65933c44064b1fc76a9d179c92789995df3d9100a4f794deb06569114d5dcf90"
+    },
+    {
+      "path": "els_server/domain/flask_rules.py",
+      "sha256": "dabd911d33123cc1d2a57cb1eec484576e3d02402525a6062fc5c072d59a099f",
+      "bytes": 5687,
+      "base_sha256": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3"
+    },
+    {
+      "path": "els_server/domain/friend_flow.py",
+      "sha256": "df4c35c75575b5aff609d5cf925553e95c5010fea81e103dba25ec25de1142ca",
+      "bytes": 9242,
+      "base_sha256": "d775fca003eb0d4529ae0aa0b4049073682a25f5d0741f270c9cc074a785877a"
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "sha256": "4bab8ee67189b8b52ef4e0aa6b0ad2b5fc624107ed6e83ca60730bd863626571",
+      "bytes": 19871,
+      "base_sha256": "f1c219c5c17f1c79b5e0694f7d63757751464981bf790c855a9f3a9e2dd996f0"
+    },
+    {
+      "path": "els_server/domain/guild_agit_flow.py",
+      "sha256": "303d80a887ebe5403814284bed6566de97ed615462b17302dd4a82977d6f47e3",
+      "bytes": 14505,
+      "base_sha256": "5638f1744c8914625f3018374554c6da2e144164bef53e0155bf33e4dd1e3904"
+    },
+    {
+      "path": "els_server/domain/guild_appearance.py",
+      "sha256": "e7b92596392a5666301f28793aafec18261a4de42f7e6b666a191dd63614572e",
+      "bytes": 2318,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_bank_rules.py",
+      "sha256": "4ed8c66c231d78d46db261ca0c525194eda452121872dcdf45d93bbed783a625",
+      "bytes": 2673,
+      "base_sha256": "62dab28fe85c0399518f46ab7812a405ae2490da5c0e4f1b9b13a71de4180bb7"
+    },
+    {
+      "path": "els_server/domain/guild_banner_flow.py",
+      "sha256": "4a324aeb8ce7005267a297fb43833a0438ac2fee7ffda9c4f2c82b344ff01e53",
+      "bytes": 2504,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_chat.py",
+      "sha256": "2e590e15d6ff2d02a68d199c2fc27b5bd167a36a2a173049aae56e3f70b9a42c",
+      "bytes": 2441,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_consumables.py",
+      "sha256": "c5baa3a1d9c7f8fa7702eec68c927a81b55c1a1beb8a93cd8c340c95c1170dc2",
+      "bytes": 4194,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_effects.py",
+      "sha256": "c813a53666ad4a0a9c6ddd1e835baca7fe1d93e2fb489e83511b09dae135b56d",
+      "bytes": 2768,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_emblems.py",
+      "sha256": "c0ee604884c5e5b1bbf6025de36bfde1524c9ddd7e5709a5843b749a90e53223",
+      "bytes": 6862,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_expedition.py",
+      "sha256": "27c383e2c969ba0618822cb777f54c97c90b89332674ad94a3f7fa4185f59aca",
+      "bytes": 17514,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_farm.py",
+      "sha256": "5c1f9ae62e5359793d52df6a386470d97716114ab56e13aa9be14f7db6b641ca",
+      "bytes": 7562,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_farm_items.py",
+      "sha256": "eecae7e4556a5023d1862d578b1f6161acd6c39d20c8762f3ad8c08b57f0ed3e",
+      "bytes": 787,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_fountain.py",
+      "sha256": "107845a7758622655afb4641816e24534af845dce6c636caca344878337688fc",
+      "bytes": 2490,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_initial_profile.py",
+      "sha256": "a0c46b252e06dfdcd210289ef6fb41042f1e2f849690b06dd9ff62b61f08a24b",
+      "bytes": 2207,
+      "base_sha256": "8cc416decfcf06c7c9abea3646f1b2cb94005d176e3105dcf77d4a67dde92bfb"
+    },
+    {
+      "path": "els_server/domain/guild_membership_flow.py",
+      "sha256": "e751f15323d56c740b573581e5d6b208a689b2f36ad17d37652847aed7c01800",
+      "bytes": 7039,
+      "base_sha256": "a28ddb420a96d4f0c0e8ea550ae249b6b1782358fe90c6cb08aa2249b6e3a765"
+    },
+    {
+      "path": "els_server/domain/guild_mount_fuel.py",
+      "sha256": "7882b72414b732edf090028d87358791d0eb7ef2b3451a89814c50311a20d270",
+      "bytes": 1609,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_periodic.py",
+      "sha256": "1ea2bb492e07c2348542c6ae9897224f07411e01d51cdd532ded3e9fa1e0c42f",
+      "bytes": 2720,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_publication.py",
+      "sha256": "019a9574771c593dc21ca7d5b4d752d83c82cf432f792a314a596d28871a9e2c",
+      "bytes": 3447,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_quest_flow.py",
+      "sha256": "6f4ea74ce4c8eb00c8da2d9c29c6919cb3785071bae8ae59e5718326c2d68bb0",
+      "bytes": 1995,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_quests.py",
+      "sha256": "0f1def76be4cfcc27f042d0bea5c9e977bd8cffdfb86f8d1b8013e2088e5302d",
+      "bytes": 2453,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_recruit.py",
+      "sha256": "14e7e149160af4b57529e3b85d4ba37d910fc1af45d571cf5df2d75b950075f4",
+      "bytes": 15315,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_rename.py",
+      "sha256": "43622813b307753cf2963216955bbe0b917d88aa875b185a34ee876a732c1a90",
+      "bytes": 7024,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_rose.py",
+      "sha256": "9bd10909bf95ab0eb5bf6636f0849a2864a6d3a77a02628fcaa79a551966491f",
+      "bytes": 3095,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_rules.py",
+      "sha256": "bf8ac59b6591a796b11cf94fd1217f7dbed45916e1244da8e920c12acfc76a3c",
+      "bytes": 2324,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_seed_pouch.py",
+      "sha256": "92a7a6d3c64450f0da7ee26ecc61011a69be471bc8e9f79cb9446f0621c2a809",
+      "bytes": 1114,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_services.py",
+      "sha256": "feaa7334a7f173651d990c1aa79dfb2a8f1ae501706c931839ee0be6ab413544",
+      "bytes": 8559,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_shop.py",
+      "sha256": "8a52177f422b59fe932318cc63280503befca83c96d4803fcf4c2c985b8e07a4",
+      "bytes": 5910,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_shop_items.py",
+      "sha256": "39d14a69c733c5133030c0bc31a0300b3d4657b31e5d315a86aa869639f83810",
+      "bytes": 1157,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_skills.py",
+      "sha256": "5c94defc1b3ba9d3b593ff2e41672e4520582d95355f9f8d7d4b0a8072b922ff",
+      "bytes": 8248,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_skins.py",
+      "sha256": "15ede8c6ba2d95543d2401997b972c7a2ab163aefa81add67ecd7d136d50ff27",
+      "bytes": 3403,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_system_flow.py",
+      "sha256": "b9d6ad65d7ce7445a5bf7f12f8cd2dc6b4e21403f5e98f2749df10412e8e67b7",
+      "bytes": 21342,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/housing_room_flow.py",
+      "sha256": "5871819881f101ea8b752b5d3c8f3e1c0d231df9f1857831cc8e5e682fcf9306",
+      "bytes": 10931,
+      "base_sha256": "77b6eb562f2c75dd1ed7656f62aac8f777acdad53c6c6f23002a0235d5b330d4"
+    },
+    {
+      "path": "els_server/domain/hunter_chest_rules.py",
+      "sha256": "e37311d0f221cd5349aa055a89cf7a4a0d960b98aa651b461848bf992a94ab45",
+      "bytes": 5737,
+      "base_sha256": "01b03fc3e014a48fa2e673f685ec4b1ffefe43a7a9dcb91b99709c1fb396eb3f"
+    },
+    {
+      "path": "els_server/domain/hunter_sphere_rules.py",
+      "sha256": "b7b37f12a0bea6804a8f297d0e7b6826bad5fa36281033e13b0404e625ce14f8",
+      "bytes": 3098,
+      "base_sha256": "c0a18d84d7609cf1cda6279f9d832371e27ca74a11ba628bcddf15d8a11d82f8"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "efe2304760ca0b665d150f75cf82a8bd5b9e1f84c698fd2ef5bc5f38200b7b56",
+      "bytes": 87468,
+      "base_sha256": "f3945ac0fbcf0e766e8fccc92382051e3e4f189d153ca0946c6b3d2efe4c9b92"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "66e28e5e7bfe38d40653625d9bdb54e1b64039bfa3ed369efc8c6b0d161da144",
+      "bytes": 157256,
+      "base_sha256": "620543de4cdb2197638e730eacf97d70e0d73e1cd71013fd1664eddba3d87cfe"
+    },
+    {
+      "path": "els_server/domain/luciel_state.py",
+      "sha256": "00595ffe561d60b9ea47cec3f309de8743cef8ead531f59d627c6db0ed449cee",
+      "bytes": 18361,
+      "base_sha256": "f30588ea245ef0003bcca620031fc32f1ad7595b4c2b05022835d8747b8cecb8"
+    },
+    {
+      "path": "els_server/domain/manufacture_flow.py",
+      "sha256": "67d6cc478c381bcf50e3d7cf8f0931851f4658463a66b14964fdb10b5502ac5c",
+      "bytes": 6178,
+      "base_sha256": "e82e1e9d7b25682b2467aaa85a5ecd466cf866415a3f925c0859ac8506a598b5"
+    },
+    {
+      "path": "els_server/domain/manufacture_rules.py",
+      "sha256": "1c1071a97b9ddadcdf0a13b06c43d9c8abb3cb4d342e8a70d2d12f7b5b017c22",
+      "bytes": 8058,
+      "base_sha256": "1dd5ba092184c6864712bb015ac52ca7b475a97996d291cf2b92da83e18f9fe9"
+    },
+    {
+      "path": "els_server/domain/normal_fatigue_flow.py",
+      "sha256": "32ee909910122216142378c346d2aa2960f3a46be1b4ddce20bca2aecf5ab1ce",
+      "bytes": 17735,
+      "base_sha256": "5bba5b87d8c7a024f2f62f8784608f9ef5f98a88120470174363e255b88a6638"
+    },
+    {
+      "path": "els_server/domain/pet_progression.py",
+      "sha256": "f75d0760b7c1f3ae5ff09f6405b70cd9a65799907877fd54c759869553abfd9d",
+      "bytes": 1858,
+      "base_sha256": "93816ebbef987806b6af982192b0df71e0b57dc1784149a71f9be4f480ff3b6e"
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "87ae723f4792787602f36449e3b7285a4d1a3a77d0e78e366f15db536c93a8dd",
+      "bytes": 30717,
+      "base_sha256": "96dd1eb20ac2840c8e6ad7ef51f5fe68dcdfa986b2c5be382b44e4821ce44f8c"
+    },
+    {
+      "path": "els_server/domain/quest_selection.py",
+      "sha256": "b15d53551e52037809a049d2ade54f3ec9ccb0cf8b69f6e70e233429ebf948e2",
+      "bytes": 3056,
+      "base_sha256": "23865ff544ab5541e02f50cc663ad2caedc8ae8af2e8c888ec848f512f3fcbdb"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "sha256": "4d815c16f7fe06100041313097dc17c8ec1d54320cc806b9472d54c662711f5c",
+      "bytes": 20027,
+      "base_sha256": "f9e7488ae9c7f244475b9239a9504ae380069e429754e8f530d666463a0c0649"
+    },
+    {
+      "path": "els_server/domain/title_economy.py",
+      "sha256": "f05f4d47a99571e529a577cba8c639027526cfb0e1013f63069b45196cd63da1",
+      "bytes": 6412,
+      "base_sha256": "99d591157d3de3a995e9a38de16057f7fa6853276cc7aab352310571055aa8e3"
+    },
+    {
+      "path": "els_server/domain/title_flow.py",
+      "sha256": "5f700a4270881d352c86a47ee56a6a5bfbc5a407bf3be6982ada1a7d9864a8d4",
+      "bytes": 4621,
+      "base_sha256": "00a3d3109c6e18e66dcca1c98c7eaffa5e000eda23730fd163c22c9a9795f4c8"
+    },
+    {
+      "path": "els_server/domain/tutorial_accessory.py",
+      "sha256": "56189f5f5e1833850867f9027fa011f5ce3303d88bd75dd87239b9194938ab1a",
+      "bytes": 8589,
+      "base_sha256": "e02084170e095302da347c4644d95e3453d310d19938bbc533b64250184eb3fd"
+    },
+    {
+      "path": "els_server/dungeon_workers.py",
+      "sha256": "544a1871af5f9bb1a6a2501dcacdf6236202555688aa20e50a14002060ede9f3",
+      "bytes": 8408,
+      "base_sha256": "a55d2602c0f172ea71cf77a100b583466a7c89d6fb080bad58f18b4ae71101da"
+    },
+    {
+      "path": "els_server/protocol/guild_agit_messages.py",
+      "sha256": "e0a77ce3260837ae6a476360e392d88d4ede44f8995b2449637288927100726e",
+      "bytes": 2697,
+      "base_sha256": "f4b915f04f9347419128d9fd9e5087495e3430801181edcaea83047d79cc8db5"
+    },
+    {
+      "path": "els_server/protocol/guild_bank_history_messages.py",
+      "sha256": "38db9ac82e402e896a975dce6658f6aea8ea9cb899b315df807521861764bc63",
+      "bytes": 2352,
+      "base_sha256": "294e475027ed5367b768d354c5116c25697bfd256aafd9122391d413772ed2f4"
+    },
+    {
+      "path": "els_server/protocol/guild_bank_transfer_messages.py",
+      "sha256": "66032957cc39daf005e2bd22ef2f4e45b436401702ae772882b22cb690218b3f",
+      "bytes": 2343,
+      "base_sha256": "bafb2b7e15b3393d617aadab59d25587101e20daf4cfb75682cda1e7847d71a1"
+    },
+    {
+      "path": "els_server/protocol/guild_emblem_messages.py",
+      "sha256": "1d05639f19b65c66e659e38048dd0008d1b829a51db81e5a05c400e0c7ee4e64",
+      "bytes": 559,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/protocol/guild_farm_messages.py",
+      "sha256": "fc1b4a48e60830b891b65467b041c63f1fe4ab4a6e3b93b0e149d36b274407cb",
+      "bytes": 1129,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/protocol/guild_membership_messages.py",
+      "sha256": "de75447691aeee379f77faa2ff5964a9074f45f35dec70104eeb7f8c3e194524",
+      "bytes": 3611,
+      "base_sha256": "d0cc85b937339ccb63a845d6fd13111f870238012f32ca89b192c47c067aa5c9"
+    },
+    {
+      "path": "els_server/protocol/guild_membership_profile.py",
+      "sha256": "e3f1d35c21d1be6a5f98e3c438b463b3863db984bc54f46883047340af4e6271",
+      "bytes": 6451,
+      "base_sha256": "4f156bd516e702e8b1fd1c484901c380d0431991db842028af7ec9f2104af9f8"
+    },
+    {
+      "path": "els_server/protocol/guild_recruit_messages.py",
+      "sha256": "59b38b81c6e694b69ea85be3e9e67eddf774dd2c206fe022ed5b620e8596ead2",
+      "bytes": 1633,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/protocol/guild_system_messages.py",
+      "sha256": "a47323cf3789c9aa26951bce11817d591e6313e1b484bb6da1c3cef9f475aac2",
+      "bytes": 2910,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "sha256": "eedc469259e1f8f7d5cfa97c3e3bf6b7848fc5e4907ae8d844b53bec154a25c6",
+      "bytes": 20978,
+      "base_sha256": "6bc7ddcb5093001d721558b9f78123b23cd45a75d82afd10c15a13976db6903e"
+    },
+    {
+      "path": "els_server/protocol/luciel_messages.py",
+      "sha256": "c79842b2c86d48ae32bf0c1ffc45707d5e46d86481dec78fb794bdae1e6f7c47",
+      "bytes": 2223,
+      "base_sha256": "64da7d44f308d22802c4d6bf67afb11eecae7d25b53351968cdf6add51cc7434"
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "sha256": "ca05c7114c7fe1c90f600c499305f6c9c076f39f7e81ad27f2ceb45272aaa9c8",
+      "bytes": 14281,
+      "base_sha256": "082add22faab7bef4dddbf0c29576afbe0b384d892917bb111fddc6b433f2b36"
+    },
+    {
+      "path": "els_server/protocol/world_buff_messages.py",
+      "sha256": "ae48cae5838d0f751dffebd6718205b59c3f94c7f7638675b3f9f8ba33c4db4f",
+      "bytes": 3333,
+      "base_sha256": "ab49c841ca50178a407ac3b5baa2d3e0b25d2b6c650eed2f53507d39c4612f6e"
+    },
+    {
+      "path": "els_server/storage/anvil.py",
+      "sha256": "a9ceb69bea8171598c5458fbe9d73b4c785e9bb9dc48ba9c3720c06a37a5d294",
+      "bytes": 7724,
+      "base_sha256": "760ba93211681c3f28df62f6e28234f02182258ec7cdaf4d766416643cffd59c"
+    },
+    {
+      "path": "els_server/storage/artifact_progression.py",
+      "sha256": "9e3a2d99eb191263132f4337ee7d191199a6ecdf3f8711b64b410713607424d7",
+      "bytes": 11585,
+      "base_sha256": "3d5fcd9d2379a281e4db4e51997af16f1225452299da148a625b19a47e73975d"
+    },
+    {
+      "path": "els_server/storage/blacksmith_enhancement.py",
+      "sha256": "9de27caca2cb56a6d1b6d2e95eb4b3c8fafb0d1b8dfe6f0a0e34bf8785605683",
+      "bytes": 6677,
+      "base_sha256": "a1c80104443e47399d583d2dc8dd54a421374244c03a9273d762bd521560af43"
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "sha256": "769a57a1d539c2d06e866703011c5dc883f98a8ef5100dca9c0e4474f2fbaac3",
+      "bytes": 9471,
+      "base_sha256": "f170ba7c9bf25e1ea1dfca43306a93905d0bbba7065a290cfbcfa01fd696e1b6"
+    },
+    {
+      "path": "els_server/storage/decomposition.py",
+      "sha256": "0fb7a59375e350e38127ceaa56f7e515fd51e0d38ca833eb71f41bd205cf34df",
+      "bytes": 6343,
+      "base_sha256": "58a362173a30c20bf9b8c9fd690c48f26bf0e9081662674fc9faf18769fd04e4"
+    },
+    {
+      "path": "els_server/storage/elixir_economy.py",
+      "sha256": "a463b76ebe9dc8e60b361f6f87931188077bb3544bfa29e1ab098b20346cc65c",
+      "bytes": 5918,
+      "base_sha256": "561cd65815ad940baa2afc7c446228eaa66896ee21f97cf67523eb5a80a9ca58"
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "sha256": "91bab26db1f5e059d5c006d4947dd0fc986170252a39092d6c3b0a80a25a493d",
+      "bytes": 3451,
+      "base_sha256": "9bb1ea5d9ff4630203160b4c7d19c36e2c681b79d19ab2e3e7c2d65b5c4b8360"
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "sha256": "552c170e6721593d886c9ebcc15ae4eaad65d253e3b31f1da3083794bbc10cc8",
+      "bytes": 12437,
+      "base_sha256": "a2741a103642a62b4dd96903a7840eb9e7edf1e0d2628594364b448725d0213f"
+    },
+    {
+      "path": "els_server/storage/flask.py",
+      "sha256": "e38efb2a43a58073deee5c5faf79830142f40ae723af16c7a1b319a56c848172",
+      "bytes": 11493,
+      "base_sha256": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86"
+    },
+    {
+      "path": "els_server/storage/guild_bank_items.py",
+      "sha256": "7094c4885702827b1dd1bbed54d178b29218a3c1d13c4e140857739af15d6cf4",
+      "bytes": 11765,
+      "base_sha256": "52c7b8793bf57d27305ce7413da42ba48c59d7759d532f31a9def43757c36a04"
+    },
+    {
+      "path": "els_server/storage/guild_coin_state.py",
+      "sha256": "aa4dbe8dd6a08ceb82f86707992692cce1653e78a6650517bea6aed2462cb920",
+      "bytes": 6922,
+      "base_sha256": "5327ff7fee177bcf91a32b4c7ce86e8cdfc3c746d04ffca56258ec11743694a9"
+    },
+    {
+      "path": "els_server/storage/guild_economy.py",
+      "sha256": "30ef24b5ee2550b64e6de1e32586298b4c0bb962263facf440c1238afc446c36",
+      "bytes": 2729,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/guild_membership_state.py",
+      "sha256": "1ff5e07de6a594c5a2f7545043bf755bf115883a4f720014a105f94b0a0f22fd",
+      "bytes": 20427,
+      "base_sha256": "663f8d0091ce262968b521efa73e6127e33d1a824eab5c1a3781024c2b39521f"
+    },
+    {
+      "path": "els_server/storage/guild_quests.py",
+      "sha256": "91bff38905272d1bc00b3daa623334f0a1aeea057f960166aba3cc197e86ba2a",
+      "bytes": 6956,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/guild_reward_mail.py",
+      "sha256": "f5efc3a3b23a60a23fdfb4e320a3986983f9564a35aeee013a9ce710c2199433",
+      "bytes": 5767,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/guild_system_state.py",
+      "sha256": "6c555345507796f72d31053dabcca2773459626d6e89753d984e0fb404143235",
+      "bytes": 7692,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/hunter_chest.py",
+      "sha256": "1a4f6c064656a9d41f0b2d75a20e60b9b611115431eed319b15f865c575aaa78",
+      "bytes": 7770,
+      "base_sha256": "82e294c39d648232fbaeaa83f2c745bba295cf32842c7014c3c53a9f962d9c0f"
+    },
+    {
+      "path": "els_server/storage/hunter_sphere.py",
+      "sha256": "650c1344f2d24b07f5d19e395b2a31e8e7a8bc3fceef791eb6559f3c4d07b727",
+      "bytes": 5765,
+      "base_sha256": "b49c8f38c8da7bd884adccfff3211e7aa0bce948ad4dc5ed94d5a73152e87720"
+    },
+    {
+      "path": "els_server/storage/luciel_state.py",
+      "sha256": "52f286e1d0b67c92dc18908888a6d23882e296d7b4c908664477062965e253e3",
+      "bytes": 9902,
+      "base_sha256": "e759891429f136884484ad7063cf8130d5d276cdde30b4a7ea9f9a1996190480"
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "sha256": "60497b19047015f9b9b051c38ce42ebe325b66c3c8fc8e453a097bf0095f2f9b",
+      "bytes": 23260,
+      "base_sha256": "9962373b9edfcafec286c807180eacad6da746d58ba590429ab24d126df2fe13"
+    },
+    {
+      "path": "els_server/storage/normal_fatigue.py",
+      "sha256": "b2c882dd1745798dca5a9e89a2608934c3eeb8e9e983ba98f804bb6a30b1e37c",
+      "bytes": 8423,
+      "base_sha256": "c8bcc2546295544c292e0c3a510b9206606047b716170fa6f645b0e39e189fe1"
+    },
+    {
+      "path": "els_server/storage/pet_progression.py",
+      "sha256": "067b0245481e62efe8d8f72095cc247a26d20466c8ad66f986f42da6211ea35d",
+      "bytes": 9018,
+      "base_sha256": "c1c680c1c8334b33f388b39a2bbbcd6d65d3a3e5a92a06e1a43a10a318500ed4"
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "sha256": "a5237fe96f0130cc83d07a248cf2e9ac2f92923392561e81c5e7f2551ddb6335",
+      "bytes": 14164,
+      "base_sha256": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871"
+    },
+    {
+      "path": "els_server/storage/pvp_settlement.py",
+      "sha256": "15d5a6f42e6aabf384a6a46c760f56466a91846e02566f78da6cae82ab2f685b",
+      "bytes": 9908,
+      "base_sha256": "de1dd5810c5f85745204fa4399c0bfd9af8e00907954f8fd25c4cd076d4148cd"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "8b43c9dcbdfbf68e8f0d03f90fa3fc64da89f314fac5d527910e2e7de1f3c1b1",
+      "bytes": 40976,
+      "base_sha256": "75677e377c9513787a0ec9766c532fef48686a5d054802997b6df35688179d05"
+    },
+    {
+      "path": "els_server/storage/titles.py",
+      "sha256": "756f633bf6cee260f2f6dcb6d4bc81e5d8649db33a8d33a9d9ccea69d2cecb54",
+      "bytes": 10241,
+      "base_sha256": "78ae0392582bd21d36d3074afeee199b80578b1b743846866cab83de85e24398"
+    },
+    {
+      "path": "els_server/storage/wear_moves.py",
+      "sha256": "3e0f18b882f62a71f32da8d0a90b71b54bb26ee397a19e8c86862cc3f3959676",
+      "bytes": 8016,
+      "base_sha256": "6192d76635eafad9956d02543a6b0e0a04e02d72dff17847e9c5d34703e1e25b"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "sha256": "c1f10de31cc9241ca871b8f4fe006dcaebe17a5f7b39efba3230c2462f73929b",
+      "bytes": 22528,
+      "base_sha256": null
+    },
+    {
+      "path": "tools/guild_native_power.js",
+      "sha256": "ff0bb65b18c252da78829ccefaa51ac16e4a9d507e27c8cb560aa7b844facba7",
+      "bytes": 4749,
+      "base_sha256": null
+    },
+    {
+      "path": "tools/guild_native_power.py",
+      "sha256": "a776b950820bf4cc83981f659c633b4c180e30bdf2011837dbb6746e6c307226",
+      "bytes": 1213,
+      "base_sha256": null
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "sha256": "705c244e2130d2087b8d8751bb76c805f5311c1e6b913e343433a70aea48368d",
+      "bytes": 5517,
+      "base_sha256": null
+    }
+  ],
+  "peer_zip_sha256": "4cdae259f868a949851236f0002e6ea71a29ea1adaa969a3ce7fb6648c0b80b4",
+  "install_ready": false,
+  "pending_support": [
+    "tools/client_compatibility_profiles.json",
+    "tools/guild_native_power.js",
+    "tools/guild_native_power.py",
+    "tools/native_cache_sync.py"
+  ],
+  "policies_awaiting_user": [
+    "initial_smashes",
+    "seed_pouch_templates",
+    "held_badge_and_contract"
+  ],
+  "natural_GUI": false,
+  "online_installed": false,
+  "local_installed": false
+}
