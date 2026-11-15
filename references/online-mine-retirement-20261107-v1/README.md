@@ -13,3 +13,7 @@
 冻结父版为V99服务端native-online-disconnect-repair-20261107-v1。冻结不表示安装：本批未抢占其他会话维护锁、未停服或修改线上/本地正式内容。最终发布必须从届时实际current选择性保全其他增量，另按精确head批准合并。前一批PR937的许可已消费。
 
 测试源码沿原工作布局保存。可在G:/els维护环境中，进入本目录后分别执行`python repair-v6/test_mines.py`、`python repair-v6/test_mine_shared.py`、`python repair-v6/probe_native_send_race.py`、`python repair-v6/test_sequence_inbox.py`和`python repair-v6/test_send_serialization.py`。这些测试依赖未随仓库上传的固定V99运行包、既有自有TLS夹具和只读原生映像；不含凭据、玩家库、原始抓包或运行日志。对应输入不变时直接复用validation.json已有成功结果。
+
+V101后续实际安装见[双端与启动器交付记录](delivery/v101/installation.json)。本批源PR940已按用户精确head许可合并为419d3c6d41bc8b347974de93f20ce327b4d897d5；仅一份地雷来源表进入运行包。接实际V100父版保全全部其他文件，父版PR938在父选择时仍未合并，本批不代其声称获得审批。两端1432份服务端源码和SQLiteDLL一致；线上124秒、本地130秒、启动器122秒观察及公网/本地真实普通入场过门、地雷退场/重放无增量通过。原有本地玩家行保留，自有QA认证、两项远端任务、三份缓存和自有发布锁已清理，必要备份保留；后继隔离压测窗口保持。
+
+`delivery/v101/launcher-source`保存三份实际变化启动器源码和签名清单，绑定正式V101 EXE/运行包SHA；QA源码及脱敏证据同目录。临时QA运行路径已清理，不代表当前安装位置。主干source-check通过；全量runtime-check的交付时状态独立保存在main-CI-at-delivery.json，未完成项不登记通过。实验发送Hook未打包/未安装，旧游标与33242召唤拒绝仍未确认，未宣称自然GUI或玩家闪退全部解决。
