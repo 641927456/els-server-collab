@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "candidate": false,
+  "roles": 16,
+  "first485": {
+    "total_ms": 357.2072999959346,
+    "encode_ms": 2.1513000247068703,
+    "send_ms": 0.1784999913070351,
+    "calls": [
+      {
+        "clock_before_ms": 0.10549998842179775,
+        "domain_ms": 353.49750000750646,
+        "clock_after_ms": 0.05830000736750662,
+        "after_reply_ms": 0.04230000195093453,
+        "queue_ms": 0.24459999985992908,
+        "admission_ms": 0.04919999628327787,
+        "executor_ms": 0.05630002124235034,
+        "batch_wait_ms": 0.13909998233430088,
+        "handler_ms": 353.9372000086587,
+        "projection_ms": 13.042200007475913,
+        "projection_loads": 16,
+        "projection_hits": 0,
+        "registry_ms": 0.11059999815188348,
+        "registry_checks": 1,
+        "sql_begin_wait_ms": 0.0,
+        "sql_finish_wait_ms": 0.0,
+        "sql_finish_busy": 0,
+        "sql_writer_held_ms": 0.0,
+        "sql_busy": 0,
+        "sql_rollbacks": 0,
+        "failed": false,
+        "scope_wait_ms": 0.12069998774677515,
+        "lane": "town",
+        "account_wait_ms": 0.005400012014433742,
+        "world_gate_wait_ms": 0.0,
+        "clock_stages": {
+          "attendance_eligibility": {
+            "count": 2,
+            "total_ms": 0.01670003985054791,
+            "max_ms": 0.009600014891475439
+          },
+          "title_eligibility": {
+            "count": 6,
+            "total_ms": 0.017300015315413475,
+            "max_ms": 0.004599976819008589
+          }
+        },
+        "worker_cpu_ms": 343.75
+      }
+    ]
+  },
+  "roster_bytes": 72921,
+  "owned_runtime_removed": true,
+  "connections": 0
+}
