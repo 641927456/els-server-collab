@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "title_ownership_fixture_only": true,
+  "natural_title_acquisition": false,
+  "checks": [
+    "Existing account title scope, native title region, unique title identities and expiry; no schema changes during read",
+    "Three valid region1titles stay incomplete; expired fourth, wrong character scope and foreign account title do not inflate count",
+    "Late encoding failure rolls back achievement derivation",
+    "Ordinary authenticated C22/C23 refresh observes the fourth owned title and emits one original6C0, including on repeated read",
+    "Account alt shares completion; repeated no-reward6C9creates no mail"
+  ],
+  "completed": [
+    270
+  ],
+  "category_scores": [
+    10,
+    0,
+    0,
+    0
+  ],
+  "errors": [],
+  "source_sha256": {
+    "els_server\\application.py": "6f259034d948de568f0a79d23bbb6a7a9aba32e31f637772dd38e633570c5118",
+    "els_server\\data\\ariel_attendance_preview.json": "514c4937418c0bf336a53671c7e1dd5d9e580c804703c4ebbaed68b8ff7cf5a3",
+    "els_server\\domain\\achievement_catalog.py": "f80f5d79db5424a4071406b6579652c385715eacf53e7e8de3c76f4784024dbb",
+    "els_server\\domain\\achievement_flow.py": "f250b8ab68d3831d1747493ab29176b1d2b47fc438d3eeaa11571314b9fff4bb",
+    "els_server\\domain\\ariel_attendance_preview.py": "83c4097d6ee4c0bdd333d3e7b23cc4241886ce699e44e8f45af4998b3a975c02",
+    "els_server\\protocol\\achievement_messages.py": "fa986c7e54570c61190568149d8508560b7309bbc6617b42f45cf6dc8336e9f4",
+    "els_server\\storage\\achievements.py": "125ab0ad12b578ae24d2f7efd60ba257d588050a1f172ae3588c8be859257c53",
+    "els_server\\storage\\achievement_collections.py": "4b8bb609649cf3ce24e770a214a35ad55b31738b326f8294f4cabe6cac76a9fe",
+    "els_server\\storage\\achievement_profiles.py": "997bd08d788535374402254ddafda43028df5c16c0dd89b29209258529a594be",
+    "els_server\\storage\\player_mail.py": "b93ebcb20f17fdf4c5792b8f6ebbb2effc30531a4bb7b79176c39cc286b7ac00",
+    "els_server\\data\\client\\achievements.json": "0be7576396cfbd3d07d992916ff5674706cd67abb00fc44ac8e0d8a9efd86dee",
+    "els_server\\data\\client\\achievement_rewards.json": "79fbcef402aad6626e55127c2f2eac5b64f6d6923fe0736e74dccf653f67bfdb"
+  }
+}

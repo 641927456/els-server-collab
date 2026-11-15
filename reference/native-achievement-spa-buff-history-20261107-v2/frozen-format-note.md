@@ -1,0 +1,1 @@
+The preserved v99-parent.diff is a review artifact: its single-space context lines are intentional unified-diff syntax. Source bytes and the frozen manifest are unchanged. Whitespace verification excludes only this diff artifact and the already recorded inherited final blank lines.

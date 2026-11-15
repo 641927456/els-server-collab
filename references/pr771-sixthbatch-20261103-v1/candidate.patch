@@ -1,0 +1,126 @@
+--- parent/els_server/domain/dungeon_routes.py
++++ online/els_server/domain/dungeon_routes.py
+@@ -110,6 +110,11 @@
+ class DungeonRun:
+  def __init__(self,identity,run_id,*,clock=time.monotonic,internal=False,hp_context=None):
+   self.catalog=route_catalog();self.graph=self.catalog.graph(identity,internal=internal);self.identity=identity
++  # Native dungeon stage loads retain player summons (creation reason3).
++  # Reserve every possible static stage identity before allocating one.
++  self.summon_key_floor=max(16,max(sum(len(p['groups'][0]['npcs'])+max(
++   (len(g['npcs']) for g in p['groups'][1:]),default=0) for p in stage['parts'].values())
++   for stage in self.graph['stages'].values()))
+   self.run_id=str(uuid.UUID(run_id));self.clock=clock;self.stage=0;self.part=0
+   self.hp_context=hp_context
+   if hp_context is not None:hp_context.bind_run(self)
+--- parent/els_server/domain/local_session.py
++++ online/els_server/domain/local_session.py
+@@ -922,17 +922,21 @@
+ 
+             if occupied_slots(self)>=80:return [summon_ack(-1)]
+ 
++            key=self.summon_next_key
++
+             if self.dungeon_run is not None:
+ 
+-                while self.summon_next_key in self.dungeon_run.reserved_keys:self.summon_next_key+=1
+-
+-            try:notice=sentry_spawn(event.payload,self.account.uid,self.summon_next_key,player_summon_templates(character))
++                key=max(key,self.dungeon_run.summon_key_floor)
++
++                while key in self.dungeon_run.reserved_keys:key+=1
++
++            try:notice=sentry_spawn(event.payload,self.account.uid,key,player_summon_templates(character))
+ 
+             except ValueError:return [summon_ack(-1)]
+ 
+-            self.summon_keys.add(self.summon_next_key)
+-
+-            self.summon_next_key+=1;self.summon_requests[request_sequence]=event.payload
++            self.summon_keys.add(key)
++
++            self.summon_next_key=key+1;self.summon_requests[request_sequence]=event.payload
+ 
+             return [summon_ack(),notice]
+ 
+--- parent/els_server/domain/dungeon_flow.py
++++ online/els_server/domain/dungeon_flow.py
+@@ -196,9 +196,9 @@
+   run.completed_transition=dict(target=(run.stage,run.part,run.visits),parts=tuple({struct.pack('>b',source[1]),struct.pack('>b',run.part)}))
+   s.part_end_notified=False;s.defeated_npcs=run.defeated
+   if transition=='stage':
+-   # Keep the run's high identity and request receipts across stage loads.
+-   # Late expiry/cast retries belong to their original actor and request.
+-   s.summon_keys=set();s.summon_deaths={}
++   # 103E610 -> Game v1F0 keeps native reason3 player summons in dungeons;
++   # BD -> 1041040 moves living owned summons through each player's v14F8.
++   # Keep identity, expiry and request records; never respawn or restart AI.
+    s.dungeon_substage_synced=False;s.gate_stage_loading=True
+    reply.append(run.population_event())
+   else:
+--- parent/els_server/domain/dungeon_settlement_commands.py
++++ online/els_server/domain/dungeon_settlement_commands.py
+@@ -37,7 +37,10 @@
+                         from els_server.domain.dungeon_population import population
+                         actors=actors | {n['key'] for n in population(self.gate_stage,hp_context=getattr(self,'_c1_hp_context',None))['npcs']}
+ 
+-                if (not self.dungeon_substage_synced or event.performers!=(0,)
++                # The native owner timer can finish while the stage loads.
++                # Only its strict expiry format may cross that loading gap.
++                if (not self.dungeon_substage_synced and not (self.gate_stage_loading and data['flag']==255)
++                        or event.performers!=(0,)
+ 
+                         or not valid_player_summon_death(data,self.account.uid,actors)):return []
+ 
+--- parent/els_server/domain/friends_spawns.py
++++ online/els_server/domain/friends_spawns.py
+@@ -135,7 +135,7 @@
+         connection = _connection(s)
+         previous = state.requests.get((connection, sequence))
+         if previous is not None:
+-            return [summon_ack(0 if previous == (generation, digest) else -1)]
++            return [summon_ack(0 if previous[1] == digest else -1)]
+         if (r.phase != 'active' or len(state.requests) >= 4096
+                 or sequence <= state.sequences.get(connection, 0)
+                 or any(m.phase != 'dungeon_active' or not m.dungeon_substage_synced
+@@ -144,7 +144,8 @@
+ 
+         # A skill-qualified player entity is distinguished by the strict
+         # decoder. A guest's general NPC scripts never obtain scene authority.
+-        key = _allocate(r, state, 1, minimum=16)[0]
++        minimum = r.leader.dungeon_run.summon_key_floor if r.leader.dungeon_run is not None else 16
++        key = _allocate(r, state, 1, minimum=minimum)[0]
+         character = s.account.character()
+         notice = None
+         if s.client_build == 'dx11_260923' and s.role == 'game' and character:
+@@ -219,9 +220,11 @@
+     try:
+         generation = _members(dispatcher, r)
+         state = _state(r, generation)
++        loading_expiry = (r.phase == 'substage' and data['flag'] == 255
++            and all(m.phase == 'dungeon_active' and m.gate_stage_loading for m in r.members))
+         if (state.owners[key] != _connection(s) or event.performers != (0,)
+-                or r.phase not in ('active', 'part_end', 'clear')
+-                or any(m.phase != 'dungeon_active' or not m.dungeon_substage_synced for m in r.members)
++                or not loading_expiry and (r.phase not in ('active', 'part_end', 'clear')
++                    or any(m.phase != 'dungeon_active' or not m.dungeon_substage_synced for m in r.members))
+                 or not valid_player_summon_death(data, s.account.uid,
+                     _keys(s) | {m.account.uid for m in r.members})):
+             return []
+@@ -449,15 +452,8 @@
+     if len(generations) != 1:
+         raise SessionOrderError('Shared actor transition diverged')
+     generation = next(iter(generations))
+-    if _stage(generation) != state.stage:
+-        for m in r.members:
+-            m.summon_keys = set()
+-            m.summon_deaths = {}
+-            m.summon_requests = {}
+-            m.summon_next_key = max(16, state.high_key + 1)
+-        state.owners = {}
+-    # Keep request tombstones and the high ID for the entire room epoch: late
+-    # requests/expiry cannot target a new stage's freshly allocated sentry.
++    # The native dungeon keeps reason3 actors and their owner timers. Keep the
++    # same owner/expiry/request records for this room epoch, without a spawn.
+     state.generation = generation
+     state.stage = _stage(generation)
+ 

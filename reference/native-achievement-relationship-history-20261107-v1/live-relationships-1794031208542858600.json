@@ -1,0 +1,34 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "fixtures": "Three owned actors, alternative character, two couple rings, one wedding ring and explicit future ceremony clock",
+  "natural_acquisition": false,
+  "checks": [
+    "Normal3FB/3FE refusal preserves ring and zero count; mutual acceptance consumes one ring, completes109 and immediately notifies both accounts; repeated answer adds nothing",
+    "Actual887 reservation and tickets add no wedding count; guest start and spouse refusal add none; injected424encoding failure rolls back; mutual consent starts one ceremony and immediately completes114 for both spouses only; duplicate consent adds nothing",
+    "Repeated ordinary queries are stable; alternative-character cold login shares109/114 and keeps independent display; invited guest account remains uncredited"
+  ],
+  "completed": [
+    [
+      109,
+      114
+    ],
+    [
+      109,
+      114
+    ],
+    []
+  ],
+  "both_accounts_immediately_notified": true,
+  "new_tables": 0,
+  "new_indexes": 0,
+  "errors": [],
+  "owned_directory_removed": true,
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "f4f2d00f21c036e87efa86707deb13c1944ca1a873ed65548f381ae0768280ee",
+    "els_server/storage/achievement_history.py": "0de4da61171c45c54ffa3b8f62fbc7dc24beedef7e0d82daf3df95636aa0f4fc",
+    "els_server/storage/achievement_profiles.py": "93458f2597dbae320a0f637385f6dcc6e5fef1825c4fc1909b7d84aeb8b978cf"
+  }
+}

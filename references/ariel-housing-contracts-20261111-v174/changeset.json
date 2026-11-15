@@ -1,0 +1,69 @@
+{
+  "release": "ariel-housing-contracts-20261111-v174",
+  "source_manifest_sha256": "1d24b86787deedd43166bfed65468dc15a7bf1a3b35b21220c5659d923f926bf",
+  "parents": {
+    "online": {
+      "release": "party-recruitment-and-striker-20261111-v173",
+      "manifest_sha256": "30922b203ecdefafa7d7f0a225ae7862213f051146f57ba940c42d41adf4e5c6"
+    },
+    "local": {
+      "release": "unified-server-d5de512d7976a268-e8ed0ad217fe",
+      "manifest_sha256": "3cddaf044f1a90e1b4ee31ceb9eca5f7177da678748613d45aa802f8a8838381"
+    },
+    "launchers": {
+      "release": "party-recruitment-and-striker-20261111-v173",
+      "manifest_sha256": "781f08c2ea09e935826876fbe4bdb56b49e363c5bb7de6ecfd37fb1c21ddbd44"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "a28507e51c33a8f1618dc274797c647ce737649993c0a9f830ce027a3768338b",
+      "size": 20716,
+      "sha256": "818c9cd8d96d81c979173942f8941df7e0dcfc8c56fb37e64d3a5fd5b77cee3e",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/housing_contracts.py",
+      "parent_sha256": null,
+      "size": 1050,
+      "sha256": "79b965496bef580ed9ccaf899a15a2528e8e91a3d04cfd64d1d8d1d98bbc8b3e",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "9f00e08c33f9f5c439a1f86638c949f61d7f5f9cbd8eb62a7979c8c599d6332b",
+      "size": 100310,
+      "sha256": "0a6f407468caa666528ab67efea608270a5f82b2d85a658a5b6eccaa178a0588",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/npc_trade.py",
+      "parent_sha256": "a58d7b8ad92dba8c2ef6f148ad94ad7492f2373eae1de5d6ff1bb0c5c2ea6756",
+      "size": 3450,
+      "sha256": "b4f8fc6cdd7487699a15d252ffab500e75d8b018d7171e5351c44466b66b9169",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/housing_access.py",
+      "parent_sha256": "ce8ece8150755bd99591bdc98f57959fca87f8d7cf7467eb2a279b6afa46b4b0",
+      "size": 11377,
+      "sha256": "37eb70ce021bcab69878201a0056a61cf5cec23576e072737b4464dd34e27d30",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "4b0a55e3574fe88f2cad13667ab70ff899f5f413f1f0d81273dc189ec4cee908",
+      "size": 35473,
+      "sha256": "5fad599edae9b621c364afdcf336d53804685c47f88c35b7a28b861c46c516da",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "67510a482a387924bf769ec30b4034da3e524e440cc8e4bc325f5e5b4ac06811",
+      "size": 14574,
+      "sha256": "2c9764cb69016d18d8c0116f88e6f0006aa3c1eb0aee60e3435aa3801ff1de9d",
+      "scope": "server"
+    }
+  ]
+}
