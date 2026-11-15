@@ -1,0 +1,108 @@
+{
+  "ok": true,
+  "build_sha256": "b5697171268c2caaa0c7e66200be83ecafe4fe00ddbbb0c84c50b5aa918f73c5",
+  "compiled_exe_sha256": "60c1fea1902f2505113aaa9b09c94b26137a067725878575ca52b8ccb4ef1c4d",
+  "embedded": {
+    "ok": true,
+    "version": 82,
+    "resources": 101,
+    "signed_default_payload": "8d489fc3cb51f90a79f7a4c085181175b1c92d377a434d13d5ac121370bc5d26",
+    "profile_pin": "c1f10de31cc9241ca871b8f4fe006dcaebe17a5f7b39efba3230c2462f73929b",
+    "game_started": false
+  },
+  "signed_members": 2199,
+  "server_members": 1343,
+  "server_changed_members": 9,
+  "unchanged_members": 2190,
+  "client_support_changed": 0,
+  "original_EXE_KOM_changes": 0,
+  "native_server_overlay_qualification": {
+    "ok": true,
+    "native_game": true,
+    "natural_GUI": false,
+    "two_native_clients_fighting": false,
+    "runtime_binding": {
+      "ok": true,
+      "runtime": "G:\\els\\releases\\local\\unified-server-566743b0f3babdfb-749ffeb2e0ca",
+      "installed_release": "unified-server-566743b0f3babdfb-749ffeb2e0ca",
+      "selected_signed": true,
+      "published": true,
+      "signed_members": 2196,
+      "selected_signed_payload": "a33de4e7abdc18f8e35bd2a64e7dba92b76036d710f06354c615778df9c5eb0e",
+      "signed_envelope": "G:\\els\\analysis\\feature-closure-20261105-v1\\shared-delivery-v81-r2\\signedFriends.signed.json",
+      "signed_envelope_sha256": "d9de329899a08881e75262571d66d7240bc9a689157ebc9c7cb9aa5e9218bc00",
+      "candidate_server_overlay": "G:\\els\\analysis\\feature-closure-20261105-v1\\duel-wire-v2\\candidate\\els_server",
+      "candidate_installed": false,
+      "support_changed": false,
+      "game_started": false
+    },
+    "source_files": {
+      "domain/duel_flow.py": "24b6b0f37cd1c72be2af3c06542d5150017abbbffe05ccff289c2f14270d17b5",
+      "domain/friends_pvp.py": "d2d5b1f5d525b5a8f8daf99992dfe93a0488b62d1fa62d89fd413b9fe9574220",
+      "domain/guild_agit_flow.py": "ff66390722c849a42d2ac2ffbd1b5a11b7381e6eec7fd57dcdd6a35997928155",
+      "domain/pvp_loading.py": "41a135bf582cbdf4c496f19fc0e5d115713c4cdc0349313885509bb1d5101bd4",
+      "domain/pvp_round.py": "2574d84d7e2c8372a7e09d2aa82b47d01b9ed149b36dff9ce5a5cc32bcbb1f9b",
+      "protocol/duel_messages.py": "27d840ae91dacb3d1fd2d8df84e77d1701457fab0072536b5a45895d26577cee",
+      "protocol/pvp_loading_messages.py": "8e42c2dd177a51686acf7b72dc09442d00680515a5414ef94f7280f8bbb1c977",
+      "protocol/pvp_room_messages.py": "65a45f36574268ba6adcc643544c9fd0c46823a1f20b037e4428afaa3d3ce932",
+      "storage/duel_results.py": "1e2ac98bd1be12d1017a43f0156c282790b89e55b111099cb668ee3d8c3a3d20"
+    },
+    "cases": [
+      {
+        "attempt": "family1-v6",
+        "family": 1,
+        "source_scene": "GuildAgit",
+        "actual_signed_HP_ready": true,
+        "native_accept_producer": "2D773E0",
+        "native_frames": 9606,
+        "last_sampled_frame_seconds": 115.297,
+        "native_frame_duration_exit_guard_lower_bound_seconds": 120,
+        "actual_native_load100_to_exit_seconds": 120.30257919989526,
+        "original_C2_consumed": true,
+        "original_6C_consumed": true,
+        "returned_native_state": 15,
+        "returned_phase": "guild_agit_ready",
+        "zero_reward_ledger_rows": 2,
+        "own_job_closed": true,
+        "original_EXE_unchanged": true,
+        "physical_input_actions": 0,
+        "evidence": {
+          "server-ready.json": "3734ed32ff55d5db0da35e279b23dab34b466a6ac4e1692b2057d9e7ebb6de7c",
+          "server-result.json": "57deb8aed7eea98aa07da1f242030f45688c78c514be2391cc7ac0c8c63c6ee5",
+          "isolation-receipt.json": "1aef16af0629e4c598592f338426ac51414c3df527c8741737a1884f70795f61",
+          "preparation.json": "9852ec67eb238f4d795d69d5d1fd71c2ae37944e93cc8a960e5f65b8166a7a90"
+        }
+      },
+      {
+        "attempt": "family10-v5",
+        "family": 10,
+        "source_scene": "Town",
+        "actual_signed_HP_ready": true,
+        "native_accept_producer": "2D773E0",
+        "native_frames": 9610,
+        "last_sampled_frame_seconds": 115.304,
+        "native_frame_duration_exit_guard_lower_bound_seconds": 120,
+        "actual_native_load100_to_exit_seconds": 120.1801315001212,
+        "original_C2_consumed": true,
+        "original_6C_consumed": true,
+        "returned_native_state": 14,
+        "returned_phase": "town_ready",
+        "zero_reward_ledger_rows": 2,
+        "own_job_closed": true,
+        "original_EXE_unchanged": true,
+        "physical_input_actions": 0,
+        "evidence": {
+          "server-ready.json": "ef1894b7994781ef5df33f623446fe9bf76a28c96e848030534e9ea58d3e2458",
+          "server-result.json": "b0e53d0bf48fd3a4818fa1059eb64ebfe12f4ed3dba6c2f8c239a833cd5abe79",
+          "isolation-receipt.json": "ef3c461031b995881e8b9b4744a4b305047c385eaedcf16e58f8cf8994cc3b5f",
+          "preparation.json": "68f3ffcf74cc22e25c454335bf3adbce3d1cf6db5a4e2db6fa08c499032b6662"
+        }
+      }
+    ],
+    "boundary": "One original native game and one labelled authenticated protocol counterpart per case. Original acceptance producer called on invitation callback with its stored actual record6. Opponent HP readiness is a fixture; no test changes to native actor HP or original EXE/KOM.",
+    "both_scenes_qualified": true
+  },
+  "V81_unchanged_update_mechanisms_reused": true,
+  "new_public_network_upgrade_pending": true,
+  "published": false
+}

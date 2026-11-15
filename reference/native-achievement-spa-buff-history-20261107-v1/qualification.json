@@ -1,0 +1,213 @@
+{
+  "status": "PRIVATE_APP_TLS_QUALIFIED_NOT_INSTALLED",
+  "parent_Git_head": "d1c626c2ddd3a4b069b50dae46505d6681f7b850",
+  "parent_PR": 935,
+  "parent_release": "native-achievement-social-enhancement-history-20261107-v1",
+  "parent_installed_source_head": "2ee30cbef9ac0c279b0a0fb5d820d5faeb7f5010",
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "580373f8d3bb268a71d1bde42d784488112fa9353b94d5b7943c22f4e920331d",
+      "sha256": "f854527c525a65aab4dc6745ed7eb8b24c5c0fa43f74cb645ed7b2fc37674ad9"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "ce3ae9d9e3ae541e20cdfbdeceb46c49a4bb907be49796df8ef0e94991abee82",
+      "sha256": "f5dd527a0c40a8d117ed91b70d642b74e66acd1ef07e5a262b73ad878ea5ed24"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "b6064994a302b47798a6d6d1eb320c83518f50bee4ab1dc6cecae76903eda28f",
+      "sha256": "3a8777975f6bbff233dc5e2beaad847029de9c4c68a2266c4734313cdfe13a53"
+    },
+    {
+      "path": "els_server/storage/environment_buffs.py",
+      "parent_sha256": "1e8e38735b08e5494990ee2e8c94035ac691908c68851cbab1212102d771482c",
+      "sha256": "6dcdeb1a640d2311f97f09c56e24cf3f80c930cf3bafd186bd0f7d21ff19c484"
+    },
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "parent_sha256": "4fc5a1c9990113875dca871262d87913370afd04e936ae4ef394595b23c3eaea",
+      "sha256": "33843be3fcd58019d17344e6a3dab1369dc3832b7c2c7363362bb36619bdc1ef"
+    },
+    {
+      "path": "els_server/storage/read_scope.py",
+      "parent_sha256": "87c2a13ce45bc6e8b9635d5f956a7628a2ed3753455f2571f519f4857036eca2",
+      "sha256": "3f3f5c83da0ca81a5082961dfb5081d0dc28782032ec14f8389b05944ae7bbc9"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "dceb7bc17da21bc8dad71177c674aa4a13a2be0730dae0b16f3de1ce0ca309dd",
+      "sha256": "6fdab0584ff4d01505d1bf2c78c85218df00a51f0342b1a1755e7808b0eabb20"
+    },
+    {
+      "path": "els_server/domain/duel_flow.py",
+      "parent_sha256": "43b0c5bddf55e6f75415fad853e5c312e78ae5e20012683b339160b50c4f371f",
+      "sha256": "db2aaf77faa90f946291007569df53334b55df9817605fe5d843fef4c4f3e7e5"
+    },
+    {
+      "path": "els_server/domain/wedding_rooms.py",
+      "parent_sha256": "912f168f4720ee12c05d4320d7d3c0963a1562c49592c436c2380568dbae98f1",
+      "sha256": "f5a05bc0ea83ac27e7df414e2d349a67be24aa285456dab5730cb8694d43bd7f"
+    }
+  ],
+  "connected_condition_types": [
+    2,
+    4,
+    5,
+    6,
+    7,
+    15,
+    16,
+    18,
+    19,
+    20,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    32,
+    35,
+    36,
+    37,
+    38,
+    39,
+    42,
+    43,
+    44,
+    45,
+    51,
+    52,
+    53,
+    56,
+    57,
+    58,
+    60,
+    61,
+    62,
+    63,
+    67,
+    68
+  ],
+  "connected_definitions": 244,
+  "added_condition_types": [
+    7
+  ],
+  "remaining_other_types": 20,
+  "new_tables": [],
+  "new_indexes": [],
+  "unresolved_original_reward_groups": 53,
+  "original_reward_substitution": false,
+  "installed": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "production_database_access": false,
+  "production_clock_patch": false,
+  "production_probability_policy_changed": false,
+  "gameplay_evidence": "gameplay-evidence.json",
+  "source_review": "review.md",
+  "variant_review": "variant-review.md",
+  "source_review_fixes": [
+    "Remove observer-dependent item-list cache and unused tracking",
+    "End duel source reader before writer-capable FullUser",
+    "Prepare wedding join/departure/deadline actor data before room SQL"
+  ],
+  "unchanged_resources": [
+    {
+      "path": "els_server/data/environment_buffs.json",
+      "sha256": "1b0d06c93952ffaf68dda5de8ef22843afcd1b7505e49525306b20a4499ed1a3",
+      "runtime_delta": false
+    }
+  ],
+  "evidence": [
+    {
+      "file": "sources-1794047333282865900.json",
+      "sha256": "b23d35de05259f121eae12925b654f5996f2d9b5a7fd97c3b0feefffb5275b91",
+      "dependency_paths": [
+        "els_server/domain/achievement_flow.py",
+        "els_server/domain/duel_flow.py",
+        "els_server/domain/environment_buff_flow.py",
+        "els_server/domain/wedding_rooms.py",
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py",
+        "els_server/storage/environment_buffs.py",
+        "els_server/storage/inventory_state.py",
+        "els_server/storage/read_scope.py"
+      ],
+      "reuse": null
+    },
+    {
+      "file": "reader-contention-1794046535682659900.json",
+      "sha256": "2e6c36508057883498a2e12cc6c350ae75c181d90d7e95ac01f6b0ce1b3da883",
+      "dependency_paths": [
+        "els_server/storage/inventory_state.py",
+        "els_server/storage/read_scope.py"
+      ],
+      "reuse": null
+    },
+    {
+      "file": "live-spa-1794046822699463600.json",
+      "sha256": "57ce523e1e6382c613e074f9ae499089bdf1e7ee8a807d954c1ab16f81e809ee",
+      "dependency_paths": [
+        "els_server/domain/achievement_flow.py",
+        "els_server/domain/environment_buff_flow.py",
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py",
+        "els_server/storage/environment_buffs.py",
+        "els_server/storage/inventory_state.py",
+        "els_server/storage/read_scope.py"
+      ],
+      "reuse": "Later duel/wedding methods were not called by the spa scenario; unchanged seven-file results reused"
+    },
+    {
+      "file": "delivery-scenario-1794046561668501600.json",
+      "sha256": "fd6a629b324c770bf320fa6230eceb42a049eb7adcf2e4d34ab02a73ff13d121",
+      "dependency_paths": [
+        "els_server/domain/achievement_flow.py",
+        "els_server/domain/environment_buff_flow.py",
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py",
+        "els_server/storage/environment_buffs.py",
+        "els_server/storage/inventory_state.py",
+        "els_server/storage/read_scope.py"
+      ],
+      "reuse": "Later duel/wedding methods were not called by the spa scenario; unchanged seven-file results reused"
+    },
+    {
+      "file": "duel-reader-1794046791579335400.json",
+      "sha256": "4b456d0908ad738965f6401f6b7e9fee84772bde3e468d50dbb0f9b6867be69b",
+      "dependency_paths": [
+        "els_server/domain/achievement_flow.py",
+        "els_server/domain/environment_buff_flow.py",
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py",
+        "els_server/storage/environment_buffs.py",
+        "els_server/storage/inventory_state.py",
+        "els_server/storage/read_scope.py",
+        "els_server/domain/duel_flow.py"
+      ],
+      "reuse": null
+    },
+    {
+      "file": "wedding-reader-1794047161429912500.json",
+      "sha256": "ea1b0c6388a04937212091e1e581a3f2d80b00fc90eb3b5d096e823d94fb1420",
+      "dependency_paths": [
+        "els_server/domain/achievement_flow.py",
+        "els_server/domain/duel_flow.py",
+        "els_server/domain/environment_buff_flow.py",
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py",
+        "els_server/storage/environment_buffs.py",
+        "els_server/storage/inventory_state.py",
+        "els_server/storage/read_scope.py",
+        "els_server/domain/wedding_rooms.py"
+      ],
+      "reuse": null,
+      "staged_dependency_binding": "wedding-evidence-supplement.json"
+    }
+  ]
+}

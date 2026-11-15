@@ -1,0 +1,742 @@
+{
+  "release": "consolidated-repairs-20261112-v187",
+  "source_manifest": {
+    "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v187-final\\combined-source-manifest.json",
+    "sha256": "e98e53d1ad79557a995c51f3c336da6c3684671eaefb2568dff7398ef5643a0e"
+  },
+  "parent_archive_sha256": "87956bae756b47023297f83acc79ec16b24cc11425bb06d2b9d9e771a6910a24",
+  "parent_manifests": {
+    "local": {
+      "path": "G:\\els\\releases\\local\\unified-server-93b8949b110a13a2-9b962efbe039\\local-business-manifest.json",
+      "sha256": "24fd2147baf16ee7b76b3995c1212b4ed6ab211caf838a0b75f3e810bd11f847"
+    },
+    "launchers": {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v185\\launcher-preview-v185\\signedFriends.signed.json",
+      "sha256": "e47cf5717c1a466930e93126d8f8b077e8c3874ed85e92948c32dcad31566909"
+    },
+    "online": {
+      "path": "G:\\els\\releases\\online\\remaining-gameplay-20261112-v186-compatible-recovery\\rollup-manifest.json",
+      "sha256": "2bf77b8ba445066804b6b3a2cf893f8b2ce2d0828c6f1e6c7b7b861bb10fcfd8"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "62a906f5b772a0a76a479dea46445d25f5a3896640e90414e47ba6580f05481f",
+      "size": 71457,
+      "parent_sha256": "e16e78420748d850074244d672ae60f6a11e3cb9068b423e09ccb9c1b9a9d256",
+      "online_parent_sha256": "e16e78420748d850074244d672ae60f6a11e3cb9068b423e09ccb9c1b9a9d256",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/character_custom_permanent.json",
+      "sha256": "22b3b3788caedc47e1121335f829ed70ba8e40b03ed23c2f7d012f82d10989ad",
+      "size": 1850044,
+      "parent_sha256": "dee359ab9a605fa74bff4d8a3b63973e41771016cca3cc28dfed03d8c01cbdb8",
+      "online_parent_sha256": "22b3b3788caedc47e1121335f829ed70ba8e40b03ed23c2f7d012f82d10989ad",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/henir_chaos_boxes.json",
+      "sha256": "a455d8a2697833b6a8b7e466ea40632283dbf58696614371f0f037279d411455",
+      "size": 99084,
+      "parent_sha256": "7919a9f585e4a80151f813c6564374b43eb0edbc1647be0e91d5957c42b5f1f9",
+      "online_parent_sha256": "a455d8a2697833b6a8b7e466ea40632283dbf58696614371f0f037279d411455",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/owned_reward_boxes.json",
+      "sha256": "11f3b7a6525137173b7164b5722324c7635fd5f41b768e21da518b3758cab6c0",
+      "size": 1286333,
+      "parent_sha256": "c341bc10be458e53598c6e15f752864f69420e4ed8d43540ef95e01ed2fd4942",
+      "online_parent_sha256": "11f3b7a6525137173b7164b5722324c7635fd5f41b768e21da518b3758cab6c0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/retained_box_openings.json",
+      "sha256": "bccc3ae1cc44a809b056384da9ec884b5ddde26b3684fe40e21b7fd125b350d4",
+      "size": 8824202,
+      "parent_sha256": "2cd7d13ee981221a7f1f484647856e71f753d9b7aa514d9649cf72e6e17aaab1",
+      "online_parent_sha256": "bccc3ae1cc44a809b056384da9ec884b5ddde26b3684fe40e21b7fd125b350d4",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "sha256": "3f6c9335fcc5c744a0cccff165a06ad07f6f75a15296313d346c49620da318ae",
+      "size": 22109,
+      "parent_sha256": "e2b1f01f83e36e0fa48372bfb0f52b1944af707b465eea076e9fb29957200a74",
+      "online_parent_sha256": "e2b1f01f83e36e0fa48372bfb0f52b1944af707b465eea076e9fb29957200a74",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/ariel_attendance_flow.py",
+      "sha256": "d77caceed3bdbcfd93cec3bb8607107871bb03df5ce3cb44ec8eed7ae7178525",
+      "size": 5708,
+      "parent_sha256": "15d66f109b99e148b0a56738b3152dc2603115553d220d6339f0eee60f8acd90",
+      "online_parent_sha256": "15d66f109b99e148b0a56738b3152dc2603115553d220d6339f0eee60f8acd90",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/character_custom.py",
+      "sha256": "ede560e7514671dc7ce4a5cfea56ddff88ee91d5a666ef261e0410f335fc3c54",
+      "size": 10745,
+      "parent_sha256": "da500790edf97ac327d4d9516cdca20116f513bdeb3eb0ea99de26b51ce7dbe7",
+      "online_parent_sha256": "ede560e7514671dc7ce4a5cfea56ddff88ee91d5a666ef261e0410f335fc3c54",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/consumable_flow.py",
+      "sha256": "b4702bbb8730097467012ac80dc91f673af2440eae33304cc19f692e9ec9bd19",
+      "size": 1862,
+      "parent_sha256": "d34818fcc8116eb6ccd1ca3a4f7987f5ac20e437855406775c3e75dc0d244d58",
+      "online_parent_sha256": "b4702bbb8730097467012ac80dc91f673af2440eae33304cc19f692e9ec9bd19",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/drop_pickup.py",
+      "sha256": "31ac9fa6988e8e19e89358e8ebf02025b130375e0e7af77668c6e80bb8139837",
+      "size": 6010,
+      "parent_sha256": "c2edbfd7250ade0a198679d3eda69b173b4c8559df897212d9430c7ac743f6ed",
+      "online_parent_sha256": "c2edbfd7250ade0a198679d3eda69b173b4c8559df897212d9430c7ac743f6ed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_diagnostics.py",
+      "sha256": "f2819749bcdd69a94d9470243413bbde2aac38d6ca53a8a3ca8515e831ee9fd7",
+      "size": 3409,
+      "parent_sha256": "e5543daef1eff0c226bd8a8ceab3b9f62580db123e2b11091971fdc52c85db70",
+      "online_parent_sha256": "e5543daef1eff0c226bd8a8ceab3b9f62580db123e2b11091971fdc52c85db70",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "sha256": "5a76da64c2cc0de2986ef51752dd7e8c26e4a2952330377f3b2aedc07b5c8bcc",
+      "size": 36086,
+      "parent_sha256": "d2ed7d4c6585ca4e3672a743acf0a1aaca4989d96af864251b133a64012ada19",
+      "online_parent_sha256": "d2ed7d4c6585ca4e3672a743acf0a1aaca4989d96af864251b133a64012ada19",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_result_stats.py",
+      "sha256": "238714356f2f6bd31034c1b5972aa28ae80c095712a4e0968a6068c18a994baa",
+      "size": 9238,
+      "parent_sha256": "b7307df8eebdbd67ed1b08670889f36870bf16981acd3e605aa24abeb9943cc0",
+      "online_parent_sha256": "b7307df8eebdbd67ed1b08670889f36870bf16981acd3e605aa24abeb9943cc0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_retry.py",
+      "sha256": "ea59123d1a7b8b9b972e423dabcfe006fd2a1994f6ad171f25446750d1f0dd28",
+      "size": 6083,
+      "parent_sha256": "8557e6ef846a678a6302c5ae73e4e51eff821ba7b30d800bc7d86459254f245e",
+      "online_parent_sha256": "8557e6ef846a678a6302c5ae73e4e51eff821ba7b30d800bc7d86459254f245e",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "sha256": "83279dfab5682f65f13132548710ca25319a0b6116742f5d8319e269aa4f20b0",
+      "size": 24200,
+      "parent_sha256": "2df964b6d43d989b321398f68ecb600e47ce61d9b97ef47a4385bb2ac2f2b4f9",
+      "online_parent_sha256": "2df964b6d43d989b321398f68ecb600e47ce61d9b97ef47a4385bb2ac2f2b4f9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_spawns.py",
+      "sha256": "d75873243d52d0e626d2ef336ebce1dbd6b3a80e59a3e1717e6ddbaed26ec080",
+      "size": 8797,
+      "parent_sha256": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "scope": "server",
+      "online_parent_sha256": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "sha256": "ee3637da015e4b9541511c828a67727237e17c78cc01a9809e98d59aae047e3a",
+      "size": 51537,
+      "parent_sha256": "47473260839d93b9bb5c07fd4e277ab9d01aa05c42b559c6781d7e62deea15ed",
+      "scope": "server",
+      "online_parent_sha256": "47473260839d93b9bb5c07fd4e277ab9d01aa05c42b559c6781d7e62deea15ed"
+    },
+    {
+      "path": "els_server/domain/friends_pvp.py",
+      "sha256": "7c09dfb0cf582119b2e8bb1303a915e07e39f6a837e2bc74f3b063872ab8a198",
+      "size": 13430,
+      "parent_sha256": "9666fa7f30c28f4ac1d99e6ee5297b2eb80e8986f57f864553193328a97903b3",
+      "online_parent_sha256": "9666fa7f30c28f4ac1d99e6ee5297b2eb80e8986f57f864553193328a97903b3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "sha256": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd",
+      "size": 26818,
+      "parent_sha256": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "scope": "server",
+      "online_parent_sha256": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57"
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "sha256": "2252f12c01de70f0c6a40f3f0edb917fb2fa8be7c42bc3b7839dc36a7f3ccbe1",
+      "size": 28800,
+      "parent_sha256": "898cb3f300225fc20e0547918fcfd42c3c05a4d0b1e1d36c54eff82a04d53aef",
+      "scope": "server",
+      "online_parent_sha256": "898cb3f300225fc20e0547918fcfd42c3c05a4d0b1e1d36c54eff82a04d53aef"
+    },
+    {
+      "path": "els_server/domain/furniture_rules.py",
+      "sha256": "d5c80b2614c1c49ad04e260eec31d98965ed985b78398e7b433f33e555618c84",
+      "size": 24100,
+      "parent_sha256": "514b928b18564983856a0f43aa5b6f84abfa597fd5f395370ce05863b4df3355",
+      "online_parent_sha256": "d5c80b2614c1c49ad04e260eec31d98965ed985b78398e7b433f33e555618c84",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/guild_mount_fuel.py",
+      "sha256": "9544b41cccb320e8ba07356e7c78e17c1e76c0e01af06f4031d778f31a01e67c",
+      "size": 1574,
+      "parent_sha256": "7882b72414b732edf090028d87358791d0eb7ef2b3451a89814c50311a20d270",
+      "online_parent_sha256": "7882b72414b732edf090028d87358791d0eb7ef2b3451a89814c50311a20d270",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/henir_chaos_boxes.py",
+      "sha256": "81d123ecc878129699238e63a949a85cf8e78369b6572a6cebd630f21e8cb04d",
+      "size": 1175,
+      "parent_sha256": "e56ae414875148b6d5561e734f1e4e9890e7bad82453ed3541f45f5643016a96",
+      "online_parent_sha256": "81d123ecc878129699238e63a949a85cf8e78369b6572a6cebd630f21e8cb04d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/henir_chaos_flow.py",
+      "sha256": "f89a5e73bfeff993f92c7f11dd67f407893977d6935d0854d0804f3da448a671",
+      "size": 10020,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/henir_flow.py",
+      "sha256": "38e445f109fa5f9031261f06d57afbf1c853596e04d252bb4fb03173e03f144d",
+      "size": 5138,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/housing_layout_flow.py",
+      "sha256": "75c67e92de7b9a87c6dbed03196c9475964c7d4b1326da56b7ee2d47915175dc",
+      "size": 5125,
+      "parent_sha256": "302c13c70c65d6ebbbd5f0f0c73f61aee0805b4d510d5358af02d7cdbd93ae75",
+      "online_parent_sha256": "302c13c70c65d6ebbbd5f0f0c73f61aee0805b4d510d5358af02d7cdbd93ae75",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/housing_room_flow.py",
+      "sha256": "977087496729cf27f88d2aa8cd903f018f6510b97eff08f9587367ef0bb41dac",
+      "size": 14712,
+      "parent_sha256": "bcb58646442cb018ec2f899adc10016533e9cb36eaa1dc054e6e2bd0ab04da8e",
+      "online_parent_sha256": "bcb58646442cb018ec2f899adc10016533e9cb36eaa1dc054e6e2bd0ab04da8e",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/housing_social.py",
+      "sha256": "efd29b63ab6fdeff3058cea86f481de325a4048b07d063c6b4f0a3a7b958aeac",
+      "size": 23462,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "0aa5b129a48d204cea2f9731cb9e6589783a34df32f9677ae426784db2de1a9c",
+      "size": 170328,
+      "parent_sha256": "f859921f5e42c4670431988453738d1da03c4387232c1d30fe5c944d2c0c5851",
+      "online_parent_sha256": "f859921f5e42c4670431988453738d1da03c4387232c1d30fe5c944d2c0c5851",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/mount_flow.py",
+      "sha256": "551afee49f404becc42d19aa90a90786571a40ab507b88c3657b749cf3941777",
+      "size": 2772,
+      "parent_sha256": "bb2ad1bce9fff70ac941aa8340125493fb0a190d109d18f337a399179eb2b035",
+      "online_parent_sha256": "bb2ad1bce9fff70ac941aa8340125493fb0a190d109d18f337a399179eb2b035",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_flow.py",
+      "sha256": "4f6fcda16177072dd23d21f33afd82720deede9aa2163493bd211b78dfdcb2d4",
+      "size": 4350,
+      "parent_sha256": "cb62f91f8ff7b18f70f0c6855caa2283091e4c6d5c8d12df158500bc9ba8fa38",
+      "online_parent_sha256": "cb62f91f8ff7b18f70f0c6855caa2283091e4c6d5c8d12df158500bc9ba8fa38",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/ordinary_skill_pages.py",
+      "sha256": "7bc49ad7806cf665dfe4e0c3c75bd83b04117615b5af80223e2f8ad6923b589a",
+      "size": 8214,
+      "parent_sha256": "18ea8d22d715cf7f6db9fd5a0322005685afa5ed0f3c40d537e6e54d1f1254bf",
+      "online_parent_sha256": "18ea8d22d715cf7f6db9fd5a0322005685afa5ed0f3c40d537e6e54d1f1254bf",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/owned_reward_boxes.py",
+      "sha256": "6c7e8504cff4d37063104be2b90c03d4311acbf7bbb8ad8c9c9e1c5ae43ca8cf",
+      "size": 7578,
+      "parent_sha256": "27ab5ebc180291fbf68984d0ce2a8312e8451e4e1a9495d265500417535d13e9",
+      "online_parent_sha256": "6c7e8504cff4d37063104be2b90c03d4311acbf7bbb8ad8c9c9e1c5ae43ca8cf",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/party_commands.py",
+      "sha256": "e505d359f190a37f72afbcd8d661de1ce505d992ec91d4e163904ab9ec8b2ce2",
+      "size": 6376,
+      "parent_sha256": "731a7915e373f11d79401b64e86a681785507be30d49f109fbd14057b5802da3",
+      "scope": "server",
+      "online_parent_sha256": "731a7915e373f11d79401b64e86a681785507be30d49f109fbd14057b5802da3"
+    },
+    {
+      "path": "els_server/domain/party_entry_consent.py",
+      "sha256": "39b1529ead887f612a29490abecd38d7bbdf3b404dac4baaa528d4764fc398f7",
+      "size": 4588,
+      "parent_sha256": null,
+      "scope": "server",
+      "online_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/party_recruitment.py",
+      "sha256": "6dce83c6daeb1b1186b8aaae95028de082d9493755d01b4767557107a3c5fe3a",
+      "size": 23365,
+      "parent_sha256": "be4e54554ecc6e309389cd0401cb84086e6b3e6f4032e81f3a8758ae30352fa9",
+      "scope": "server",
+      "online_parent_sha256": "be4e54554ecc6e309389cd0401cb84086e6b3e6f4032e81f3a8758ae30352fa9"
+    },
+    {
+      "path": "els_server/domain/party_selection.py",
+      "sha256": "57555a0b7ff6b823d78192babb185a3f1d43e7d33937d2b3c605b32cfe3cbc78",
+      "size": 2797,
+      "parent_sha256": "94360f6f3e2a1ac654763925b75d37471c4ab9de455de699165fd9ada9ec46fc",
+      "scope": "server",
+      "online_parent_sha256": "94360f6f3e2a1ac654763925b75d37471c4ab9de455de699165fd9ada9ec46fc"
+    },
+    {
+      "path": "els_server/domain/player_mail_flow.py",
+      "sha256": "d8b9cef7c8542131b623f542aacad0248d018c63735d6baa57b5d159a784920e",
+      "size": 1670,
+      "parent_sha256": "e24f0bc21f57874be577c875a2ec8eb212aae05109c22bce0820f9c0c0e236e2",
+      "online_parent_sha256": "e24f0bc21f57874be577c875a2ec8eb212aae05109c22bce0820f9c0c0e236e2",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/player_mail_rules.py",
+      "sha256": "038de0c4f16e3bb8d5ca08fc8fad8d4bcde16c7dfaa3df79934def64fcdf6ddb",
+      "size": 597,
+      "parent_sha256": "1ae9661a308fca14b9300044e1aaf4f584cddd371c2f3296d24e3883ba8b550e",
+      "online_parent_sha256": "1ae9661a308fca14b9300044e1aaf4f584cddd371c2f3296d24e3883ba8b550e",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/practice_pvp.py",
+      "sha256": "c384385c77c526f5393cd96948cb096fe595ae8ea20e82f4f7696d0895036a6b",
+      "size": 14647,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pvp_actor.py",
+      "sha256": "77752ff39fc4e8b4c7072d0ce01d3e1824658cdba5262bbc0df222e9f1ef2ff1",
+      "size": 4848,
+      "parent_sha256": "3f9f57b8d0526816956cd42882baf913678b86dabc45f56e443b005b36c3839e",
+      "online_parent_sha256": "3f9f57b8d0526816956cd42882baf913678b86dabc45f56e443b005b36c3839e",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pvp_loading.py",
+      "sha256": "b39c0d5c303f4ca013ca26aaf810c3f9a0d9f9a330e5ba5ec3286f46ddd174d0",
+      "size": 11338,
+      "parent_sha256": "41a135bf582cbdf4c496f19fc0e5d115713c4cdc0349313885509bb1d5101bd4",
+      "online_parent_sha256": "41a135bf582cbdf4c496f19fc0e5d115713c4cdc0349313885509bb1d5101bd4",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pvp_round.py",
+      "sha256": "8c018401fa1daca5dd239a8b00cc4f18f3f2d986c5fe1d9ff3c0f066372c0c68",
+      "size": 12639,
+      "parent_sha256": "2574d84d7e2c8372a7e09d2aa82b47d01b9ed149b36dff9ce5a5cc32bcbb1f9b",
+      "online_parent_sha256": "2574d84d7e2c8372a7e09d2aa82b47d01b9ed149b36dff9ce5a5cc32bcbb1f9b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/raid_native_power.py",
+      "sha256": "6c65346b96a7a471c9da9ce5a399019d240a9e0bfb76b181ff1d6d52a6fb3a67",
+      "size": 7851,
+      "parent_sha256": "bb6d810cfa52e83b0b86a5aad58aef6059450c5208ae7efe0e400f184a98b01f",
+      "online_parent_sha256": "bb6d810cfa52e83b0b86a5aad58aef6059450c5208ae7efe0e400f184a98b01f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/raid_reward_flow.py",
+      "sha256": "70b41bfa7f2777b19f6a7d71a5b15a47980ae19a058cef511ea03213d076d234",
+      "size": 7237,
+      "parent_sha256": "013ad51711ca2653871164ed47615c98491e19a5872aebd4d66dddb4abc93c11",
+      "online_parent_sha256": "013ad51711ca2653871164ed47615c98491e19a5872aebd4d66dddb4abc93c11",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/raid_reward_items.py",
+      "sha256": "3334ea5bf6290b923d4676be832a86ee06d2632a8bb006317a57de2586f07e99",
+      "size": 18369,
+      "parent_sha256": "dd94cb917f8897b1e07aab9b70a8c6c57c73ca7085ae0bfdea22bf09463e54d8",
+      "online_parent_sha256": "dd94cb917f8897b1e07aab9b70a8c6c57c73ca7085ae0bfdea22bf09463e54d8",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/random_mission_flow.py",
+      "sha256": "76405f685980c7f241a8a9bb7e250a0a3c362a1f08bd0efdfbcde7f5c5bb02e6",
+      "size": 13683,
+      "parent_sha256": "069486059fc442592184d7ea9ccfcc11d32a41ce4035eeee8e5f4cd08461352e",
+      "online_parent_sha256": "76405f685980c7f241a8a9bb7e250a0a3c362a1f08bd0efdfbcde7f5c5bb02e6",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/region_quests.py",
+      "sha256": "0300b7fcec2352e9e69944ad4d233a02ec09ebcf10a9bf4dd3c7ed1b85818103",
+      "size": 7091,
+      "parent_sha256": "5866a9656a12b7ee61a6150fc2daca4f1c933cd0fe4a05f3e6759cae01884363",
+      "online_parent_sha256": "5866a9656a12b7ee61a6150fc2daca4f1c933cd0fe4a05f3e6759cae01884363",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/retained_box_openings.py",
+      "sha256": "4846e9d85ab69187dda5085b6893c7ed940dc7f00aad1f8934e4990fd1cae060",
+      "size": 8167,
+      "parent_sha256": "caf84079ee7ba01f98ee6b6d75b72d34ce8b407e830d7fe21f51719cfd3ed0a8",
+      "online_parent_sha256": "4846e9d85ab69187dda5085b6893c7ed940dc7f00aad1f8934e4990fd1cae060",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "sha256": "761e7402595db6f5b91a75e39fc1c3f9fd39b8995b180826d52a186f2e2763b0",
+      "size": 23922,
+      "parent_sha256": "3baa8f6652de0d6e1bca572f900edc9679f0cdf048dd9470a6791ac7bd43f1c3",
+      "online_parent_sha256": "3baa8f6652de0d6e1bca572f900edc9679f0cdf048dd9470a6791ac7bd43f1c3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "sha256": "6ca6e5c13b39e45fb84f6a4a970d2d5362b243b2d440c970d73cbf492110342e",
+      "size": 996850,
+      "parent_sha256": "c69eaeb67c6bbb8bd9d7a61fd13918abe19d865c3cd1cf4ee48c99bdfd32f6f3",
+      "online_parent_sha256": "c69eaeb67c6bbb8bd9d7a61fd13918abe19d865c3cd1cf4ee48c99bdfd32f6f3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/session_dispatch.py",
+      "sha256": "a8f395d75060e61e2c7e4c4a23db6e9eb0f1b0250abd4414a3d1c5081155f18a",
+      "size": 19771,
+      "parent_sha256": "5aeae9564174315ba6ea06e934310befc37985117706e720bb00ac821048c162",
+      "online_parent_sha256": "5aeae9564174315ba6ea06e934310befc37985117706e720bb00ac821048c162",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/special_riding_targets.py",
+      "sha256": "474343db65bec7ec448dfdb003c67953eebdf5ed5e8373f1a162fa8ae6b6d254",
+      "size": 1492,
+      "parent_sha256": null,
+      "scope": "server",
+      "online_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/story_controller_retirements.py",
+      "sha256": "063a678c7ae1e0fbf28bd136af227e4125332b1e427a005959af9b2e54e0bf05",
+      "size": 89282,
+      "parent_sha256": "a8ed202249a6d5885a4e6a8334252f6fb98bfc827cd8655f88ac14b15952e65a",
+      "online_parent_sha256": "a8ed202249a6d5885a4e6a8334252f6fb98bfc827cd8655f88ac14b15952e65a",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/dungeon_workers.py",
+      "sha256": "4aad5a5cbfdf1985260848710fb0528bcd1e7b45a8d53d48f20e5a4b36c9e34d",
+      "size": 26432,
+      "parent_sha256": "6ed08654e7a84fd076b5ff0e7f441ddef26b8a041ed23c5281892191c074a452",
+      "online_parent_sha256": "9d3e604d9bedfc890aa70e5d62a0b9854531a20d6477d8c7478ab4da9286efd7",
+      "scope": "server",
+      "online_candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v186\\candidate-online\\els_server\\dungeon_workers.py",
+      "online_sha256": "87ac1ffb8c9d86d2ff5fd59e0cbb1098d62e3e199d93513a513d58ec341925a2",
+      "online_size": 26581
+    },
+    {
+      "path": "els_server/protocol/ariel_daily_special_messages.py",
+      "sha256": "81b909c2105330adbac82932ff0aed201c9799c76e1bb933087b1b647efced2f",
+      "size": 3726,
+      "parent_sha256": "5b2c4f3ba99fe4b9b422d6e51cf6e94cbdc7c1dc6fc66f3a8c980507ea6468cd",
+      "online_parent_sha256": "5b2c4f3ba99fe4b9b422d6e51cf6e94cbdc7c1dc6fc66f3a8c980507ea6468cd",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "sha256": "e25de278d805bf5d5bc1bb7354d8f20e904a45912a472c63fccf90064dc80466",
+      "size": 18034,
+      "parent_sha256": "81d4fc27ad4037b6c9e595fa2d01f05b68bb79916a4701d2539f338e9620f880",
+      "online_parent_sha256": "81d4fc27ad4037b6c9e595fa2d01f05b68bb79916a4701d2539f338e9620f880",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/henir_chaos_messages.py",
+      "sha256": "8784e28a69f552709db67e78a1ed4e433f0990de3f6d5130cb57599a596f328a",
+      "size": 1220,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/housing_social_messages.py",
+      "sha256": "8527ecef49b5040980f1d40b200d49c0e8842574e7a9d0b498e0957a18610db4",
+      "size": 3034,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/player_mail_messages.py",
+      "sha256": "540265b7029aa58819c29b7333a3b6275c787f9b66f13f4ec1c573776865572a",
+      "size": 2734,
+      "parent_sha256": "f45ad36495315a98b3d3ea61dd2d5657f250efffa290ea11afb4f3294e26765f",
+      "online_parent_sha256": "f45ad36495315a98b3d3ea61dd2d5657f250efffa290ea11afb4f3294e26765f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/practice_pvp_messages.py",
+      "sha256": "1b2a0a0390b1d0d34501d473afc5ea0b96ceb48b751942c2d183c2975205fdeb",
+      "size": 5401,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/pvp_result_messages.py",
+      "sha256": "79f34abe726ddec7fa692da075cd36303b161ce51048e06105ce489626b314db",
+      "size": 1685,
+      "parent_sha256": "16784985abeec7c05920a2e793c35f7570c4b022c27d15b6108e2a00cb5ee707",
+      "online_parent_sha256": "16784985abeec7c05920a2e793c35f7570c4b022c27d15b6108e2a00cb5ee707",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/pvp_room_messages.py",
+      "sha256": "693fd2d1342787af9621c3ad2043fc4b5a73e6fb3b5c0fbc62db5cf48ec6735b",
+      "size": 4943,
+      "parent_sha256": "65a45f36574268ba6adcc643544c9fd0c46823a1f20b037e4428afaa3d3ce932",
+      "online_parent_sha256": "65a45f36574268ba6adcc643544c9fd0c46823a1f20b037e4428afaa3d3ce932",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/random_mission_messages.py",
+      "sha256": "dae79c15c4f49403d0e17ccf2c23187dbd756edc8f68737030e76267c2aa0ff4",
+      "size": 2068,
+      "parent_sha256": "ad5fd74de3737931896ce142812afc5f0dac060bbf1c1c352b221bdfdb7e385b",
+      "online_parent_sha256": "dae79c15c4f49403d0e17ccf2c23187dbd756edc8f68737030e76267c2aa0ff4",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "sha256": "5eed03d4462703d77d48b0adb8f6d7cf640aa46d24711967f76b93cfbb9fccd9",
+      "size": 18412,
+      "parent_sha256": "ea1303bb61c2c62d28ceb6a2a6ea7818737a7df2d8622cde96a9ec91bbf046ed",
+      "online_parent_sha256": "ea1303bb61c2c62d28ceb6a2a6ea7818737a7df2d8622cde96a9ec91bbf046ed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/ariel_daily_special.py",
+      "sha256": "e92695685114dd7ad69b4e7ba756ebcff9ff844d1540aac61178b507bb9f0b7d",
+      "size": 11277,
+      "parent_sha256": "e58b53a65aadc7c20663637ab4c461d97c8d0371551f14a5f5fc95f0cbba5493",
+      "online_parent_sha256": "e58b53a65aadc7c20663637ab4c461d97c8d0371551f14a5f5fc95f0cbba5493",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/collection_synergy.py",
+      "sha256": "5afaeb0006772ad9dcd469b15762d11d0beea8018632183c831dee17ee97b57b",
+      "size": 8925,
+      "parent_sha256": "8a13005bb70db18500075247ec8b9820288e0fcca1b7238685f6e0cc27f51ea2",
+      "online_parent_sha256": "8a13005bb70db18500075247ec8b9820288e0fcca1b7238685f6e0cc27f51ea2",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "sha256": "c8d164caf8cea3ededec11279877300f54b4327206cb770b7eb6331e6aebd0c1",
+      "size": 10021,
+      "parent_sha256": "becf37a580681d28199911485a51106664aa760ca12a77026ae3d74bd3610a75",
+      "online_parent_sha256": "c8d164caf8cea3ededec11279877300f54b4327206cb770b7eb6331e6aebd0c1",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/duel_results.py",
+      "sha256": "7e5e3092bf596fd91436582011b225dfe51b47a7242bec13a5c3d3d0d0792d95",
+      "size": 7249,
+      "parent_sha256": "f870c7d489f488c8b8d62b78178af618aae513ce633f1ea16792ceb28e2321e0",
+      "online_parent_sha256": "f870c7d489f488c8b8d62b78178af618aae513ce633f1ea16792ceb28e2321e0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/henir_chaos.py",
+      "sha256": "8e8532ae62d09424ca12f7b2221932e64a5b1131fb82ea1aaf6e1c1f06d9cb8a",
+      "size": 11483,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/henir_force_rewards.py",
+      "sha256": "b988417768b5752c15b922f11af865ec4e187fed753882e6130ede662196b334",
+      "size": 5275,
+      "parent_sha256": "2279578c9f088024aea083132105c81e27d03e4efceddd75a302dfceb3e1cf13",
+      "online_parent_sha256": "b988417768b5752c15b922f11af865ec4e187fed753882e6130ede662196b334",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/housing_layouts.py",
+      "sha256": "68b47e04748f6fe4766aa23fa0263c5e81ef87f357cb42fde3850a9d6bba0957",
+      "size": 7131,
+      "parent_sha256": "65228b977140e587c42e12b251765a4dae67b0e0810790ba9fbf74030c93f779",
+      "online_parent_sha256": "65228b977140e587c42e12b251765a4dae67b0e0810790ba9fbf74030c93f779",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/housing_options.py",
+      "sha256": "7524593936df66ea0e1b7a776b3e158c36089c7244d56bdffb9423830fd80a19",
+      "size": 3052,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/housing_rooms.py",
+      "sha256": "407e19dbc86887e2890d38445793487a1f7d37ed2f2d6cb3f313b02724ed4525",
+      "size": 9680,
+      "parent_sha256": "6b71a562450ae75495fbdb74313decd5dfa027ebded1061d4af68e26f969edaf",
+      "online_parent_sha256": "6b71a562450ae75495fbdb74313decd5dfa027ebded1061d4af68e26f969edaf",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/mail_attachments.py",
+      "sha256": "dcffc1e7ca79f296413a06b055cdfdb83e0e2da32a721bf62430abd175172845",
+      "size": 14149,
+      "parent_sha256": "8d7e1535cdaae358a42b2f54ca18f8e33b02c82f3114b0c830ff3ab620d17b0d",
+      "online_parent_sha256": "8d7e1535cdaae358a42b2f54ca18f8e33b02c82f3114b0c830ff3ab620d17b0d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "sha256": "162bbf26ffdb8b75dfd21c74a5d82094796c6d31ec64d27e4155644d081ac871",
+      "size": 25396,
+      "parent_sha256": "baba766dcad1262794fe82ddb2dcbfd260a1b77cfaef7f80e910e33b8539d1d1",
+      "online_parent_sha256": "baba766dcad1262794fe82ddb2dcbfd260a1b77cfaef7f80e910e33b8539d1d1",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/mount_state.py",
+      "sha256": "35c32f62f9fe7924f9d220eb383774c431bfaeb75f09f9437ef726ba04a57f1c",
+      "size": 10225,
+      "parent_sha256": "dd0fdd7e65c1b6a2f8fab3dabe6174ec4acafaae6618f523126249e10668830d",
+      "online_parent_sha256": "dd0fdd7e65c1b6a2f8fab3dabe6174ec4acafaae6618f523126249e10668830d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "sha256": "2b1fdda2d93883d011ddd43330e26d44c58884cd2729002654b62a7b11d988ae",
+      "size": 17235,
+      "parent_sha256": "c8a04803f824fc24dda40d1b58030df7f4c0ec1229fe13eb8094933a912e7b12",
+      "online_parent_sha256": "460458893d843b17c9516b668001162aa8925e5ca2a2fb09e74618ad1c9017f1",
+      "scope": "server",
+      "online_candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v186\\candidate-online\\els_server\\storage\\player_mail.py",
+      "online_sha256": "8484a975f14bbdfbd28bbcdc217b2b637c32537e5fc9530ab58fe1f10f9babc0",
+      "online_size": 17724
+    },
+    {
+      "path": "els_server/storage/raid_reward_actions.py",
+      "sha256": "7775df24fa937ae08798f5c6aed88b5142f35678f2174bb3810a54ee264359f9",
+      "size": 13210,
+      "parent_sha256": "08d1440feca9daf891481b247c0199d100e96cb6ece3197ee2526214e94109fa",
+      "online_parent_sha256": "08d1440feca9daf891481b247c0199d100e96cb6ece3197ee2526214e94109fa",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/random_missions.py",
+      "sha256": "22529e3dc1655fc85b49de1058206f7ee5f6e6bffa490aea68839232dc17541d",
+      "size": 12926,
+      "parent_sha256": "ef78b53154ceffe9db7be834ef519d803f765d67cde82f186b190d2eb04e44e4",
+      "online_parent_sha256": "22529e3dc1655fc85b49de1058206f7ee5f6e6bffa490aea68839232dc17541d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/transport.py",
+      "sha256": "3580a4bc4258ac278193ffd39bba83f2f3ad6e52cd11cd46eb36672694768946",
+      "size": 36869,
+      "parent_sha256": "7bf6949bd35b42c7cb76ad1e09e2ae1340cc477884a6aa60d06a74e5e0ca6c55",
+      "online_parent_sha256": "7bf6949bd35b42c7cb76ad1e09e2ae1340cc477884a6aa60d06a74e5e0ca6c55",
+      "scope": "server"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "sha256": "430a1570931addef9293e3f8d10fb60b40c3ae81222e46a891b29130078e8e62",
+      "size": 24908,
+      "parent_sha256": "42b8138ba0a4407e432bd7405a76d00bd76573357e9769da798ee2cc5c497c40",
+      "online_parent_sha256": "d4f4e5c7faf9c7bdeba55a29020c1451db55fe6ccaf4252f400ba332ff9aadd4",
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "sha256": "f0112e295c22c852b5bae9d626b4decf8d89e7422076600cd97bf3bdad2642b4",
+      "size": 7049,
+      "parent_sha256": "11831b5b90ad29cf49055621591ed81e34ed0c6a48887a188b7c9bcefa6879dc",
+      "online_parent_sha256": "6de253b2725b4a6df3088ad45af8d8585689ac5809a999769e67067155b20326",
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_hit_count_obstacles.py",
+      "sha256": "ce973c4d27b5197976ba16863b81427545cf9a10309e1183843752080638041b",
+      "size": 2493,
+      "parent_sha256": "e13685bf66deb3bc56d1a3f5e77d72e85142e4cd1230acf7bec0f36f927701b5",
+      "online_parent_sha256": "e13685bf66deb3bc56d1a3f5e77d72e85142e4cd1230acf7bec0f36f927701b5",
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_lithia_memory8.json",
+      "sha256": "529847d619ff85cd22876be73970acab0ba6fad8f555dd0c1f8c661f23628776",
+      "size": 1419,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "sha256": "35caf867204157234552fc8cd93f0a60809aff8cb8d1951de81ca740a064cd28",
+      "size": 10426,
+      "parent_sha256": "51a5316bbd3ea9c046bdd75241aabd2487b4afed52a724dbadc168d8f0a69513",
+      "online_parent_sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "scope": "support"
+    },
+    {
+      "path": "tools/raid_native_power.py",
+      "sha256": "43e90fde1bbb0452de802b26d4ca53d2d1e8fe1f4d2cbc1aaabc734ff35e44f3",
+      "size": 1593,
+      "parent_sha256": "a91d27579636a9c2baabb07e550184f13d2bea2e73219542ad112eaf37252c44",
+      "online_parent_sha256": "a91d27579636a9c2baabb07e550184f13d2bea2e73219542ad112eaf37252c44",
+      "scope": "support"
+    },
+    {
+      "path": "tools/resonance_book_use.js",
+      "sha256": "e824d0cfad2accffd9dbb185934d433cc5be46d028a5428f07ea9327a0cb6602",
+      "size": 2456,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/resonance_book_use.py",
+      "sha256": "7daf34e8b69c43f1cdfa7c03d4b716647ea0f5eda1ff8f32d348f48abf0f5c33",
+      "size": 1258,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "support"
+    }
+  ]
+}
