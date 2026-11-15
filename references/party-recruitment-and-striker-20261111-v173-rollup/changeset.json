@@ -1,0 +1,336 @@
+{
+  "release": "party-recruitment-and-striker-20261111-v173",
+  "source_manifest_sha256": "035ce858be687a2fb607eb9890adb9b94cac10b94798e6adb6584754bd31793a",
+  "parents": {
+    "online": {
+      "release": "title-socket-hidden-items-artifact-20261111-v172",
+      "manifest_sha256": "af72ef066929d9aeaf69c9b266f8576500687f13f0fe7dfeb00d2979624b93cc"
+    },
+    "local": {
+      "release": "unified-server-46436474c4e63f1a-d9e16cd26388",
+      "manifest_sha256": "84f271fdda5698115c6072090b4e0ba3d0712e6573180029440021e1f84c8623"
+    },
+    "launchers": {
+      "release": "title-socket-hidden-items-artifact-20261111-v172",
+      "manifest_sha256": "3e4e9ff35810c68f93338db9590dbcce68bd041851d1bab5878221a8afd83e3d"
+    }
+  },
+  "files": [
+    {
+      "scope": "server",
+      "path": "els_server/application.py",
+      "parent_sha256": "ab8a26cd9c24684bc9885c50576a39dbf7d04de92f5c3872333eb52f9bd65b81",
+      "original_parent_sha256": "57fc99649a27500976cc5a3cd7e446468fac80f05d18dcfa39407a15f33faf8c",
+      "author_sha256": "529b58d650c46111d6c7814aa39ffb73e0acfe46a4dd4cbb1dd7adfaee3a6ffa",
+      "review_sha256": null,
+      "overlapping": true,
+      "sha256": "56b1f1c2affcd3835a4f5148c052006adf8030107d12679de00bb499092710f1",
+      "size": 71105
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/challenge_flow.py",
+      "parent_sha256": "ab52ad213c7610312d5e10709b9f81e51a1ba0826f78166494bf458814f3b060",
+      "original_parent_sha256": "ab52ad213c7610312d5e10709b9f81e51a1ba0826f78166494bf458814f3b060",
+      "author_sha256": "6ff70c3d95b6d103e2293a1d5f5b2b5d48c03e493ee2a6cb0a89c449d44875b8",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "6ff70c3d95b6d103e2293a1d5f5b2b5d48c03e493ee2a6cb0a89c449d44875b8",
+      "size": 8245
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/field_boss.py",
+      "parent_sha256": "63b670c61150a5a6a66b51bf35b5bfa834848938e71e611902db02985c0cbe9a",
+      "original_parent_sha256": "63b670c61150a5a6a66b51bf35b5bfa834848938e71e611902db02985c0cbe9a",
+      "author_sha256": "610e475ed5e7cd27058281fefaa139e45fdec01d323224dd331c5fc6d7a45acf",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "610e475ed5e7cd27058281fefaa139e45fdec01d323224dd331c5fc6d7a45acf",
+      "size": 16423
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/friends_dungeon.py",
+      "parent_sha256": "ee9f4bfbaacad2599405f12e6e7581c1a8dcdde4790fd7a5f58b2846644fc343",
+      "original_parent_sha256": "ee9f4bfbaacad2599405f12e6e7581c1a8dcdde4790fd7a5f58b2846644fc343",
+      "author_sha256": "1bc4263ff1bd5ad3c4ff0369fc757bb4e44c6ae1c8f5b36f25e4e3e095191384",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "1bc4263ff1bd5ad3c4ff0369fc757bb4e44c6ae1c8f5b36f25e4e3e095191384",
+      "size": 47396
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/friends_spawns.py",
+      "parent_sha256": "5e4af68cf01d223ef3abd34e205503aa88137368a4b26349c003e0f3b1720d64",
+      "original_parent_sha256": "5e4af68cf01d223ef3abd34e205503aa88137368a4b26349c003e0f3b1720d64",
+      "author_sha256": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "size": 26801
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/friends_world.py",
+      "parent_sha256": "0a23181eedd54263007b5e21caa1fbac10cc3c45846eedbd761db5321b277e12",
+      "original_parent_sha256": "0a23181eedd54263007b5e21caa1fbac10cc3c45846eedbd761db5321b277e12",
+      "author_sha256": "898cb3f300225fc20e0547918fcfd42c3c05a4d0b1e1d36c54eff82a04d53aef",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "898cb3f300225fc20e0547918fcfd42c3c05a4d0b1e1d36c54eff82a04d53aef",
+      "size": 28147
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/group_challenge.py",
+      "parent_sha256": "9b2a8b98a827e14a5e2484288e030793f16f9185292b50cfc547948493db41fa",
+      "original_parent_sha256": "9b2a8b98a827e14a5e2484288e030793f16f9185292b50cfc547948493db41fa",
+      "author_sha256": "7c10a87e38171f12a8865444ae4cd21288f4fa97cddc591f8b296b4fb3d7f456",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "7c10a87e38171f12a8865444ae4cd21288f4fa97cddc591f8b296b4fb3d7f456",
+      "size": 17384
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/known_resurrection_flow.py",
+      "parent_sha256": "a7ed3cbbac646b478c74d2f1db01d5c325a107e84732f88d92a56e324ab50998",
+      "original_parent_sha256": "a7ed3cbbac646b478c74d2f1db01d5c325a107e84732f88d92a56e324ab50998",
+      "author_sha256": "9bd07545db03562e48cc0c3f9259e4cb350c11b35b51df3320a5a9071fe800b9",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "9bd07545db03562e48cc0c3f9259e4cb350c11b35b51df3320a5a9071fe800b9",
+      "size": 16913
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/mentor_play.py",
+      "parent_sha256": "92b5916571c2b04156d25318486602e99051bcfd81a4402d66b087e5f1e7f273",
+      "original_parent_sha256": "92b5916571c2b04156d25318486602e99051bcfd81a4402d66b087e5f1e7f273",
+      "author_sha256": "c37fc0417f2dbbc3ede805b5f2c11f8549fe4fd3b3a01e895a7e9f20de6990c7",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "c37fc0417f2dbbc3ede805b5f2c11f8549fe4fd3b3a01e895a7e9f20de6990c7",
+      "size": 5251
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/normal_fatigue_flow.py",
+      "parent_sha256": "e740886da0b566a01b8316b51d5b9b2a4c521c87a945bc6adfa135751518ccb7",
+      "original_parent_sha256": "e740886da0b566a01b8316b51d5b9b2a4c521c87a945bc6adfa135751518ccb7",
+      "author_sha256": "a5f340c5826cf1d8bcec0f6b6605f479dab75a47625a3d5d7ab113f6933adf06",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "a5f340c5826cf1d8bcec0f6b6605f479dab75a47625a3d5d7ab113f6933adf06",
+      "size": 21413
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/normal_party.py",
+      "parent_sha256": "9718106d68291e6c1ded0b37994e9f85ce561dbb30d5b172c59bdeef92b48df3",
+      "original_parent_sha256": "9718106d68291e6c1ded0b37994e9f85ce561dbb30d5b172c59bdeef92b48df3",
+      "author_sha256": "376a4f44e65756a8bcbf61949055191836f3267be75930bda382513418192943",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "376a4f44e65756a8bcbf61949055191836f3267be75930bda382513418192943",
+      "size": 6599
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/party_commands.py",
+      "parent_sha256": "f76cb18c09a198505eb6fc13235b20707d03435735d8fab2802be7f65fcf3fe7",
+      "original_parent_sha256": "f76cb18c09a198505eb6fc13235b20707d03435735d8fab2802be7f65fcf3fe7",
+      "author_sha256": "731a7915e373f11d79401b64e86a681785507be30d49f109fbd14057b5802da3",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "731a7915e373f11d79401b64e86a681785507be30d49f109fbd14057b5802da3",
+      "size": 6308
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/party_recruitment.py",
+      "parent_sha256": "f29f62ea9dfac1e427eec5e4f39378d75dde1084b93cab236063557e25e0400b",
+      "original_parent_sha256": "f29f62ea9dfac1e427eec5e4f39378d75dde1084b93cab236063557e25e0400b",
+      "author_sha256": "be4e54554ecc6e309389cd0401cb84086e6b3e6f4032e81f3a8758ae30352fa9",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "be4e54554ecc6e309389cd0401cb84086e6b3e6f4032e81f3a8758ae30352fa9",
+      "size": 23300
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/raid_native_power.py",
+      "parent_sha256": "3ce857414708dc26ca1868a897beb9420f9c45b80829261c3e9347680ed6b4ba",
+      "original_parent_sha256": "3ce857414708dc26ca1868a897beb9420f9c45b80829261c3e9347680ed6b4ba",
+      "author_sha256": "12ac4e71acc2346d56266c97129b9bd58b110c905a55cf30a2c7f7ad9875ea5f",
+      "review_sha256": "10b29ef748222e981dae145867ad6b14c5cb5a92a6571b67ff345e838c5fde05",
+      "overlapping": false,
+      "sha256": "10b29ef748222e981dae145867ad6b14c5cb5a92a6571b67ff345e838c5fde05",
+      "size": 6331
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/raid_party.py",
+      "parent_sha256": "9a0d64e4308251dc3fe943d0a7d45cfb5f63b2efc94cb551475339f0ec495a80",
+      "original_parent_sha256": "9a0d64e4308251dc3fe943d0a7d45cfb5f63b2efc94cb551475339f0ec495a80",
+      "author_sha256": "8596aa3c5b5c4fa705c50cc9262be1a2a78f4767a1faecba86ba3beae565f6e5",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "8596aa3c5b5c4fa705c50cc9262be1a2a78f4767a1faecba86ba3beae565f6e5",
+      "size": 3844
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "parent_sha256": "c7be003f09d5e766e9fbc9249afef6ee9a16376e27dd975d13e438695875065b",
+      "original_parent_sha256": "c7be003f09d5e766e9fbc9249afef6ee9a16376e27dd975d13e438695875065b",
+      "author_sha256": "3baa8f6652de0d6e1bca572f900edc9679f0cdf048dd9470a6791ac7bd43f1c3",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "3baa8f6652de0d6e1bca572f900edc9679f0cdf048dd9470a6791ac7bd43f1c3",
+      "size": 23654
+    },
+    {
+      "scope": "server",
+      "path": "els_server/domain/union_party.py",
+      "parent_sha256": null,
+      "original_parent_sha256": null,
+      "author_sha256": "74bf7f5f6ca79865ee6246425cf02299da74573ff8046d704a75102eed0f68a1",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "74bf7f5f6ca79865ee6246425cf02299da74573ff8046d704a75102eed0f68a1",
+      "size": 16374
+    },
+    {
+      "scope": "server",
+      "path": "els_server/protocol/challenge_messages.py",
+      "parent_sha256": "b20902da4955468881be70af6a0252c044e2e9393165f14088801c9abbdb27db",
+      "original_parent_sha256": "b20902da4955468881be70af6a0252c044e2e9393165f14088801c9abbdb27db",
+      "author_sha256": "75053a3fbf358498426ce0579e0eab884c8c9f63fef35423fdba33668e3b3ea2",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "75053a3fbf358498426ce0579e0eab884c8c9f63fef35423fdba33668e3b3ea2",
+      "size": 1811
+    },
+    {
+      "scope": "server",
+      "path": "els_server/protocol/dungeon_messages.py",
+      "parent_sha256": "078f21e5d08c13424276c4bc61e4808acbe030acd4c9d8f095b06e4cdf9a75ba",
+      "original_parent_sha256": "078f21e5d08c13424276c4bc61e4808acbe030acd4c9d8f095b06e4cdf9a75ba",
+      "author_sha256": "4f4cb8c3f0c386825fcb6fbdcf4e1370c80feab1051a9fc6a131d2b58594a26a",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "4f4cb8c3f0c386825fcb6fbdcf4e1370c80feab1051a9fc6a131d2b58594a26a",
+      "size": 17732
+    },
+    {
+      "scope": "server",
+      "path": "els_server/protocol/party_recruitment_messages.py",
+      "parent_sha256": "e45e62203428e1b0235b74bbd20b76012d8564381469ee5a8c4c4719467af07b",
+      "original_parent_sha256": "e45e62203428e1b0235b74bbd20b76012d8564381469ee5a8c4c4719467af07b",
+      "author_sha256": "96eeac26b66cf9f3e3f9e1a7ed2e7fd816555e7bfb9dcfc43d21271cfa5266e3",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "96eeac26b66cf9f3e3f9e1a7ed2e7fd816555e7bfb9dcfc43d21271cfa5266e3",
+      "size": 4207
+    },
+    {
+      "scope": "server",
+      "path": "els_server/protocol/social_messages.py",
+      "parent_sha256": "804084dd6bb6cc40c9b3c7d8930390e0fb627c3f5741f739375b133c8c9cf312",
+      "original_parent_sha256": "804084dd6bb6cc40c9b3c7d8930390e0fb627c3f5741f739375b133c8c9cf312",
+      "author_sha256": "a007ce47ecf606afe9d811795c93def3f0c1e88ea43ba9fe5764acbdc6c22da4",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "a007ce47ecf606afe9d811795c93def3f0c1e88ea43ba9fe5764acbdc6c22da4",
+      "size": 17415
+    },
+    {
+      "scope": "server",
+      "path": "els_server/protocol/union_messages.py",
+      "parent_sha256": null,
+      "original_parent_sha256": null,
+      "author_sha256": "fc9eacc5ba0372833845c4a0aca4b4f2247259ed56f95a99cecfbc93ccf89c70",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "fc9eacc5ba0372833845c4a0aca4b4f2247259ed56f95a99cecfbc93ccf89c70",
+      "size": 3320
+    },
+    {
+      "scope": "server",
+      "path": "els_server/storage/challenge_group.py",
+      "parent_sha256": "6b98d42157f185a7979020ab161f76857ebc54c05852b72f20c3dfaba8c88469",
+      "original_parent_sha256": "6b98d42157f185a7979020ab161f76857ebc54c05852b72f20c3dfaba8c88469",
+      "author_sha256": "b7b0c310f04958849519b7646b038efabf10a7ecab50447c9e7e23380545fa53",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "b7b0c310f04958849519b7646b038efabf10a7ecab50447c9e7e23380545fa53",
+      "size": 5786
+    },
+    {
+      "scope": "server",
+      "path": "els_server/storage/challenge_state.py",
+      "parent_sha256": "61487dde0c9ae1308607fda37392b025d9b49f1bdc6f4853d59807526b792e8a",
+      "original_parent_sha256": "61487dde0c9ae1308607fda37392b025d9b49f1bdc6f4853d59807526b792e8a",
+      "author_sha256": "08c7d5dfbe25de8eaf583ec4045f3ee0bf31e7c910b512d7138da18fac7069b6",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "08c7d5dfbe25de8eaf583ec4045f3ee0bf31e7c910b512d7138da18fac7069b6",
+      "size": 6023
+    },
+    {
+      "scope": "server",
+      "path": "els_server/storage/group_settlement.py",
+      "parent_sha256": "a2bb5d8961fb3ecea096adafc3a79dcfabbdaeabfd75a3cce2fc2da368caf532",
+      "original_parent_sha256": "a2bb5d8961fb3ecea096adafc3a79dcfabbdaeabfd75a3cce2fc2da368caf532",
+      "author_sha256": "48aabcf18d953f31f182837e70762b679c047dabe935eb67cdbd162cd3be47c9",
+      "review_sha256": null,
+      "overlapping": false,
+      "sha256": "48aabcf18d953f31f182837e70762b679c047dabe935eb67cdbd162cd3be47c9",
+      "size": 7471
+    },
+    {
+      "scope": "support",
+      "path": "tools/group_wear_sync.js",
+      "parent_sha256": "ca214398f0513786bab0db3f527246ff211f656d8363b6e05fa3a59af17c1fa4",
+      "original_parent_sha256": "ca214398f0513786bab0db3f527246ff211f656d8363b6e05fa3a59af17c1fa4",
+      "author_sha256": "38ed2a089f90f13d1b6190b5ea75430a544d977c7fffc3318d3bdd52ec08842d",
+      "review_sha256": "38ed2a089f90f13d1b6190b5ea75430a544d977c7fffc3318d3bdd52ec08842d",
+      "overlapping": false,
+      "sha256": "38ed2a089f90f13d1b6190b5ea75430a544d977c7fffc3318d3bdd52ec08842d",
+      "size": 18414
+    },
+    {
+      "scope": "support",
+      "path": "tools/native_cache_sync.js",
+      "parent_sha256": "62a1d15ca0958c685fffc3bb8d40982ddb821ce2de45522f318db86793d075f8",
+      "original_parent_sha256": "62a1d15ca0958c685fffc3bb8d40982ddb821ce2de45522f318db86793d075f8",
+      "author_sha256": "8811ff14b704b91ca378809808eefb161ce3ac1f3c5a8388dd7cffc368112b3d",
+      "review_sha256": "e3ed7dca5129ee6f1c7b873e7c31a6057f5e007d3fb83fde6c8b5f0cea381f7f",
+      "overlapping": false,
+      "sha256": "e3ed7dca5129ee6f1c7b873e7c31a6057f5e007d3fb83fde6c8b5f0cea381f7f",
+      "size": 36172
+    },
+    {
+      "scope": "support-registry",
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "6fac35492debd2d0ee5af64a1a9a079578baf020984d887b9690baaf328db7d9",
+      "sha256": "f4f9bfb90eab217bb187c3554321fa20528ef7e739546f4bc78925fa1c0ab0ba",
+      "size": 24953,
+      "registry_verification": {
+        "path": "G:\\els\\analysis\\striker-party-native-acceptance-20261111-v1\\release-queue-v173\\rollup-publication\\registry-verification.json",
+        "sha256": "a49d0985bba53c4dae00d886948c73c87f7f879f237ebf56bb4b00ece5ef8c1e"
+      },
+      "reviewed_artifact_pins": {
+        "tools/group_wear_sync.js": "38ed2a089f90f13d1b6190b5ea75430a544d977c7fffc3318d3bdd52ec08842d",
+        "tools/native_cache_sync.js": "e3ed7dca5129ee6f1c7b873e7c31a6057f5e007d3fb83fde6c8b5f0cea381f7f"
+      },
+      "retained_shared_sender": {
+        "tools/native_send_serialization.py": "4900d883e6a7a5ab79324cfcf37462c5c38dba1c2e052e3e6f0bf44eaf4f2eb7",
+        "tools/native_send_serialization.js": "283de2a4d2dfbdfe0da7db3b7af6cbf3d4b636d12bd6367f5c74eb9d57790a48"
+      }
+    }
+  ]
+}
