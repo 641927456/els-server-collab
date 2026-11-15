@@ -1,0 +1,131 @@
+{
+  "status": "PRIVATE_APP_TLS_QUALIFIED_NOT_INSTALLED",
+  "parent_Git_head": "d16d00ff3fa03f8a12fdf34e51519c01f201710d",
+  "parent_PR": 934,
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "14bd60be1b00c59ec68046e07e2317f8d562093355c5d2b68f59b9ca68c67f63",
+      "sha256": "580373f8d3bb268a71d1bde42d784488112fa9353b94d5b7943c22f4e920331d"
+    },
+    {
+      "path": "els_server/domain/duel_flow.py",
+      "parent_sha256": "24b6b0f37cd1c72be2af3c06542d5150017abbbffe05ccff289c2f14270d17b5",
+      "sha256": "43b0c5bddf55e6f75415fad853e5c312e78ae5e20012683b339160b50c4f371f"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "e61dff9b9025020ae62a1fad45830ebee7db53f2d37e9e21367996ca859d96b7",
+      "sha256": "ce3ae9d9e3ae541e20cdfbdeceb46c49a4bb907be49796df8ef0e94991abee82"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "a61fe8a6580b95bb8c21e42725e2259dd86ee495d421703ecae2e663869c2405",
+      "sha256": "b6064994a302b47798a6d6d1eb320c83518f50bee4ab1dc6cecae76903eda28f"
+    }
+  ],
+  "connected_condition_types": [
+    2,
+    4,
+    5,
+    6,
+    15,
+    16,
+    18,
+    19,
+    20,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    32,
+    35,
+    36,
+    37,
+    38,
+    39,
+    42,
+    43,
+    44,
+    45,
+    51,
+    52,
+    53,
+    56,
+    57,
+    58,
+    60,
+    61,
+    62,
+    63,
+    67,
+    68
+  ],
+  "connected_definitions": 239,
+  "added_condition_types": [
+    20,
+    29,
+    30
+  ],
+  "remaining_other_types": 21,
+  "new_tables": [],
+  "new_indexes": [
+    "native_achievement_operation_account_kind"
+  ],
+  "unresolved_original_reward_groups": 53,
+  "installed": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "production_database_access": false,
+  "production_clock_patch": false,
+  "production_probability_policy_changed": false,
+  "evidence": [
+    {
+      "file": "sources-1794042230639316800.json",
+      "sha256": "6435f2132f15fe6456ad148e42504aa09c0bcbfe68edc6637a5b41d97c1dbfd8",
+      "dependency_paths": [
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py"
+      ],
+      "reuse": "Only Duels.invite changed after source/enhancement qualification; current social and delivery tests cover its revised method"
+    },
+    {
+      "file": "live-enhancement-1794042852717251800.json",
+      "sha256": "975432f0183ab27e7589e0c50d0f6ae58bacf4f00af0e3e9f2c1d23f94242215",
+      "dependency_paths": [
+        "els_server/domain/achievement_flow.py",
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py"
+      ],
+      "reuse": "Only Duels.invite changed after source/enhancement qualification; current social and delivery tests cover its revised method"
+    },
+    {
+      "file": "live-social-1794043487096699300.json",
+      "sha256": "8b090f026f1d34d4a22ada99bbb4ce89ed7ed5f31a6cd77bd2a8b0d0d3756f37",
+      "dependency_paths": [
+        "els_server/domain/achievement_flow.py",
+        "els_server/domain/duel_flow.py",
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py"
+      ],
+      "reuse": null
+    },
+    {
+      "file": "delivery-scenario-1794043326646450100.json",
+      "sha256": "12412626a6d60cbec22676b5bba97c526b0cd51e17679ad8cefcf05e5100462b",
+      "dependency_paths": [
+        "els_server/domain/achievement_flow.py",
+        "els_server/domain/duel_flow.py",
+        "els_server/storage/achievement_history.py",
+        "els_server/storage/achievement_profiles.py"
+      ],
+      "reuse": null
+    }
+  ],
+  "human_rules": "human-rules.json",
+  "source_review_fix": "Short journal writer follows the original writer-capable FullUser getter; original actor/mailbox fences rechecked"
+}
