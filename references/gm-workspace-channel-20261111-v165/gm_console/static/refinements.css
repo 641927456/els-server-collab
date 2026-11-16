@@ -1,0 +1,125 @@
+.history-row p{overflow-wrap:anywhere}.card{min-width:0}.item-grid{align-content:start;grid-auto-rows:145px}.item-card strong{font-size:11px}.item-card small{font-size:10px}#toast{max-width:calc(100vw - 100px);overflow-wrap:anywhere}.delivery-form select{max-width:100%}.receipt-details{font-size:10px;color:#9aabb6;margin-top:12px}.receipt-details summary{cursor:pointer}.receipt-details pre{margin-bottom:0}
+/* GM v2 directory, finer filters and scheduled event controls. */
+.filters-row{flex-wrap:wrap;margin-top:12px}.filters-row select{min-width:180px;flex:1}.favorite-filter{display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:13px}.favorite-filter input{width:auto}.muted{display:block;color:#8290a5;font-size:12px;margin-top:5px}.account-card{border:1px solid #e5eaf1;border-radius:12px;padding:18px;margin:16px 0}.account-card td{white-space:normal;min-width:115px}.account-card td:last-child{min-width:160px}.account-card td button{margin-right:14px}.account-card td small{overflow-wrap:anywhere}.event-card{margin-bottom:18px}.event-card h2{font-size:17px}.event-toggle{display:flex;flex-direction:row;align-items:center;gap:10px;margin:18px 0}.event-toggle input{width:18px;height:18px}.experience-label{max-width:540px;margin:20px 0}.experience-label input{max-width:180px}.experience-label small{line-height:1.7;color:#8290a5}.rate-presets{margin-top:20px}#favoriteItem{margin-top:12px}#inventoryDialog{width:min(1100px,94vw);max-width:1100px;max-height:90vh;overflow:auto;padding:28px;border:0;border-radius:16px}#inventoryDialog .item-grid{margin-top:18px}#inventoryDialog .item-card{cursor:default}#inventoryDialog .item-card small{overflow-wrap:anywhere}#eventCards input[type=datetime-local]{min-width:0;width:100%}.header-right .chip{white-space:normal;font-size:11px;text-align:right}
+@media(max-width:700px){.filters-row select{width:100%;min-width:0}.event-card .form-pair{grid-template-columns:1fr}.account-card{padding:12px}#inventoryDialog{padding:16px}.header-right .chip{max-width:170px}.experience-label{max-width:100%}}
+
+.experience-label{display:flex;flex-direction:column;gap:9px}.fallback-icon{outline:1px dashed #d3b581}.item-card:has(.fallback-icon) small{color:#987a42}#iconCoverage{margin:12px 0;font-size:10px}
+
+.rate-toolbar{margin-top:0;flex-wrap:wrap}.account-card .card-heading strong{overflow-wrap:anywhere}
+#levelDialog{max-height:90vh;overflow:auto}#levelTarget{overflow-wrap:anywhere}#levelReceipt{overflow-wrap:anywhere}
+body > aside { overflow: auto; }
+nav .nav-label { margin: 12px 12px 3px; letter-spacing: .08em; }
+nav button { padding-block: 9px; }
+.page-title > div, .card, .job, .workflow-form label { min-width: 0; }
+.page-title h1, .card-heading h2, .scope, .hint, .workflow-status, .chip {
+    overflow-wrap: anywhere;
+}
+#items .page-title, #coupons .page-title, #announcements .page-title { margin-bottom: 20px; }
+#items .page-title p, #coupons .page-title p, #announcements .page-title p {
+    color: #526675;
+    font-size: 13px;
+}
+.delivery-layout { grid-template-columns: minmax(0,1fr) minmax(310px,390px); }
+.delivery-workspace { min-width: 0; }
+.delivery-workspace .delivery-form { position: static; }
+.delivery-workspace [hidden], .workflow-form [hidden], #couponOutput[hidden] { display: none; }
+.delivery-workspace fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+#giveForm > label, #batchFields > label, .workflow-form > label, .workflow-form .form-pair > label,
+#couponOutput > label, .workflow-details > label {
+    display: grid;
+    gap: 6px;
+    margin: 12px 0;
+}
+#giveForm input, #giveForm textarea, #batchFields > label > *, .workflow-form label > :is(input,select,textarea),
+#couponLookupForm input, #couponOutput textarea, .workflow-details input {
+    width: 100%;
+    min-width: 0;
+}
+.workflow-form .form-pair { align-items: start; }
+#batchGiveButton { width: 100%; }
+.workspace-switch {
+    display: inline-grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 6px;
+    padding: 4px;
+    margin-bottom: 16px;
+    background: #e7edf1;
+    border-radius: 8px;
+}
+.workspace-switch button { line-height: 1.4; padding-inline: 14px; min-height: 38px; }
+.workspace-switch [aria-pressed="true"] { background: #244050; color: white; border-color: #244050; }
+#items .search-row, .catalog-meta, .button-row { flex-wrap: wrap; }
+#items .search-row .search { flex: 1 1 220px; min-width: 0; }
+#items .search-row select { flex: 0 1 auto; max-width: 100%; }
+#items .filters-row select { flex: 1 1 130px; min-width: 0; }
+#items .item-grid { grid-template-columns: repeat(auto-fill,minmax(min(100%,108px),1fr)); min-height: 0; }
+#items .item-card strong { font-size: 12px; min-height: 36px; }
+#items .item-card small { color: #536b7b; }
+.item-card[draggable="true"] { cursor: grab; }
+.item-card[draggable="true"]:active { cursor: grabbing; }
+.item-card img { pointer-events: none; }
+.drop-target { border: 1px dashed #9ab0bf; border-radius: 8px; padding: 12px; }
+.drop-target.drag-over { border-color: #176e82; background: #d9eff3; }
+.workflow-status {
+    padding: 10px 12px;
+    background: #edf3f6;
+    border-radius: 6px;
+    color: #344d5b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+.workflow-step { margin: 18px 0 8px; font-size: 15px; }
+.workflow-details { margin-top: 16px; border-top: 1px solid #d9e1e8; padding-top: 12px; }
+.workflow-details summary { cursor: pointer; color: #244050; font-size: 13px; }
+.draft-summary { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; margin: 8px 0; }
+.draft-rows { max-height: 280px; overflow: auto; }
+.draft-row, .reward-line {
+    display: grid;
+    grid-template-columns: 36px minmax(0,1fr) 60px auto;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #d9e1e8;
+}
+.draft-row input, .reward-line input { width: 100%; min-width: 0; padding-inline: 6px; }
+.draft-row .item-image { width: 36px; height: 36px; display: grid; place-items: center; font-size: 10px; }
+.draft-row .item-image img { width: 100%; height: 100%; object-fit: contain; }
+.draft-item-name strong, .reward-line strong { overflow-wrap: anywhere; font-size: 13px; line-height: 1.4; }
+.draft-item-name small, .reward-line small, .announcement-job small, .activity-calendar small {
+    display: block;
+    margin-top: 4px;
+    color: #536b7b;
+    overflow-wrap: anywhere;
+}
+.reward-line { grid-template-columns: minmax(0,1fr) 64px auto; }
+#couponLookupForm { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 10px; }
+#couponLookupForm .search { min-width: 0; }
+.reward-matches { display: flex; flex-wrap: wrap; gap: 6px; }
+.reward-matches button { max-width: 100%; overflow-wrap: anywhere; text-align: left; }
+#couponRewards { margin-bottom: 16px; }
+#confirmText, .notice-body, #announcementPreview, #batchReceipt, .operation-receipt {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+#confirmText { max-height: 35vh; overflow: auto; }
+#confirmDialog { max-width: calc(100% - 32px); max-height: calc(100vh - 32px); overflow: auto; }
+.notice-preview { padding: 12px; background: #edf3f6; border-radius: 8px; }
+.notice-preview span { display: block; font-size: 12px; color: #536b7b; }
+.notice-preview p, .announcement-job p { margin: 5px 0; }
+.subheading { margin: 18px 0 10px; }
+.activity-calendar { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,225px),1fr)); gap: 12px; }
+@media(max-width: 1050px) {
+    .delivery-layout { grid-template-columns: minmax(0,1fr); }
+}
+@media(max-width: 800px) {
+    nav .nav-label { display: none; }
+    #announcements .two-columns, #events .two-columns, #settings .two-columns { grid-template-columns: minmax(0,1fr); }
+    #items .workspace-switch { display: grid; }
+}
+@media(max-width: 550px) {
+    #items .card, #announcements .card, #coupons .card { padding: 14px; }
+    #couponLookupForm, .workflow-form .form-pair { grid-template-columns: minmax(0,1fr); }
+    .draft-row { grid-template-columns: 30px minmax(0,1fr) 52px auto; gap: 5px; }
+    .draft-row .item-image { width: 30px; height: 30px; }
+    .draft-row .text-button, .reward-line .text-button { padding-inline: 4px; }
+}

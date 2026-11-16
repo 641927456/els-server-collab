@@ -1,0 +1,110 @@
+{
+  "release": "merchant-purchases-and-dennis-20261111-v168",
+  "patch_sha256": "4c99aa4c437f253eb20cc40408a55932c0f2eb896ac902a4783e90fb410c0c39",
+  "parents": {
+    "online": {
+      "release": "season-pass-and-attribute-enchant-20261111-v167",
+      "manifest_sha256": "9473fe0e13096e38f49b56e6121393d3efec5aef8485dea70dea2ca9983f1549"
+    },
+    "local": {
+      "release": "unified-server-f846e6a39318791f-4f9109f58873",
+      "manifest_sha256": "5132ec5182329becca1480e1f109bea033979b78c9e0b89a5b56d85519e63922"
+    },
+    "launchers": {
+      "release": "season-pass-and-attribute-enchant-20261111-v167",
+      "manifest_sha256": "f64443a45d84de83b92dd23070ebdbbc12a3b68118f637c42d89b42158d961ea"
+    }
+  },
+  "files": [
+    {
+      "cohort": "festival",
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "aeca9212ae854466335de70c004ca7e07007b5035fbe7544c75179188b5b80a0",
+      "sha256": "5f89acb9be3513663a08f5865661677cda7d0575c553ea982090ddab08f33f53",
+      "size": 20273,
+      "source_parent_sha256": "ad518241de9cc3cac43a08357a39ab9f343f1dd870afe3705289ac01bef04863",
+      "source_sha256": "e46d9b92ac604aba191196ceb07d0fc1729edec79246ad6fb67114a9a5ca0926",
+      "rebased": true
+    },
+    {
+      "cohort": "festival",
+      "path": "els_server/domain/bank_rules.py",
+      "parent_sha256": "fa5e573019537e94e6f1d02315a183bd4469ff1dbaa8b78b5a2b6bea4e24ecff",
+      "sha256": "7793f8f7fd5bd9b87131492baabe8710fa74eb98ac8c88949e642508a04862e2",
+      "size": 2978,
+      "source_parent_sha256": "fa5e573019537e94e6f1d02315a183bd4469ff1dbaa8b78b5a2b6bea4e24ecff",
+      "source_sha256": "7793f8f7fd5bd9b87131492baabe8710fa74eb98ac8c88949e642508a04862e2",
+      "rebased": false
+    },
+    {
+      "cohort": "festival",
+      "path": "els_server/domain/consumables.py",
+      "parent_sha256": "1c20fd8c32b38c70597f8c5092a641cf8f675afd25a8f58d942dafd10f811def",
+      "sha256": "a0b884ad913a62d0b05177a3bad24274fd1a21fb05611ee572f216617855d97c",
+      "size": 10549,
+      "source_parent_sha256": "1c20fd8c32b38c70597f8c5092a641cf8f675afd25a8f58d942dafd10f811def",
+      "source_sha256": "a0b884ad913a62d0b05177a3bad24274fd1a21fb05611ee572f216617855d97c",
+      "rebased": false
+    },
+    {
+      "cohort": "festival",
+      "path": "els_server/domain/festival_food.py",
+      "parent_sha256": null,
+      "sha256": "a37ebba826b91c2d10c44090dca7813cd87a6ad19cd94cc143e77912b8100559",
+      "size": 178,
+      "source_parent_sha256": null,
+      "source_sha256": "a37ebba826b91c2d10c44090dca7813cd87a6ad19cd94cc143e77912b8100559",
+      "rebased": false
+    },
+    {
+      "cohort": "festival",
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "c1bd3e577148a17cf2894aed55ef1628508941b4c7c488d6ae6b2f0cdb9a8119",
+      "sha256": "dcfab910dc83c712d29d5858e63af3d571be6f21d0970355cb220f2cb9ecdae7",
+      "size": 99673,
+      "source_parent_sha256": "f977b3f2ac51752ea21a640f483ceb3c3269c406277163f0f65fa51967b28e12",
+      "source_sha256": "c23923d32b12d6d7da245d9873d485f7e032c6c67d8ebec752ebee5dbb18ac48",
+      "rebased": true
+    },
+    {
+      "cohort": "festival",
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "77fbd87f3490e52e5752ecf85eb29e2c971a184969eac20311623a8f154a8db8",
+      "sha256": "35c98c73b97f347e4014ad2d4581377c519f775fed2d51b4f32788471f9157d0",
+      "size": 169468,
+      "source_parent_sha256": "dd5b33109863533b59ad453b6d07fb184a29702d6424219d86b4a070372b5a5e",
+      "source_sha256": "9942579bf9d416d03226f75b7c78becec1878edb0b7e575b8e646372ae6e20bd",
+      "rebased": true
+    },
+    {
+      "cohort": "festival",
+      "path": "els_server/domain/npc_trade.py",
+      "parent_sha256": "87a84c2d7504d73937a4b737b859e96c11db1365434295b8858b7eb6bbe3e9d9",
+      "sha256": "a58d7b8ad92dba8c2ef6f148ad94ad7492f2373eae1de5d6ff1bb0c5c2ea6756",
+      "size": 3180,
+      "source_parent_sha256": "87a84c2d7504d73937a4b737b859e96c11db1365434295b8858b7eb6bbe3e9d9",
+      "source_sha256": "a58d7b8ad92dba8c2ef6f148ad94ad7492f2373eae1de5d6ff1bb0c5c2ea6756",
+      "rebased": false
+    },
+    {
+      "cohort": "festival",
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "8ddeb82ca9b944db096004c9502e5b47c7139ba5ed2e686c13616b929d4b1ee3",
+      "sha256": "9c35f7aa3f7d3b42bf3e9057ced704b6eb18143828f3442e9cf847b8de62ce68",
+      "size": 35358,
+      "source_parent_sha256": "16fbffcc35adf6e730c47d95e5db50b263d223d5083c57d6e947d08f27cb8659",
+      "source_sha256": "397eda57317f8b4e8dc1552dcc4fe85ca73931b45ea3cbc6daa7b4d52fe04275",
+      "rebased": true
+    },
+    {
+      "cohort": "festival",
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "768aa6cdbea62a9c70732e7acdfdb7f5c4d3e2753890782f74509087dc7c38ea",
+      "sha256": "0042003c42d3b4e32ccba3859016a6906a946c0006dc89ba4078cd6c8cf4de5c",
+      "size": 14188,
+      "source_parent_sha256": "768aa6cdbea62a9c70732e7acdfdb7f5c4d3e2753890782f74509087dc7c38ea",
+      "source_sha256": "0042003c42d3b4e32ccba3859016a6906a946c0006dc89ba4078cd6c8cf4de5c",
+      "rebased": false
+    }
+  ]
+}
