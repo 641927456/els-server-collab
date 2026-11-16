@@ -1,0 +1,1099 @@
+{
+  "schema": 1,
+  "source_version": "NA L.261105.1_1",
+  "rows": [
+    {
+      "id": 21406,
+      "name": "魔法锁链",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1174,
+          "template": 1073,
+          "key": "BFI_BUFF_SPELL_CHAIN",
+          "behavior": [
+            "BBT_CHANGE_MAGIC_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 10,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 21414,
+      "name": "电光石火",
+      "class": "F",
+      "states": [
+        {
+          "factor": 81,
+          "template": 94,
+          "key": "BFI_SI_P_EIS_LIGHTNING_STEP",
+          "behavior": [
+            "BBT_CHANGE_MAXIMIZE"
+          ],
+          "native_default_seconds_at_level_one": 10,
+          "mode": "combat"
+        }
+      ],
+      "note": "1f96735走原战斗状态对象368返回值+129。只在同一条件仍有效时续极大化。原5秒间隔独立。"
+    },
+    {
+      "id": 21423,
+      "name": "魔力流动",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1295,
+          "template": 1179,
+          "key": "BFI_BUFF_SPELL_FLOW_DAMAGE",
+          "behavior": [
+            "BBT_CHANGE_SKILL_DAMAGE"
+          ],
+          "native_default_seconds_at_level_one": 10,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 22411,
+      "name": "空间跳跃",
+      "class": "A",
+      "states": [
+        {
+          "factor": 83,
+          "template": 95,
+          "key": "BFI_SI_P_ADW_ADVANCED_TELEPORTATION",
+          "behavior": [
+            "BBT_CHANGE_CRITICAL_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 5,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 22429,
+      "name": "精华",
+      "class": "F",
+      "states": [
+        {
+          "factor": 2162,
+          "template": 2030,
+          "key": "BFI_BUFF_AMA_SPACLA_BODY_QUINTESSENCE",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED"
+          ],
+          "native_default_seconds_at_level_one": 12,
+          "mode": "parent",
+          "parents": [
+            {
+              "factor": 2158,
+              "template": 2026
+            },
+            {
+              "factor": 2164,
+              "template": 2032
+            }
+          ]
+        }
+      ],
+      "note": "只续2030动速。主体是原2026/2032火花之躯。"
+    },
+    {
+      "id": 23413,
+      "name": "强韧的精神力",
+      "class": "A",
+      "states": [
+        {
+          "factor": 872,
+          "template": 845,
+          "key": "BFI_BUFF_PERSISTENT_MIND",
+          "behavior": [
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_JUMP_POWER"
+          ],
+          "native_default_seconds_at_level_one": 10,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 23423,
+      "name": "陷阱精通",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1348,
+          "template": 1233,
+          "key": "BFI_BUFF_TRAP",
+          "behavior": [
+            "BBT_CHANGE_PHYSIC_ATTACK",
+            "BBT_CHANGE_MAGIC_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 23425,
+      "name": "勇气的赞歌",
+      "class": "D",
+      "states": [
+        {
+          "factor": 2359,
+          "template": 2215,
+          "key": "BFI_BUFF_RTS_HYMN_OF_COURAGE_ME",
+          "behavior": [
+            "BBT_CHANGE_SKILL_DAMAGE"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "只接BF2359。原20秒后只续自身。14a6db0检查的BF2358队伍状态保持原时限。"
+    },
+    {
+      "id": 23430,
+      "name": "心眼",
+      "class": "F",
+      "states": [
+        {
+          "factor": 2364,
+          "template": 2220,
+          "key": "BFI_BUFF_RPT_INSIGHT",
+          "behavior": [
+            "BBT_CHANGE_CRITICAL_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "awakening"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 23433,
+      "name": "敏捷观察者",
+      "class": "F",
+      "states": [
+        {
+          "factor": 3488,
+          "template": 3316,
+          "key": "BFI_BUFF_RNW_QUICK_WATCHER",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED",
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_JUMP_POWER"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "awakening"
+        }
+      ],
+      "note": "本地BF3488明确为速度。Boss/中Boss增伤的独立消费者未纳入。"
+    },
+    {
+      "id": 24424,
+      "name": "快刀乱麻",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1232,
+          "template": 1124,
+          "key": "BFI_BUFF_CUTTING_FAST",
+          "behavior": [
+            "BBT_CHANGE_WALK_RUN_SPEED"
+          ],
+          "native_default_seconds_at_level_one": 10,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "原回调19b4610核被动24424并以原施放者创建BF1232/BT1124。"
+    },
+    {
+      "id": 24426,
+      "name": "愤怒爆发",
+      "class": "F",
+      "states": [
+        {
+          "factor": 1271,
+          "template": 1155,
+          "key": "BFI_BUFF_RRH_BURST_ANGER",
+          "behavior": [
+            "BBT_CHANGE_CRITICAL_RATE",
+            "BBT_CHANGE_MAXIMIZE",
+            "BBT_CHANGE_CRITICAL_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 45,
+          "mode": "awakening"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 24430,
+      "name": "极限爆发力",
+      "class": "F",
+      "states": [
+        {
+          "factor": 2833,
+          "template": 2666,
+          "key": "BFI_BUFF_RBM_MAXIMUM_AGILITY_RE",
+          "behavior": [
+            "BBT_CHANGE_HYPER_CHARGE_SPEED",
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_JUMP_POWER"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "awakening"
+        }
+      ],
+      "note": "本地BF2833明确为速度/充能。额外Boss增伤消费者未纳入。"
+    },
+    {
+      "id": 25401,
+      "name": "纳斯德武器强化",
+      "class": "F",
+      "states": [
+        {
+          "factor": 2383,
+          "template": 2238,
+          "key": "BFI_BUFF_ECN_NASOD_WEAPON",
+          "behavior": [
+            "BBT_CHANGE_SKILL_DAMAGE"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "awakening"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 25402,
+      "name": "精力集中",
+      "class": "F",
+      "states": [
+        {
+          "factor": 17,
+          "template": 17,
+          "key": "BFI_SI_P_ENS_ENERGY_OF_CONCENTRATION",
+          "behavior": [
+            "BBT_CHANGE_CRITICAL_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 0,
+          "mode": "parent",
+          "parents": [
+            {
+              "factor": 216,
+              "template": 222
+            }
+          ]
+        }
+      ],
+      "note": "只续BF17自身暴伤并要求本地歼灭纹章BF216在场。敌方减防保持原路径。"
+    },
+    {
+      "id": 25404,
+      "name": "破坏之女王",
+      "class": "F",
+      "states": [
+        {
+          "factor": 1655,
+          "template": 1547,
+          "key": "BFI_BUFF_ECN_QUEEN_OF_DESTROY",
+          "behavior": [
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_MELEE_ATTACK",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_RANGE_ATTACK",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_BOSS"
+          ],
+          "native_default_seconds_at_level_one": 15,
+          "mode": "awakening"
+        }
+      ],
+      "note": "原核心触发不变。仅当前觉醒期间续自身伤害，原15秒仍正常流逝。"
+    },
+    {
+      "id": 25413,
+      "name": "高输出电子回路",
+      "class": "F",
+      "states": [
+        {
+          "factor": 2927,
+          "template": 2758,
+          "key": "BFI_BUFF_ECB_HIGHPOWERED_ELECTRICS_ANIM_SPEED",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "awakening"
+        }
+      ],
+      "note": "BF2927动速独立。BF2928的层数与到期掉层走原机制。"
+    },
+    {
+      "id": 25416,
+      "name": "欺诈代码：破坏",
+      "class": "F",
+      "states": [
+        {
+          "factor": 875,
+          "template": 849,
+          "key": "BFI_BUFF_QUEENS_THRONE_WITH_CHEAT_CODE",
+          "behavior": [
+            "BBT_CHANGE_RANGE_COMMAND_MP_GAIN_RATE",
+            "BBT_CHANGE_MELEE_COMMAND_MP_GAIN_RATE"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "parent",
+          "parents": [
+            {
+              "factor": 1178,
+              "template": 1077
+            }
+          ]
+        }
+      ],
+      "note": "只续875普攻MP获取并检查1178/1077实际在场。876和2924/2925走原计时。"
+    },
+    {
+      "id": 25420,
+      "name": "欺诈代码：电子",
+      "class": "F",
+      "states": [
+        {
+          "factor": 880,
+          "template": 854,
+          "key": "BFI_BUFF_CHEAT_CODE_ELETRONIC_MP_REDUCE",
+          "behavior": [
+            "BBT_CHANGE_CONSUME_MP_RATE"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "parent",
+          "parents": [
+            {
+              "factor": 47,
+              "template": 50
+            },
+            {
+              "factor": 48,
+              "template": 51
+            },
+            {
+              "factor": 86,
+              "template": 105
+            },
+            {
+              "factor": 87,
+              "template": 106
+            }
+          ]
+        }
+      ],
+      "note": "只接880减耗。881短回蓝保持原计时。1734减冷却为独立标记，待核完整消费者。"
+    },
+    {
+      "id": 25421,
+      "name": "纳斯德武器再强化",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1217,
+          "template": 1113,
+          "key": "BFI_BUFF_NASOD_WEAPON",
+          "behavior": [
+            "BBT_EMPTY"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "1fe9749经原枪技与冷却条件创建BF1217。1ff12e1、206563d、2065803和2069617消费BT1113。"
+    },
+    {
+      "id": 25424,
+      "name": "电磁升级",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1269,
+          "template": 1152,
+          "key": "BFI_BUFF_UPGRADE_ELECTRON",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED",
+            "BBT_CHANGE_WALK_RUN_SPEED"
+          ],
+          "native_default_seconds_at_level_one": 15,
+          "mode": "electron"
+        }
+      ],
+      "note": "原15秒结束后续1269速度。2066b00与1ffc930两个原大电子球概率消费者读取扩展标记后走原无强化概率，原刷新仍复用。"
+    },
+    {
+      "id": 25425,
+      "name": "超负荷",
+      "class": "D",
+      "states": [
+        {
+          "factor": 1273,
+          "template": 1157,
+          "key": "BFI_BUFF_ECS_OVER_POWER",
+          "behavior": [
+            "BBT_EMPTY"
+          ],
+          "native_default_seconds_at_level_one": 25,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "1fea0b7/1fea1a7保持三次计数与重置。1ff138c按索引0消费增伤，204fbd4按索引1消费冷却。只接1273。"
+    },
+    {
+      "id": 26417,
+      "name": "解放的意志：致命追击者",
+      "class": "A",
+      "states": [
+        {
+          "factor": 883,
+          "template": 857,
+          "key": "BFI_BUFF_CDC_OPEN_MIND",
+          "behavior": [
+            "BBT_CHANGE_SKILL_DAMAGE_BY_SKILL_ID"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 27423,
+      "name": "气力发散",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1299,
+          "template": 1183,
+          "key": "BFI_BUFF_ENERGY_RELEASE_DAMAGE",
+          "behavior": [
+            "BBT_CHANGE_SKILL_DAMAGE",
+            "BBT_CHANGE_SKILL_COOL_TIME_SPEED"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        },
+        {
+          "factor": 1300,
+          "template": 1184,
+          "key": "BFI_BUFF_ENERGY_RELEASE_CRITICAL_GUARD",
+          "behavior": [
+            "BBT_CHANGE_CRITICAL_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "1299/1300分别延长。1301敌方减防、易伤走原30秒。"
+    },
+    {
+      "id": 27432,
+      "name": "解放的意志：阳琰",
+      "class": "D",
+      "states": [
+        {
+          "factor": 2302,
+          "template": 2163,
+          "key": "BFI_BUFF_AMR_OPEN_MIND_ICE",
+          "behavior": [
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_NOT_BOSS"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        },
+        {
+          "factor": 2303,
+          "template": 2164,
+          "key": "BFI_BUFF_AMR_OPEN_MIND_FOX",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "只接2302/2303。2301凤凰冷却加速走原7秒。"
+    },
+    {
+      "id": 28402,
+      "name": "提升爆发力",
+      "class": "A",
+      "states": [
+        {
+          "factor": 3248,
+          "template": 3076,
+          "key": "BFI_BUFF_SSK_AGILITY_MASTERY",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED",
+            "BBT_CHANGE_WALK_RUN_SPEED"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 28403,
+      "name": "剑之华尔兹",
+      "class": "A",
+      "states": [
+        {
+          "factor": 3249,
+          "template": 3077,
+          "key": "BFI_BUFF_SGM_WALTZ_OF_SWORD",
+          "behavior": [
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_BOSS"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 28437,
+      "name": "解放的意志：御守圣使",
+      "class": "A",
+      "states": [
+        {
+          "factor": 2567,
+          "template": 2419,
+          "key": "BFI_BUFF_SPR_OPEN_MIND",
+          "behavior": [
+            "BBT_CHANGE_HYPER_CHARGE_SPEED",
+            "BBT_CHANGE_ANIM_SPEED",
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_JUMP_POWER",
+            "BBT_CHANGE_NOW_MP_PER_SECOND"
+          ],
+          "native_default_seconds_at_level_one": 15,
+          "mode": "patrona"
+        }
+      ],
+      "note": "15秒内原生回MP更新照常。原TIME耗尽时只保留属性，独立拦住该状态的周期MP更新。"
+    },
+    {
+      "id": 29432,
+      "name": "解放的意志：假面伪装者",
+      "class": "A",
+      "states": [
+        {
+          "factor": 2533,
+          "template": 2385,
+          "key": "BFI_BUFF_ADI_DISSEMBLER_IMMUNITY",
+          "behavior": [
+            "BBT_CHANGE_EVERY_ATTRIBUTE_DEFENCE",
+            "BBT_CHANGE_PHYSIC_ATTACK",
+            "BBT_CHANGE_MAGIC_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 29435,
+      "name": "神经解剖学",
+      "class": "A",
+      "states": [
+        {
+          "factor": 2534,
+          "template": 2386,
+          "key": "BFI_BUFF_AOV_NEUROANATOMY",
+          "behavior": [
+            "BBT_CHANGE_CRITICAL_RATE",
+            "BBT_CHANGE_MAXIMIZE",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_MELEE_ATTACK",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_RANGE_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 30409,
+      "name": "贡品",
+      "class": "A",
+      "states": [
+        {
+          "factor": 540,
+          "template": 473,
+          "key": "BFI_BUFF_NOBLE_BEING",
+          "behavior": [
+            "BBT_CHANGE_MAGIC_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "14dd8b8核被动30409并以BF540创建魔攻。14dd913之后的觉醒槽回复有独立计时。"
+    },
+    {
+      "id": 30424,
+      "name": "圣洁之诗",
+      "class": "D",
+      "states": [
+        {
+          "factor": 1262,
+          "template": 1145,
+          "key": "BFI_BUFF_LDI_INNOCENT_STARTER_SPEED",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED",
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_MAGIC_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 15,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "只接1262，1261切换首击减冷却继续由原即时结算。"
+    },
+    {
+      "id": 31417,
+      "name": "解放的意志：风暴神兵",
+      "class": "F",
+      "states": [
+        {
+          "factor": 1742,
+          "template": 1634,
+          "key": "BFI_BUFF_RSR_OPEN_MIND_ANIM_SPEED",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "parent",
+          "parents": [
+            {
+              "factor": 707,
+              "template": 698
+            },
+            {
+              "factor": 918,
+              "template": 888
+            }
+          ]
+        }
+      ],
+      "note": "只接本地1742动速并检查707/918主体。队友1719走原时限，减耗单独待核。"
+    },
+    {
+      "id": 33407,
+      "name": "只是棍子而已",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1701,
+          "template": 1591,
+          "key": "BFI_BUFF_JUST_A_CLUB",
+          "behavior": [
+            "BBT_CHARGE_MP_HIT_MELEE_ATTACK",
+            "BBT_CHARGE_MP_HIT_RANGE_ATTACK",
+            "BBT_CHARGE_MP_HITTED"
+          ],
+          "native_default_seconds_at_level_one": 10,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 33408,
+      "name": "已经没关系了",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1552,
+          "template": 1447,
+          "key": "BFI_BUFF_IM_OKAY",
+          "behavior": [
+            "BBT_CHANGE_PHYSIC_ATTACK",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_MELEE_ATTACK",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_RANGE_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 12,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 33415,
+      "name": "解放的意志：光耀浪漫者",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1571,
+          "template": 1466,
+          "key": "BFI_BUFF_LSM_OPEN_MIND",
+          "behavior": [
+            "BBT_CHANGE_CRITICAL_RATE",
+            "BBT_CHANGE_MAXIMIZE",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_MELEE_ATTACK",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_RANGE_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 34405,
+      "name": "沉淀",
+      "class": "A",
+      "states": [
+        {
+          "factor": 1957,
+          "template": 1847,
+          "key": "BFI_BUFF_NSS_CORROSION",
+          "behavior": [
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_JUMP_POWER"
+          ],
+          "native_default_seconds_at_level_one": 10,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 34420,
+      "name": "冷海",
+      "class": "A",
+      "states": [
+        {
+          "factor": 2016,
+          "template": 1895,
+          "key": "BFI_BUFF_NPP_SEA_OF_COLD_CONFESSION",
+          "behavior": [
+            "BBT_CHANGE_SKILL_DAMAGE"
+          ],
+          "native_default_seconds_at_level_one": 15,
+          "mode": "dungeon"
+        },
+        {
+          "factor": 2017,
+          "template": 1896,
+          "key": "BFI_BUFF_NPP_SEA_OF_COLD_REST",
+          "behavior": [
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_FROM_BOSS"
+          ],
+          "native_default_seconds_at_level_one": 15,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 34427,
+      "name": "灿烂之月",
+      "class": "D",
+      "states": [
+        {
+          "factor": 2019,
+          "template": 1898,
+          "key": "BFI_BUFF_NNP_GLORIOUS_MOON",
+          "behavior": [
+            "BBT_CHANGE_JUMP_POWER",
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_ANIM_SPEED",
+            "BBT_CHANGE_FINAL_DEFENCE_MULTIPLIER",
+            "BBT_CHANGE_CRITICAL_ATTACK"
+          ],
+          "native_default_seconds_at_level_one": 60,
+          "mode": "dungeon"
+        }
+      ],
+      "note": "2019/1898只接自身来源。原概率与队友各自状态由客户端处理。"
+    },
+    {
+      "id": 34433,
+      "name": "解放的意志：胧月幻术师",
+      "class": "F",
+      "states": [
+        {
+          "factor": 2700,
+          "template": 2535,
+          "key": "BFI_BUFF_NHD_OPEN_MIND_MP",
+          "behavior": [
+            "BBT_CHANGE_CONSUME_MP_RATE_BY_SKILLTYPE"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "red_moon",
+          "parents": [
+            {
+              "factor": 2707,
+              "template": 2542
+            }
+          ]
+        }
+      ],
+      "note": "只接2700，要求原血月和觉醒都有效。2701五秒加速及净化走原机制。"
+    },
+    {
+      "id": 35406,
+      "name": "解放的意志：矿研勇士",
+      "class": "A",
+      "states": [
+        {
+          "factor": 2813,
+          "template": 2647,
+          "key": "BFI_BUFF_P_LMM_OPEN_MIND",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED",
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_JUMP_POWER"
+          ],
+          "native_default_seconds_at_level_one": 8,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": 35416,
+      "name": "证明",
+      "class": "F",
+      "states": [
+        {
+          "factor": 2883,
+          "template": 2714,
+          "key": "BFI_BUFF_LGW_PROVE",
+          "behavior": [
+            "BBT_CHANGE_COOLTIME_RATE_BY_SKILLTYPE"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "awakening"
+        },
+        {
+          "factor": 2884,
+          "template": 2715,
+          "key": "BFI_BUFF_LGW_PROVE_GOLD",
+          "behavior": [
+            "BBT_CHANGE_COOLTIME_RATE_BY_SKILLTYPE"
+          ],
+          "native_default_seconds_at_level_one": 30,
+          "mode": "golden_oath",
+          "parents": [
+            {
+              "factor": 2847,
+              "template": 2681
+            },
+            {
+              "factor": 2848,
+              "template": 2682
+            }
+          ]
+        }
+      ],
+      "note": "2084325要求仍觉醒，2084372要求黄金誓约对象存在。两条原技能触发和覆盖继续由原生处理。 续存时同时按当前副本的原生角色查找核对誓约对象仍在。"
+    },
+    {
+      "id": 35417,
+      "name": "光荣",
+      "class": "F",
+      "states": [
+        {
+          "factor": 2885,
+          "template": 2716,
+          "key": "BFI_BUFF_LAV_GLORY",
+          "behavior": [
+            "BBT_CHANGE_PHYSIC_ATTACK",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_BOSS",
+            "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_MIDDLE_BOSS"
+          ],
+          "native_default_seconds_at_level_one": 60,
+          "mode": "third_awakening"
+        }
+      ],
+      "note": "20aae17检查三阶段觉醒。保留原60秒尾效，只在三阶段觉醒仍有效时续自身状态。"
+    },
+    {
+      "id": 35418,
+      "name": "感悟",
+      "class": "A",
+      "states": [
+        {
+          "factor": 2886,
+          "template": 2717,
+          "key": "BFI_BUFF_LAV_OPINION",
+          "behavior": [
+            "BBT_CHANGE_ANIM_SPEED",
+            "BBT_CHANGE_WALK_RUN_SPEED",
+            "BBT_CHANGE_JUMP_POWER",
+            "BBT_CHARGE_MP_HIT_MELEE_ATTACK",
+            "BBT_CHARGE_MP_HIT_RANGE_ATTACK",
+            "BBT_CHARGE_MP_HITTED"
+          ],
+          "native_default_seconds_at_level_one": 20,
+          "mode": "dungeon"
+        }
+      ],
+      "note": ""
+    }
+  ],
+  "pending": [
+    {
+      "id": 21435,
+      "name": "解放的意志：圣光骑士",
+      "class": "F",
+      "reason": "不能让两种共鸣攻击持续命中，也不能无限复制下一次减冷却；不提前截断原本合法尾效。"
+    },
+    {
+      "id": 22413,
+      "name": "蕴含魔力的身躯",
+      "class": "F",
+      "reason": "本地本体同时有TIME和DAMAGE_VALUE解除；不能为附加速度绕过承伤上限。"
+    },
+    {
+      "id": 22415,
+      "name": "黑暗的交易",
+      "class": "F",
+      "reason": "不能只永久保留正面魔攻，删去负面物攻或把概率吸蓝改成固定回蓝。"
+    },
+    {
+      "id": 22417,
+      "name": "时间抑制",
+      "class": "F",
+      "reason": "本地附加效果与本体属性混在状态中，不适合只把某个模板永久。"
+    },
+    {
+      "id": 22422,
+      "name": "魅力变装",
+      "class": "F",
+      "reason": "未批准延长变装本体；不因子Buff延长而使变身、飞行或觉醒优惠常驻。"
+    },
+    {
+      "id": 23415,
+      "name": "愉悦乱射",
+      "class": "F",
+      "reason": "不能把范围回蓝带离范围，不能把单次冷却事件当持续Buff。"
+    },
+    {
+      "id": 23418,
+      "name": "自然同化",
+      "class": "F",
+      "reason": "一次单珠觉醒不能直接换成整局三珠收益；不把双重攻击变成无条件新增攻击。"
+    },
+    {
+      "id": 23419,
+      "name": "风之呼唤",
+      "class": "A",
+      "reason": "1445e84用BT1111在场跳过下一次计数。需要拆原计数门槛与属性，原计时保留。"
+    },
+    {
+      "id": 23422,
+      "name": "魂之记忆",
+      "class": "A",
+      "reason": "14a6741用BT1156在场决定额外攻击。仅延计时会延长额外攻击资格，物攻尚需从原状态分离。"
+    },
+    {
+      "id": 23424,
+      "name": "识读",
+      "class": "D",
+      "reason": "14a6d5d用BT2197在场决定向另一目标传播BF2341。该原生传播条件必须先与自身加速拆开，保持原30秒。"
+    },
+    {
+      "id": 24423,
+      "name": "先发制人",
+      "class": "F",
+      "reason": "不能永久保留第一次双状态快照；原22项不包括这两个主Buff的整局化。"
+    },
+    {
+      "id": 25423,
+      "name": "女王的威严",
+      "class": "F",
+      "reason": "若15秒主标记决定下一次5秒加速触发，必须先拆资格/数值，不能直接冻结1268。"
+    },
+    {
+      "id": 27416,
+      "name": "勇猛精进",
+      "class": "U",
+      "reason": "旧官方2018写超越技触发，现行简述不展开；不能拿旧触发直接充当最新已核结论。"
+    },
+    {
+      "id": 28401,
+      "name": "先手必胜",
+      "class": "F",
+      "reason": "资料只写触发门槛，不能擅称已证明受击立即清除；若没有持续资格清理，不直接做整局。"
+    },
+    {
+      "id": 28438,
+      "name": "不变",
+      "class": "F",
+      "reason": "1f27e3b确认觉醒，1f27e66按真实剑道事件分支。需核续存时的剑道条件，保持原10秒。"
+    },
+    {
+      "id": 29421,
+      "name": "血液沸腾",
+      "class": "D",
+      "reason": "1cc1aa8确认1203/1101。该状态合装三速和属性触发，屏障与暴伤还需拆出原消费者，保持原20秒。"
+    },
+    {
+      "id": 31404,
+      "name": "鹰眼雷达",
+      "class": "F",
+      "reason": "不能把探测范围内的奖励带到无目标或目标失效之后整局保持。"
+    },
+    {
+      "id": 32423,
+      "name": "混沌结界",
+      "class": "F",
+      "reason": "1365自身与1674队友、1291敌方可区分；不延长结界本体或把范围效果常驻。"
+    },
+    {
+      "id": 33404,
+      "name": "身体是革命的本钱",
+      "class": "F",
+      "reason": "不能通过反复续Buff重新结算额外治疗或最大HP收益。"
+    },
+    {
+      "id": 33410,
+      "name": "你和我",
+      "class": "F",
+      "reason": "1564是USE_SKILL解除，不是计时Buff；不能做成每个技能都享受下一次优惠。"
+    },
+    {
+      "id": 33418,
+      "name": "迈出的步伐",
+      "class": "F",
+      "reason": "与33410共用BF1565；不是两个独立Buff，更不能延一次就额外重置冷却。"
+    },
+    {
+      "id": 33432,
+      "name": "愈加淘气",
+      "class": "F",
+      "reason": "2397是数值状态，但不能藉此让主体外也每秒产气息。"
+    },
+    {
+      "id": 35431,
+      "name": "异邦人",
+      "class": "F",
+      "reason": "不能锁最大点数、改成功率或把旧高值叠到新低值上。"
+    },
+    {
+      "id": 35436,
+      "name": "幻灭",
+      "class": "F",
+      "reason": "20b1f53在非零收益时先移除旧增伤。20b1f1b对零收益有旁路，尚未验证零收益重掷如何使旧值失效，保持原30秒。"
+    }
+  ],
+  "assessment_sha256": "7942c7be359e4be9693eef783d7d470b1886a4c3df7721ab713ea0670bdbdfaf",
+  "factor_sha256": "143a2bfabe388f58b25e2266b5de523f929ada731df77e37f8e0a87bbde01df4",
+  "template_sha256": "f429358588f20707c91a5ba01f2357e3eba03351a89f04df24e82f19c901bf8e"
+}

@@ -1,0 +1,186 @@
+{
+  "ok": true,
+  "installed": false,
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "52a2ecfa63439ae8c3fd96d7d1373567ffc9f02cc70673b3b1cdf92953a4f4f2",
+      "sha256": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+      "size": 10086
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "parent_sha256": "04bb02d9d44adc595e7d2ce98abac97c45f2e9c44845378f3ea78fcf3732b8a4",
+      "sha256": "ff55d5181e48d3f6ddab7edf36ffaddbc2a83b3de56a7242f44f868dad3014dd",
+      "size": 23588
+    },
+    {
+      "path": "els_server/domain/guild_agit_flow.py",
+      "parent_sha256": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e",
+      "sha256": "1a9b959820822affced9edde33ab9d0d06a9742d0c80fd5593793a0894c6b9d5",
+      "size": 16267
+    },
+    {
+      "path": "els_server/domain/guild_banner_flow.py",
+      "parent_sha256": "4a324aeb8ce7005267a297fb43833a0438ac2fee7ffda9c4f2c82b344ff01e53",
+      "sha256": "52aede4b863cdd1d02931e877769f77e09089da75436218efed63bab188d2f81",
+      "size": 3590
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "64df708ff032e6e72502511ddbbe0ed48de05293f0e4829a561aacfd6dd959f8",
+      "sha256": "ff2ee09bfadb509b4772f14eb7a6b27b0a4d24cc025b2c01b35389d051375e82",
+      "size": 23885
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "ede2d3651ad1a6322d3a9b705de80beabba9beb25eafed3496288cbe71593492",
+      "sha256": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7",
+      "size": 5045
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "859b3ee28d97281185cee714cbc12374af7e8a68e54c7fb8ee3d27a70b3d3f36",
+      "sha256": "af27d3c775bd8201f7f06529f2976d55aba3bafbc8ea2b50cb9a501a375efacd",
+      "size": 23182
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "parent_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94",
+      "sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "size": 5978
+    }
+  ],
+  "independent_review": {
+    "status": "INDEPENDENT_ADDENDUM_REVIEW_COMPLETE",
+    "reviewer": "/root/native_cp_independent_review",
+    "time_utc": "2026-11-07T17:56:33.442314+00:00",
+    "scope": "One added compatibility registry artifact pin; prior three code files unchanged",
+    "source_files": [
+      {
+        "path": "els_server/domain/achievement_flow.py",
+        "sha256": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+        "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\domain\\achievement_flow.py",
+        "parent_sha256": "fb43385c086a316298b96b2328d99fc340f9f69b6f88ee3ea53591f14791b0da"
+      },
+      {
+        "path": "els_server/storage/achievement_profiles.py",
+        "sha256": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7",
+        "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\storage\\achievement_profiles.py",
+        "parent_sha256": "e99a5b81befa05648c3a63e1473d45d1b0b4ce29d831daa4d0c8a32425227ece"
+      },
+      {
+        "path": "tools/raid_native_power.js",
+        "sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+        "parent": "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\tools\\raid_native_power.js",
+        "parent_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94"
+      },
+      {
+        "path": "tools/client_compatibility_profiles.json",
+        "sha256": "af27d3c775bd8201f7f06529f2976d55aba3bafbc8ea2b50cb9a501a375efacd",
+        "parent": "G:\\els\\releases\\online\\native-santilus-adrian-retirement-20261108-v1\\tools\\client_compatibility_profiles.json",
+        "parent_sha256": "859b3ee28d97281185cee714cbc12374af7e8a68e54c7fb8ee3d27a70b3d3f36"
+      }
+    ],
+    "source_pins_verified": true,
+    "original_three_files_unchanged": true,
+    "only_new_file": "tools/client_compatibility_profiles.json",
+    "only_changed_JSON_pointer": "/profiles/0/artifacts/tools~1raid_native_power.js",
+    "exact_single_string_byte_replacement": true,
+    "old_JS_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94",
+    "new_JS_sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+    "loader_sha256": "d1f2d91d0094708c47e4d8fc17744b012dfb26ab6bc882bc411efdf92c7e241a",
+    "loader_unchanged": true,
+    "preflight_not_bypassed": true,
+    "N5_Game_launched": false,
+    "N5_failure_retained": true,
+    "actionable_findings": [],
+    "recommendation": "APPROVE_METADATA_FIX_REUSE_V1_CODE_REVIEW_SUBJECT_TO_ACTUAL_DELIVERY_QUALIFICATION",
+    "prior_review": {
+      "path": "independent-review-v1.md",
+      "sha256": "22d69d39f27e30a075dbd82bee7b84076d6a78eecf4654504771ac4311168cfc"
+    },
+    "report": {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\independent-review-v2.md",
+      "sha256": "8795f1ed7c18d7430ed5998227f74dbdac9b8ec5377519d5b56f41315547672c"
+    },
+    "new_tests_run": 0,
+    "final_signed_Game_qualification_pending": true,
+    "Git_approval": false,
+    "release_authorization": false
+  },
+  "actual_signed_native_Game": {
+    "ok": true,
+    "observed_seconds": 100.9921462000002,
+    "original_native_CP": 97.0,
+    "native_result": {
+      "ok": true,
+      "frames": 70,
+      "reads": 1,
+      "native_cache_CP": 97,
+      "original_message_bus_UI_producer": true,
+      "original6BE_and6BF": true,
+      "native_CP_calculator": "896870",
+      "native_CP_cache": "8A1400/Unit3048",
+      "native_CP_fixture": false,
+      "physical_input": false,
+      "natural_GUI": false,
+      "natural_gear_acquisition": false
+    },
+    "accepted_packets": 1,
+    "achievement_counts": {
+      "85": 97,
+      "86": 97
+    },
+    "completed_CP_ids": [],
+    "inventory_and_character_economy_unchanged": true,
+    "native_CP_fixture": false,
+    "natural_gear_acquisition": false,
+    "level99_fixture": true,
+    "production_database_access": false,
+    "natural_GUI": false,
+    "errors": []
+  },
+  "native_runtime_provenance": {
+    "native_support_runtime": "G:\\qa-ach106\\component-runtimes\\5f5a3823d3f1dbde-1e5ecb10d182",
+    "native_support_composed_from_actual_selected_files": true,
+    "candidate_support_override": false,
+    "fixture_backend_runtime": "G:\\qa-ach105\\component-runtimes\\ac01f86e9ec14dd6-2d61f7873f78",
+    "fixture_backend_path_retained_from_previous_preparation": true,
+    "fixture_backend_server_files": 1434,
+    "all_server_files_byte_identical_to_actual_selected_runtime": true,
+    "only_runtime_difference": [
+      "tools/client_compatibility_profiles.json"
+    ],
+    "final_installed_backend_public_protocol_acceptance_still_required": true,
+    "previous_path_string_replacement_did_not_match_escaped_Python_literal": true,
+    "production_database_access": false
+  },
+  "business_scenario": {
+    "ok": true,
+    "actual_selected_runtime": "G:\\qa-ach106\\component-runtimes\\5f5a3823d3f1dbde-1e5ecb10d182",
+    "business_scenario_reexecuted": false,
+    "reused_success_evidence": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\delivery\\qa-scenario-qualification.json",
+    "reused_success_sha256": "97f9ba507955085aeaf81fe15ca84e1e5b4ee3a68ab913df1bd5fab91f5d7855",
+    "original_scenario_runtime": "G:\\qa-ach105\\component-runtimes\\ac01f86e9ec14dd6-2d61f7873f78",
+    "only_changed_runtime_file": [
+      "tools/client_compatibility_profiles.json"
+    ],
+    "all_2874_other_components_unchanged": true,
+    "business_QA_sources_unchanged": true,
+    "metadata_default_preflight_and_actual_Game_loading_separately_required": true,
+    "checks": [
+      "11 accepted guild banner summons;4actual late/rebuilt actor paths;withdrawal excluded;state restoration does not increment",
+      "CP4199/4200/7000;lower/bare/replay/huge keep history;2families account shared;cold primary restores;foreign isolated;economy unchanged after license use"
+    ]
+  },
+  "owned_native_processes_and_credentials_retired": true,
+  "CP_projection_cases": 90,
+  "ABI_assertions": 45,
+  "original_EXE_KOM_changes": 0,
+  "source_type_count": 47,
+  "definitions": 318,
+  "remaining_source_types": 13,
+  "unresolved_original_rewards": 53,
+  "natural_GUI": false
+}
