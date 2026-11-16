@@ -1,0 +1,22 @@
+{
+  "checked_date": "2026-11-07",
+  "status": "CURRENT_SPEC_REPLACES_INITIAL_CLEAR_HYPOTHESIS",
+  "initial_research": "research.json is an unimplemented hypothesis based on old CLEAR enum names; its projection and eligibility are refuted and must not be implemented.",
+  "condition_types": [57, 58],
+  "current_rule": "Highest successfully joined expedition stage and number of successful participations; no clear or reward claim prerequisite. Account attainment survives leaving the guild.",
+  "native_descriptions": {"49720": "参加公会讨伐队@1阶段", "49721": "参加公会讨伐队@1次"},
+  "targets": {"level": [8, 10, 12], "count": [5, 50, 100]},
+  "sources": [
+    {"url": "https://elsword.koggames.com/2022/12/december-7th-patch-notes/", "published": "2022-12-06", "implemented_NA": "2022-12-07", "scope": "Explicit six-row achievement change from clear to participation; do not import NA reset time or economics."},
+    {"url": "https://els.ztgame.com/html/news/1348d15/00a-1670-015e9-221509.shtml", "implemented_CN": "2022-12-07", "scope": "Official CN guild and expedition revamp maintenance; native CN49720/49721 and CN community detailed revamp table corroborate the six current targets."},
+    {"url": "https://wiki.biligame.com/elsword/2022.12.07更新内容及BUG修复/变更事项", "kind": "CN secondary detail", "scope": "Guild expedition achievements changed to participation8/10/12 and5/50/100."},
+    {"url": "https://elsword.koggames.com/2023/08/august-30th-patch-notes/", "implemented_NA": "2023-08-30", "scope": "Active expedition members may leave or be expelled; unclaimed rewards are mailed at departure."},
+    {"url": "https://wiki.biligame.com/elsword/2023.08.30更新内容及BUG修复/变更事项", "kind": "CN secondary implementation", "implemented_CN": "2023-08-30", "scope": "Same leave/expulsion improvement, consistent with current CN65542/65543 prompts."}
+  ],
+  "refuted_departure_bug": "Old official guide says participation must end before leaving. It predates implemented2023QoL and contradicts current CN65542/65543. Do not add a new leave/kick restriction. No gameplay source was changed before this correction.",
+  "variant_search": {"exact": "depart(db,saved,target,now)", "scope": "Entire accepted V96 els_server", "matches": ["guild_system_state.leave: ordinary self leave and officer expulsion, both current permitted behavior", "guild_system_flow294: sole-master disband; native63533 disband semantics still unverified, no change", "character_lifecycle: tombstones retain membership, not an early-removal variant"]},
+  "existing_source": "Committed native_guild_operations_v2 own ABC records with successful ABD first reply; owner/account from existing character_owners, timestamp from the same writer. Native ABD own participation vector records the stage joined at that timestamp.",
+  "projection": "Count one successfulABCoperation; for stage, decode the producer's own-participation prefix and match authenticated account/owner and committed joined timestamp. Do not count guild-wide clear receipts, reward claims, other members, failed calls or replay as a new participation.",
+  "new_rules": false,
+  "installed": false
+}

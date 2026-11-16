@@ -1,0 +1,32 @@
+{
+  "release": "friendly-npc-hunter-chest-20261111-v163",
+  "patch_sha256": "4259aa0b89098b9f0bf1b1594d15e347a29e16ce124cc33f7a7858831cf33e24",
+  "parents": {
+    "online": {
+      "release": "shadow-castle-revival-20261111-v162",
+      "manifest_sha256": "61e96c93f468b49ed1f9041cb2f80d3ae7594db730f6f8dc17c73210a814719b"
+    },
+    "local": {
+      "release": "unified-server-b26497b9bd2f7333-ab825b60274b",
+      "manifest_sha256": "e3fc29a0c4b3beca81da816c6da40f310bd337ec7c7bdbdf49262448542764bf"
+    },
+    "launchers": {
+      "release": "shadow-castle-revival-20261111-v162",
+      "manifest_sha256": "cb4341e6f59282433ce62017c3d97e1ecc0b67be32d890cefc3f4b7f9059869e"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "parent_sha256": "85c6bf8314fc8ebcee6347cec60e1e1466f20b77cbd438dbc792e9a9dd7879d6",
+      "sha256": "2df964b6d43d989b321398f68ecb600e47ce61d9b97ef47a4385bb2ac2f2b4f9",
+      "size": 22789
+    },
+    {
+      "path": "els_server/protocol/hunter_chest_messages.py",
+      "parent_sha256": "befe1deb004cd0a7a3e0df1e2f2df5e0b3f56a957e3a8660404b667279e4e510",
+      "sha256": "8377e892a2063483095ac825b2d82ee10e2ffe8a90371e109b5718d27a533140",
+      "size": 2954
+    }
+  ]
+}
