@@ -1,0 +1,41 @@
+{
+  "release": "artifact-spirit-worn-20261111-v178",
+  "patch_sha256": "42997f73e7029f2fd2e9d994adda697e06dd36d2caeacb9f464b83a8fda90a6c",
+  "parents": {
+    "online": {
+      "release": "premium-pass-mechanical-and-sky-crossroads-20261111-v177",
+      "manifest_sha256": "f4a11acb3a468ac947d27fe1d208303d3c122553e05d8d75668cf02d63785b64"
+    },
+    "local": {
+      "release": "unified-server-bb174462912380fe-e5d5b6c67eb4",
+      "manifest_sha256": "2c3188c31c5a506d08a958fa9249a7a053c845a99d3cb8db03c0dfaf60d36bb3"
+    },
+    "launchers": {
+      "release": "premium-pass-mechanical-and-sky-crossroads-20261111-v177",
+      "manifest_sha256": "e54902916c0170357f3bf5feede8627f0bfee26f8f54ac1c1c14669de3658145"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/storage/artifact_spirit.py",
+      "parent_sha256": "edb0d6590dac0b9995fe05644506f7d0e4fdc38a3233e4985bb911fcfe83426a",
+      "sha256": "02fea8e8e9253c49dc06305075af6ec082423aa0302ebd097bf74ed3d38d7a6f",
+      "size": 7520,
+      "scope": "server"
+    }
+  ],
+  "runtime_dependencies": {
+    "els_server/domain/artifact_flow.py": "74908f8ca662136f9c4f7062abcc53aaf817c2fea8ce76ed5f25c8ab4b65fbb8",
+    "els_server/domain/inventory_items.py": "0a6f407468caa666528ab67efea608270a5f82b2d85a658a5b6eccaa178a0588",
+    "els_server/domain/local_artifact_rules.py": "206cc8e581fdefa063fc2cbfebb6eb2377a60e9aa20fa6ed10706b8550c94e0d",
+    "els_server/protocol/artifact_socket_messages.py": "1963fbf4661e8f530133776356b017c1c46ab38b9e042faffe25ed4e98d25178",
+    "els_server/storage/artifact_progression.py": "df3ac8393a2060ba2d12ca8ee5ba5cc24e3274b2756ee0a52e9292d83b1e2706",
+    "els_server/storage/equipment_options.py": "dd261eda87c802efe87299c574b04fd57129ad62fe5090e1bf87711f23832218",
+    "els_server/storage/equipment_receipt_state.py": "9e7383d238b4c2c806860443f5ed3008fe7db9ff8153d2faedaeda691d1eb881",
+    "els_server/storage/inventory_actions.py": "70336cece738639143ce7c47a10f889ce84fac215802df7876edb5b2b517eae0",
+    "els_server/storage/inventory_state.py": "de0fc77ddbc16f8e4ef3239d871ab423e27103efb3fb5eb827e57c38e7aa12ca",
+    "els_server/storage/item_instances.py": "cdcfc0c6a415f1171b6d43c8f12e842a4181cbd5d8af46246f95d8ed5da9bb2c",
+    "els_server/storage/profession_state.py": "5f1f53603e37e65e914115c288b585834a2cccb69feed40d0665d45a50e7f441"
+  },
+  "prior_artifact_delivery": "PR #999 / V172"
+}

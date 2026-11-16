@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "parent_version": 123,
+  "proposed_version": 124,
+  "new_hooks": false,
+  "client_exe_or_kom_changed": false,
+  "new_schema": false,
+  "installed": false,
+  "Git_submitted": false,
+  "files": [
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "parent_sha256": "e30ec6b45381325763791739f7ea1fa7fb0e2937623c6978e311dcc977bcda89",
+      "sha256": "d4d1c0ee0fe89799b538f17f31fadab7e52ae73e5f84f5a0e3f982d57d36503a",
+      "size": 826523,
+      "runtimekind": "server"
+    }
+  ],
+  "retirement_baseline_module_ast_sha256": "32897f6ababef858594580dba7a949c3b8ebd7dc4f45127f721ab19ea4151411",
+  "appended_sources": 27,
+  "appended_by_dungeon": {
+    "34720": 1,
+    "34760": 26
+  },
+  "appended_rules_ast_sha256": "f2d92b32b2c314599290ff36a86a110e8559c764214be59037acdc0f180bf881",
+  "archive_scope": "Exact scene-retirement source declarations only; one server leaf. Separate HP support PR shares the V124 deployment but is not included here."
+}
