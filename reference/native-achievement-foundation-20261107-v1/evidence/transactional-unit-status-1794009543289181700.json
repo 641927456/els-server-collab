@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "original_reader_replay": true,
+  "completion_fixture": true,
+  "cases": [
+    "Pre-commit25creation DTO inherits established account scores; new character display stays empty",
+    "Writer-local full load_character, questF5and career D9 preserve scores/displays; identity-only stays lightweight; reads do not write",
+    {
+      "member": "housing",
+      "original_reader": "0xda4eb0",
+      "status_DTO_offset": "0xa6",
+      "wire_consumed": 2321
+    },
+    {
+      "member": "guild",
+      "original_reader": "0xda42b0",
+      "status_DTO_offset": "0x154",
+      "wire_consumed": 2431
+    },
+    {
+      "member": "dungeon/duel/wedding FullUser",
+      "original_reader": "0xd9d2f0",
+      "status_DTO_offset": "0x57e",
+      "wire_consumed": 4400
+    }
+  ],
+  "source_sha256": {
+    "els_server\\application.py": "04f5f1067dc6638d4fa96a656dda93f32482ce52597bc08b8cbb9e2fa23281f0",
+    "els_server\\data\\ariel_attendance_preview.json": "514c4937418c0bf336a53671c7e1dd5d9e580c804703c4ebbaed68b8ff7cf5a3",
+    "els_server\\domain\\achievement_catalog.py": "f80f5d79db5424a4071406b6579652c385715eacf53e7e8de3c76f4784024dbb",
+    "els_server\\domain\\achievement_flow.py": "dcffb6326f82d4cc15089f55b391ab15f12ff994c9c9103699b7756f594adde7",
+    "els_server\\domain\\ariel_attendance_preview.py": "83c4097d6ee4c0bdd333d3e7b23cc4241886ce699e44e8f45af4998b3a975c02",
+    "els_server\\protocol\\achievement_messages.py": "7b2ef09752c0324bd9a3209f180f397c8268d38cf3f308c8b9efd34229b25490",
+    "els_server\\protocol\\dungeon_messages.py": "184a05a8d5a0b40e47a1abd8be13d5ed54cfc1f9f1daa244f67518a3d06766ed",
+    "els_server\\protocol\\guild_agit_messages.py": "5f1a9b995009b060ab5a9b320d5275bbcd41fde8d69eb6b39f3e52013072e600",
+    "els_server\\protocol\\housing_population_messages.py": "2f0af39ee0790abdf31348eaa4310d531c512a41b40336cd6ad9aed32eed6387",
+    "els_server\\protocol\\local_messages.py": "ffea182c950273c4acc76150d46a31d1f3b9362dd5b8ae56ce3ca73cf38af5b3",
+    "els_server\\protocol\\social_messages.py": "8495aa3e970c97133c785ac5b200015898c358256c9e8707c4a236bb7692dea8",
+    "els_server\\storage\\achievements.py": "151e50133b4888704024dd9f5ad89f2b090c49aec73c241697e29c2a95a1c495",
+    "els_server\\storage\\achievement_collections.py": "4b8bb609649cf3ce24e770a214a35ad55b31738b326f8294f4cabe6cac76a9fe",
+    "els_server\\storage\\achievement_history.py": "731ac2ffe52e939dc46c010cca7069ba7d6045e798f0a12dc46ad10e5ffe989a",
+    "els_server\\storage\\achievement_profiles.py": "0ad418911102c545bd08796459de12a2882380cac3c361adec0d5f31b93fb5c0",
+    "els_server\\storage\\career_shop.py": "999bd5169758cb34b57a2908c7ad059477f7d264a04ff7f1061f74512201949b",
+    "els_server\\storage\\characters.py": "701c8240f534960cd0efe78bc81172501ca7ef96d8c3c573adaf01b1d50ecc1b",
+    "els_server\\storage\\player_mail.py": "b93ebcb20f17fdf4c5792b8f6ebbb2effc30531a4bb7b79176c39cc286b7ac00",
+    "els_server\\storage\\seal_quests.py": "b44eb9bc711415501a16dd1f5afb2718457f963569f34ccffd8b9003b23d9d3f",
+    "els_server\\data\\client\\achievements.json": "0be7576396cfbd3d07d992916ff5674706cd67abb00fc44ac8e0d8a9efd86dee",
+    "els_server\\data\\client\\achievement_rewards.json": "79fbcef402aad6626e55127c2f2eac5b64f6d6923fe0736e74dccf653f67bfdb"
+  }
+}

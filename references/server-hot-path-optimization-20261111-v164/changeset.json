@@ -1,0 +1,69 @@
+{
+  "release": "server-trade-read-optimization-20261111-v164",
+  "patch_sha256": "f5eeb22763c39c1feeb620435219e55c7caa13b378753d5093a3dfd98801082d",
+  "parents": {
+    "online": {
+      "release": "friendly-npc-hunter-chest-20261111-v163",
+      "manifest_sha256": "5fa8ed15d7547f03de61bff0241959c3587b81dcfdb159d26b3e86320d4f02bb"
+    },
+    "local": {
+      "release": "unified-server-354859054b8baacb-20ffeead0975",
+      "manifest_sha256": "ffeecf38463f31d1908b7e793140942e685c9953f5c8eac5361274ae5c45ffe3"
+    },
+    "launchers": {
+      "release": "friendly-npc-hunter-chest-20261111-v163",
+      "manifest_sha256": "c8ec310b67cb2863aad9cd15039778cde348b136c102d7fe69af2ea92fa0fdf2"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "8821ed5d9e6c7d914383c43a33c6807ee96b6c667363ffa51f017f622ab41e50",
+      "sha256": "57fc99649a27500976cc5a3cd7e446468fac80f05d18dcfa39407a15f33faf8c",
+      "size": 70938,
+      "cohort": "hot"
+    },
+    {
+      "path": "els_server/domain/dungeon_spawns.py",
+      "parent_sha256": "afc9bc5942ab183dc313976e6cb220352368847c95621c16be8013893f9dad12",
+      "sha256": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "size": 8377,
+      "cohort": "hot"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "d235d8afb183eccd6ae0f67ecbcf011fa987778282ac6c31daa0ef2347cc278b",
+      "sha256": "5fc260d6f7e7c73a2f8c272b41f540a98d48b3ce6518a15ca5ba8a53625d3011",
+      "size": 169270,
+      "cohort": "hot"
+    },
+    {
+      "path": "els_server/domain/roster_account.py",
+      "parent_sha256": "48f19becfafa7a1ddcd7187a4f6a87bb80dad52aa8e45caef362fc18d300285a",
+      "sha256": "da39dac31013bebe3c3204301a6500d03bddbd18e3fdf122b46fca0218614c5d",
+      "size": 1586,
+      "cohort": "hot"
+    },
+    {
+      "path": "els_server/periodic_scheduler.py",
+      "parent_sha256": "44d82d6f218a112eb15eeded9268164ef45bd93301e9714e0902d096ef91214a",
+      "sha256": "6f958b0ca8970ed172ee2928ebba7aea489662b339ca3198b1eaada01a4df92c",
+      "size": 17168,
+      "cohort": "hot"
+    },
+    {
+      "path": "els_server/storage/characters.py",
+      "parent_sha256": "b99d8003a854f29452a248c603e95cb4b8293b7a0534b4f6a2211e9b78459a23",
+      "sha256": "db85753a1350e37c3226c0e4b91a81c73236eb13b4dd2ac7376df733273ff5cb",
+      "size": 30651,
+      "cohort": "hot"
+    },
+    {
+      "path": "els_server/transport.py",
+      "parent_sha256": "739c7fc4c32c5bb2688f28af35e8b7b390ae041f3bc8147be2e2320c80805af1",
+      "sha256": "d609d41c15d1aff27d8c221a1107e4ca9b72e685db0b1aeafb5848833b588331",
+      "size": 35438,
+      "cohort": "hot"
+    }
+  ]
+}

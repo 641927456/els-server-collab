@@ -1,0 +1,2278 @@
+{
+  "schema_version": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "fields": {
+    "40001": {
+      "REQUIRE_LEVEL": 6,
+      "MAX_JOIN_USER_COUNT": 8,
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_ELDER_0",
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_1.tga",
+      "STANDARD_MONSTER_LEVEL": 9,
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 25,
+      "NPC_TABLE_FILE_NAME": "Elder_Field_00.lua",
+      "LINE_MAP_FILE_NAME": "Field_elder_Stage0_Linemap.lua",
+      "BATTLE_FIELD_ID": 40001,
+      "ENTER_VILLAGE_MAP_ID": 20001,
+      "WORLD_ID": 493,
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_19987"
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 21,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20001
+        },
+        "2": {
+          "LINE_NUMBER": 153,
+          "POSITION_INDEX_TO_MOVE": 40,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20002
+        }
+      },
+      "RETURN_VILLAGE_ID": 20001
+    },
+    "40010": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_4.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_PEITA_1",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 31,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 35,
+      "STANDARD_MONSTER_LEVEL": 38,
+      "NPC_TABLE_FILE_NAME": "Peita_Field_01.lua",
+      "LINE_MAP_FILE_NAME": "Peita_Field_Stage1_LineMap.lua",
+      "BATTLE_FIELD_ID": 40010,
+      "ENTER_VILLAGE_MAP_ID": 20005,
+      "WORLD_ID": 505,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_19999"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 71,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20005
+        },
+        "2": {
+          "LINE_NUMBER": 149,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40011
+        }
+      },
+      "RETURN_VILLAGE_ID": 20005,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23581"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28390"
+          }
+        }
+      }
+    },
+    "40011": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_4.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_PEITA_2",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 31,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 35,
+      "STANDARD_MONSTER_LEVEL": 41,
+      "NPC_TABLE_FILE_NAME": "Peita_Field_02.lua",
+      "LINE_MAP_FILE_NAME": "Peita_Field_Stage2_LineMap.lua",
+      "BATTLE_FIELD_ID": 40011,
+      "ENTER_VILLAGE_MAP_ID": 20005,
+      "WORLD_ID": 506,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20000"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40010
+        },
+        "2": {
+          "LINE_NUMBER": 24,
+          "POSITION_INDEX_TO_MOVE": 90,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20004
+        }
+      },
+      "RETURN_VILLAGE_ID": 20005,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23581"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28390"
+          }
+        }
+      }
+    },
+    "40012": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_4.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_VELDER_0",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 31,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 44,
+      "STANDARD_MONSTER_LEVEL": 46,
+      "NPC_TABLE_FILE_NAME": "Velder_Field_00.lua",
+      "LINE_MAP_FILE_NAME": "Field_Velder_Stage0_LineMap.lua",
+      "BATTLE_FIELD_ID": 40012,
+      "ENTER_VILLAGE_MAP_ID": 20004,
+      "WORLD_ID": 508,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20001"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 91,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20004
+        },
+        "2": {
+          "LINE_NUMBER": 75,
+          "POSITION_INDEX_TO_MOVE": 330,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1004
+        }
+      },
+      "RETURN_VILLAGE_ID": 20004,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200,
+            "2": 201,
+            "3": 202
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23582"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210,
+            "2": 211,
+            "3": 212,
+            "4": 213,
+            "5": 214
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28391"
+          }
+        }
+      }
+    },
+    "40013": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_4.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_VELDER_1",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 31,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 44,
+      "STANDARD_MONSTER_LEVEL": 48,
+      "NPC_TABLE_FILE_NAME": "Velder_Field_01.lua",
+      "LINE_MAP_FILE_NAME": "Field_Velder_Stage1_LineMap.lua",
+      "BATTLE_FIELD_ID": 40013,
+      "ENTER_VILLAGE_MAP_ID": 20004,
+      "WORLD_ID": 509,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20003"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 53,
+          "POSITION_INDEX_TO_MOVE": 332,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1004
+        },
+        "2": {
+          "LINE_NUMBER": 144,
+          "POSITION_INDEX_TO_MOVE": 3,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40015
+        }
+      },
+      "RETURN_VILLAGE_ID": 20004,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200,
+            "2": 201,
+            "3": 202
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23582"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210,
+            "2": 211,
+            "3": 212,
+            "4": 213,
+            "5": 214
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28391"
+          }
+        }
+      }
+    },
+    "40014": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_5.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_VELDER_2",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 28,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 44,
+      "STANDARD_MONSTER_LEVEL": 50,
+      "NPC_TABLE_FILE_NAME": "Velder_Field_02.lua",
+      "LINE_MAP_FILE_NAME": "Field_Velder_Stage2_LineMap.lua",
+      "BATTLE_FIELD_ID": 40014,
+      "ENTER_VILLAGE_MAP_ID": 20004,
+      "WORLD_ID": 510,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20004"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 334,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1004
+        },
+        "2": {
+          "LINE_NUMBER": 190,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40015
+        }
+      },
+      "RETURN_VILLAGE_ID": 20004,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200,
+            "2": 201,
+            "3": 202
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23582"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210,
+            "2": 211,
+            "3": 212,
+            "4": 213,
+            "5": 214
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28391"
+          }
+        }
+      }
+    },
+    "40015": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_5.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_VELDER_3",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 32,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 44,
+      "STANDARD_MONSTER_LEVEL": 52,
+      "NPC_TABLE_FILE_NAME": "Velder_Field_03.lua",
+      "LINE_MAP_FILE_NAME": "Field_Velder_Stage3_LineMap.lua",
+      "BATTLE_FIELD_ID": 40015,
+      "ENTER_VILLAGE_MAP_ID": 20004,
+      "WORLD_ID": 511,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20005"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 9,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40013
+        },
+        "2": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40014
+        },
+        "3": {
+          "LINE_NUMBER": 190,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40020
+        }
+      },
+      "RETURN_VILLAGE_ID": 20004,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200,
+            "2": 201,
+            "3": 202
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23582"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210,
+            "2": 211,
+            "3": 212,
+            "4": 213,
+            "5": 214
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28391"
+          }
+        }
+      }
+    },
+    "40020": {
+      "REQUIRE_LEVEL": 54,
+      "MAX_JOIN_USER_COUNT": 8,
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_VELDERSHIP",
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_1.tga",
+      "STANDARD_MONSTER_LEVEL": 55,
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 10,
+      "NPC_TABLE_FILE_NAME": "Velder_Battle_Ship_Field.lua",
+      "LINE_MAP_FILE_NAME": "Velder_Battle_Ship_Stage_Linemap.lua",
+      "BATTLE_FIELD_ID": 40020,
+      "ENTER_VILLAGE_MAP_ID": 20004,
+      "WORLD_ID": 420,
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20011"
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40015
+        },
+        "2": {
+          "LINE_NUMBER": 21,
+          "POSITION_INDEX_TO_MOVE": 110,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20006
+        }
+      },
+      "RETURN_VILLAGE_ID": 20006
+    },
+    "40016": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_5.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_HARMEL_0",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 30,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 54,
+      "STANDARD_MONSTER_LEVEL": 56,
+      "NPC_TABLE_FILE_NAME": "Hamel_Field_00.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 274,
+      "LINE_MAP_FILE_NAME": "Field_Hamel_Stage0_LineMap.lua",
+      "BATTLE_FIELD_ID": 40016,
+      "ENTER_VILLAGE_MAP_ID": 20006,
+      "WORLD_ID": 513,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20006"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 111,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20006
+        },
+        "2": {
+          "LINE_NUMBER": 93,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40017
+        },
+        "3": {
+          "LINE_NUMBER": 65,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 65,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20006,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23583"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28392"
+          }
+        }
+      }
+    },
+    "40017": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_5.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_HARMEL_1",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 30,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 54,
+      "STANDARD_MONSTER_LEVEL": 58,
+      "NPC_TABLE_FILE_NAME": "Hamel_Field_01.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 152,
+      "LINE_MAP_FILE_NAME": "Field_Hamel_Stage1_LineMap.lua",
+      "BATTLE_FIELD_ID": 40017,
+      "ENTER_VILLAGE_MAP_ID": 20006,
+      "WORLD_ID": 514,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20007"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40016
+        },
+        "2": {
+          "LINE_NUMBER": 118,
+          "POSITION_INDEX_TO_MOVE": 340,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1005
+        },
+        "3": {
+          "LINE_NUMBER": 77,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 77,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20006,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23583"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28392"
+          }
+        }
+      }
+    },
+    "40018": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_5.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_HARMEL_2",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 28,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 54,
+      "STANDARD_MONSTER_LEVEL": 60,
+      "NPC_TABLE_FILE_NAME": "Hamel_Field_02.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 225,
+      "LINE_MAP_FILE_NAME": "Field_Hamel_Stage2_LineMap.lua",
+      "BATTLE_FIELD_ID": 40018,
+      "ENTER_VILLAGE_MAP_ID": 20006,
+      "WORLD_ID": 515,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20009"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 342,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1005
+        },
+        "2": {
+          "LINE_NUMBER": 150,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40019
+        },
+        "3": {
+          "LINE_NUMBER": 121,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 121,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20006,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23583"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28392"
+          }
+        }
+      }
+    },
+    "40019": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_4.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_HARMEL_3",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 31,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 54,
+      "STANDARD_MONSTER_LEVEL": 63,
+      "NPC_TABLE_FILE_NAME": "Hamel_Field_03.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 156,
+      "LINE_MAP_FILE_NAME": "Field_Hamel_Stage3_LineMap.lua",
+      "BATTLE_FIELD_ID": 40019,
+      "ENTER_VILLAGE_MAP_ID": 20006,
+      "WORLD_ID": 516,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20010"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 344,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1005
+        },
+        "2": {
+          "LINE_NUMBER": 160,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40018
+        },
+        "3": {
+          "LINE_NUMBER": 170,
+          "POSITION_INDEX_TO_MOVE": 130,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20007
+        },
+        "4": {
+          "LINE_NUMBER": 77,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "5": {
+          "LINE_NUMBER": 77,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20006,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23583"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28392"
+          }
+        }
+      }
+    },
+    "40021": {
+      "REQUIRE_LEVEL": 54,
+      "MAX_JOIN_USER_COUNT": 8,
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_HARMELSHIP",
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_2.tga",
+      "STANDARD_MONSTER_LEVEL": 55,
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 10,
+      "NPC_TABLE_FILE_NAME": "Hamel_Battle_Ship_Field.lua",
+      "LINE_MAP_FILE_NAME": "Hamel_Battle_Ship_Stage_Linemap.lua",
+      "BATTLE_FIELD_ID": 40021,
+      "ENTER_VILLAGE_MAP_ID": 20006,
+      "WORLD_ID": 421,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_20012"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40015
+        },
+        "2": {
+          "LINE_NUMBER": 16,
+          "POSITION_INDEX_TO_MOVE": 110,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20006
+        }
+      },
+      "RETURN_VILLAGE_ID": 20006
+    },
+    "40022": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_3.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_SAND_0",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 31,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 64,
+      "STANDARD_MONSTER_LEVEL": 69,
+      "NPC_TABLE_FILE_NAME": "Sander_Field_00.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 71,
+      "LINE_MAP_FILE_NAME": "Field_Sander_Stage0_Linemap.lua",
+      "BATTLE_FIELD_ID": 40022,
+      "ENTER_VILLAGE_MAP_ID": 20007,
+      "WORLD_ID": 530,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_21656"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 131,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20007
+        },
+        "2": {
+          "LINE_NUMBER": 48,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40023
+        },
+        "3": {
+          "LINE_NUMBER": 151,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 151,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20007,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23584"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28393"
+          }
+        }
+      }
+    },
+    "40023": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_6.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_SAND_1",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 31,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 64,
+      "STANDARD_MONSTER_LEVEL": 72,
+      "NPC_TABLE_FILE_NAME": "Sander_Field_01.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 107,
+      "LINE_MAP_FILE_NAME": "Field_Sander_Stage1_LineMap.lua",
+      "BATTLE_FIELD_ID": 40023,
+      "ENTER_VILLAGE_MAP_ID": 20007,
+      "WORLD_ID": 531,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_23156"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40022
+        },
+        "2": {
+          "LINE_NUMBER": 58,
+          "POSITION_INDEX_TO_MOVE": 350,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1006
+        },
+        "3": {
+          "LINE_NUMBER": 63,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 63,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20007,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23584"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28393"
+          }
+        }
+      }
+    },
+    "40024": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_6.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_SAND_2",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 33,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 64,
+      "STANDARD_MONSTER_LEVEL": 75,
+      "NPC_TABLE_FILE_NAME": "Sander_Field_02.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 331,
+      "LINE_MAP_FILE_NAME": "Field_Sander_Stage2_LineMap.lua",
+      "BATTLE_FIELD_ID": 40024,
+      "ENTER_VILLAGE_MAP_ID": 20007,
+      "WORLD_ID": 532,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_26435"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 352,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1006
+        },
+        "2": {
+          "LINE_NUMBER": 127,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40025
+        },
+        "3": {
+          "LINE_NUMBER": 128,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 128,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20007,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23584"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28393"
+          }
+        }
+      }
+    },
+    "40025": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_6.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_SAND_3",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 33,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 64,
+      "STANDARD_MONSTER_LEVEL": 77,
+      "NPC_TABLE_FILE_NAME": "Sander_Field_03.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 54,
+      "LINE_MAP_FILE_NAME": "Field_Sander_Stage3_LineMap.lua",
+      "BATTLE_FIELD_ID": 40025,
+      "ENTER_VILLAGE_MAP_ID": 20007,
+      "WORLD_ID": 533,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_26436"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40024
+        },
+        "2": {
+          "LINE_NUMBER": 124,
+          "POSITION_INDEX_TO_MOVE": 140,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20008
+        },
+        "3": {
+          "LINE_NUMBER": 146,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 146,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20007,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_23584"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_28393"
+          }
+        }
+      }
+    },
+    "40029": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_6.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_RANOX_1",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 30,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 76,
+      "STANDARD_MONSTER_LEVEL": 81,
+      "NPC_TABLE_FILE_NAME": "Ranox_Field_00.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 1,
+      "LINE_MAP_FILE_NAME": "Field_Ranox_Stage0_LineMap.lua",
+      "BATTLE_FIELD_ID": 40029,
+      "ENTER_VILLAGE_MAP_ID": 20008,
+      "WORLD_ID": 592,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_32602"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 141,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20008
+        },
+        "2": {
+          "LINE_NUMBER": 63,
+          "POSITION_INDEX_TO_MOVE": 2,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40030
+        },
+        "3": {
+          "LINE_NUMBER": 26,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 26,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20008,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_32587"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_32588"
+          }
+        }
+      }
+    },
+    "40030": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_7.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_RANOX_2",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 30,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 76,
+      "STANDARD_MONSTER_LEVEL": 84,
+      "NPC_TABLE_FILE_NAME": "Ranox_Field_01.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 1,
+      "LINE_MAP_FILE_NAME": "Field_Ranox_Stage1_LineMap.lua",
+      "BATTLE_FIELD_ID": 40030,
+      "ENTER_VILLAGE_MAP_ID": 20008,
+      "WORLD_ID": 605,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_33881"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 27,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40029
+        },
+        "2": {
+          "LINE_NUMBER": 120,
+          "POSITION_INDEX_TO_MOVE": 360,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1007
+        },
+        "3": {
+          "LINE_NUMBER": 34,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 34,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20008,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 100,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_33989"
+          }
+        }
+      }
+    },
+    "40031": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_7.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_RANOX_3",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 30,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 76,
+      "STANDARD_MONSTER_LEVEL": 84,
+      "NPC_TABLE_FILE_NAME": "Ranox_Field_02.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 1,
+      "LINE_MAP_FILE_NAME": "Field_Ranox_Stage2_LineMap.lua",
+      "BATTLE_FIELD_ID": 40031,
+      "ENTER_VILLAGE_MAP_ID": 20008,
+      "WORLD_ID": 607,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_34166"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 363,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1007
+        },
+        "2": {
+          "LINE_NUMBER": 67,
+          "POSITION_INDEX_TO_MOVE": 32,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40032
+        },
+        "3": {
+          "LINE_NUMBER": 41,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40026
+        },
+        "4": {
+          "LINE_NUMBER": 41,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 3,
+          "PLACE_ID_TO_MOVE": 40027
+        }
+      },
+      "RETURN_VILLAGE_ID": 20008,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 100,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_34164"
+          }
+        }
+      }
+    },
+    "40032": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_7.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_RANOX_4",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 30,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 76,
+      "STANDARD_MONSTER_LEVEL": 86,
+      "NPC_TABLE_FILE_NAME": "Ranox_Field_03.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 1,
+      "LINE_MAP_FILE_NAME": "Field_Ranox_Stage3_LineMap.lua",
+      "BATTLE_FIELD_ID": 40032,
+      "ENTER_VILLAGE_MAP_ID": 20008,
+      "WORLD_ID": 608,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_34167"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 23,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40031
+        },
+        "2": {
+          "LINE_NUMBER": 103,
+          "POSITION_INDEX_TO_MOVE": 400,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1008
+        }
+      },
+      "RETURN_VILLAGE_ID": 20008,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 100,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_34165"
+          }
+        }
+      },
+      "BATTLE_FIELD_DIRECTION_INFO": {
+        "1": {
+          "NEED_ONGOING_QUEST_ID": 22218,
+          "FORCE_MOVE_BATTLE_FIELD_START_POS": 32,
+          "DIRECTION_NPC_ID": {
+            "1": 2139,
+            "2": 2140
+          }
+        }
+      }
+    },
+    "40035": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_8.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_ELISION_1",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 33,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 84,
+      "STANDARD_MONSTER_LEVEL": 84,
+      "NPC_TABLE_FILE_NAME": "Elysion_Field_01.lua",
+      "LINE_MAP_FILE_NAME": "Field_Elysion_Stage0_LineMap.lua",
+      "BATTLE_FIELD_ID": 40035,
+      "ENTER_VILLAGE_MAP_ID": 1008,
+      "WORLD_ID": 638,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_36797"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 402,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 1008
+        },
+        "2": {
+          "LINE_NUMBER": 53,
+          "POSITION_INDEX_TO_MOVE": 1,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40036
+        }
+      },
+      "RETURN_VILLAGE_ID": 1008,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 100,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_36804"
+          }
+        }
+      }
+    },
+    "40036": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_8.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_ELISION_2",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 40,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 84,
+      "STANDARD_MONSTER_LEVEL": 87,
+      "NPC_TABLE_FILE_NAME": "Elysion_Field_02.lua",
+      "LINE_MAP_FILE_NAME": "Field_Elysion_Stage1_LineMap.lua",
+      "BATTLE_FIELD_ID": 40036,
+      "ENTER_VILLAGE_MAP_ID": 1008,
+      "WORLD_ID": 639,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_36665"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 365,
+          "PORTAL_MOVE_TYPE": 2,
+          "PLACE_ID_TO_MOVE": 40035
+        },
+        "2": {
+          "LINE_NUMBER": 142,
+          "POSITION_INDEX_TO_MOVE": 500,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20009
+        }
+      },
+      "RETURN_VILLAGE_ID": 1008,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 60,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_36666"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 40,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_36667"
+          }
+        }
+      }
+    },
+    "40037": {
+      "BATTLE_FIELD_TEXTURE_NAME": "DLG_UI_Common_Texture_Fieldname_9.tga",
+      "BATTLE_FIELD_TEXTURE_KEY": "FIELD_NAME_ELISION_3",
+      "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 35,
+      "MAX_JOIN_USER_COUNT": 8,
+      "MIDDLE_BOSS_BONUS_ITEM_COUNT": 1,
+      "REQUIRE_LEVEL": 87,
+      "STANDARD_MONSTER_LEVEL": 91,
+      "NPC_TABLE_FILE_NAME": "Elysion_Field_03.lua",
+      "RAID_FIELD_PORTAL_POSITION_INDEX": 1,
+      "LINE_MAP_FILE_NAME": "Field_Elysion_Stage2_LineMap.lua",
+      "BATTLE_FIELD_ID": 40037,
+      "ENTER_VILLAGE_MAP_ID": 20009,
+      "WORLD_ID": 640,
+      "BATTLE_FIELD_NAME": {
+        "global": "STR_ID_40814"
+      },
+      "EnableUnitTypeLevel": {
+        "1": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 13
+        },
+        "2": {
+          "MIN_LEVEL": 70,
+          "UNIT_TYPE": 14
+        }
+      },
+      "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+        "1": {
+          "LINE_NUMBER": 0,
+          "POSITION_INDEX_TO_MOVE": 516,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20009
+        },
+        "2": {
+          "LINE_NUMBER": 110,
+          "POSITION_INDEX_TO_MOVE": 605,
+          "PORTAL_MOVE_TYPE": 1,
+          "PLACE_ID_TO_MOVE": 20010
+        }
+      },
+      "RETURN_VILLAGE_ID": 20009,
+      "BATTLE_FIELD_MIDDLE_BOSS_INFO": {
+        "1": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 1,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 200
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_40812"
+          }
+        },
+        "2": {
+          "RISK_VALUE": 0,
+          "SPAWN_RATE": 50,
+          "SPAWN_ID": 2,
+          "SPAWN_GROUP_ID": {
+            "0": null,
+            "1": 210
+          },
+          "SHOW_BOSS_NAME": false,
+          "BOSS_GAUGE_HP_LINES": false,
+          "SET_BOSS_GROUP_NAME": {
+            "global": "STR_ID_40813"
+          }
+        }
+      }
+    }
+  },
+  "portals": {
+    "1001": [
+      {
+        "destination": 20002,
+        "position": 41
+      },
+      {
+        "destination": 20005,
+        "position": 70
+      },
+      {
+        "destination": 20003,
+        "position": 60
+      }
+    ],
+    "1004": [
+      {
+        "destination": 40012,
+        "position": 2
+      },
+      {
+        "destination": 40013,
+        "position": 1
+      },
+      {
+        "destination": 40014,
+        "position": 1
+      }
+    ],
+    "1005": [
+      {
+        "destination": 40017,
+        "position": 2
+      },
+      {
+        "destination": 40019,
+        "position": 1
+      },
+      {
+        "destination": 40018,
+        "position": 1
+      }
+    ],
+    "1006": [
+      {
+        "destination": 40023,
+        "position": 2
+      },
+      {
+        "destination": 40024,
+        "position": 1
+      }
+    ],
+    "1007": [
+      {
+        "destination": 40030,
+        "position": 32
+      },
+      {
+        "destination": 40031,
+        "position": 22
+      }
+    ],
+    "1008": [
+      {
+        "destination": 40032,
+        "position": 109
+      },
+      {
+        "destination": 40035,
+        "position": 333
+      }
+    ],
+    "1009": [
+      {
+        "destination": 20010,
+        "position": 607
+      },
+      {
+        "destination": 1010,
+        "position": 1702
+      }
+    ],
+    "1010": [
+      {
+        "destination": 1009,
+        "position": 1604
+      },
+      {
+        "destination": 20013,
+        "position": 800
+      }
+    ],
+    "1011": [
+      {
+        "destination": 20013,
+        "position": 803
+      },
+      {
+        "destination": 1012,
+        "position": 1712
+      }
+    ],
+    "1012": [
+      {
+        "destination": 1011,
+        "position": 1709
+      }
+    ],
+    "1500": [],
+    "1501": [],
+    "1506": [],
+    "20000": [
+      {
+        "destination": 20001,
+        "position": 20
+      },
+      {
+        "destination": 1500,
+        "position": 1
+      }
+    ],
+    "20001": [
+      {
+        "destination": 20000,
+        "position": 2
+      },
+      {
+        "destination": 40001,
+        "position": 1
+      }
+    ],
+    "20002": [
+      {
+        "destination": 40001,
+        "position": 2
+      },
+      {
+        "destination": 1001,
+        "position": 310
+      }
+    ],
+    "20003": [
+      {
+        "destination": 1001,
+        "position": 314
+      },
+      {
+        "destination": 1001,
+        "position": 314
+      }
+    ],
+    "20004": [
+      {
+        "destination": 40011,
+        "position": 2
+      },
+      {
+        "destination": 40012,
+        "position": 1
+      }
+    ],
+    "20005": [
+      {
+        "destination": 1001,
+        "position": 312
+      },
+      {
+        "destination": 40010,
+        "position": 1
+      }
+    ],
+    "20006": [
+      {
+        "destination": 40021,
+        "position": 1
+      },
+      {
+        "destination": 40016,
+        "position": 1
+      }
+    ],
+    "20007": [
+      {
+        "destination": 40019,
+        "position": 3
+      },
+      {
+        "destination": 40022,
+        "position": 1
+      }
+    ],
+    "20008": [
+      {
+        "destination": 40025,
+        "position": 177
+      },
+      {
+        "destination": 40029,
+        "position": 2
+      },
+      {
+        "destination": 1501,
+        "position": 1
+      }
+    ],
+    "20009": [
+      {
+        "destination": 40036,
+        "position": 248
+      },
+      {
+        "destination": 40037,
+        "position": 1
+      }
+    ],
+    "20010": [
+      {
+        "destination": 40037,
+        "position": 796
+      },
+      {
+        "destination": 1009,
+        "position": 1602
+      }
+    ],
+    "20011": [
+      {
+        "destination": 20010,
+        "position": 600
+      }
+    ],
+    "20012": [
+      {
+        "destination": 20010,
+        "position": 600
+      }
+    ],
+    "20013": [
+      {
+        "destination": 1010,
+        "position": 1704
+      },
+      {
+        "destination": 1011,
+        "position": 1707
+      },
+      {
+        "destination": 1506,
+        "position": 1
+      }
+    ],
+    "20014": [],
+    "40001": [
+      {
+        "destination": 20001,
+        "position": 21
+      },
+      {
+        "destination": 20002,
+        "position": 40
+      }
+    ],
+    "40010": [
+      {
+        "destination": 20005,
+        "position": 71
+      },
+      {
+        "destination": 40011,
+        "position": 1
+      }
+    ],
+    "40011": [
+      {
+        "destination": 40010,
+        "position": 2
+      },
+      {
+        "destination": 20004,
+        "position": 90
+      }
+    ],
+    "40012": [
+      {
+        "destination": 20004,
+        "position": 91
+      },
+      {
+        "destination": 1004,
+        "position": 330
+      }
+    ],
+    "40013": [
+      {
+        "destination": 1004,
+        "position": 332
+      },
+      {
+        "destination": 40015,
+        "position": 3
+      }
+    ],
+    "40014": [
+      {
+        "destination": 1004,
+        "position": 334
+      },
+      {
+        "destination": 40015,
+        "position": 1
+      }
+    ],
+    "40015": [
+      {
+        "destination": 40013,
+        "position": 2
+      },
+      {
+        "destination": 40014,
+        "position": 2
+      },
+      {
+        "destination": 40020,
+        "position": 1
+      }
+    ],
+    "40016": [
+      {
+        "destination": 20006,
+        "position": 111
+      },
+      {
+        "destination": 40017,
+        "position": 1
+      }
+    ],
+    "40017": [
+      {
+        "destination": 40016,
+        "position": 2
+      },
+      {
+        "destination": 1005,
+        "position": 340
+      }
+    ],
+    "40018": [
+      {
+        "destination": 1005,
+        "position": 342
+      },
+      {
+        "destination": 40019,
+        "position": 2
+      }
+    ],
+    "40019": [
+      {
+        "destination": 1005,
+        "position": 344
+      },
+      {
+        "destination": 40018,
+        "position": 2
+      },
+      {
+        "destination": 20007,
+        "position": 130
+      }
+    ],
+    "40020": [
+      {
+        "destination": 40015,
+        "position": 2
+      },
+      {
+        "destination": 20006,
+        "position": 110
+      }
+    ],
+    "40021": [
+      {
+        "destination": 40015,
+        "position": 2
+      },
+      {
+        "destination": 20006,
+        "position": 110
+      }
+    ],
+    "40022": [
+      {
+        "destination": 20007,
+        "position": 131
+      },
+      {
+        "destination": 40023,
+        "position": 1
+      }
+    ],
+    "40023": [
+      {
+        "destination": 40022,
+        "position": 2
+      },
+      {
+        "destination": 1006,
+        "position": 350
+      }
+    ],
+    "40024": [
+      {
+        "destination": 1006,
+        "position": 352
+      },
+      {
+        "destination": 40025,
+        "position": 1
+      }
+    ],
+    "40025": [
+      {
+        "destination": 40024,
+        "position": 2
+      },
+      {
+        "destination": 20008,
+        "position": 140
+      }
+    ],
+    "40029": [
+      {
+        "destination": 20008,
+        "position": 141
+      },
+      {
+        "destination": 40030,
+        "position": 2
+      }
+    ],
+    "40030": [
+      {
+        "destination": 40029,
+        "position": 27
+      },
+      {
+        "destination": 1007,
+        "position": 360
+      }
+    ],
+    "40031": [
+      {
+        "destination": 1007,
+        "position": 363
+      },
+      {
+        "destination": 40032,
+        "position": 32
+      }
+    ],
+    "40032": [
+      {
+        "destination": 40031,
+        "position": 23
+      },
+      {
+        "destination": 1008,
+        "position": 400
+      }
+    ],
+    "40035": [
+      {
+        "destination": 1008,
+        "position": 402
+      },
+      {
+        "destination": 40036,
+        "position": 1
+      }
+    ],
+    "40036": [
+      {
+        "destination": 40035,
+        "position": 365
+      },
+      {
+        "destination": 20009,
+        "position": 500
+      }
+    ],
+    "40037": [
+      {
+        "destination": 20009,
+        "position": 516
+      },
+      {
+        "destination": 20010,
+        "position": 605
+      }
+    ]
+  }
+}
