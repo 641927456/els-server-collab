@@ -1,0 +1,405 @@
+{
+  "schema": 4,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "observed_kinds": [
+    43,
+    178,
+    183,
+    185,
+    186,
+    188,
+    189,
+    239,
+    240,
+    243,
+    245,
+    261,
+    266,
+    276,
+    277,
+    397,
+    407,
+    517,
+    538,
+    779,
+    780,
+    1138,
+    1366,
+    1370,
+    1631,
+    2064,
+    2776
+  ],
+  "result_offsets": {
+    "276": 0,
+    "1631": 0,
+    "266": 0,
+    "1366": -4,
+    "397": 0,
+    "517": 0,
+    "2064": 0,
+    "261": -4,
+    "538": 0,
+    "407": 0,
+    "1370": 0,
+    "239": 0,
+    "245": 0,
+    "1138": 0,
+    "779": 0,
+    "185": 0,
+    "188": 0
+  },
+  "sites": [
+    {
+      "rva": 6821856,
+      "size": 705,
+      "prefix": "4885d20f84b7020000555356574156488d6c24c94881ecb0",
+      "body_sha256": "57bb6869bae894a6440367697b82f6e3c2c497323b14e6bcc8c68e4cff211d16",
+      "role": "protected_frame_scope"
+    },
+    {
+      "rva": 6818976,
+      "size": 190,
+      "prefix": "48895c2408574883ec20488bfa488bd9ba1c000000e836d2",
+      "body_sha256": "4192168379421a78b8c0fe4a4bde27bc4b909ff4fe2a40243ff4d40c2a845ea0",
+      "role": "event_decode"
+    },
+    {
+      "rva": 51727808,
+      "size": 1597,
+      "prefix": "4055535657488d6c24c94881ec88000000488b05e8f05f01",
+      "body_sha256": "3e87507e293f344bb0c2acb8cd5c9c72cb749a7251e8879e9fe623d87c589597",
+      "role": "dungeon_dispatch"
+    },
+    {
+      "rva": 20456064,
+      "size": 4793,
+      "prefix": "405553565741564157488d6c24f84881ec08010000488b05",
+      "body_sha256": "0dbadc3b969e91fb16f228786151e3e2cd8ef54f1ba1a83111d4241bf5126005",
+      "role": "town_dispatch"
+    }
+  ],
+  "handle_table_global": 75612992,
+  "dungeon_vtable": 68943144,
+  "engine_global": 75595376,
+  "effect_sites": [
+    {
+      "rva": 28024096,
+      "size": 20511,
+      "prefix": "48895c24205556574154415541564157488dac2450efffff",
+      "body_sha256": "c1a32a175228a93415e6bf9aa19342c797ab5569ae90f271e255ff317d40da7a",
+      "role": "item_effect"
+    },
+    {
+      "rva": 17042704,
+      "size": 802,
+      "prefix": "48895c241848897c24205541564157488d6c24a04881ec60",
+      "body_sha256": "a908327447cd72cc564eaa1ddf9c99db9979328b4c06b601aac62358df161a96",
+      "role": "gate_apply"
+    },
+    {
+      "rva": 28157488,
+      "size": 214,
+      "prefix": "48895c24084489442418574883ec40488bf9488d4c2420e8",
+      "body_sha256": "76580b22fdb97f37851bed4da766509f877ba1df78b693a4e0c8e2ad1a026a44",
+      "role": "trigger_apply"
+    },
+    {
+      "rva": 4449344,
+      "size": 142,
+      "prefix": "85d20f8885000000534883ec20488b8168020000450fb6c8",
+      "body_sha256": "98e7cc0760e8da2c2b6deb9c923760fbc88b5f894eeb0e383c9d0d4cd9269f44",
+      "role": "geometry_write"
+    }
+  ],
+  "actor_stats_vtable": 69086704,
+  "mount_manager_global": 75595456,
+  "reader_sites": [
+    {
+      "rva": 27193856,
+      "size": 38,
+      "prefix": "83fa01741d488b41204885c074148d480833481033481889",
+      "body_sha256": "c1fa82f2246986b9ba0776bb8834e42efd1555fb45957f33cd20ba8feaeb9bb6",
+      "role": "mp_reader"
+    },
+    {
+      "rva": 27195200,
+      "size": 38,
+      "prefix": "83fa01741d488b41204885c074148d482033482833483089",
+      "body_sha256": "df962d829eea1be5322b5df8a16ae52320e78c2cc68f3ce54e31e2971ef736b9",
+      "role": "max_mp_reader"
+    },
+    {
+      "rva": 14149520,
+      "size": 496,
+      "prefix": "48895c241855565741564157488dac24d0feffff4881ec30",
+      "body_sha256": "a0b981c17c21b4becd73b1efb9bce325c14372515f348848834daec6bf7d54c2",
+      "role": "mount_recovery_reader"
+    },
+    {
+      "rva": 14089680,
+      "size": 52,
+      "prefix": "4883ec28488b05e580aa034885c0751fb988010000e84e3c",
+      "body_sha256": "687ed07619d40272c6df27ca31f742d238902113ff018597e22d4d65ef54af6e",
+      "role": "mount_manager_reader"
+    },
+    {
+      "role": "buff_snapshot_reader",
+      "rva": 18547744,
+      "size": 394,
+      "prefix": "488974241848897c242041564883ec2080b986000000004d",
+      "body_sha256": "74fb7d63d6eb86fa63593515263fa70216a6aabd7014944716d0d8daca854b2d"
+    },
+    {
+      "role": "buff_timer_remaining_reader",
+      "rva": 18470704,
+      "size": 20,
+      "prefix": "8d412833413033413889442408f30f10442408c3cccccccc",
+      "body_sha256": "9ba0e172a0a7c967e4edb0a4131448764254c0140d9f29cef4a480e6e6bacd52"
+    },
+    {
+      "role": "buff_timer_budget_reader",
+      "rva": 18470736,
+      "size": 6,
+      "prefix": "f30f104140c3cccccccccccccccccccc4883ec38f30f1049",
+      "body_sha256": "4c61b715c06884df667f45bd081a2f552079edbbead241cfb51c4af0f35a7ae9"
+    },
+    {
+      "role": "buff_timer_expiry_reader",
+      "rva": 18469136,
+      "size": 42,
+      "prefix": "807920007520488d41280f57c98bc8334808334810894c24",
+      "body_sha256": "99f5fbaac82157ec5a6a5dc76873b9996d391eaaa922c3d5b8834a44e6993c6a"
+    }
+  ],
+  "effect_pool_global": 75017776,
+  "inventory_fields": [
+    {
+      "offset": 0,
+      "size": 4
+    },
+    {
+      "offset": 4,
+      "size": 1
+    },
+    {
+      "offset": 5,
+      "size": 4
+    },
+    {
+      "offset": 9,
+      "size": 2
+    },
+    {
+      "offset": 11,
+      "size": 1
+    },
+    {
+      "offset": 12,
+      "size": 1
+    },
+    {
+      "offset": 13,
+      "size": 4
+    },
+    {
+      "offset": 37,
+      "size": 136
+    },
+    {
+      "offset": 829,
+      "size": 4
+    },
+    {
+      "offset": 845,
+      "size": 1
+    },
+    {
+      "offset": 846,
+      "size": 2
+    },
+    {
+      "offset": 848,
+      "size": 4
+    },
+    {
+      "offset": 880,
+      "size": 8
+    },
+    {
+      "offset": 888,
+      "size": 4
+    },
+    {
+      "offset": 892,
+      "size": 1
+    },
+    {
+      "offset": 893,
+      "size": 16
+    },
+    {
+      "offset": 905,
+      "size": 16
+    },
+    {
+      "offset": 917,
+      "size": 1
+    },
+    {
+      "offset": 918,
+      "size": 1
+    },
+    {
+      "offset": 919,
+      "size": 4
+    },
+    {
+      "offset": 923,
+      "size": 4
+    },
+    {
+      "offset": 927,
+      "size": 4
+    },
+    {
+      "offset": 931,
+      "size": 4
+    },
+    {
+      "offset": 935,
+      "size": 1
+    },
+    {
+      "offset": 936,
+      "size": 4
+    },
+    {
+      "offset": 940,
+      "size": 4
+    },
+    {
+      "offset": 944,
+      "size": 1
+    },
+    {
+      "offset": 945,
+      "size": 1
+    },
+    {
+      "offset": 946,
+      "size": 1
+    },
+    {
+      "offset": 947,
+      "size": 1
+    },
+    {
+      "offset": 948,
+      "size": 4
+    },
+    {
+      "offset": 952,
+      "size": 4
+    },
+    {
+      "offset": 956,
+      "size": 4
+    },
+    {
+      "offset": 960,
+      "size": 4
+    },
+    {
+      "offset": 964,
+      "size": 4
+    },
+    {
+      "offset": 968,
+      "size": 4
+    },
+    {
+      "offset": 972,
+      "size": 4
+    },
+    {
+      "offset": 976,
+      "size": 4
+    },
+    {
+      "offset": 980,
+      "size": 4
+    },
+    {
+      "offset": 984,
+      "size": 4
+    },
+    {
+      "offset": 988,
+      "size": 4
+    },
+    {
+      "offset": 992,
+      "size": 4
+    },
+    {
+      "offset": 996,
+      "size": 4
+    },
+    {
+      "offset": 1000,
+      "size": 4
+    },
+    {
+      "offset": 1004,
+      "size": 8
+    }
+  ],
+  "lifecycle_sites": [
+    {
+      "role": "game_tick",
+      "rva": 17015808,
+      "size": 4886,
+      "prefix": "488bc4488958205556574154415541564157488d68884881",
+      "body_sha256": "b7ded9d56421f2bf32307bdd90b449a6745ec69629d9453c4127a90621438a9d"
+    },
+    {
+      "role": "buff_apply",
+      "rva": 18543856,
+      "size": 552,
+      "prefix": "40555356574154415541564157488d6c24d84881ec280100",
+      "body_sha256": "46a6c77d2d9c494d356eb836ec20b8dc6dd2ebdb5eb718d12e8e25156dcd1ec8"
+    },
+    {
+      "role": "curtain_break",
+      "rva": 14688080,
+      "size": 1368,
+      "prefix": "488bc448895810574881ec000100000f2978e8440f2940d8",
+      "body_sha256": "2eb7c78cd4a2349256cf4c41ee6d4a881b1b6ab41f91e96d1183d025d6d39db6"
+    },
+    {
+      "role": "visual_factory",
+      "rva": 4563664,
+      "size": 1746,
+      "prefix": "488bc4555356574154415541564157488d68984881ec2801",
+      "body_sha256": "4be35ff2cd18a355f8b283b0331515ba93ae72ba09f11ea7003cedc900eb4e08"
+    },
+    {
+      "role": "visual_tick",
+      "rva": 4606096,
+      "size": 2757,
+      "prefix": "40554157488dac2418ffffff4881ece8010000440f299c24",
+      "body_sha256": "1c69b8afe81e1340ad5f266885bcefef3339725ec2fc4fa5668757e76ef17fc5"
+    },
+    {
+      "role": "part_transition",
+      "rva": 17043520,
+      "size": 5000,
+      "prefix": "488bc4488958104889701848897820554154415541564157",
+      "body_sha256": "f396376945d045156be4969e5a47f3f4f9378ae7989065b8be8e6d5d713c8012"
+    }
+  ],
+  "buff_timer_vtable": 68952336,
+  "curtain_vtable": 68946896
+}

@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "issue": 916,
+  "release": "native-quest-live-admission-20261107-v1",
+  "archive_only": true,
+  "default_engine_selection_changed": false,
+  "source_files": [
+    {
+      "runtime_path": "els_server/domain/quest_flow.py",
+      "archive_path": "source/els_server/domain/quest_flow.py",
+      "parent_sha256": "aa3778037e832042d2da6908da6a7b6223d2189da87bc7d9463951f4ff2bb8d7",
+      "sha256": "613bc3e5f142135c35341af2d4750bd29a18883ae0838bbbbb069434f25b8a96",
+      "size": 31727
+    },
+    {
+      "runtime_path": "els_server/domain/tutorial_quests.py",
+      "archive_path": "source/els_server/domain/tutorial_quests.py",
+      "parent_sha256": "8a441f2b3dae2920f0d079ca7b3ace91cf16e23d85795a1aa3a6d9ea45ad607e",
+      "sha256": "b4d81f7bf594c97d5bf825985baca80247ea37e1bf71ee8b7a8d50420d6bc59f",
+      "size": 9599
+    }
+  ],
+  "launcher_source_files": [
+    {
+      "source_path": "AutoUpdate.cs",
+      "archive_path": "launcher-source/AutoUpdate.cs",
+      "sha256": "bd6ed8cd5ecd33f763edab2110b42b6f83a199a5c9ec21e1344266be4f2e5956",
+      "size": 14739
+    },
+    {
+      "source_path": "UIScrollRuntimeCohort.cs",
+      "archive_path": "launcher-source/UIScrollRuntimeCohort.cs",
+      "sha256": "3f6abdecc0910a03426988b57b66ab75e31539f3788b405a6935d7594d48b388",
+      "size": 2437
+    },
+    {
+      "source_path": "resources/ui-scroll-signedFriends.signed.json",
+      "archive_path": "launcher-source/resources/ui-scroll-signedFriends.signed.json",
+      "sha256": "0169b49ee5780ca2e0f8174df3f37da8f4d35de6e3958cf549fd1264c26646c0",
+      "size": 738093
+    }
+  ],
+  "files": [
+    {
+      "path": "base.json",
+      "sha256": "7955eec6292b84650b28abe34f9d34dff468fad539c4bdd5e9a8b30a59e0d7d7",
+      "size": 82
+    },
+    {
+      "path": "changes.patch",
+      "sha256": "3590dacf87bee0a53226e149af2d27e95b033aafd9caf594492e6967ebfcb21c",
+      "size": 5243
+    },
+    {
+      "path": "fixture.py",
+      "sha256": "0026dee91fac18f00d4b85f784ab9089861f7f488f9772051562de55d2b6a3c1",
+      "size": 17482
+    },
+    {
+      "path": "installed-summary.json",
+      "sha256": "f2ae9445380738ddf06bf3abf5a8f832ea7701ba8bc54ca92d72e557e224a2d6",
+      "size": 1262
+    },
+    {
+      "path": "launcher-source/AutoUpdate.cs",
+      "sha256": "bd6ed8cd5ecd33f763edab2110b42b6f83a199a5c9ec21e1344266be4f2e5956",
+      "size": 14739
+    },
+    {
+      "path": "launcher-source/resources/ui-scroll-signedFriends.signed.json",
+      "sha256": "0169b49ee5780ca2e0f8174df3f37da8f4d35de6e3958cf549fd1264c26646c0",
+      "size": 738093
+    },
+    {
+      "path": "launcher-source/UIScrollRuntimeCohort.cs",
+      "sha256": "3f6abdecc0910a03426988b57b66ab75e31539f3788b405a6935d7594d48b388",
+      "size": 2437
+    },
+    {
+      "path": "public-validation.json",
+      "sha256": "5eb1ee3b41bc51fbf93831666853e45b417cdb050a30638b52f5562669e09378",
+      "size": 1943
+    },
+    {
+      "path": "README.md",
+      "sha256": "be6ce34a2eb72deb04a3c71c7e1abab2a210907aa2f52cf79737d76cfc25df3a",
+      "size": 2048
+    },
+    {
+      "path": "source/els_server/domain/quest_flow.py",
+      "sha256": "613bc3e5f142135c35341af2d4750bd29a18883ae0838bbbbb069434f25b8a96",
+      "size": 31727
+    },
+    {
+      "path": "source/els_server/domain/tutorial_quests.py",
+      "sha256": "b4d81f7bf594c97d5bf825985baca80247ea37e1bf71ee8b7a8d50420d6bc59f",
+      "size": 9599
+    },
+    {
+      "path": "test_lifecycle.py",
+      "sha256": "a93876fde3d8e95e6533a4d1567a75bb1ef023d0ef70aa35efb6369000da574c",
+      "size": 8811
+    },
+    {
+      "path": "test_worker_dispatch.py",
+      "sha256": "923d4560af658b8b6aae090a2d523132c603c92dba12bbd4f949e4adeed70145",
+      "size": 2811
+    },
+    {
+      "path": "validation.json",
+      "sha256": "300da9f7de60b225ed2f0c589f86f14077e49b2df0a4e5b624a70b5c55c9e747",
+      "size": 1391
+    }
+  ],
+  "source_delta": 2,
+  "configuration_delta": 0,
+  "new_tables": 0,
+  "client_EXE_KOM_delta": 0,
+  "parent_release": "native-server-latency-20261106-v7",
+  "parent_manifest_sha256": "695b97b2b95b4ebd8dd0c5904afb47b3dfddb654019c61e3ce1b7cbbbebbca25",
+  "merged": false,
+  "installed": true,
+  "natural_GUI": false,
+  "natural_battle": false
+}

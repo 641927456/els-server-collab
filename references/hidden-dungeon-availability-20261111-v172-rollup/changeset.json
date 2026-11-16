@@ -1,0 +1,42 @@
+{
+  "release": "title-socket-hidden-items-artifact-20261111-v172",
+  "patch_sha256": "c542ac0330194e192085b5d0ccd17e7800ee7d525f2a1731b38fb458922c6eab",
+  "parents": {
+    "online": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "f8714987467c9195b008cb73e93f4328dd4cae93cb900e492995332906b9e2ed"
+    },
+    "local": {
+      "release": "unified-server-5ea03ca5f01728b3-d21f0c50eba1",
+      "manifest_sha256": "b73f5c2b5e816c7b4d949c75d86dd457873633d86144430569ae6e2af43034f8"
+    },
+    "launchers": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "edc8441c7d8f8001053f6240125244efce542331580e6f4b0213c06020c35ef4"
+    }
+  },
+  "files": [
+    {
+      "cohort": "hidden-dungeon-availability",
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "943b4fad33ee9f226ffcd6b9be9b047eca1e10454fca73d310d89101b1f507fa",
+      "sha256": "0a2db4768e32bb93d651c5e8fcdc4b85d95b13f3860bcd663adf7859b5702f3e",
+      "size": 170078,
+      "source_parent_sha256": "dd5b33109863533b59ad453b6d07fb184a29702d6424219d86b4a070372b5a5e",
+      "source_sha256": "7311518a3f56c5d951cd9db40dd539d32214007396c747bd0fb89946ce817b32",
+      "rebased": true,
+      "phase_version": 170
+    },
+    {
+      "cohort": "hidden-dungeon-availability",
+      "path": "els_server/domain/region_quests.py",
+      "parent_sha256": "525d01bd25090899a848e2c0a5ed07d2f94cf77056a49fe4131dbe47825d3818",
+      "sha256": "5866a9656a12b7ee61a6150fc2daca4f1c933cd0fe4a05f3e6759cae01884363",
+      "size": 6947,
+      "source_parent_sha256": "525d01bd25090899a848e2c0a5ed07d2f94cf77056a49fe4131dbe47825d3818",
+      "source_sha256": "5866a9656a12b7ee61a6150fc2daca4f1c933cd0fe4a05f3e6759cae01884363",
+      "rebased": false,
+      "phase_version": 170
+    }
+  ]
+}

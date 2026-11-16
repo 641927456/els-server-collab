@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "live_process_access": false,
+  "client_changes": 0,
+  "natural_GUI": false,
+  "seams": [
+    "terminal store-state setter captured without rendering",
+    "wait-indicator UI call omitted",
+    "network facade captured after click construction",
+    "transport send captured after native serialization",
+    "sequence source supplied"
+  ],
+  "state_consumer": {
+    "RVA": "21577B0",
+    "kind": "C3A",
+    "payload": "BEi32 state",
+    "values": [
+      0,
+      2,
+      3
+    ],
+    "consumed": 4
+  },
+  "click_producer": {
+    "RVA": "1A29DC0",
+    "native_facade_RVA": "7B4870",
+    "map": 1500,
+    "constructed": {
+      "flag": 0,
+      "mode": 0,
+      "entries": [
+        [
+          710012,
+          1
+        ]
+      ],
+      "merchant": 10196
+    }
+  },
+  "native_EA_writer": {
+    "RVA": "7BCCA0",
+    "event_id": 514,
+    "kind": "0xea",
+    "payload_hex": "00000000000001000ad57c00000001000027d4",
+    "entries": [
+      [
+        710012,
+        1
+      ]
+    ],
+    "merchant": 10196
+  }
+}
