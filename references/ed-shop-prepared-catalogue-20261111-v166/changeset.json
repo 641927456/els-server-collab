@@ -1,0 +1,47 @@
+{
+  "release": "housing-and-ed-shop-20261111-v166",
+  "patch_sha256": "28d4616a8b76341c9bd0efffe2ab6edac73ea1f90041a2e2ec0b3cadbd23e0e9",
+  "parents": {
+    "online": {
+      "release": "gm-workspace-announcements-20261111-v165",
+      "manifest_sha256": "1fa0e83cd230c7686c5a841bd883e03eaff4f9228ce964d8208be787ea340423"
+    },
+    "local": {
+      "release": "unified-server-3c9b0ab71e09a004-32deb4fc9083",
+      "manifest_sha256": "1e0d0c9d2629748250537f830d73ef47e99b794f4613a69f436a95a1774ec065"
+    },
+    "launchers": {
+      "release": "gm-workspace-announcements-20261111-v165",
+      "manifest_sha256": "f5170196375eaa0e8b252f7918d1cc4019a9cc36e9593e8f4b3247baf717d2d8"
+    }
+  },
+  "files": [
+    {
+      "cohort": "ed",
+      "path": "els_server/application.py",
+      "sha256": "ab8a26cd9c24684bc9885c50576a39dbf7d04de92f5c3872333eb52f9bd65b81",
+      "size": 70863,
+      "parent_sha256": "57fc99649a27500976cc5a3cd7e446468fac80f05d18dcfa39407a15f33faf8c",
+      "upstream_sha256": "441a63818bad354c96782325b6204da679eb427f4497e4ab81e528fd2bb6600d",
+      "rebased": true
+    },
+    {
+      "cohort": "ed",
+      "path": "els_server/domain/local_session.py",
+      "sha256": "77fbd87f3490e52e5752ecf85eb29e2c971a184969eac20311623a8f154a8db8",
+      "size": 169450,
+      "parent_sha256": "dd5b33109863533b59ad453b6d07fb184a29702d6424219d86b4a070372b5a5e",
+      "upstream_sha256": "654e947dec435321c391b3cb6070921b6d0a8c0476638e0a6b8fb7f0f2f26723",
+      "rebased": true
+    },
+    {
+      "cohort": "ed",
+      "path": "els_server/storage/shop_state.py",
+      "sha256": "f203ec32989332b2f15cef46cfc64b0d0deda21ebc5db390b9880235a8e46249",
+      "size": 21516,
+      "parent_sha256": "2f070d4dab4786e387025b37431f4283aeecb9bf6cda603ec6f15bf3abc2e65e",
+      "upstream_sha256": "f203ec32989332b2f15cef46cfc64b0d0deda21ebc5db390b9880235a8e46249",
+      "rebased": false
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "parent_version": 123,
+  "proposed_version": 124,
+  "new_hooks": false,
+  "client_exe_or_kom_changed": false,
+  "new_schema": false,
+  "installed": false,
+  "Git_submitted": false,
+  "files": [
+    {
+      "path": "tools/native_cache_sync.js",
+      "parent_sha256": "f4ea3de6b9e60464b71235224a284079dd95290c2e3e336a304d389e807120c1",
+      "sha256": "62a1d15ca0958c685fffc3bb8d40982ddb821ce2de45522f318db86793d075f8",
+      "size": 34701,
+      "runtimekind": "launcher_support"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "521eb77c2b9f9fca0c126c3aa92da88ce5a6d79ef35e7e7282b14bed7a1f98e3",
+      "sha256": "c673dc33e02b64cb882fe6e6f0dc7c2a9cfffc817d67960fa986144e1000a97b",
+      "size": 24190,
+      "runtimekind": "compatibility_binding"
+    }
+  ],
+  "profile_delta": {
+    "json_path": [
+      "profiles",
+      "0",
+      "artifacts",
+      "tools/native_cache_sync.js"
+    ],
+    "before": "f4ea3de6b9e60464b71235224a284079dd95290c2e3e336a304d389e807120c1",
+    "after": "62a1d15ca0958c685fffc3bb8d40982ddb821ce2de45522f318db86793d075f8",
+    "other_fields_unchanged": true
+  },
+  "baseline_scheduler_fragment_sha256": "e1f5780047c09f607092442b7e20ac1a88d59f25c05b68b7386189f645109300",
+  "prior_source_reference": {
+    "pr": 971,
+    "head": "351f61ac5ebe803b97e53b7882e3bd3f9456f7d4",
+    "path": "references/pending-repairs-v123-20261109-v1/source/tools/native_cache_sync.js",
+    "merge": null
+  },
+  "archive_scope": "HP Actor-input refresh only; two support leaves. Separate scene-retirement PR shares the V124 deployment but is not included here."
+}
