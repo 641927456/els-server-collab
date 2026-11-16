@@ -1,0 +1,112 @@
+{
+  "online": {
+    "ok": true,
+    "release": "lean-runtime-eve-shop-20261114-v198",
+    "public": {
+      "ok": true,
+      "public_tls": true,
+      "actual_runtime_only": true,
+      "test": {
+        "ok": true,
+        "phase": "test",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          "Eve ordinary first job and 108 second job: two 50 ED purchases, native career/skill notices, duplicate new operation rejected",
+          "Eve ordinary first job and 109 second job: two 50 ED purchases, native career/skill notices, duplicate new operation rejected"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2078,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "8ae19b9eef1f3c583d4c7d249769959e2d3608b40718968c9b3f79a4034adbc0",
+          "server-addon": "b3ce190519a3119bc6f1936898c4c7b91e3ebdee60bd55c64a6e5398ff90425c"
+        },
+        "signed_target_manifest_sha256": "2feab6bf79f0df199ebe536d1d9068d33d9f2ae808c3c4c5ba0aa014d73b45b6"
+      },
+      "retire": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          "Both Eve careers and exact 900 ED cold login after completed public purchases"
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2078,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "8ae19b9eef1f3c583d4c7d249769959e2d3608b40718968c9b3f79a4034adbc0",
+          "server-addon": "b3ce190519a3119bc6f1936898c4c7b91e3ebdee60bd55c64a6e5398ff90425c"
+        },
+        "signed_target_manifest_sha256": "2feab6bf79f0df199ebe536d1d9068d33d9f2ae808c3c4c5ba0aa014d73b45b6"
+      },
+      "expected_game_authentications": 4,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "cold": {
+      "ok": true,
+      "read_only": true,
+      "retired": true,
+      "roles": [
+        {
+          "unit_type": 5,
+          "unit_class": 108,
+          "ED": 900,
+          "career_service_items_remaining": 0
+        },
+        {
+          "unit_type": 5,
+          "unit_class": 109,
+          "ED": 900,
+          "career_service_items_remaining": 0
+        }
+      ]
+    },
+    "public_tls": true,
+    "candidate_pid": 5800,
+    "requirements_sha256": "f2c9997a07586f4bd1264d682b94d6fa59aae3f59facefa0521e7314bde889c0",
+    "started_utc": "2026-11-13T18:03:49.339992+00:00",
+    "completed_utc": "2026-11-13T18:04:06.728412+00:00",
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "local": {
+    "ok": true,
+    "release": "lean-runtime-eve-shop-20261114-v198",
+    "runtime": "G:\\els\\releases\\local\\unified-server-8912ef5d9eb8e324-8baee109634d",
+    "signed_files": 2078,
+    "runtime_manifest_sha256": "2feab6bf79f0df199ebe536d1d9068d33d9f2ae808c3c4c5ba0aa014d73b45b6",
+    "shared_server_files": 1540,
+    "observed_seconds": 122.05531819999999,
+    "ordinary_player_entry_open": false,
+    "stable_launcher_promoted": false,
+    "completed_utc": "2026-11-13T18:07:50.278238+00:00"
+  },
+  "updater": {
+    "ok": true,
+    "stable_parent": "launcher-v197-4bad2e2cdb5bb415",
+    "tag": "launcher-v198-b2752272c8d8cb8e",
+    "exe_sha256": "b2752272c8d8cb8e36da285d24b207efd5796e4f21cc41b1ab1c7e2adaecd8cb",
+    "signed_files": 2078,
+    "client_files": 108,
+    "server_addon_files": 1980,
+    "embedded_resources": 6,
+    "public_fresh_client": true,
+    "public_fresh_server_addon": true,
+    "public_upgrade": true,
+    "default_service_not_downloaded": true,
+    "full_and_chunk_cleanup": true,
+    "old_backup_preserved": true,
+    "game_started": false
+  }
+}
