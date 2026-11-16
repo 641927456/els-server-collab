@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "same_native_algorithm_reused": true,
+  "reexecuted_for_packaging": false,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "tree_sizes": [
+    0,
+    1,
+    3,
+    7,
+    15
+  ],
+  "result_sha256": "4aa2cc348c733e0936a26810c5f5aadb628ced19335ff888abce17922234c3a4",
+  "test_source_sha256": "cd079b1a1f293547fde268edfd0104ac38f448bf26f57c7701b34f7a7eb5b06d",
+  "observed_result": "Original nonempty trees read an erased node and fail at Cleanup RVA3586543; corrected acquisition removes the requested entries and returns. Empty trees return in both variants.",
+  "scope": "Offline original cleanup loop, original RemoveBuff and original std::map erase; only UI child destruction and CRT delete are bounded shims. No live game started or attached.",
+  "private_native_image_distributed": false,
+  "old_installer_equal_to_current": false,
+  "current_gameplay_acceptance": false,
+  "old_manual_claim": "An older local return-selection/reentry and exit0 result was reported; it is neither independent review of this candidate nor current-version natural acceptance."
+}
