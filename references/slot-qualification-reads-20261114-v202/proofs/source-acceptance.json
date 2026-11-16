@@ -1,0 +1,67 @@
+{
+  "ok": true,
+  "source_package": {
+    "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\online-slot-qualification-20261114-v1.zip",
+    "sha256": "117a578d53dbd3acb207ae66c21405a064f3a87894e4d3e308431053ae196f6e"
+  },
+  "files": [
+    {
+      "path": "els_server/domain/skill_state.py",
+      "parent_sha256": "17ac023ed29f8040fa19c279601fb1edb90117d54cdcf831c980e669e498ed9e",
+      "sha256": "fb5c6133926873ee4f30fe36a8009715aaf10d4ad93cf61f6266c626c3ae5461",
+      "size": 5233,
+      "scope": "server",
+      "candidate_path": "G:\\els\\analysis\\publisher-slot-qualification-20261114-v202\\runtime\\server\\els_server\\domain\\skill_state.py"
+    },
+    {
+      "path": "els_server/storage/careers.py",
+      "parent_sha256": "67e26cdc5129330e9e6cc652dab9ae9ab04c8a5b8deff50e3ce930d6d9e85509",
+      "sha256": "2303ec7b2b7ad44d972a9d704e5bd4ad7cb5a7b76ad7ab60cb3084107fea50e8",
+      "size": 7854,
+      "scope": "server",
+      "candidate_path": "G:\\els\\analysis\\publisher-slot-qualification-20261114-v202\\runtime\\server\\els_server\\storage\\careers.py"
+    },
+    {
+      "path": "els_server/storage/local_state.py",
+      "parent_sha256": "2b8e6b851d06b640fafd5e53ce74722702e0a3b1f4856bc559df8442a6b6a001",
+      "sha256": "47a3654cfbd1d9994f24e56851bdc1035bd9ac7923815cd2ba1427d27f86e523",
+      "size": 12778,
+      "scope": "server",
+      "candidate_path": "G:\\els\\analysis\\publisher-slot-qualification-20261114-v202\\runtime\\server\\els_server\\storage\\local_state.py"
+    }
+  ],
+  "review": "Pure per-input qualification derivation is hoisted before each 22-slot loop. The careers unknown-skill short circuit and local-state duplicate short circuit retain their order and exact errors. No global/actor cache, schema, Hook, economic change or new file. All V201 leaves are retained.",
+  "evidence": {
+    "verification.json": {
+      "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\verification.json",
+      "sha256": "a303ed745d3e49182a321f85239083a6d82db369ca79ffbcb2ccd1632508c4d8"
+    },
+    "regression-result.json": {
+      "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\regression-result.json",
+      "sha256": "d20ba9ea0aa0563239477dade4bc37a8deb82eb4a7f0332299a4e7c7ff7bf1d2"
+    },
+    "shape-tls-benchmark.json": {
+      "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\shape-tls-benchmark.json",
+      "sha256": "fc83a424ce47b46dfdd845e648256faed64e33f34101a74946d6336da9961a8d"
+    },
+    "shape-parse-counts.json": {
+      "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\shape-parse-counts.json",
+      "sha256": "451bb60321879a8a90a052312be1346a107a56311fa788f439ef19c6828a4454"
+    },
+    "cold-candidate.json": {
+      "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\cold-candidate.json",
+      "sha256": "c1c56c80d48c3b7101da53f5a39a40fea7df3bb862c741e64a2287767623257b"
+    },
+    "cold-parent.json": {
+      "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\cold-parent.json",
+      "sha256": "b93067e4a618204aa884cf59d5164635ed787e9b411a7963d41ea365f1b0c199"
+    }
+  },
+  "source_16_roles_anonymized_shape_only": true,
+  "natural_player_acceleration_not_claimed": true,
+  "zip_member_copies_verified": 24,
+  "anonymous_historical_shape_check": {
+    "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\slow-roster-history-check.json",
+    "sha256": "d66effe5c1ed4643b2f372c81ccbca04a9c70bdb24e22e7f6636fc95334b60d6"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "release": "gm-workspace-announcements-20261111-v165",
+  "patch_sha256": "84c0bf5060a496c52b95e6e5069c7e5f6acf2c9e37f28bf8ca31bce7dafea6df",
+  "parents": {
+    "online": {
+      "release": "server-trade-read-optimization-20261111-v164",
+      "manifest_sha256": "2936b3f79eb7e169896ade7d5ccafe00719f0f8377aa75e4696c8889077bf176"
+    },
+    "local": {
+      "release": "unified-server-3bab1008be88bbfb-8e1fe45e803e",
+      "manifest_sha256": "69625c9b7d999fc33d9fb0348cd37f63981d379f6cf5e0fff8f11bca1d0499d5"
+    },
+    "launchers": {
+      "release": "server-trade-read-optimization-20261111-v164",
+      "manifest_sha256": "936f0e84b965768259767d302e982a574612f2e32d1c96e19dc9fc625c65bb27"
+    }
+  },
+  "files": [
+    {
+      "lane": "online",
+      "cohort": "idle",
+      "path": "els_server/__main__.py",
+      "size": 7283,
+      "parent_sha256": "b2e7502c0cf90791d9e8879927d9585c4414a0e0a945c5c685fcdd8642e6697b",
+      "sha256": "eee168089514688aa3851947755a84e51fe75bb0fa958261b7d02a8ad177ff9d"
+    },
+    {
+      "lane": "online",
+      "cohort": "idle",
+      "path": "els_server/gm_runtime.py",
+      "size": 19033,
+      "parent_sha256": "058deb26068c41ca686832d8cef5bcb03b4329c100aa741411469fa49da77d05",
+      "sha256": "89e9684b7b4c737d0ad2fda0b596606de4e5b18daf7bebed810f05d4b3c46ffb"
+    },
+    {
+      "lane": "local",
+      "cohort": "idle",
+      "path": "local-runtime/els_server/gm_runtime.py",
+      "size": 18074,
+      "parent_sha256": "21b624cd04858ca67cf4067226fef6b27a20c65de64370a4147ebe73436f9459",
+      "sha256": "e376bc319971f70e44768a6ddd993db98da00aa45c28874dda708ae935c10220"
+    }
+  ]
+}

@@ -1,0 +1,339 @@
+{
+  "release": "title-conditions-20261116-v237",
+  "parent_release": "five-chat-unified-20261116-v236",
+  "files": [
+    {
+      "path": "els_server/data/title_conditions.json",
+      "size": 964987,
+      "sha256": "301f6744e98f367ad7250088278e405b7193beb1037b37fa9f881f93966f67fe",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/title_conditions.manifest.json",
+      "size": 191,
+      "sha256": "c40ce178a42261445a9df223acca28b575d162cef5f9b627bcce8c5b5cde01a2",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "size": 17024,
+      "sha256": "434825382f38bf3ec67c0fd2c187584ad2f18f3adaee7dc462ebaa66860fff6b",
+      "parent_sha256": "8e50f71580103053ba08d0f56330849be412a4a4a8da5d51e3f3b8e2a9798f46",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "size": 40711,
+      "sha256": "97b717a117caf846de1b36bc9e2c8040cb724dafb0913d73269298e7ebc64e82",
+      "parent_sha256": "e96c6d5f1f21167a2dbd5cb93e4a2a4d54073315acfc0f565859bb9ce1fe9cb7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_settlement_commands.py",
+      "size": 14186,
+      "sha256": "bcb39ed394d856507ace71e6fb90f74709b49d6d1c484aad53b7ce5cc74b0ca3",
+      "parent_sha256": "867690451dad3c4933bc3c4870378d6fb0ead5829069bd5aada9aeed418c03f7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/first_story_entry.py",
+      "size": 16211,
+      "sha256": "666adb278c92e4ca5db8e02d961e07b7c49d1acd7d3d8f101637446e9b6bda74",
+      "parent_sha256": "5f398561c30e3a6e0d883d5f4524aabb17c6922dfbabc28a6c37a22c829db053",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/native_script_loot.py",
+      "size": 16958,
+      "sha256": "6899e7453930ce8e2bfdbf73f8dd5600e1b39b9a02959290ddb226231ba18910",
+      "parent_sha256": "f006ee069e04f5ad2862084fa6d4d748342e90b8f81048f8f33bb93ceb77e4b9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "size": 27421,
+      "sha256": "8855788f9a759740f2dc0f88e5b09b37298e1423a9ead575f40fc2afc07f16e1",
+      "parent_sha256": "2e12b5a241c0c99c0fa6b48175ecf9aa9c135adbeaee53513eb8b1231bbe6296",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "size": 25456,
+      "sha256": "8c0c39fa8431610f5caed4de36405bd9760810cf5fdf280b1967f472d8486112",
+      "parent_sha256": "a6a49f5acec1d5676e3d249acac7164fb9da7e63883b6781d12615002343a19a",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/secret_clear_rewards.py",
+      "size": 12056,
+      "sha256": "2d51f1a5ec2a33e5b8fc3c461c609e5c751176639bbd31f6a9f5241eb34e9bfc",
+      "parent_sha256": "340b2e2c59d3c6e261617b414ef233242b0b5977d9b00efddb25de0159b8f122",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/silver_mirror_flow.py",
+      "size": 14727,
+      "sha256": "85188bab548476511d38e33c5bedfb198215c75892e65cc3d0fc65058c7f5cf6",
+      "parent_sha256": "1f8fdaf058b24330b9be657f1891c2de88062ecaf83410c358c30b734a468ddb",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_condition_events.py",
+      "size": 1532,
+      "sha256": "0e79adc130cd2356217482a2c3b6689f1b10e6af818cd9aba98a37bf5b781fc9",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_condition_rules.py",
+      "size": 5173,
+      "sha256": "1362dd95a9d121a03812a5bf7cf6eaf8c787a0d9e1f3e0c5dc132a37c09b3775",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_flow.py",
+      "size": 9544,
+      "sha256": "f31d61a9aacd3a73000ff3a637c1a4d27c059da2dfb2388896a85d73f95afdad",
+      "parent_sha256": "23fb16b0a994964ecb0dbc0d1533a6fb8f1e19596acf0fe806ce3a32d95bfc0d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/pvp_play_messages.py",
+      "size": 5925,
+      "sha256": "b200b3d2123241589f12faa5106a2576bd8039031bc9368b408f906fbcb2ff60",
+      "parent_sha256": "e15f3ad4f148eab7109a2ab156b9a650afc94794433b9471d8f8ea5325797a5f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_actions.py",
+      "size": 8546,
+      "sha256": "763eb953dfabf85210dd237bca86ddfe0b9779f141ca862e3520d9503d63d797",
+      "parent_sha256": "07486f915677edf5551213b84669145679454e276133de2d167b2279bed088b9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pet_bag.py",
+      "size": 12650,
+      "sha256": "8c6b01d91b4d1c98d2bfa7cd61854df20ef0a2b42e3498f6f624fa3be88eff29",
+      "parent_sha256": "63727a79ef4b6f1bfb5093659d7488d5ad5d625c401e33b3ae91191ab87ecdbf",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pet_progression.py",
+      "size": 9499,
+      "sha256": "78536fc94a8ca84f56804406e27388d6ce974f23047357ed6f3a95fc9649353a",
+      "parent_sha256": "f5f2d274707fc7f33f99a4dc6c4f3b2c9055537db13ff1f4f9f93185c93c3c40",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "size": 28052,
+      "sha256": "7fae08c1ec961e05f5441a22de4fcc2dca669d9a07b75baa1477b6787e7143de",
+      "parent_sha256": "27e539a073636a5f87aad922f9d658e87b8dcc46e89fab5316612c206582a2d5",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/title_actions.py",
+      "size": 2023,
+      "sha256": "0db4d4554d07226f21d051a7fdc595385d7b2ccf66c20df25c515e3f522048a1",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/title_clears.py",
+      "size": 4148,
+      "sha256": "cb63248625d6c2b598018e0fe534b886fc79ae7a169cb8bacbb6d25f29f4cdc2",
+      "parent_sha256": "bc7c656d1accb7516764d2300c49e6b064ef4a362f3edfb50d8e3bbe66ee5089",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/title_counts.py",
+      "size": 8705,
+      "sha256": "48326aad276c4f72f6363e058d204d90f64bac282c312a73e9b7c008fc59ef4f",
+      "parent_sha256": "af38e6eea11efec8429f0020d6a98caabd573a5dc60b164fe976e86546359ae8",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/title_kills.py",
+      "size": 3802,
+      "sha256": "ef0a042605dae17e2c67dfcbed467da787e5c66d509e36fbebb0f6886b0a81df",
+      "parent_sha256": "1dcf1f5c2813e56ffd584ba32536a347f61710074efa40379440f7b32b56e67e",
+      "scope": "server"
+    }
+  ],
+  "shared_files": [
+    {
+      "path": "els_server/data/title_conditions.json",
+      "size": 964987,
+      "sha256": "301f6744e98f367ad7250088278e405b7193beb1037b37fa9f881f93966f67fe",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/title_conditions.manifest.json",
+      "size": 191,
+      "sha256": "c40ce178a42261445a9df223acca28b575d162cef5f9b627bcce8c5b5cde01a2",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "size": 17024,
+      "sha256": "434825382f38bf3ec67c0fd2c187584ad2f18f3adaee7dc462ebaa66860fff6b",
+      "parent_sha256": "8e50f71580103053ba08d0f56330849be412a4a4a8da5d51e3f3b8e2a9798f46",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "size": 40711,
+      "sha256": "97b717a117caf846de1b36bc9e2c8040cb724dafb0913d73269298e7ebc64e82",
+      "parent_sha256": "e96c6d5f1f21167a2dbd5cb93e4a2a4d54073315acfc0f565859bb9ce1fe9cb7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_settlement_commands.py",
+      "size": 14186,
+      "sha256": "bcb39ed394d856507ace71e6fb90f74709b49d6d1c484aad53b7ce5cc74b0ca3",
+      "parent_sha256": "867690451dad3c4933bc3c4870378d6fb0ead5829069bd5aada9aeed418c03f7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/first_story_entry.py",
+      "size": 16211,
+      "sha256": "666adb278c92e4ca5db8e02d961e07b7c49d1acd7d3d8f101637446e9b6bda74",
+      "parent_sha256": "5f398561c30e3a6e0d883d5f4524aabb17c6922dfbabc28a6c37a22c829db053",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/native_script_loot.py",
+      "size": 16958,
+      "sha256": "6899e7453930ce8e2bfdbf73f8dd5600e1b39b9a02959290ddb226231ba18910",
+      "parent_sha256": "f006ee069e04f5ad2862084fa6d4d748342e90b8f81048f8f33bb93ceb77e4b9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "size": 27421,
+      "sha256": "8855788f9a759740f2dc0f88e5b09b37298e1423a9ead575f40fc2afc07f16e1",
+      "parent_sha256": "2e12b5a241c0c99c0fa6b48175ecf9aa9c135adbeaee53513eb8b1231bbe6296",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "size": 25456,
+      "sha256": "8c0c39fa8431610f5caed4de36405bd9760810cf5fdf280b1967f472d8486112",
+      "parent_sha256": "a6a49f5acec1d5676e3d249acac7164fb9da7e63883b6781d12615002343a19a",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/secret_clear_rewards.py",
+      "size": 12056,
+      "sha256": "2d51f1a5ec2a33e5b8fc3c461c609e5c751176639bbd31f6a9f5241eb34e9bfc",
+      "parent_sha256": "340b2e2c59d3c6e261617b414ef233242b0b5977d9b00efddb25de0159b8f122",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/silver_mirror_flow.py",
+      "size": 14727,
+      "sha256": "85188bab548476511d38e33c5bedfb198215c75892e65cc3d0fc65058c7f5cf6",
+      "parent_sha256": "1f8fdaf058b24330b9be657f1891c2de88062ecaf83410c358c30b734a468ddb",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_condition_events.py",
+      "size": 1532,
+      "sha256": "0e79adc130cd2356217482a2c3b6689f1b10e6af818cd9aba98a37bf5b781fc9",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_condition_rules.py",
+      "size": 5173,
+      "sha256": "1362dd95a9d121a03812a5bf7cf6eaf8c787a0d9e1f3e0c5dc132a37c09b3775",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_flow.py",
+      "size": 9544,
+      "sha256": "f31d61a9aacd3a73000ff3a637c1a4d27c059da2dfb2388896a85d73f95afdad",
+      "parent_sha256": "23fb16b0a994964ecb0dbc0d1533a6fb8f1e19596acf0fe806ce3a32d95bfc0d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/pvp_play_messages.py",
+      "size": 5925,
+      "sha256": "b200b3d2123241589f12faa5106a2576bd8039031bc9368b408f906fbcb2ff60",
+      "parent_sha256": "e15f3ad4f148eab7109a2ab156b9a650afc94794433b9471d8f8ea5325797a5f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_actions.py",
+      "size": 8546,
+      "sha256": "763eb953dfabf85210dd237bca86ddfe0b9779f141ca862e3520d9503d63d797",
+      "parent_sha256": "07486f915677edf5551213b84669145679454e276133de2d167b2279bed088b9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pet_bag.py",
+      "size": 12650,
+      "sha256": "8c6b01d91b4d1c98d2bfa7cd61854df20ef0a2b42e3498f6f624fa3be88eff29",
+      "parent_sha256": "63727a79ef4b6f1bfb5093659d7488d5ad5d625c401e33b3ae91191ab87ecdbf",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pet_progression.py",
+      "size": 9499,
+      "sha256": "78536fc94a8ca84f56804406e27388d6ce974f23047357ed6f3a95fc9649353a",
+      "parent_sha256": "f5f2d274707fc7f33f99a4dc6c4f3b2c9055537db13ff1f4f9f93185c93c3c40",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "size": 28052,
+      "sha256": "7fae08c1ec961e05f5441a22de4fcc2dca669d9a07b75baa1477b6787e7143de",
+      "parent_sha256": "27e539a073636a5f87aad922f9d658e87b8dcc46e89fab5316612c206582a2d5",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/title_actions.py",
+      "size": 2023,
+      "sha256": "0db4d4554d07226f21d051a7fdc595385d7b2ccf66c20df25c515e3f522048a1",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/title_clears.py",
+      "size": 4148,
+      "sha256": "cb63248625d6c2b598018e0fe534b886fc79ae7a169cb8bacbb6d25f29f4cdc2",
+      "parent_sha256": "bc7c656d1accb7516764d2300c49e6b064ef4a362f3edfb50d8e3bbe66ee5089",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/title_counts.py",
+      "size": 8705,
+      "sha256": "48326aad276c4f72f6363e058d204d90f64bac282c312a73e9b7c008fc59ef4f",
+      "parent_sha256": "af38e6eea11efec8429f0020d6a98caabd573a5dc60b164fe976e86546359ae8",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/title_kills.py",
+      "size": 3802,
+      "sha256": "ef0a042605dae17e2c67dfcbed467da787e5c66d509e36fbebb0f6886b0a81df",
+      "parent_sha256": "1dcf1f5c2813e56ffd584ba32536a347f61710074efa40379440f7b32b56e67e",
+      "scope": "server"
+    }
+  ],
+  "desktop_files": [],
+  "runtime_files": 2154,
+  "lazy_tables": [
+    "title_character_count_progress",
+    "title_weekly_counts"
+  ],
+  "installed_online": false,
+  "installed_local": false,
+  "natural_GUI": false
+}

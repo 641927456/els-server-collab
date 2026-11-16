@@ -1,0 +1,36 @@
+{
+  "ok": false,
+  "checks": [
+    "Real911 grants/debits once; insufficientED and wrongtown refuse; late encoding failure rolls back buff, journal andED; original producer replay adds nothing"
+  ],
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "production_clock_patch": false,
+  "production_probability_changed": false,
+  "retained_history_fixture": 98,
+  "diagnostic_due_stay_fixture": false,
+  "worker_traces": [
+    {
+      "method": "FriendsSession.periodic_notifications",
+      "code": 5,
+      "name": "SQLITE_BUSY",
+      "trace": "Traceback (most recent call last):\n  File \"G:/els/analysis/feature-closure-20261105-v1/achievement-v1/spa-buff-history-v1/test_live_spa.py\", line 61, in traced_worker\n    try:return original_worker(*args,**kwargs)\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\application.py\", line 559, in _worker_call\n    if self.dungeon_workers.candidate(function,args)or self.economy.candidate(function,args):return invoke()\n                                                                                                    ~~~~~~^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\application.py\", line 492, in invoke\n    result=capture_native_sources(function,args,kwargs,invoke_scoped)\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\native_session_sources.py\", line 171, in capture\n    return state.capture(function,args,kwargs,invoke)\n           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\native_session_sources.py\", line 95, in capture\n    batch=copies.capture(skill_worker)\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\native_copy_production.py\", line 55, in capture\n    messages=tuple(produce(*args,**kwargs))\n                   ~~~~~~~^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\native_session_sources.py\", line 91, in skill_worker\n    batch=skills.capture(epoch,self.session,qualified_worker)\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\native_skill_production.py\", line 82, in capture\n    messages=tuple(produce(*args,**kwargs))\n                   ~~~~~~~^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\native_session_sources.py\", line 86, in qualified_worker\n    batch=readiness.capture_worker(epoch,self.session,function,args,kwargs,actual)\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\native_attribute_readiness.py\", line 81, in capture_worker\n    messages=tuple(invoke())\n                   ~~~~~~^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\native_session_sources.py\", line 81, in actual\n    original['value']=invoke()\n                      ~~~~~~^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\application.py\", line 507, in invoke_scoped\n    result=invoke_with_reads()\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\application.py\", line 529, in invoke_with_reads\n    result=function(*args,**kwargs)\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\application.py\", line 296, in periodic_notifications\n    next(pending[1])\n    ~~~~^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\application.py\", line 340, in _friends_periodic_steps\n    if self.application.world.dungeons.room(self) is None:messages=yield from self._local_periodic_steps()\n                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\local_session.py\", line 518, in _local_periodic_steps\n    answer=growth_guide_sync(self,answer)\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\domain\\growth_guide_flow.py\", line 48, in synchronize\n    with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,write_transaction(db):\n                                                                         ~~~~~~~~~~~~~~~~~^^^^\n  File \"contextlib.py\", line 148, in __exit__\n  File \"G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1\\els_server\\storage\\sqlite_timing.py\", line 145, in write_transaction\n    with db:\n         ^^\nsqlite3.OperationalError: database is locked\n"
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"G:/els/analysis/feature-closure-20261105-v1/achievement-v1/spa-buff-history-v1/test_live_spa.py\", line 124, in run\n    for peer in(a,b,c):await peer.query(0x48d,reply=0x48f)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\social-enhancement-history-v1\\delivery-qa\\achievement_protocol_client.py\", line 28, in query\n    await self.send(kind, payload)\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\social-enhancement-history-v1\\delivery-qa\\achievement_protocol_client.py\", line 13, in send\n    await self.writer.drain()\n  File \"asyncio\\streams.py\", line 386, in drain\n  File \"asyncio\\streams.py\", line 166, in _drain_helper\nConnectionResetError: Connection lost\n",
+  "errors": [
+    {
+      "event": "notification_error",
+      "connection": 3,
+      "error": "OperationalError('database is locked')"
+    }
+  ],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "f854527c525a65aab4dc6745ed7eb8b24c5c0fa43f74cb645ed7b2fc37674ad9",
+    "els_server/domain/environment_buff_flow.py": "33843be3fcd58019d17344e6a3dab1369dc3832b7c2c7363362bb36619bdc1ef",
+    "els_server/storage/achievement_history.py": "f5dd527a0c40a8d117ed91b70d642b74e66acd1ef07e5a262b73ad878ea5ed24",
+    "els_server/storage/achievement_profiles.py": "3a8777975f6bbff233dc5e2beaad847029de9c4c68a2266c4734313cdfe13a53",
+    "els_server/storage/environment_buffs.py": "6dcdeb1a640d2311f97f09c56e24cf3f80c930cf3bafd186bd0f7d21ff19c484"
+  }
+}
