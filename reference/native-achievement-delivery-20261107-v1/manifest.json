@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "status": "SIGNED_PUBLIC_CANDIDATE_NOT_INSTALLED",
+  "version": 92,
+  "exe_sha256": "07aaf89e3d95bacec85f65cb4b9ac7daa6054121a557036c9e91ec7d10003df9",
+  "runtime_archive_sha256": "26c719383a20b72e8f6ab3546d0d90233af70bab6cee224a32a6f4f2cca93379",
+  "parent_launcher": {
+    "version": 91,
+    "sha256": "57b8d2eec93e47b3040a48d9f8004e68306482fbb8c96b3e617ea7a908a9aae9",
+    "source_PR": 927,
+    "source_head": "4c66d239b7c38e526ff27a89c93fb5ca993e159b"
+  },
+  "changed_launcher_source_leaves": 3,
+  "changed_runtime_files": 20,
+  "component_files": 2873,
+  "main_merged": false,
+  "online_installed": false,
+  "local_installed": false,
+  "stable_channel_promoted": false,
+  "files": {
+    "evidence/built-runtime-qualification.json": {
+      "size": 520,
+      "sha256": "7c39c584cefea495443cab57a46ed856be366d7b538180b439fc411212779534"
+    },
+    "evidence/launcher-checks.json": {
+      "size": 261,
+      "sha256": "2dd5a2cdb4eb8ef7e849d14fbf02f819ce1cf56845acd776e9ea09abeda41159"
+    },
+    "evidence/public-component-qualification.json": {
+      "size": 349,
+      "sha256": "6447e499260da8801a4f002b30df45f6ea3f31cdfa635af5d60b8654a26cf89d"
+    },
+    "evidence/qa-scenario-qualification.json": {
+      "size": 943,
+      "sha256": "c390be1fb7d543076fef51cc6ff7c33f0e2c3c06168e8d0ff28258a9f7e7b513"
+    },
+    "launcher-source/AutoUpdate.cs": {
+      "size": 14739,
+      "sha256": "12ab37362c7ae92ec5412d94cca99ef7f3c7a1a80f23d3c62df95ffeb2e411a3"
+    },
+    "launcher-source/UIScrollRuntimeCohort.cs": {
+      "size": 2437,
+      "sha256": "e569d7cf68b97baacc35fdf363251ecedcc75ed6401560bfb63afcd414659a39"
+    },
+    "owned-qa/achievement_fixture.py": {
+      "size": 3341,
+      "sha256": "8e3c5a480a57aef65fa4ce74dce60307663269ffd1ebf7208561fdcb69a53af5"
+    },
+    "owned-qa/achievement_qa_client.py": {
+      "size": 7791,
+      "sha256": "d7362a99d5e2540558517ffa486c3fb079547818921c5e2065aeabada6a64a10"
+    },
+    "launcher-source/resources/ui-scroll-signedFriends.signed.json": {
+      "size": 759381,
+      "sha256": "bcefcf8a0f604dc7e2b08a79625045a8ae741b7d00fff5096bf6e716bdbc7fe5"
+    }
+  }
+}
