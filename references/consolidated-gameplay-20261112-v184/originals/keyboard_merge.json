@@ -1,0 +1,256 @@
+{
+  "ok": true,
+  "parent_build": {
+    "path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\launcher-preview-v183\\build.json",
+    "sha256": "bd1bdc00adb3b8c327def0683a2f2cb4cba0045d4e3f7e67705f0410c2f631f3"
+  },
+  "parent_archive": {
+    "path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\launcher-preview-v183\\runtime-307f8b8f8b409c03b87bc0567184eb5e800a8eefcb1672d54d7b02987ad563cf.zip",
+    "sha256": "307f8b8f8b409c03b87bc0567184eb5e800a8eefcb1672d54d7b02987ad563cf",
+    "size": 192450153
+  },
+  "sources": {
+    "keyboard": {
+      "manifest": {
+        "path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\candidate-manifest.json",
+        "sha256": "18af5d633ae87edc6bbdd5c6c3e0819235899fcf37e479739e74e7bbbd3cdde9"
+      },
+      "patch": {
+        "path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\keyboard-functions.patch",
+        "sha256": "33be81e6bb49ef8e2c46a07fa60591608dea525b5764e18e05c86142a6d03472"
+      },
+      "reused_review": {
+        "path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\publisher-review\\review.json",
+        "sha256": "3dfea83a24359344d5f34ab6b29bed2c435fefa6632c766a9cab7097155859dc"
+      }
+    },
+    "resonance": {
+      "manifest": {
+        "path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate-manifest.json",
+        "sha256": "2db482b3d1598a3c3f179f4aabcb1352ba20a050f593ceda84097b924c6a66c0"
+      },
+      "patch": {
+        "path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\fix.patch",
+        "sha256": "f53d2e2de1ca1fe2140fe8594bf181a3c843debc71a44a43b43f6c0183d00c20"
+      },
+      "reused_review": {
+        "path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\审查与交接.md",
+        "sha256": "bcbf69bff0f41055767304f1d05e6ecb076f4231215d437564ef6f0b3cb0a1e2"
+      }
+    },
+    "fishing_resonance_preview": {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\prospective-fishing-resonance-rebase\\merge-preview.json",
+      "sha256": "fdee69a872c8061cc19362f192277af2c866665e007dbbfa3a543d5e3a916458"
+    }
+  },
+  "shared_file": {
+    "path": "els_server/domain/inventory_items.py",
+    "parent_sha256": "0a6f407468caa666528ab67efea608270a5f82b2d85a658a5b6eccaa178a0588",
+    "sha256": "3c199aa6be33acb1df1cb32f3d703864abcc9972a5cce2ca1434c5c4d5d2d6ae",
+    "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\consolidated-review\\candidate\\els_server\\domain\\inventory_items.py",
+    "size": 101099,
+    "source": "keyboard+resonance"
+  },
+  "parent_anchors": [
+    {
+      "source": "resonance",
+      "parent_after_line": 553,
+      "added_lines": 7
+    },
+    {
+      "source": "keyboard",
+      "parent_after_line": 646,
+      "added_lines": 6
+    }
+  ],
+  "changes": [
+    {
+      "path": "els_server/domain/avatar_set_flow.py",
+      "parent_sha256": "96dba75b82c26e5fdfec5db8d4f48d466317458912e80820bf2e793dda79433c",
+      "sha256": "e76c00100bdc1bf29f94f54f652de1ef7794df1bdeb069abe8fe7b37333148e6",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\source\\els_server\\domain\\avatar_set_flow.py",
+      "size": 4125,
+      "source": "keyboard"
+    },
+    {
+      "path": "els_server/domain/character_preset_coupons.py",
+      "parent_sha256": null,
+      "sha256": "769b5ed6f03ec27d3e578f32ea572b5367a8d1e228a2707498b593d43cff89b3",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\source\\els_server\\domain\\character_preset_coupons.py",
+      "size": 1070,
+      "source": "keyboard"
+    },
+    {
+      "path": "els_server/domain/character_preset_flow.py",
+      "parent_sha256": null,
+      "sha256": "36a2ce5961f7daaefea8af9e4b882c1a865d4867aa99aa3393f40fc30c9117fa",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\source\\els_server\\domain\\character_preset_flow.py",
+      "size": 4857,
+      "source": "keyboard"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "0a6f407468caa666528ab67efea608270a5f82b2d85a658a5b6eccaa178a0588",
+      "sha256": "3c199aa6be33acb1df1cb32f3d703864abcc9972a5cce2ca1434c5c4d5d2d6ae",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\consolidated-review\\candidate\\els_server\\domain\\inventory_items.py",
+      "size": 101099,
+      "source": "keyboard+resonance"
+    },
+    {
+      "path": "els_server/domain/session_dispatch.py",
+      "parent_sha256": "4308aa37668a957f5b5930c95ab3759462bacfbe0bee1fbdbbd40f40fe0e2e82",
+      "sha256": "5aeae9564174315ba6ea06e934310befc37985117706e720bb00ac821048c162",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\source\\els_server\\domain\\session_dispatch.py",
+      "size": 19328,
+      "source": "keyboard"
+    },
+    {
+      "path": "els_server/protocol/avatar_set_messages.py",
+      "parent_sha256": "3faad768047529b73c6b9d568d64adf0efa0ed9e09514e77bf6e3924e2c033a4",
+      "sha256": "07c81de0b581b65ffdf7c9ff41e66a1daebdd73d1b1f854f2c8f9a7e8a92d1d5",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\source\\els_server\\protocol\\avatar_set_messages.py",
+      "size": 2857,
+      "source": "keyboard"
+    },
+    {
+      "path": "els_server/protocol/character_preset_messages.py",
+      "parent_sha256": null,
+      "sha256": "b40918228838b1b049ae4eac6962e0bc0d6be653186d3d03a314c9186cbcab4f",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\source\\els_server\\protocol\\character_preset_messages.py",
+      "size": 1940,
+      "source": "keyboard"
+    },
+    {
+      "path": "els_server/storage/avatar_sets.py",
+      "parent_sha256": "d6381445f417035ac68e9fd559419373c3cb4c5de0a4b6e93052f5a063dbda03",
+      "sha256": "5283f9a86409ebc6760d36f51467bf2dc7f34bbc6a600d6b8f2e66e3fc822569",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\source\\els_server\\storage\\avatar_sets.py",
+      "size": 5344,
+      "source": "keyboard"
+    },
+    {
+      "path": "els_server/storage/character_presets.py",
+      "parent_sha256": null,
+      "sha256": "70d96fa4f2392fbfd5e3f6c98e8ed930600e964a622d984db878baa05667b35d",
+      "candidate_path": "G:\\els\\analysis\\keyboard-functions-20261111-v2\\source\\els_server\\storage\\character_presets.py",
+      "size": 9372,
+      "source": "keyboard"
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "1a8687a72a406f5cd98ffd23444028e2bfc93681ddbdc0c2365844caad6cf743",
+      "sha256": "053eb664baa07b97735b61c03c46630140189e4a46faca99c50607dc53586e91",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\acquisition_policy.py",
+      "size": 21105,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "sha256": "db1f88b40d7474383c46885c9d84340ec2b83a34e72352f4fe117027b52e34bb",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\local_session.py",
+      "size": 171446,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/domain/resonance.py",
+      "parent_sha256": "d238eaf08d5bd83d91ef7a425833e1d2fd9523a9d0225e2937259cc3ff1ef6b7",
+      "sha256": "4037515bb5743cce3812e94e83ae39e48aa7800da832b75e92b6dc6ee5dab00a",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\resonance.py",
+      "size": 4350,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/domain/resonance_2026_reset_items.py",
+      "parent_sha256": "559d023aab605adec4aad7ebc302f83e659b7db32d7165d3940c9be49c718c94",
+      "sha256": "491d8786cd9c6c38dbf124c3069e72ac9139e2d744e0e5bf671006a39c3cef30",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\resonance_2026_reset_items.py",
+      "size": 2675,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/domain/resonance_page_expansion_flow.py",
+      "parent_sha256": "3959da00c5e09c32f580d1840b6ca57c0a417aae95994b0d3779c0abf4490dee",
+      "sha256": "4089892e4834f6d343ce3974334538d88094da2d814c3122cac5ac05789173c5",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\resonance_page_expansion_flow.py",
+      "size": 1994,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/domain/shop_additions.py",
+      "parent_sha256": "69ee1200154c696d3b5f0fec9a9e396232852a4269bb6ec2ef5829f1ff8b8a3c",
+      "sha256": "f7d9df6b3f29340d7b960780e82af14d171752f4c262ed8a49af3b157cd9f8f5",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\shop_additions.py",
+      "size": 3583,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "30ac91851cd374f3fc9914a745b3ab7703a0c4355d93561b8e9465e1104a9ea8",
+      "sha256": "7ac6f2b2397b8d65a9ad87b414d4ddc06990e9f042d85328b1843846cfaa33c8",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\inventory_state.py",
+      "size": 35810,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/storage/resonance_2026_resets.py",
+      "parent_sha256": "0e5f99effb87e4000ea5d0e25ac3096b4800a37af78c3cea6b23e96f0b20cc65",
+      "sha256": "46fbbcb55514b9b660f22193e6f6ca37e67e8dc9d98e4fbcca29b74af92e967b",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\resonance_2026_resets.py",
+      "size": 8976,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/storage/resonance_page_expansion.py",
+      "parent_sha256": "625ce551d053a5d17b36a94652e00e16b30b6db546037c4d3e0052ccf349b816",
+      "sha256": "cc429438c6a2af8e50fcfd96d2191f78f5fbe9e7074dd1f57e855f12d2b80c1b",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\resonance_page_expansion.py",
+      "size": 6018,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/storage/resonance_state.py",
+      "parent_sha256": "24bbcf331ecfcb665201d298aff650d7ef4d146bd15e2f6a16152f89389a46d2",
+      "sha256": "8601c9f03f98fc84b26ad9a5a41b8a11aa15d613b9e4b694285d1bccd15bc8f9",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\resonance_state.py",
+      "size": 8445,
+      "source": "resonance"
+    },
+    {
+      "path": "els_server/storage/shop_state.py",
+      "parent_sha256": "9e5188364974b50b2a91fd303bd794243fd5721cf0fce0a4aefd4f5de1ed136d",
+      "sha256": "44006fb364eac8a15a236b3fff7bafe77d8a709af9189990cb9dfc0b14543648",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\shop_state.py",
+      "size": 23312,
+      "source": "resonance"
+    }
+  ],
+  "keyboard_leaf_count": 9,
+  "resonance_leaf_count": 12,
+  "unique_runtime_leaves": 20,
+  "keyboard_exclusive_reader_paths": [
+    "els_server/domain/character_preset_coupons.py",
+    "els_server/domain/avatar_set_flow.py",
+    "els_server/storage/avatar_sets.py",
+    "els_server/protocol/avatar_set_messages.py",
+    "els_server/storage/character_presets.py",
+    "els_server/protocol/character_preset_messages.py"
+  ],
+  "recovery_reader_paths": [
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/character_preset_coupons.py",
+    "els_server/domain/resonance.py",
+    "els_server/domain/resonance_2026_reset_items.py",
+    "els_server/domain/avatar_set_flow.py",
+    "els_server/storage/avatar_sets.py",
+    "els_server/protocol/avatar_set_messages.py",
+    "els_server/storage/character_presets.py",
+    "els_server/protocol/character_preset_messages.py"
+  ],
+  "stale_fishing_preview_paths": [
+    "els_server/domain/raid_reward_items.py",
+    "els_server/domain/retained_box_openings.py",
+    "els_server/storage/fixed_cubes.py"
+  ],
+  "installation_performed": false
+}
