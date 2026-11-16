@@ -1,1 +1,3 @@
-# V233 guild, quest, performance and failure evidence repairs
+# V233 village crafting materials and Dark Gate rewards
+
+Reviewed candidate; native gameplay acceptance remains pending.
