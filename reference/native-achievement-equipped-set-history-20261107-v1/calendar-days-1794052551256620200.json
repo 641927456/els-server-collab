@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "production_clock_patch": false,
+  "isolated_flow_clock_dependency_fixture": true,
+  "natural_midnight": false,
+  "native_Game": false,
+  "checks": [
+    "Actual native cold entry records only one account/date across siblings;23:59:59does not add a date, original periodic upkeep at isolated00:00:00records the100th date and emits completion42 without a new counter request",
+    "Jumping across three offline dates adds only the entered date; late caller failure rolls back both source and progress; retry and same-date primary/sibling replay add exactly one"
+  ],
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "522747c52236850812eb2736ccb6de9f6005eb110d6f484d174f3ce210522322",
+    "els_server/domain/guild_agit_flow.py": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e",
+    "els_server/storage/achievement_collections.py": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+    "els_server/storage/achievement_history.py": "c27161c6cde476c2108f9baefac0e636323feb91fc3ed970f596b89a7df91a2d",
+    "els_server/storage/achievement_profiles.py": "a037ea02a31543b3bcf644cc5be849ea0fd7a9093e105470eaa4087092b5012b"
+  }
+}

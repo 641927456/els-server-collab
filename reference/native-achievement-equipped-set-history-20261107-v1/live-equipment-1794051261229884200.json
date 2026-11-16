@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "retained_owned_equipment_fixture": true,
+  "checks": [
+    "Cold role reads actual worn items; bag accessories do not count, siblings use maximum instead of sum and foreign four-piece account is excluded",
+    "Actual104/105 fourth armor and third/sixth accessories complete372/297/298 immediately; normal unwear does not retract attained achievement",
+    "Repeated native reads are stable; cold sibling shares account completion with its own independent display"
+  ],
+  "connected_source_types": 41,
+  "connected_definitions": 248,
+  "remaining_source_types": 19,
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "fe27e6f951c931d9054b60f7e8854fc080ffb967284a9b6c5e76f1da31bab23c",
+    "els_server/storage/achievement_collections.py": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+    "els_server/storage/achievement_profiles.py": "5531b6886378a00208a5b99bea450f44a74147629122a0a40d900fb67a5e5ff0"
+  }
+}

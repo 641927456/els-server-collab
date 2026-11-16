@@ -1,0 +1,91 @@
+{
+  "release": "spa-and-npc-bag-sale-20261111-v175",
+  "source_manifest_sha256": "9bac9bb21ee84f488d44accbd2691fbeb9dd1239e01ed4e0821593eb4778be34",
+  "parents": {
+    "online": {
+      "release": "ariel-housing-contracts-20261111-v174",
+      "manifest_sha256": "f35ef03d36b44a260d881042a36c3012ec5b66e238e610edb2b69809bd43cd5f"
+    },
+    "local": {
+      "release": "unified-server-63cc8b3e048e138e-515ae81eee62",
+      "manifest_sha256": "c54e86d7f70dbde2627ee4dbe13542f2843ce347725c487607cae9935422d837"
+    },
+    "launchers": {
+      "release": "ariel-housing-contracts-20261111-v174",
+      "manifest_sha256": "ece0845d53bbe69db24b8811974d26df0ac566c45b807375b3b775d977e71803"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/equipment_durability.py",
+      "parent_sha256": "ad9d1e05207205a033efea3afcc89c9015258f24ecb980074c473a8907bbae40",
+      "sha256": "ee238d976b3d68614c804f3db00c4de625bb6b9bd5485bf8673e5ed6535925cf",
+      "size": 3641,
+      "author_final_sha256": {
+        "npc-inventory-sale": "ee238d976b3d68614c804f3db00c4de625bb6b9bd5485bf8673e5ed6535925cf"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/npc_sale.py",
+      "parent_sha256": "335d4b5ec04ae2e8b5f1e331b69123a05b12fce03132adc19467e58f71174b3c",
+      "sha256": "e91780c2c77cc8932a05745e3c9c20e7b74b43e74a609b19fc9c5a1ccf953e78",
+      "size": 2148,
+      "author_final_sha256": {
+        "npc-inventory-sale": "e91780c2c77cc8932a05745e3c9c20e7b74b43e74a609b19fc9c5a1ccf953e78"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/npc_sale_messages.py",
+      "parent_sha256": "13a5a65517009031678c122dacd383295b229ceeb955436d181c7ad0bc4721c0",
+      "sha256": "058741fd48107259203dcefd03549fd21c1fd04a0651973f6f229d812276ab7f",
+      "size": 2351,
+      "author_final_sha256": {
+        "npc-inventory-sale": "058741fd48107259203dcefd03549fd21c1fd04a0651973f6f229d812276ab7f"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/equipment_durability.py",
+      "parent_sha256": "903f226c7e5a77d47461a8d9f42e5993a7b9e066f04902a83c68d637188b6666",
+      "sha256": "f47f9fa590ee907e537b19b7ccdccc15837a901682679edfad809786800a900d",
+      "size": 2444,
+      "author_final_sha256": {
+        "npc-inventory-sale": "f47f9fa590ee907e537b19b7ccdccc15837a901682679edfad809786800a900d"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "b20b824804d673daf0e1d23fbd5e5ff3b3659ccb3f5ec0ed5b7045320a2582bd",
+      "sha256": "de0fc77ddbc16f8e4ef3239d871ab423e27103efb3fb5eb827e57c38e7aa12ca",
+      "size": 35653,
+      "author_final_sha256": {
+        "spa": "b20b824804d673daf0e1d23fbd5e5ff3b3659ccb3f5ec0ed5b7045320a2582bd",
+        "npc-inventory-sale": "ab5c3b2d9ba2fea6c8e8ec986eaf2945d9753ba246af7d796d041f7c3966760c"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "parent_sha256": "f07a92f301015a1d99ab9af681fac9cf1eda61a11275a41974dd618acc717b1b",
+      "sha256": "a42f58eae7209510530108b32cd1abe976674151998248ecbbd06f4d55bded6b",
+      "size": 23905,
+      "author_final_sha256": {
+        "npc-inventory-sale": "a42f58eae7209510530108b32cd1abe976674151998248ecbbd06f4d55bded6b"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/npc_sale.py",
+      "parent_sha256": "c8211f47b896d7ea533610dce0972de458da1357e2d50ebee71c521600668174",
+      "sha256": "457b65808406efe4adf368eb6f06612acd416c5907d73a9b52692e53a7f38347",
+      "size": 5341,
+      "author_final_sha256": {
+        "npc-inventory-sale": "457b65808406efe4adf368eb6f06612acd416c5907d73a9b52692e53a7f38347"
+      },
+      "scope": "server"
+    }
+  ]
+}
