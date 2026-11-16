@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "distinct_passed_cases": 7,
+  "skipped": 0,
+  "reused_passed_cases": {
+    "run": "tests-affected-outer-notices.json (local only)",
+    "file_sha256": "1b09a02dd11e40c09fe10f8ab087824a906b40522229217186886c6f79648153",
+    "cases": [
+      "Carry.test_identity_is_reserved_above_the_whole_route_not_only_current_stage",
+      "Carry.test_shared_stage_preserves_each_owner_and_expiry_during_loading",
+      "Carry.test_solo_live_actor_and_receipts_survive_real_stage_without_respawn",
+      "Carry.test_solo_owner_expiry_during_stage_loading_frees_only_its_actor",
+      "OriginalCapture.test_original_captured_summon_roundtrips_qualification_and_long_encounter"
+    ]
+  },
+  "corrected_fixture_run": "tests-scripted-final.json",
+  "source_hashes": {
+    "els_server/domain/dungeon_routes.py": "faefe5ab1c828cafcc14cc94b19d3d2d32bb793625cb304e56f12d9a330592c5",
+    "els_server/domain/local_session.py": "98f050a2e25f2f44a0bd751bf0f89578ec504342a2309c38df0bc2cc0d8035b0",
+    "els_server/domain/dungeon_flow.py": "b2ec49aa3aab3c2037bfd6d42a2ef1552f64d68004f35c422cf0bf8af124ce0c",
+    "els_server/domain/dungeon_settlement_commands.py": "2c9bef210a727e19c84c8013f7e470817921c0ebb3534d0a8c24f40fb5ca4d04",
+    "els_server/domain/friends_spawns.py": "f96bf5238792ce119858a2d4e8f95f7620353655ad67387ca23659bea9405dd5"
+  },
+  "initial_failures": [
+    {
+      "attempt": "old fixture admission/HP context",
+      "cases": 3
+    },
+    {
+      "attempt": "outer session appends existing unrelated notices",
+      "cases": 2
+    }
+  ],
+  "fixture_changes": "Current authenticated99-level session and inner dispatch; legacy El Tree enemy section excluded from captured summon scope.",
+  "production_changed_after_passing_cases": false,
+  "private_database_only": true,
+  "installed": false,
+  "natural_GUI": false
+}

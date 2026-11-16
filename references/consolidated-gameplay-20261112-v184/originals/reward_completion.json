@@ -1,0 +1,72 @@
+{
+  "archive_sha256": "e4dfa69424503fde9b12dfc7aee9860c20fd2b2fb53d14c9c6b3234fb42ba410",
+  "tested_against": [
+    "dungeon-result-retry-party-hud-20261111-v182",
+    "dungeon-drop-completion-20261111-v1",
+    "dungeon-settlement-followup-20261111-v1",
+    "dungeon-reward-gaps-20261111-v1"
+  ],
+  "current": {
+    "online": "dungeon-result-retry-party-hud-20261111-v182",
+    "local": "unified-server-844492cc0c41e26c-f24298f0058c"
+  },
+  "tests": {
+    "passed": 5,
+    "henir_owned_templates": 38,
+    "henir_open_cases": 87,
+    "natural_gui": false,
+    "log_sha256": "65582d03710b385ef0ae7fe4253e37ec942f022fa447b1064c3df58b4e5ece7d"
+  },
+  "files": [
+    {
+      "path": "els_server/data/henir_chaos_boxes.json",
+      "parent": "releases/online/dungeon-result-retry-party-hud-20261111-v182",
+      "before_sha256": null,
+      "after_sha256": "7919a9f585e4a80151f813c6564374b43eb0edbc1647be0e91d5957c42b5f1f9",
+      "current_sha256": {
+        "online": null,
+        "local": null
+      }
+    },
+    {
+      "path": "els_server/domain/henir_chaos_boxes.py",
+      "parent": "releases/online/dungeon-result-retry-party-hud-20261111-v182",
+      "before_sha256": null,
+      "after_sha256": "e56ae414875148b6d5561e734f1e4e9890e7bad82453ed3541f45f5643016a96",
+      "current_sha256": {
+        "online": null,
+        "local": null
+      }
+    },
+    {
+      "path": "els_server/domain/owned_reward_boxes.py",
+      "parent": "releases/online/dungeon-result-retry-party-hud-20261111-v182",
+      "before_sha256": "b6de9a669f3724fa113eeab6e62cb7da3f864f79491cc8f44521aaef92460fd2",
+      "after_sha256": "27ab5ebc180291fbf68984d0ce2a8312e8451e4e1a9495d265500417535d13e9",
+      "current_sha256": {
+        "online": "b6de9a669f3724fa113eeab6e62cb7da3f864f79491cc8f44521aaef92460fd2",
+        "local": "b6de9a669f3724fa113eeab6e62cb7da3f864f79491cc8f44521aaef92460fd2"
+      }
+    },
+    {
+      "path": "els_server/domain/random_mission_flow.py",
+      "parent": "analysis/dungeon-reward-gaps-20261111-v1/candidate",
+      "before_sha256": "d514239296bfaa448b509c18bf7c6fafad0cd48abf7e075baadd95e0511a2007",
+      "after_sha256": "069486059fc442592184d7ea9ccfcc11d32a41ce4035eeee8e5f4cd08461352e",
+      "current_sha256": {
+        "online": "d8f05e27d8b623ca6782c3a9281cff1599931d7cb1c93a9666d0ab578231134c",
+        "local": "d8f05e27d8b623ca6782c3a9281cff1599931d7cb1c93a9666d0ab578231134c"
+      }
+    },
+    {
+      "path": "els_server/storage/random_missions.py",
+      "parent": "releases/online/dungeon-result-retry-party-hud-20261111-v182",
+      "before_sha256": "33de799928a0ab8cdc21d1ef6712cb2eed429f094c14c21fb6b5cb65687eb1f0",
+      "after_sha256": "ef78b53154ceffe9db7be834ef519d803f765d67cde82f186b190d2eb04e44e4",
+      "current_sha256": {
+        "online": "33de799928a0ab8cdc21d1ef6712cb2eed429f094c14c21fb6b5cb65687eb1f0",
+        "local": "33de799928a0ab8cdc21d1ef6712cb2eed429f094c14c21fb6b5cb65687eb1f0"
+      }
+    }
+  ]
+}
