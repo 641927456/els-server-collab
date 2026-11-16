@@ -1,0 +1,161 @@
+{
+  "scope": "卡米拉自由训练、对练武器和防具、两档斗士饰品 AP 购买与余额和排行同步",
+  "parent": {
+    "online": {
+      "release": "npc-exchange-integration-20261110-v139",
+      "path": "releases/online/npc-exchange-integration-20261110-v139",
+      "manifest_sha256": "1985717dbb7e20741e83e10392568c185be982fc29fb9de402bbba17aaf2d797"
+    },
+    "local": {
+      "release": "unified-server-87845f75f1112256-e21ce7c0d5e8",
+      "path": "releases/local/unified-server-87845f75f1112256-e21ce7c0d5e8",
+      "manifest_sha256": "a2f4fd44f8ac7eb118471fce7b554a94eb2ee02f8220ff2f6004c5c3b72b69d4"
+    },
+    "launcher": {
+      "release": "npc-exchange-integration-20261110-v139",
+      "sha256": "3ca851f6f2bc42619694f0c1ffe27d8414c20dd2390e74dcd923b761ca300bd1"
+    }
+  },
+  "archive": "camilla-training-ap-shop-server-delta-v5.zip",
+  "archive_sha256": "f5d408eea30c5dafa77d91744af6a2494f0f7c18a50f373c47e0989ccf4d923b",
+  "files": [
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "base_sha256": {
+        "online": "452a1f5c32b417d2b978e14c767ed9559c046735c5fef8df874c7494a7c8b149",
+        "local": "452a1f5c32b417d2b978e14c767ed9559c046735c5fef8df874c7494a7c8b149"
+      },
+      "sha256": "ece13599fac061d46a36d50f0ba265d0a2425bbfb6df7209a14c07be201d427b"
+    },
+    {
+      "path": "els_server/domain/camilla_ap_shop.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "524de35923cbe26a6345ec0d5d3aebdd8ed8baccecf4e8d9d2b03c63fd75c5d2"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "base_sha256": {
+        "online": "60293e7827e9aab36c65d85c18ac070278d83560475d03cfa5bcdef1a146644a",
+        "local": "60293e7827e9aab36c65d85c18ac070278d83560475d03cfa5bcdef1a146644a"
+      },
+      "sha256": "b988578fc1b95c683549d907dc6277d6cec6bf8b1f948352d9923d5def08078e"
+    },
+    {
+      "path": "els_server/domain/npc_training_flow.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "34eeb952fcb4bdc352fd2bb826135a3fce0dcb45b606973081cac0a294820808"
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "base_sha256": {
+        "online": "ffea182c950273c4acc76150d46a31d1f3b9362dd5b8ae56ce3ca73cf38af5b3",
+        "local": "ffea182c950273c4acc76150d46a31d1f3b9362dd5b8ae56ce3ca73cf38af5b3"
+      },
+      "sha256": "bb3e7b346f64692b00f53b40a841c7cfb4bfb235874335da87b5698779957093"
+    },
+    {
+      "path": "els_server/protocol/npc_trade_messages.py",
+      "base_sha256": {
+        "online": "7051fc19b87b372490fc3685129c23d37ff16e81ca1f5639f039b12d3cd766ad",
+        "local": "7051fc19b87b372490fc3685129c23d37ff16e81ca1f5639f039b12d3cd766ad"
+      },
+      "sha256": "77d159933521e726fa35b1a78394d66454865bc045766557d77565b42a47ce8d"
+    },
+    {
+      "path": "els_server/protocol/npc_training_messages.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "02eb5fe166952b52933fe4b7379e8663f69d0e4bbf88778a7273ea6bde64fcc3"
+    },
+    {
+      "path": "els_server/protocol/repair_messages.py",
+      "base_sha256": {
+        "online": "145e4ed8a77f6f8a67bbcc844428957155e802fcbbdc480c7f1a3bc97f978cb2",
+        "local": "145e4ed8a77f6f8a67bbcc844428957155e802fcbbdc480c7f1a3bc97f978cb2"
+      },
+      "sha256": "47b2aebd50fc5308b177467c257beb28f1fbb5a0404f0a4dbdc9ad8cb0e49dc2"
+    },
+    {
+      "path": "els_server/storage/characters.py",
+      "base_sha256": {
+        "online": "a3aa8298cc2323c1c58bb00e6177576300ca39f049729ede84f4bcfb08625357",
+        "local": "a3aa8298cc2323c1c58bb00e6177576300ca39f049729ede84f4bcfb08625357"
+      },
+      "sha256": "b99d8003a854f29452a248c603e95cb4b8293b7a0534b4f6a2211e9b78459a23"
+    },
+    {
+      "path": "els_server/storage/equipment_repair.py",
+      "base_sha256": {
+        "online": "27e9ed0b7128dd246dc96e46ef40262a201e94f750ff73cb09bdc965b490b59f",
+        "local": "27e9ed0b7128dd246dc96e46ef40262a201e94f750ff73cb09bdc965b490b59f"
+      },
+      "sha256": "de019e2e2645fb13f868cac502d455ba8bb3b10cc6fbc6cb8e49803616c7312f"
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "base_sha256": {
+        "online": "3383dafe5ae45893fd171306f5ad56f85966b315e6a4de3ef420c52205e7802d",
+        "local": "3383dafe5ae45893fd171306f5ad56f85966b315e6a4de3ef420c52205e7802d"
+      },
+      "sha256": "768aa6cdbea62a9c70732e7acdfdb7f5c4d3e2753890782f74509087dc7c38ea"
+    },
+    {
+      "path": "els_server/storage/pvp_official_profiles.py",
+      "base_sha256": {
+        "online": "edbfd86805006cb354f0c31162fcc3c138109bdc629156cc70046310aa5afbbf",
+        "local": "edbfd86805006cb354f0c31162fcc3c138109bdc629156cc70046310aa5afbbf"
+      },
+      "sha256": "6c713ca795ab924fe09416cbc7549cd5c885c57dae93d8fab0486ae4947771ff"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "base_sha256": {
+        "online": "404e88ee7e4528bd8e68b9104d6d9452f718c7aa91bbff0057727f35fac093ca",
+        "local": "404e88ee7e4528bd8e68b9104d6d9452f718c7aa91bbff0057727f35fac093ca"
+      },
+      "sha256": "af5d51e0d4faf517e9a48b7ab6f0dc8d47d578d7a359508eb30c9fd038d70cd5"
+    }
+  ],
+  "verification": {
+    "command": "python -B analysis/camilla-training-ap-shop-20261110-v1/test_camilla_v3.py",
+    "tests_passed": 2,
+    "cases": [
+      "原版 190 训练回包、限制入口、返回同一城镇、没有新增存档奖励",
+      "原版 EA 混合订单及 EB/568；完整 Unit 的 AP 7A 和模式 0 排行记录通过原版读包，恢复父版 AA/AE；重登投影、修理及回购保留 AP",
+      "排行、角色、店铺、AP 不足和预编码失败拒绝并回滚",
+      "V139 专用兑换配额与旧原力兑换路由回归"
+    ],
+    "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "native_fields": {
+      "m_PricePvPPoint": "6D827C -> 6D82FD, packed item +0x20",
+      "m_BuyPvpRankCondition": "6D744C -> 6D746F, packed item +0xD0",
+      "AP": "EB DTO+C -> 102C8A0 -> physical Unit+1A8. Full Unit DTO+7A -> 87A94D -> (Unit+48)+160.",
+      "rank": "Full Unit DTO+6A map, key 0 row+20 -> 87AA8C -> (Unit+48)+178, physical Unit+1C0 -> DFC140.",
+      "training": "0x18F -> 0x190 reader 21B68D0 -> D9D2F0; room 39000, template 1",
+      "shop_open": "235B820 -> 0x51C (house 40016, selector 0); 0x51D -> 2302830 -> native shop",
+      "training_loading": "Isolated original client sends 0x91 after 0x190; reuse 0x92/0x93 then one 0x96 at complete."
+    },
+    "natural_client_ui": false,
+    "installed": false,
+    "git_submitted": false
+  },
+  "compatibility": {
+    "server_only": true,
+    "new_schema": false,
+    "templates_use_v139_existing_inventory_readers": true
+  },
+  "official_gameplay_sources": [
+    "https://els.ztgame.com/game/m_000-1328-00000-803257.shtml?ms=64",
+    "https://els.ztgame.com/game/m_003-1641-0032e-522396.shtml?ms=805&mt=814",
+    "https://els.ztgame.com/game/m_000-1641-00336-805680.shtml"
+  ],
+  "supersedes_archive_sha256": "780fa9501bd9a9b4c693959d9e2eee6e4281af97c72d93ba4a74efad9154574a"
+}

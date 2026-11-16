@@ -1,0 +1,124 @@
+{
+  "release": "pet-bag-inspect-spa-and-npc-menus-20261111-v176",
+  "source_manifest_sha256": "0f3d7b73bcfadc2ca4670e4c7f13ce15c634fc7efc0a26f8a58c854e5d35dc5f",
+  "parents": {
+    "online": {
+      "release": "spa-and-npc-bag-sale-20261111-v175",
+      "manifest_sha256": "b1e39b1db7ec3c1ab19c8bc7fdee5f02adca0588761191b84977b787b575c063"
+    },
+    "local": {
+      "release": "unified-server-22c4515ef656d74b-ce14da0010b9",
+      "manifest_sha256": "cab97d73c44321af0d64e088993d13d455374c0462977a5d3d141620a88ec433"
+    },
+    "launchers": {
+      "release": "spa-and-npc-bag-sale-20261111-v175",
+      "manifest_sha256": "f64ff9d62b4098506d9f60b7dcaf4626cd46196deb16ffe76c83fb787cd27ffb"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/companion_flow.py",
+      "parent_sha256": "2769d7275bfd890666be003038650c7fd820846b744350b091233272cb531125",
+      "sha256": "bbafac8cef291e5c3a39d3208dafa70f69dd896f05b4a74e9c402b337bd35186",
+      "size": 3905,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/fashion_state.py",
+      "parent_sha256": "232903caf3feb1909f2733dd8bd5ba32b7bef85378f7903f4069e4b1716a06de",
+      "sha256": "541f461cd536807d3ef1dc71305b5c560f8db75b60345b2b03134f0abe4eb076",
+      "size": 6878,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pet_bag_flow.py",
+      "parent_sha256": null,
+      "sha256": "08a717c80a320a2f1b112d16486254d8355bd10da2b93ba51e2be9166e04108e",
+      "size": 2783,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pet_progression.py",
+      "parent_sha256": "f75d0760b7c1f3ae5ff09f6405b70cd9a65799907877fd54c759869553abfd9d",
+      "sha256": "bafad47b8d3807b3a2a346c05ee2c74eff1c8f15ff7956a091ca80e7f2d1057d",
+      "size": 1904,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pet_progression_flow.py",
+      "parent_sha256": "04cf3e9161fbc61e0394259046ef0e548fcf90374acc6060b4909a2f131a6856",
+      "sha256": "5ee20b799e5c52595604b9f3a36fe5dff108a7c63b817e0a203b05466837defa",
+      "size": 2716,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "parent_sha256": "6d0b3728cf912f1291024ed16efba3996fd53be6e7a16c5e45d375758983cdd8",
+      "sha256": "521836f0fba5624c6af7f64758198abdda5442644fe4035fb329e14a45d85ac1",
+      "size": 25581,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/raid_economy_flow.py",
+      "parent_sha256": "6d2396f79e4a9afcab324c40d3883ddb91ae3786bcdb713e5b276a66dea04d73",
+      "sha256": "9fe6ccacae8f894021bc5e94a5134ee34db9ef882e144334525a970c4e84a20d",
+      "size": 14494,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/companion_messages.py",
+      "parent_sha256": "02dbeff126ed3a9a85fa86abb7ea87a91b037603d383896668bfee487994fef0",
+      "sha256": "8cdcac890173f1dcdf2c330aac38d93cb19ae2ec4ca9e5fcd8092f45bf5e54d8",
+      "size": 4526,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/pet_bag_messages.py",
+      "parent_sha256": null,
+      "sha256": "10e345408f875389120baaf2e126403692726d7e091135a6a6fb962f2e3737c3",
+      "size": 1791,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/item_instances.py",
+      "parent_sha256": "0b684e1707c0787ecf1716565b99d134af6dfa1f93e47cafb401db3c51c115d9",
+      "sha256": "cdcfc0c6a415f1171b6d43c8f12e842a4181cbd5d8af46246f95d8ed5da9bb2c",
+      "size": 9630,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pet_bag.py",
+      "parent_sha256": null,
+      "sha256": "63727a79ef4b6f1bfb5093659d7488d5ad5d625c401e33b3ae91191ab87ecdbf",
+      "size": 12320,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pet_progression.py",
+      "parent_sha256": "067b0245481e62efe8d8f72095cc247a26d20466c8ad66f986f42da6211ea35d",
+      "sha256": "f5f2d274707fc7f33f99a4dc6c4f3b2c9055537db13ff1f4f9f93185c93c3c40",
+      "size": 9403,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "parent_sha256": "2e8c65293f3b74c8648db54b4bc2850a11b47710255a58538ef65b5af3111720",
+      "sha256": "dc7ced7267873cf42ac41b902adb80f4b0edccdbe9aad5d165223ac4d97b1032",
+      "size": 25454,
+      "cohort": "pet-bag-and-auto-feed",
+      "scope": "server"
+    }
+  ]
+}
