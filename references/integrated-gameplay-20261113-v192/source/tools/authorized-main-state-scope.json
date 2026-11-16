@@ -1,0 +1,810 @@
+{
+  "schema": 1,
+  "user_authorized_roots": 22,
+  "skill_variants": 46,
+  "intended_dungeon_lifetime": true,
+  "pvp_unchanged": true,
+  "independent_states_unchanged": true,
+  "enemy_states_unchanged": true,
+  "permanent_across_death_or_dispel": false,
+  "business_or_client_installed": false,
+  "state": "isolated_candidate_for_native_acceptance_not_installed",
+  "normal_substage_reuses_game_actor": true,
+  "selected_templates_exit_store_cache_filtered": true,
+  "natural_combat_accepted": false,
+  "passive_effects_added": 0,
+  "source_sha256": {
+    "G:\\els\\analysis\\buff-dungeon-duration-20261113-v1\\all-skills\\balance-assessment\\逐项评估.json": "552a19247fc10dbb8dd804a1a6dd5257898cddaf6f3ff15d8eaeab62654eacf9",
+    "G:\\els\\analysis\\world-buff-triggers-20261101-v1\\enum.json": "5c568786e9ac7e28109fab1083cc468b83231312d812c8fd9c4dbdaa44982731",
+    "G:\\els\\analysis\\world-buff-triggers-20261101-v1\\factor-calls.json": "143a2bfabe388f58b25e2266b5de523f929ada731df77e37f8e0a87bbde01df4"
+  },
+  "explicitly_excluded_factor_ids": [
+    38,
+    717,
+    875,
+    876,
+    962,
+    965,
+    1320,
+    1490,
+    1491,
+    1492,
+    1493,
+    1494
+  ],
+  "rows": [
+    {
+      "root": 21008,
+      "name": "末日誓言",
+      "character": "艾索德",
+      "skill_variants": [
+        21008,
+        21044
+      ],
+      "main_factors": [
+        {
+          "factor": 321,
+          "factor_key": "BFI_SI_SA_ESK_ARMAGEDON_BLADE_MEMO",
+          "template": 322,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 16,
+            "2": 7,
+            "3": 8
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "independent-main-state-links/REPORT.md; arm独立减量块及arm-stub-register-proof.json",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "优先延长普通/真的剑身与自身攻击主状态；变化版不随本项获准，须按其实际特性与冷却另评。"
+    },
+    {
+      "root": 21018,
+      "name": "[变化]爆裂斩",
+      "character": "艾索德",
+      "skill_variants": [
+        901020
+      ],
+      "main_factors": [
+        {
+          "factor": 1495,
+          "factor_key": "BFI_BUFF_SPLASH_EXPLOSION_FORCE",
+          "template": 1389,
+          "source_default_seconds": 20,
+          "behaviors": {
+            "1": 42
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延自身抗性主状态；普通/真版不纳入，也不扩展成异常免疫。"
+    },
+    {
+      "root": 21022,
+      "name": "幻象之剑",
+      "character": "艾索德",
+      "skill_variants": [
+        21022,
+        21054
+      ],
+      "main_factors": [
+        {
+          "factor": 30,
+          "factor_key": "BFI_SI_SA_ETK_PHANTOM_SWORD",
+          "template": 29,
+          "source_default_seconds": 40,
+          "behaviors": {
+            "1": 43,
+            "2": 16
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "independent-main-state-links/ADDITIONAL_WEAPONS.md: BBT43持有ThirdBlade，未见独立主期限",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延幻剑主状态；追加攻击仍由原指令产生。Conwell施放计数、独立被动与初次召剑命中效果不自动刷新或重放。"
+    },
+    {
+      "root": 21100,
+      "name": "圣光之剑",
+      "character": "艾索德",
+      "skill_variants": [
+        21100,
+        21113
+      ],
+      "main_factors": [
+        {
+          "factor": 2067,
+          "factor_key": "BFI_BUFF_EST_HOLY_SWORD",
+          "template": 1945,
+          "source_default_seconds": 10,
+          "behaviors": {
+            "1": 32,
+            "2": 33
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 2079,
+          "factor_key": "BFI_BUFF_EST_HOLY_SWORD_ULTIMATE",
+          "template": 1945,
+          "source_default_seconds": 15,
+          "behaviors": {
+            "1": 32,
+            "2": 33
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "independent-main-state-links/ADDITIONAL_WEAPONS.md: BBT32/33→真实DamageData FORCE_DOWN×0.8；施放动作巨剑不在主Buff范围",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延召剑主状态；保留指令触发与击倒修正数值。"
+    },
+    {
+      "root": 21209,
+      "name": "致命之剑",
+      "character": "艾索德",
+      "skill_variants": [
+        21209,
+        21230,
+        901015
+      ],
+      "main_factors": [
+        {
+          "factor": 236,
+          "factor_key": "BFI_BUFF_CRITICAL_SWORD",
+          "template": 49,
+          "source_default_seconds": 20,
+          "behaviors": {
+            "1": 16,
+            "2": 17,
+            "3": 47
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 1396,
+          "factor_key": "BFI_BUFF_CRITICAL_SWORD_FORCE",
+          "template": 1270,
+          "source_default_seconds": 20,
+          "behaviors": {
+            "1": 17,
+            "2": 47
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延自身主状态；数值按实际版本，不叠加多个版本的效果。"
+    },
+    {
+      "root": 23205,
+      "name": "自然之力",
+      "character": "蕾娜",
+      "skill_variants": [
+        23205,
+        23230
+      ],
+      "main_factors": [
+        {
+          "factor": 23,
+          "factor_key": "BFI_SI_A_LWS_NATURE_FORCE",
+          "template": 23,
+          "source_default_seconds": 15,
+          "behaviors": {
+            "1": 29,
+            "2": 32,
+            "3": 90
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 1529,
+          "factor_key": "BFI_SI_A_LWS_NATURE_FORCE_UPGRADE",
+          "template": 23,
+          "source_default_seconds": 18,
+          "behaviors": {
+            "1": 29,
+            "2": 32,
+            "3": 90
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延自身指令强化；追加伤害仍按实际指令触发。"
+    },
+    {
+      "root": 24008,
+      "name": "黑暗方舟",
+      "character": "雷文",
+      "skill_variants": [
+        24008,
+        24043,
+        904021
+      ],
+      "main_factors": [],
+      "native_binding_complete": true,
+      "native_evidence": "archenemy-independent/held-lifetime-evidence.json: 基础/真/变化原生持有枪30秒期限与发射重置",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延自身主状态；枪击必须由实际指令/主动技产生，不额外自动攻击。"
+    },
+    {
+      "root": 24040,
+      "name": "[变化]爆破之刃",
+      "character": "雷文",
+      "skill_variants": [
+        904008
+      ],
+      "main_factors": [
+        {
+          "factor": 1358,
+          "factor_key": "BFI_BUFF_BURSTING_BLADE_CORE",
+          "template": 1237,
+          "source_default_seconds": 15,
+          "behaviors": {
+            "1": 87,
+            "2": 96,
+            "3": 17
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "只优先延变化版主增益；过热扣血、输入与独立10秒增益仍按原规则。普通版无此主Buff。"
+    },
+    {
+      "root": 25003,
+      "name": "女王之翼",
+      "character": "伊芙",
+      "skill_variants": [
+        25003,
+        25037,
+        905000
+      ],
+      "main_factors": [
+        {
+          "factor": 1178,
+          "factor_key": "BFI_BUFF_QUEENS_THRONE",
+          "template": 1077,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 55
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "independent-main-state-links/REPORT.md: 原/变化Queen模式由主Buff在场控制",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延主形态；施放触发的回蓝/武器强化被动仍各自计时，可重施触发。变化版三阶段觉醒/核心只按其原生触发条件。"
+    },
+    {
+      "root": 25029,
+      "name": "充能核心",
+      "character": "伊芙",
+      "skill_variants": [
+        25029,
+        25069
+      ],
+      "main_factors": [
+        {
+          "factor": 87,
+          "factor_key": "BFI_BUFF_SI_SA_EBS_ENERGETIC_HEART",
+          "template": 106,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 55
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "independent-main-state-links/REPORT.md: 核心与光谱原生互斥/转换事件",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延主模式；保留与光谱的互斥和手动切换。独立减耗/冷却/暴伤、10秒Evolution与30秒Limiter Removal等被动不连带永久。"
+    },
+    {
+      "root": 25201,
+      "name": "歼灭纹章",
+      "character": "伊芙",
+      "skill_variants": [
+        25201,
+        25214
+      ],
+      "main_factors": [
+        {
+          "factor": 216,
+          "factor_key": "BFI_COMMON_AURA_ADDATK_ACCEL",
+          "template": 222,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 92,
+            "2": 7,
+            "3": 8
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "自身纹章是值得优先分拆的候选；保留职业分支差异、实际特殊活性命中与敌方减防10秒，不设全场常驻减防。"
+    },
+    {
+      "root": 25202,
+      "name": "艾尔光谱结晶",
+      "character": "伊芙",
+      "skill_variants": [
+        25202,
+        25215
+      ],
+      "main_factors": [
+        {
+          "factor": 47,
+          "factor_key": "BFI_BUFF_AMPLIFICATION_PLACE",
+          "template": 50,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 55
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 48,
+          "factor_key": "BFI_BUFF_SPECTRUM_PLACE",
+          "template": 51,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 55
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 86,
+          "factor_key": "BFI_BUFF_INDUCTION_PLACE",
+          "template": 105,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 55
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "independent-main-state-links/REPORT.md: 50/51/105/106原生切换与清理",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延当前模式；保留互斥、切换消耗与冷却。施放触发的10秒Evolution、30秒减耗/冷却及Limiter Removal不自动永续。"
+    },
+    {
+      "root": 26019,
+      "name": "大爆炸",
+      "character": "澄",
+      "skill_variants": [
+        26019,
+        26033,
+        906006
+      ],
+      "main_factors": [
+        {
+          "factor": 53,
+          "factor_key": "BFI_BUFF_UNFIXED_CLIP",
+          "template": 56,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 43
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "independent-main-state-links/ADDITIONAL_WEAPONS.md: 主CustomFunction与触发间隔分开",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延主状态；保留实际指令触发、追加间隔、伤害与原本的消耗条件。"
+    },
+    {
+      "root": 28008,
+      "name": "胜利之剑",
+      "character": "艾丽希斯",
+      "skill_variants": [
+        28008,
+        28046
+      ],
+      "main_factors": [
+        {
+          "factor": 233,
+          "factor_key": "BFI_BUFF_VICTORIOUS_SWORD",
+          "template": 239,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 7,
+            "2": 24,
+            "3": 25
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 345,
+          "factor_key": "BFI_BUFF_SGM_VICTORIOUS_SWORD",
+          "template": 326,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 7,
+            "2": 24,
+            "3": 25
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 655,
+          "factor_key": "BFI_BUFF_SGM_VICTORIOUS_SWORD_UPGRADE",
+          "template": 565,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 7,
+            "2": 24,
+            "3": 25
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "independent-main-state-links/ADDITIONAL_WEAPONS.md: 原旗标与真实武器/范围消费者",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延主剑状态；骑士团长的独立常驻队伍属性不误绑到该Buff，不增加队伍效果。"
+    },
+    {
+      "root": 28014,
+      "name": "地狱烈焰",
+      "character": "艾丽希斯",
+      "skill_variants": [
+        28014,
+        28050
+      ],
+      "main_factors": [
+        {
+          "factor": 658,
+          "factor_key": "BFI_BUFF_INFERNAL_BLADE",
+          "template": 568,
+          "source_default_seconds": 30,
+          "behaviors": {
+            "1": 55
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "完整BTI568的原DISPLAYER持有InfernalBlade_Buff火剑与子攻击列表，保持原父状态所有权",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "只优先延普通/真主火剑；火抗转无视防御仍原算。变化版需另看实际特性、冷却与叠标记，不能整组批准。"
+    },
+    {
+      "root": 28109,
+      "name": "誓约之剑",
+      "character": "艾丽希斯",
+      "skill_variants": [
+        28109,
+        28123
+      ],
+      "main_factors": [
+        {
+          "factor": 2566,
+          "factor_key": "BFI_BUFF_SPR_OATH_SWORD",
+          "template": 2418,
+          "source_default_seconds": 15,
+          "behaviors": {
+            "1": 53,
+            "2": 89
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 2577,
+          "factor_key": "BFI_BUFF_SPR_OATH_SWORD_ULTIMATE",
+          "template": 2418,
+          "source_default_seconds": 20,
+          "behaviors": {
+            "1": 53,
+            "2": 89
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延主剑状态；首次召剑伤害、剑道机制与原数值保持。"
+    },
+    {
+      "root": 28223,
+      "name": "火焰守护",
+      "character": "艾丽希斯",
+      "skill_variants": [
+        28223,
+        28238
+      ],
+      "main_factors": [
+        {
+          "factor": 928,
+          "factor_key": "BFI_BUFF_A_SBH_FLAME_PROTECTION",
+          "template": 897,
+          "source_default_seconds": 10,
+          "behaviors": {
+            "1": 8,
+            "2": 10
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 1247,
+          "factor_key": "BFI_BUFF_A_SBH_FLAME_PROTECTION_UPGRADE",
+          "template": 1130,
+          "source_default_seconds": 10,
+          "behaviors": {
+            "1": 8,
+            "2": 10,
+            "3": 36
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延自身主状态；既有特殊活性/觉醒续期不额外产生叠层或重复施放事件。"
+    },
+    {
+      "root": 30008,
+      "name": "死亡之爪",
+      "character": "露／希尔",
+      "skill_variants": [
+        30008,
+        30038
+      ],
+      "main_factors": [
+        {
+          "factor": 524,
+          "factor_key": "BFI_BUFF_DEAD_HANDS",
+          "template": 463,
+          "source_default_seconds": 20,
+          "behaviors": {
+            "1": 7,
+            "2": 31
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延自身主状态；不自动切换角色、不重复发组合点，组合点仍按真实切换命中取得。"
+    },
+    {
+      "root": 30041,
+      "name": "嗜血术",
+      "character": "露／希尔",
+      "skill_variants": [
+        30041,
+        30075
+      ],
+      "main_factors": [
+        {
+          "factor": 779,
+          "factor_key": "BFI_BUFF_BLOODLUST",
+          "template": 753,
+          "source_default_seconds": 60,
+          "behaviors": {
+            "1": 75,
+            "2": 7,
+            "3": 8,
+            "4": 9,
+            "5": 10,
+            "6": 20,
+            "7": 21,
+            "8": 94,
+            "9": 47
+          },
+          "finalizer_types": [
+            1
+          ]
+        },
+        {
+          "factor": 955,
+          "factor_key": "BFI_BUFF_BLOODLUST_UPGRADE",
+          "template": 753,
+          "source_default_seconds": 60,
+          "behaviors": {
+            "1": 75,
+            "2": 7,
+            "3": 8,
+            "4": 9,
+            "5": 10,
+            "6": 20,
+            "7": 21,
+            "8": 94,
+            "9": 47
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "仅优先延普通/真主状态，并完整保留负面修正与原免疫类型。持续扣血的变化910022不纳入，也不改变组合点/切换。"
+    },
+    {
+      "root": 30301,
+      "name": "惩戒纹章",
+      "character": "露／希尔",
+      "skill_variants": [
+        30301,
+        30302
+      ],
+      "main_factors": [
+        {
+          "factor": 515,
+          "factor_key": "BFI_COMMON_AURA_PUNISHING_ACCEL",
+          "template": 458,
+          "source_default_seconds": 60,
+          "behaviors": {
+            "1": 17,
+            "2": 16
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延自身纹章主状态；不把自身效果扩展给队友。"
+    },
+    {
+      "root": 32005,
+      "name": "剑气爆发",
+      "character": "艾因",
+      "skill_variants": [
+        32005,
+        32023
+      ],
+      "main_factors": [
+        {
+          "factor": 1041,
+          "factor_key": "BFI_BUFF_SCHWERT_PLATZEN",
+          "template": 975,
+          "source_default_seconds": 10.033,
+          "behaviors": {
+            "1": 35,
+            "2": 42,
+            "3": 75
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "可优先延自身主状态；只保留无视防御姿态原义，不扩展为无视全部防御数值；爆炸仍需实际指令/主动攻击。"
+    },
+    {
+      "root": 34106,
+      "name": "寒霜",
+      "character": "诺亚",
+      "skill_variants": [
+        34106,
+        34120
+      ],
+      "main_factors": [
+        {
+          "factor": 2711,
+          "factor_key": "BFI_BUFF_NHD_FROST",
+          "template": 2546,
+          "source_default_seconds": 20,
+          "behaviors": {
+            "1": 9,
+            "2": 10
+          },
+          "finalizer_types": [
+            1
+          ]
+        }
+      ],
+      "native_binding_complete": true,
+      "native_evidence": "已核原生BFI/BTI/self UID创建绑定、数值行为与单time finalizer；未作逐技能自然操作验收",
+      "pending": "原客户端自然战斗、过关与整场退出验收",
+      "approved_behavior": "仅自身主状态按本次副本续存；其他触发、解除、资源和效果保留",
+      "assessment_reference": "只优先延物魔防主状态；绝不把施放瞬间50%减伤一并整局化。"
+    }
+  ]
+}
