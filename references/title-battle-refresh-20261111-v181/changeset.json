@@ -1,0 +1,65 @@
+{
+  "release": "title-battle-refresh-20261111-v181",
+  "patch_sha256": "09624bb9636e4418330fc6f2282e2a3ea8d2f45f5ace080d1826d2bb084d4552",
+  "parents": {
+    "online": {
+      "release": "artifact-spirit-worn-20261111-v178",
+      "manifest_sha256": "cd729bcf6e77fc2c99a61e8e2188c9e7277549b354f9ee5e1fe7472fe946cc08"
+    },
+    "local": {
+      "release": "unified-server-acd043567c59b06c-542070efa715",
+      "manifest_sha256": "c57aefdbf57c8dc7e954a5d8125592b05b7d173a9d8a1b6a6e7656c8ebd06e9c"
+    },
+    "launchers": {
+      "release": "artifact-spirit-worn-20261111-v178",
+      "manifest_sha256": "e5e79cb496bd9e019c30c380683b03a6b25088204592a9d6c28f5cea3184d46b"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "7f468d00417141411fa519756bc22e5119840c728f5dd19c6f7a3e2147b676b3",
+      "sha256": "a9fe65d1f45f5c2f6341cc4d2d405284348d251699fbb672d25be2a5f067648d",
+      "size": 171447,
+      "scope": "server"
+    },
+    {
+      "path": "tools/native_cache_sync.js",
+      "parent_sha256": "e3ed7dca5129ee6f1c7b873e7c31a6057f5e007d3fb83fde6c8b5f0cea381f7f",
+      "sha256": "cef0eb40d934ac43f89202f409b3fc3949d494fae78c92c0e27a7386fe31afc4",
+      "size": 38633,
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "parent_sha256": "1c3808d38f21dde20b0372bc31b9f62f1a391f53f7b32da47ec9efddd74e5fd7",
+      "sha256": "c7c5e433e1b67a48ffd40a7cd6f1c168ac99c6bce178b8114bb9bb7fd3f68acb",
+      "size": 6746,
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "f4f9bfb90eab217bb187c3554321fa20528ef7e739546f4bc78925fa1c0ab0ba",
+      "sha256": "dc22c9244c8656c9b0afee8490bec9bd5a0fd10bf12b51bfb3d4c97cbf294a0e",
+      "size": 24953,
+      "scope": "support"
+    },
+    {
+      "path": "els_server/gm_runtime.py",
+      "parent_sha256": "e376bc319971f70e44768a6ddd993db98da00aa45c28874dda708ae935c10220",
+      "sha256": "49522eb0f237fadac6d9b45d016a2fcf48802908fe1b184859632bb44c868b0b",
+      "size": 18375,
+      "scope": "common-equivalent"
+    }
+  ],
+  "runtime_dependencies": {
+    "els_server/domain/title_flow.py": "0c7d6a3ea372001595d285de2cd958504690a017cef27d992e6117066472921d",
+    "els_server/domain/titles.py": "80c486e57b07f0511afc2607149a9dd451a36437aa1d58c8b26c14937eda1122",
+    "els_server/domain/session_dispatch.py": "4308aa37668a957f5b5930c95ab3759462bacfbe0bee1fbdbbd40f40fe0e2e82",
+    "els_server/domain/friends_dungeon.py": "1bc4263ff1bd5ad3c4ff0369fc757bb4e44c6ae1c8f5b36f25e4e3e095191384",
+    "els_server/protocol/title_messages.py": "ff29b250dfde0f1db2b9240ff9742656580ff6d84968b54087a9789e60a198d1",
+    "els_server/storage/titles.py": "89473e3d4a02d99874b98fe882971e0582c2b64672b9af7489fa84462bd246cc",
+    "els_server/storage/title_levels.py": "93b9f663bc69ab9a70ec4750c3c6d62912d733c5188eb2256af92b30ae994fdf"
+  },
+  "prior_title_delivery": "V169 title favorites and original shortcuts"
+}

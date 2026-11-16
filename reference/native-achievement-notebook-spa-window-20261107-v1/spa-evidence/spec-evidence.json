@@ -1,0 +1,145 @@
+{
+  "status": "RESEARCHED_NOT_IMPLEMENTED",
+  "runtime_changed": false,
+  "native_spa_sale_rows": [
+    {
+      "map": 1500,
+      "NPC": 10196,
+      "template": 710012
+    },
+    {
+      "map": 1501,
+      "NPC": 10196,
+      "template": 710012
+    },
+    {
+      "map": 1506,
+      "NPC": 10470,
+      "template": 136202
+    }
+  ],
+  "native_source": {
+    "archive": "D:\\艾尔之光\\data\\data036.kom",
+    "archive_sha256": "56bb739e04e856e2ebf4c93c0df0cca7c181914e65d7cf4d140e167f593c6601",
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "rows": [
+      {
+        "name": "SpaData.lua",
+        "key": 233,
+        "skip": 0,
+        "sha256": "9f116dc16a7a832e308adb33f0bc84380bc47b718e888e2a89ea00b77bff0a65",
+        "source": {
+          "Name": "SpaData.lua",
+          "Size": "3326",
+          "CompressedSize": "1056",
+          "Checksum": "8c650d57",
+          "FileTime": "8c650d57",
+          "Algorithm": "3",
+          "MappedID": "WY^41Wbt",
+          "offset": 26707673
+        },
+        "initializer_error": null
+      }
+    ],
+    "live_process_access": false,
+    "lua_evaluated": false,
+    "original_archive_modified": false
+  },
+  "native_template": 710012,
+  "native_record_sha256": "9cb21a2ea104d962bd41f27b81de1a52947c49cc9d26a9e3cd5c59face44c656",
+  "native_ED_price": 20000,
+  "native_VP_price": 0,
+  "native_metadata": 2,
+  "native_stack": 500,
+  "native_effects": [
+    [
+      19,
+      0,
+      100,
+      0,
+      0,
+      0
+    ]
+  ],
+  "native_cooldown_group": 52,
+  "native_cooldown_seconds": 30,
+  "native_conditions": [
+    {
+      "achievement": 200,
+      "condition": {
+        "id": 200,
+        "type": 34,
+        "parameters": {
+          "m_iItemID": 710012,
+          "m_iCount": 500
+        },
+        "description_id": 44713
+      }
+    },
+    {
+      "achievement": 201,
+      "condition": {
+        "id": 201,
+        "type": 34,
+        "parameters": {
+          "m_iItemID": 710012,
+          "m_iCount": 1000
+        },
+        "description_id": 44713
+      }
+    },
+    {
+      "achievement": 202,
+      "condition": {
+        "id": 202,
+        "type": 34,
+        "parameters": {
+          "m_iItemID": 710012,
+          "m_iCount": 1500
+        },
+        "description_id": 44713
+      }
+    },
+    {
+      "achievement": 203,
+      "condition": {
+        "id": 203,
+        "type": 34,
+        "parameters": {
+          "m_iItemID": 710012,
+          "m_iCount": 2000
+        },
+        "description_id": 44713
+      }
+    },
+    {
+      "achievement": 204,
+      "condition": {
+        "id": 204,
+        "type": 34,
+        "parameters": {
+          "m_iItemID": 710012,
+          "m_iCount": 10000
+        },
+        "description_id": 44713
+      }
+    }
+  ],
+  "existing_reader_registered": false,
+  "regular_shop_stock_locations": [
+    [
+      20000,
+      10193
+    ],
+    [
+      20008,
+      10192
+    ]
+  ],
+  "key_findings": [
+    "SpaData binds actual spa1500/1501 and SPA_PPORU10196 to710012; ordinary stock is a separate mapping",
+    "The current reader, purchase history for native source34 and complete common purchase/use tests remain to be implemented"
+  ],
+  "new_pool_or_probability": false,
+  "new_economic_rule": false
+}

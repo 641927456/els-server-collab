@@ -1,0 +1,150 @@
+{
+  "scope": "Common NPC exchanges integrated with late-region growth on V137, retaining the current pass and weekly reward policy",
+  "parent": {
+    "online": {
+      "release": "late-town-equipment-20261110-v137",
+      "path": "releases/online/late-town-equipment-20261110-v137",
+      "manifest_sha256": "56407c4ff1eb8543aa5a0fec3075aef1a0dcf42e5cf740d7c261b2158d3a9bf3"
+    },
+    "local": {
+      "release": "unified-server-c581fb30a731d1c1-0c9bc328d7a5",
+      "path": "releases/local/unified-server-c581fb30a731d1c1-0c9bc328d7a5",
+      "manifest_sha256": "df37efa1b9eb089a3bfacfb6f32f06dbb980da3ab7cc39f5dfbb492a2624ca91"
+    }
+  },
+  "supersedes": {
+    "archive_sha256": "6ae47a7b7d98a1db270e1b41b14a759d23ed1a52800c2db1205e43780ed189cb",
+    "reason": "V1 omitted the V137 periodic reward authorization and reader-only guard"
+  },
+  "archive": "npc-exchange-integration-server-delta.zip",
+  "archive_sha256": "02e157f8c03331b5dfe4bd1c917d500f1bb35f25e50ae2ac80652d031964a1d2",
+  "files": [
+    {
+      "path": "els_server/data/npc_exchange.json",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "3e41e328b2b33a4e676761278b84cd748bc9ece981b59c1ebe4f5998c524a41a"
+    },
+    {
+      "path": "els_server/data/npc_exchange.manifest.json",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "946e638a02329c49d6a8f08d3b37cd9c3985620f81fa6462b10e1e1e80f8327f"
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "base_sha256": {
+        "online": "15b975cfb8e6714dd7673b859b0bb4e145f9c28b50cdf42c74551fb88d98d719",
+        "local": "15b975cfb8e6714dd7673b859b0bb4e145f9c28b50cdf42c74551fb88d98d719"
+      },
+      "sha256": "452a1f5c32b417d2b978e14c767ed9559c046735c5fef8df874c7494a7c8b149"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "base_sha256": {
+        "online": "8e9bd8a80d20ed5807e0dec54780c71cd80a4bb14ff459c56e6cfd239316ec30",
+        "local": "8e9bd8a80d20ed5807e0dec54780c71cd80a4bb14ff459c56e6cfd239316ec30"
+      },
+      "sha256": "e0465d8483affb33d0f38488ff96db5b4e081f8385384da6dbfbc99d78049f16"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "base_sha256": {
+        "online": "fff27913dcc19d60094e7ffee950cd6b35259a3cf16603defdbf1e41440afdef",
+        "local": "fff27913dcc19d60094e7ffee950cd6b35259a3cf16603defdbf1e41440afdef"
+      },
+      "sha256": "60293e7827e9aab36c65d85c18ac070278d83560475d03cfa5bcdef1a146644a"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_flow.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "58f2ac2e5df7c692ee147d15589a33afaccfc8de086d0ada939bb874d71485af"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_rules.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "0a907f6dbda5e267a0e9aa340f6e30beb4f3d4d62b903795714eba5015b43dce"
+    },
+    {
+      "path": "els_server/domain/purifier_exchange_rules.py",
+      "base_sha256": {
+        "online": "40ae1275865e5d9f48ce7334bcc0e0729d2a04a8b6ceb6e36321a993cc5c897c",
+        "local": "40ae1275865e5d9f48ce7334bcc0e0729d2a04a8b6ceb6e36321a993cc5c897c"
+      },
+      "sha256": "228e3747e35e9cde6a8677f0c33b8c88f1745c5eb52d684857ef084e173a475d"
+    },
+    {
+      "path": "els_server/domain/town_growth_exchange.py",
+      "base_sha256": {
+        "online": "dab7ebe8fb7d241015d0fa908cf00c93dc38dfa65a855c001ce70610593da509",
+        "local": "dab7ebe8fb7d241015d0fa908cf00c93dc38dfa65a855c001ce70610593da509"
+      },
+      "sha256": "24591226cd4f3f40abbf8103d5976ff3a6c5ea3ae69be68ac66b7ad709547ca2"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "base_sha256": {
+        "online": "6ddb8704bfe21ccc635aa2daad58922a4362558072b8e44dc1c42171fe9c80a4",
+        "local": "6ddb8704bfe21ccc635aa2daad58922a4362558072b8e44dc1c42171fe9c80a4"
+      },
+      "sha256": "929a89fa98f169d760b75eef370f2d84bfbd93527e13aed4ea4689a88b80623a"
+    },
+    {
+      "path": "els_server/storage/material_exchange.py",
+      "base_sha256": {
+        "online": "cc952e193a351bbff159170e48973b134466e04bdfd668202e51f756a0ab02f6",
+        "local": "cc952e193a351bbff159170e48973b134466e04bdfd668202e51f756a0ab02f6"
+      },
+      "sha256": "8ed424dfbe39bde2ef81c07ff05522539d9f7e864850a8de779d9fb846a9e338"
+    },
+    {
+      "path": "els_server/storage/npc_exchange_source.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "55d30676a4c625bf039254a33c1eb7dc8edf4b0af1f82e5c29f382e34b773b2f"
+    }
+  ],
+  "verification": {
+    "routed_regressions_v2": 9,
+    "periodic_reward_regressions_v2": 3,
+    "cold_read_recovery_regressions_v2": 1,
+    "writer_regressions_reused": 14,
+    "overlapping_generic_request_selectors_exercised": 17,
+    "qualified_generic_rows": 384,
+    "new_exchange_readers": 153,
+    "routed_test_command": "python -B analysis/npc-exchange-integration-20261110-v2/test_integration.py",
+    "periodic_test_source": "analysis/daily-weekly-seasonpass-20261109-v1/test_periodic_activities.py"
+  },
+  "exchange_rebase": {
+    "previous_generic_catalog": "analysis/npc-native-completion-20261109-v1/coverage.json",
+    "generic_rows_delegated_to_v137": 21,
+    "generic_rows_closed_by_v137_source_policy": [
+      129,
+      146,
+      152
+    ]
+  },
+  "recovery": {
+    "keep_from_v2_for_compatible_v137": [
+      "els_server/data/npc_exchange.json",
+      "els_server/data/npc_exchange.manifest.json",
+      "els_server/domain/npc_exchange_rules.py",
+      "els_server/domain/inventory_items.py",
+      "els_server/domain/acquisition_policy.py"
+    ],
+    "isolated_result": "Plain V137 rejects the new owned item templates; the five-file reader overlay on V137 cold-read two new grants including a timed one, encoded inventory and preserved source restrictions.",
+    "formal_acceptance": "The release owner prepares and qualifies the actual signed compatible recovery before exposing the new grants."
+  }
+}

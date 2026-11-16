@@ -1,0 +1,120 @@
+{
+  "online": {
+    "ok": true,
+    "release": "slot-qualification-reads-20261114-v202",
+    "public": {
+      "ok": true,
+      "public_tls": true,
+      "actual_runtime_only": true,
+      "test": {
+        "ok": true,
+        "phase": "test",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          {
+            "unit": 3,
+            "roles": 16,
+            "roster_bytes": 72973,
+            "guide_messages": 1,
+            "town_ready": true
+          }
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "economic_requests": 0,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2086,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "5a8c3a71de9d4eab6a10550f3efb241a2a4bb40b9ef394ef4cff9dab1a72c3e2",
+          "server-addon": "59051ded9e8e27725bf24c25271a9f7f293813b81ca400ffdefecc9b11f1bcb8"
+        },
+        "signed_target_manifest_sha256": "dc36abf6dc702f370b12d5f94ede5ed2c7a22be0e4b09b10f2df737814175cd8"
+      },
+      "retire": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          {
+            "unit": 3,
+            "roles": 16,
+            "roster_bytes": 72973,
+            "guide_messages": 1,
+            "town_ready": true
+          }
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "economic_requests": 0,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2086,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "5a8c3a71de9d4eab6a10550f3efb241a2a4bb40b9ef394ef4cff9dab1a72c3e2",
+          "server-addon": "59051ded9e8e27725bf24c25271a9f7f293813b81ca400ffdefecc9b11f1bcb8"
+        },
+        "signed_target_manifest_sha256": "dc36abf6dc702f370b12d5f94ede5ed2c7a22be0e4b09b10f2df737814175cd8"
+      },
+      "expected_game_authentications": 2,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "cold": {
+      "ok": true,
+      "read_only": true,
+      "retired": true,
+      "roles": [
+        {
+          "roles": 16,
+          "inventory_count": 823,
+          "inventory_unchanged": true,
+          "careers_levels_and_seals_unchanged": true,
+          "ED_unchanged": true
+        }
+      ]
+    },
+    "public_tls": true,
+    "candidate_pid": 5252,
+    "requirements_sha256": "de4e395d38df2d533e2d65b55582bbee1d132bf61c3168fb08be7b564ec34137",
+    "started_utc": "2026-11-13T22:41:48.685094+00:00",
+    "completed_utc": "2026-11-13T22:42:06.454860+00:00",
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "local": {
+    "ok": true,
+    "release": "slot-qualification-reads-20261114-v202",
+    "runtime": "G:\\els\\releases\\local\\unified-server-cf4f3e4b0e9a0d10-b0c4e54e335e",
+    "signed_files": 2086,
+    "runtime_manifest_sha256": "dc36abf6dc702f370b12d5f94ede5ed2c7a22be0e4b09b10f2df737814175cd8",
+    "shared_server_files": 1546,
+    "observed_seconds": 122.1149236,
+    "ordinary_player_entry_open": false,
+    "stable_launcher_promoted": false,
+    "completed_utc": "2026-11-13T22:45:46.677286+00:00"
+  },
+  "updater": {
+    "ok": true,
+    "stable_parent": "launcher-v201-5eb27b289546628f",
+    "tag": "launcher-v202-13aa2dc2346faa29",
+    "exe_sha256": "13aa2dc2346faa290e7a10bbb4dce973b5da0ebf202df27549c6ab76b6b37fe2",
+    "signed_files": 2086,
+    "client_files": 110,
+    "server_addon_files": 1986,
+    "embedded_resources": 6,
+    "public_fresh_client": true,
+    "public_fresh_server_addon": true,
+    "public_upgrade": true,
+    "default_service_not_downloaded": true,
+    "full_and_chunk_cleanup": true,
+    "old_backup_preserved": true,
+    "game_started": false
+  }
+}
