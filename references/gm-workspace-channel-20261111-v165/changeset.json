@@ -1,0 +1,204 @@
+{
+  "release": "gm-workspace-announcements-20261111-v165",
+  "patch_sha256": "84c0bf5060a496c52b95e6e5069c7e5f6acf2c9e37f28bf8ca31bce7dafea6df",
+  "parents": {
+    "online": {
+      "release": "server-trade-read-optimization-20261111-v164",
+      "manifest_sha256": "2936b3f79eb7e169896ade7d5ccafe00719f0f8377aa75e4696c8889077bf176"
+    },
+    "local": {
+      "release": "unified-server-3bab1008be88bbfb-8e1fe45e803e",
+      "manifest_sha256": "69625c9b7d999fc33d9fb0348cd37f63981d379f6cf5e0fff8f11bca1d0499d5"
+    },
+    "launchers": {
+      "release": "server-trade-read-optimization-20261111-v164",
+      "manifest_sha256": "936f0e84b965768259767d302e982a574612f2e32d1c96e19dc9fc625c65bb27"
+    }
+  },
+  "files": [
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/config.py",
+      "size": 6159,
+      "parent_sha256": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+      "sha256": "f5d1c65a53b07ed69f52f3c6cbb4112ce044da57726743c973c378e25bc5da79"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/domain/abyss_weapon_campaign.py",
+      "size": 13948,
+      "parent_sha256": "7d239aefeb0887a8832ca73af9061b2969a10aa6de3ba855e5292e6878ffad3c",
+      "sha256": "03ae38a3bc02b8d10241b2578822895fde3e6866a3812df854cfa93e748e3b5c"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/domain/gm_events.py",
+      "size": 4171,
+      "parent_sha256": "e1c398eba3242877f706b07e7df6e5a13502ec2be4fcf5bfb6bf678732190f34",
+      "sha256": "892e5f983d98912746164b3723b0d120dd1254c0ea970593a67e34be95ff6adf"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/domain/local_session.py",
+      "size": 169429,
+      "parent_sha256": "5fc260d6f7e7c73a2f8c272b41f540a98d48b3ce6518a15ca5ba8a53625d3011",
+      "sha256": "dd5b33109863533b59ad453b6d07fb184a29702d6424219d86b4a070372b5a5e"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/gm_item_batch.py",
+      "size": 8583,
+      "parent_sha256": "9ebbf475a5f95105df3bf90c2820439afaf0e88d9b2346bd556c4adf4a2a98ef",
+      "sha256": "283d8b3959642a6863d1493e2a201a6613a75aa3c9528cb93ee9e8efafaacb80"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/gm_runtime.py",
+      "size": 18536,
+      "parent_sha256": "3442ce1703a3f9c4e5e13de44368cc1538e1b1dec7889988d6c30313d72df805",
+      "sha256": "058deb26068c41ca686832d8cef5bcb03b4329c100aa741411469fa49da77d05"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/protocol/gm_messages.py",
+      "size": 906,
+      "parent_sha256": "8c81880a26ec4e69a2107056b2534dd625889d87ba8d6f46054ec6f1f01d9fdc",
+      "sha256": "9acd9e30cb3f2cf2702aacfa15625d2de64f0b076f428496246cb71b6cc8e579"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/protocol/local_messages.py",
+      "size": 22912,
+      "parent_sha256": "0fb7db0a94a10c8eb8872de885814cb57e5289283e16a180dce2f3837316a211",
+      "sha256": "0ef42830ae62ab61f006b231ebf22e6f4ed9487220d390aa12e29d6ebcc32442"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/storage/abyss_weapon_2026.py",
+      "size": 11773,
+      "parent_sha256": "733f5f99226b4faeab8668b3a473c1ad93c8374228f5657ffe3461e6c4ef9555",
+      "sha256": "a120a1eaf4a58036100abb92c49e74bc35f5b5a4ceac94600d0eaf827420753c"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "els_server/storage/coupon_codes.py",
+      "size": 53942,
+      "parent_sha256": "12c449e4dff6b96780469a7e47d93990dbb6952ca422d0eb536e123376dc6204",
+      "sha256": "acf313ddeafabcceca6506149d3c7316be39c5285ed27da1550198120f0eee2f"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "gm_console/__main__.py",
+      "size": 10035,
+      "parent_sha256": "afb4fde2dfc88fb9397d6e977007021708be44a5046909f2556aa69bfaf67fe5",
+      "sha256": "ef985f9bf812be713388f22af33a8f48aba42506382ea2fe183f3f94978a42ea"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "gm_console/service.py",
+      "size": 29210,
+      "parent_sha256": "f8bbe2d5c3f4f9a897d9ccb60c3bf5a70dd0f3b043ffdb8cf0aef6cd21914102",
+      "sha256": "f6f2a356fb00cba39009fa7a2970b1ebedb20e1118a86c74af41a54609f16bde"
+    },
+    {
+      "lane": "online",
+      "cohort": "workspace",
+      "path": "gm_console/settings.py",
+      "size": 5262,
+      "parent_sha256": "43f1e00ef770df42ecdacc9630ccc8e0f294de9aced762f45e8c0ceb51047103",
+      "sha256": "2d80e3b73258dac231006db7ba3da9235f099b7262a8b870769182b4cd3c07cb"
+    },
+    {
+      "lane": "desktop",
+      "cohort": "workspace",
+      "path": "gm_console/static/app.js",
+      "size": 24058,
+      "parent_sha256": "d99140daaa762034658e0abe96a6e8394bf9605dd474c6eb33e73b606022a38d",
+      "sha256": "0e7709343e7027434426c5d068e5b1580f3574be411cbf6d124247bcb4c0db2a"
+    },
+    {
+      "lane": "desktop",
+      "cohort": "workspace",
+      "path": "gm_console/static/batch-give.js",
+      "size": 7907,
+      "parent_sha256": "475188418fd1df645f2595404d70c24af60f28551d88e41c59c85ea8c1befb79",
+      "sha256": "4bf5cd454485d8b3834c04ebb9b92dd04ad1bd406e495c9cfaf18217b1cf91fb"
+    },
+    {
+      "lane": "desktop",
+      "cohort": "workspace",
+      "path": "gm_console/static/coupons.js",
+      "size": 8913,
+      "parent_sha256": "0893f336ddb597c6f01ff0afd6c1cab9714243d24c988ecbe6b68605a65cc925",
+      "sha256": "6a31a6eef5c0ad5a3e3f5f30f5e26d95305324e0dfedfb00af6a9cc5b466448c"
+    },
+    {
+      "lane": "desktop",
+      "cohort": "workspace",
+      "path": "gm_console/static/extended.js",
+      "size": 7251,
+      "parent_sha256": "dfdeafb2a5ec972613de246e2df07451741169dbbb57523578ee7ea0eba1d459",
+      "sha256": "f34dd639886ff11a0d3095b3529d700c1c6c8c80aba5a78ba2d3eb64fa2d2d1a"
+    },
+    {
+      "lane": "desktop",
+      "cohort": "workspace",
+      "path": "gm_console/static/index.html",
+      "size": 30135,
+      "parent_sha256": "901b21c04f4d302ff75b386717f62c147b52f09a04b160d202c88255da6202c7",
+      "sha256": "71a20ee15549c6a878f6f17b3eca3d0e3d6ebf9a35548431163e8ef37bc8f074"
+    },
+    {
+      "lane": "desktop",
+      "cohort": "workspace",
+      "path": "gm_console/static/operations.js",
+      "size": 15337,
+      "parent_sha256": "054af02dc051a6a04f960059603d192abdd7d5783d9d6bdcb87af1e0dfda97cf",
+      "sha256": "f95c111332d3da84088660b5eb71b3179b8358002fffbbc30e4bffa6bc191bc2"
+    },
+    {
+      "lane": "desktop",
+      "cohort": "workspace",
+      "path": "gm_console/static/refinements.css",
+      "size": 8193,
+      "parent_sha256": "043904867b6a9914a7df6b8fc16e2245230a729e4a2b3eb3288b7b6d18b32b1f",
+      "sha256": "e8d5b1bf8ea5213fb3b004ba9b94cf8776ffccb12a3dda01c61439103050b6bb"
+    },
+    {
+      "lane": "local",
+      "cohort": "workspace",
+      "path": "local-runtime/els_server/gm_runtime.py",
+      "size": 17231,
+      "parent_sha256": "0e3e023b2ff0bca74fb4da91e7922bf1a759cf5572b2a6cbb2b4c2d474ef1a7b",
+      "sha256": "21b624cd04858ca67cf4067226fef6b27a20c65de64370a4147ebe73436f9459"
+    },
+    {
+      "lane": "local",
+      "cohort": "workspace",
+      "path": "config/gm-settings.json",
+      "size": 881,
+      "parent_sha256": "43319178edad1c1c211aa9ac5f36f6f561f56dfe419aa1d33779335aabf41ace",
+      "sha256": "8c9babc51f83853f2265bfa12a1f6d0324b5b58621eb46072b0420777d37a104"
+    },
+    {
+      "lane": "local",
+      "cohort": "workspace",
+      "path": "tools/provision_unified_server.py",
+      "size": 6745,
+      "parent_sha256": "8771470a34f61fffab2df933b65223764d62a21830da58a427753e392a8675bb",
+      "sha256": "2120b07292b8ebf3e9bc86dcc01ff703df01fd0ed36b6faaeb66db3c346b9a4d"
+    }
+  ]
+}

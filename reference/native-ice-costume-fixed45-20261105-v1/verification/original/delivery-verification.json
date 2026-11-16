@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "patch_applies_to_bound_parent_with_identical_source_text": true,
+  "archive_business_files_match_tested_SHA": true,
+  "archive_sha256": "e244042645dfccea5cb82d0acb8ee94a8e6f0e0f94d510c614fe7daca9c73af5",
+  "line_endings": {
+    "els_server/domain/decomposition_rules.py": {
+      "checkout_CRLF": 79,
+      "candidate_CRLF": 79
+    },
+    "els_server/domain/ice_decomposition.py": {
+      "checkout_CRLF": 46,
+      "candidate_CRLF": 0
+    }
+  },
+  "first_packaging_check": "Initial strict byte comparison failed for the new file because Git core.autocrlf=true writes CRLF. Source text is identical; archive preserves exact tested bytes.",
+  "remaining_owned_fixtures": [],
+  "remaining_patch_check_directories": [],
+  "deployed": false
+}

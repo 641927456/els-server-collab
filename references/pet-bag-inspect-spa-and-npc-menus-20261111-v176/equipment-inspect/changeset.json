@@ -1,0 +1,44 @@
+{
+  "release": "pet-bag-inspect-spa-and-npc-menus-20261111-v176",
+  "source_manifest_sha256": "a2e5197b3011a6f3f4f90397561badd20d3fd9b80b18dbd24febfff7552d870f",
+  "parents": {
+    "online": {
+      "release": "spa-and-npc-bag-sale-20261111-v175",
+      "manifest_sha256": "b1e39b1db7ec3c1ab19c8bc7fdee5f02adca0588761191b84977b787b575c063"
+    },
+    "local": {
+      "release": "unified-server-22c4515ef656d74b-ce14da0010b9",
+      "manifest_sha256": "cab97d73c44321af0d64e088993d13d455374c0462977a5d3d141620a88ec433"
+    },
+    "launchers": {
+      "release": "spa-and-npc-bag-sale-20261111-v175",
+      "manifest_sha256": "f64ff9d62b4098506d9f60b7dcaf4626cd46196deb16ffe76c83fb787cd27ffb"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "56b1f1c2affcd3835a4f5148c052006adf8030107d12679de00bb499092710f1",
+      "sha256": "e16e78420748d850074244d672ae60f6a11e3cb9068b423e09ccb9c1b9a9d256",
+      "size": 71343,
+      "cohort": "inspect-player-equipment",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/equipment_inspect_flow.py",
+      "parent_sha256": null,
+      "sha256": "1129933145a3c2299d40487ebdc955a4fe6fb1c676228fa38cceeae248881681",
+      "size": 2449,
+      "cohort": "inspect-player-equipment",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/equipment_inspect_messages.py",
+      "parent_sha256": null,
+      "sha256": "489589adc062b82a3cd5e44e58a9e97609496c51afab6bf66e3403b7372d0f01",
+      "size": 2559,
+      "cohort": "inspect-player-equipment",
+      "scope": "server"
+    }
+  ]
+}

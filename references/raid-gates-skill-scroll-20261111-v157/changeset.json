@@ -1,0 +1,86 @@
+{
+  "release": "raid-gates-skill-scroll-20261111-v157",
+  "patch_sha256": "5c637cebadba49cbabf72578ddb47d70ebfb9d04d29ab89404fcabc5b4b7f09a",
+  "parents": {
+    "online": {
+      "release": "raid-quest-repairs-20261111-v156",
+      "manifest_sha256": "5e0615c6a9b3e31397da91ae97f2d7f96db0f82fec78392860ea239ee2d8c9cd"
+    },
+    "local": {
+      "release": "unified-server-649d0f284e1dbab1-c07d7ff86ee0",
+      "manifest_sha256": "17c88395cac47c310f42dff5bcf1320848332e0a8e13efaba40841af4d5f8f94"
+    },
+    "launchers": {
+      "release": "raid-quest-repairs-20261111-v156",
+      "manifest_sha256": "a3d616afb76948c67eae6dd0f51d5141db84a70407ead10813f9bee5fa163c32"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/periodic_activities_flow.py",
+      "parent_sha256": "0e7ddfa48d5ef85d523b30d10f3f95790332033fc84fb8e29a6a38a715fdad3e",
+      "sha256": "fd2110ff084658e22758a4fab123eeaf0cc7b741caf03e83ca9a4cf5a8cdabbf",
+      "size": 12428
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "parent_sha256": "f3a66f8379c4c16527b2c0ffd33682a04408165405dd99df57f219fe4efca4da",
+      "sha256": "2b541051e2341cf25f880ee80b675d5016a123d1cef3fe7b4e566c58d254aca9",
+      "size": 37565
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "parent_sha256": "8f30ed9d8f900f27ad145dccf7f8b77c1b3f8b7650f140e1b3d38a2d1d6323d3",
+      "sha256": "870c3dc7d27171f9e404945efcf449abd8359e5b9c0f4c91e8f50bd92f593d46",
+      "size": 962085
+    },
+    {
+      "path": "els_server/domain/tutorial_quests.py",
+      "parent_sha256": "b4d81f7bf594c97d5bf825985baca80247ea37e1bf71ee8b7a8d50420d6bc59f",
+      "sha256": "d6e96b76a23b8bdf55b59105553ad28229b6531706fbacc956b07937fb3927c0",
+      "size": 9734
+    },
+    {
+      "path": "els_server/protocol/season_pass_messages.py",
+      "parent_sha256": "c8480e41d29e89dfc5aafdba2ee9c6b97e9fc1fc35b8b87d060f37736d2cd0f2",
+      "sha256": "8fd834de2d0f0eac962839b9f8c084860c79db2e6e786ed8b96866f30084f6f5",
+      "size": 3229
+    },
+    {
+      "path": "tools/activity_guide_lifecycle.js",
+      "parent_sha256": "7d1ebfffb2379db2376a1d1df201a3cd6c669c2b07ed40822c1b5c35fa0869a8",
+      "sha256": "efd0d594745ab91021a71e394d2ee15ac76f08fbfb537f6f707225ba97bb6500",
+      "size": 9025
+    },
+    {
+      "path": "tools/client_compatibility.py",
+      "parent_sha256": "1bbda3f156837dedd1403c05653fd081194e7c25f5c6cf32ec25946e19c21a34",
+      "sha256": "72aec863025fee40a01fd9720ba9e4c08e61a74ca460b8add1be3fbfa62acdab",
+      "size": 19105
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "d4f4e5c7faf9c7bdeba55a29020c1451db55fe6ccaf4252f400ba332ff9aadd4",
+      "sha256": "d5d001f5775bcc57b78d35fc0090d959540fef1b064853fb858e57eb3a7e1ff2",
+      "size": 24953
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "parent_sha256": "da3af20ae79b7c725f37e3df7a2fe7e0029facde3c37b331d6e750b70e45301e",
+      "sha256": "1c3808d38f21dde20b0372bc31b9f62f1a391f53f7b32da47ec9efddd74e5fd7",
+      "size": 6717
+    },
+    {
+      "path": "tools/native_lithia_memory1.json",
+      "parent_sha256": "ac8903875cf7959d7856832fec88d6879d12e09202ddbc10afe69d815e6f7c6a",
+      "sha256": "8ee6476043c9fb7ebae6b91acfb8f81412d72c0a4ebfb8973616fd6ef1fa11ea",
+      "size": 882
+    },
+    {
+      "path": "tools/rosso_reward_refresh.js",
+      "parent_sha256": null,
+      "sha256": "239f7954e8cded2bdd49309bf8f76ee1eb0add261661c79caebcf85821829869",
+      "size": 3418
+    }
+  ]
+}
