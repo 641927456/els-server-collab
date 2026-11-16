@@ -1,0 +1,105 @@
+{
+  "ok": true,
+  "parent": "remaining-gameplay-20261112-v186",
+  "release_parent": "remaining-gameplay-20261112-v186",
+  "parent_signed_archive": {
+    "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v186\\launcher-preview-v186\\runtime-369c95048de2fac4ebd3e09e8d34e8c5c43ce8c13bb3167db869dc09fdcdf76d.zip",
+    "sha256": "369c95048de2fac4ebd3e09e8d34e8c5c43ce8c13bb3167db869dc09fdcdf76d"
+  },
+  "source_manifest": {
+    "path": "G:\\els\\analysis\\party-invite-online-20261112-v1\\combined-v2\\candidate-manifest.json",
+    "sha256": "a91f4ff6561617c7b69d4bc9d3deb55594e8bb81d86da717e86082cb34f8b5ea"
+  },
+  "source_patch_sha256": "d2f6d51a80712e812faae1b1f10dc851d49d4b247d87362d7401d3e0d2eef059",
+  "changes": [
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-party-v187-prep\\candidate\\els_server\\domain\\friends_dungeon.py",
+      "sha256": "72f284c05fd815fe2b843e77d71472c7db0f41e3e849f37ff5c3bbe2b23c937a",
+      "size": 50942,
+      "parent_sha256": "47473260839d93b9bb5c07fd4e277ab9d01aa05c42b559c6781d7e62deea15ed",
+      "online_parent_sha256": "47473260839d93b9bb5c07fd4e277ab9d01aa05c42b559c6781d7e62deea15ed",
+      "scope": "server",
+      "original_v185_parent_sha256": "47473260839d93b9bb5c07fd4e277ab9d01aa05c42b559c6781d7e62deea15ed",
+      "original_candidate_sha256": "72f284c05fd815fe2b843e77d71472c7db0f41e3e849f37ff5c3bbe2b23c937a"
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-party-v187-prep\\candidate\\els_server\\domain\\friends_world.py",
+      "sha256": "2252f12c01de70f0c6a40f3f0edb917fb2fa8be7c42bc3b7839dc36a7f3ccbe1",
+      "size": 28800,
+      "parent_sha256": "369fa7cfc6b34749331e8da2df0d775da4b9368f54d4595f03406ce32e8bb948",
+      "online_parent_sha256": "369fa7cfc6b34749331e8da2df0d775da4b9368f54d4595f03406ce32e8bb948",
+      "scope": "server",
+      "original_v185_parent_sha256": "898cb3f300225fc20e0547918fcfd42c3c05a4d0b1e1d36c54eff82a04d53aef",
+      "original_candidate_sha256": "e3086455ec36e544a9be6a230a901cbce5965b0c65d51e1cc5f04bb09315c96f"
+    },
+    {
+      "path": "els_server/domain/party_commands.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-party-v187-prep\\candidate\\els_server\\domain\\party_commands.py",
+      "sha256": "e505d359f190a37f72afbcd8d661de1ce505d992ec91d4e163904ab9ec8b2ce2",
+      "size": 6376,
+      "parent_sha256": "731a7915e373f11d79401b64e86a681785507be30d49f109fbd14057b5802da3",
+      "online_parent_sha256": "731a7915e373f11d79401b64e86a681785507be30d49f109fbd14057b5802da3",
+      "scope": "server",
+      "original_v185_parent_sha256": "731a7915e373f11d79401b64e86a681785507be30d49f109fbd14057b5802da3",
+      "original_candidate_sha256": "e505d359f190a37f72afbcd8d661de1ce505d992ec91d4e163904ab9ec8b2ce2"
+    },
+    {
+      "path": "els_server/domain/party_entry_consent.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-party-v187-prep\\candidate\\els_server\\domain\\party_entry_consent.py",
+      "sha256": "39b1529ead887f612a29490abecd38d7bbdf3b404dac4baaa528d4764fc398f7",
+      "size": 4588,
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "scope": "server",
+      "original_v185_parent_sha256": null,
+      "original_candidate_sha256": "39b1529ead887f612a29490abecd38d7bbdf3b404dac4baaa528d4764fc398f7"
+    },
+    {
+      "path": "els_server/domain/party_recruitment.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-party-v187-prep\\candidate\\els_server\\domain\\party_recruitment.py",
+      "sha256": "6dce83c6daeb1b1186b8aaae95028de082d9493755d01b4767557107a3c5fe3a",
+      "size": 23365,
+      "parent_sha256": "fe653d5b2e78c37a1754e0eca056ed188f24ab69b80640fe24ff411fc85aa533",
+      "online_parent_sha256": "fe653d5b2e78c37a1754e0eca056ed188f24ab69b80640fe24ff411fc85aa533",
+      "scope": "server",
+      "original_v185_parent_sha256": "be4e54554ecc6e309389cd0401cb84086e6b3e6f4032e81f3a8758ae30352fa9",
+      "original_candidate_sha256": "6dce83c6daeb1b1186b8aaae95028de082d9493755d01b4767557107a3c5fe3a"
+    },
+    {
+      "path": "els_server/domain/party_selection.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-party-v187-prep\\candidate\\els_server\\domain\\party_selection.py",
+      "sha256": "57555a0b7ff6b823d78192babb185a3f1d43e7d33937d2b3c605b32cfe3cbc78",
+      "size": 2797,
+      "parent_sha256": "94360f6f3e2a1ac654763925b75d37471c4ab9de455de699165fd9ada9ec46fc",
+      "online_parent_sha256": "94360f6f3e2a1ac654763925b75d37471c4ab9de455de699165fd9ada9ec46fc",
+      "scope": "server",
+      "original_v185_parent_sha256": "94360f6f3e2a1ac654763925b75d37471c4ab9de455de699165fd9ada9ec46fc",
+      "original_candidate_sha256": "57555a0b7ff6b823d78192babb185a3f1d43e7d33937d2b3c605b32cfe3cbc78"
+    }
+  ],
+  "already_installed_in_parent": [
+    {
+      "path": "els_server/domain/raid_native_power.py",
+      "sha256": "6c65346b96a7a471c9da9ce5a399019d240a9e0bfb76b181ff1d6d52a6fb3a67",
+      "reason": "already included in V186"
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "sha256": "5eed03d4462703d77d48b0adb8f6d7cf640aa46d24711967f76b93cfbb9fccd9",
+      "reason": "already included in V186"
+    },
+    {
+      "path": "els_server/transport.py",
+      "sha256": "3580a4bc4258ac278193ffd39bba83f2f3ad6e52cd11cd46eb36672694768946",
+      "reason": "already included in V186"
+    }
+  ],
+  "new_tables": [],
+  "rebuilt_tables": [],
+  "support_changes": 0,
+  "patch_sha256": "4ff52e90c2ded8f82f285563d135c928b82f375c30751c9837639707ab38a9bc",
+  "installed": false,
+  "natural_GUI": false
+}

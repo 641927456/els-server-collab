@@ -1,0 +1,105 @@
+--- /dev/null
++++ b/els_server/data/season_pass_rewards.json
+@@ -0,0 +1,48 @@
++{
++  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
++  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
++  "items": [
++    {
++      "template": 715754,
++      "metadata": 2,
++      "group": 4,
++      "max_stack": 500,
++      "record_sha256": "6d27c93b4f1afd0ec489e50c50d34695803605b157633c3d1cfe532f34e3bc3e"
++    },
++    {
++      "template": 717811,
++      "metadata": 2,
++      "group": 4,
++      "max_stack": 300,
++      "record_sha256": "1c21b20aa12599e229c820963edd04bbc4478a99adc0eb6146d46944fa3001c5"
++    },
++    {
++      "template": 723642,
++      "metadata": 0,
++      "group": 4,
++      "max_stack": 1,
++      "record_sha256": "9ba7a4df6b36ea80b4de3118ad3be7840e85def038195bf5cecf770bb62ecaf9"
++    },
++    {
++      "template": 723685,
++      "metadata": 2,
++      "group": 4,
++      "max_stack": 300,
++      "record_sha256": "0413710e0b4d713cb24a59451148e2746f818c4db8a6d41716a389808e72f863"
++    },
++    {
++      "template": 136119,
++      "metadata": 2,
++      "group": 4,
++      "max_stack": 300,
++      "record_sha256": "a86efb34004e974f807853532c602bd8f666087bbab06d3b43a2c6f50ae6369f"
++    },
++    {
++      "template": 136145,
++      "metadata": 2,
++      "group": 4,
++      "max_stack": 300,
++      "record_sha256": "9900332b6ec98fe6ddbab7b9b7d96467c871249e24e33c0328073767eefd0cb1"
++    }
++  ]
++}
+--- a/els_server/domain/acquisition_policy.py
++++ b/els_server/domain/acquisition_policy.py
+@@ -41,6 +41,8 @@
+ HISTORICAL_PAGE1_USE_ONLY_TICKETS = frozenset((713172,713173,713174,713175,713176,713177,713438,713439,713440,713441,713442,713443))
+ 
+ def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None):
++    from els_server.domain.periodic_item_readers import definitions as pass_definitions
++    if template in {row['template'] for row in pass_definitions()}:return False
+     from els_server.domain.dungeon_ticket_shop import TEMPLATES as shop_tickets,authorize_output as ticket_output
+     if template in shop_tickets and ticket_output(template,raid_reward_source):return True
+     if template==136055:return False  # The approved shop is its only new source.
+--- a/els_server/domain/inventory_items.py
++++ b/els_server/domain/inventory_items.py
+@@ -1290,3 +1290,9 @@
+  _t=_r['template'];_expected=(_r['metadata'],_r['group'],_r['max_stack'])
+  if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting original pet trainer output')
+  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
++
++from els_server.domain.periodic_item_readers import definitions as _season_pass_definitions
++for _r in _season_pass_definitions():
++ _t=_r['template'];_expected=(_r['metadata'],_r['group'],_r['max_stack'])
++ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting normal pass reward reader')
++ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+--- /dev/null
++++ b/els_server/domain/periodic_item_readers.py
+@@ -0,0 +1,28 @@
++"""Exact native readers shared with the v128 recovery build."""
++import functools
++import hashlib
++import json
++import struct
++from pathlib import Path
++
++DATA_SHA = 'f1b8a069cc02dac53daa01f425d9bf84ebe005dc0034870152cb91eb0910e01c'
++
++
++@functools.lru_cache(maxsize=1)
++def definitions():
++    from els_server.game_data import CLIENT_SHA, client_data
++
++    raw = (Path(__file__).resolve().parents[1] / 'data/season_pass_rewards.json').read_bytes()
++    if hashlib.sha256(raw).hexdigest() != DATA_SHA:
++        raise ValueError('Pass reward reader identity')
++    data = json.loads(raw)
++    catalog = client_data()
++    if data['client_sha256'] != CLIENT_SHA or data['catalog_sha256'] != catalog.manifest['catalog_sha256']:
++        raise ValueError('Pass reward catalog identity')
++    for row in data['items']:
++        item = catalog.item(row['template'])
++        maximum = max(1, struct.unpack_from('<I', item['record'], 16)[0])
++        if (item['item_type'] != 7 or item['metadata'] != row['metadata'] or row['group'] != 4
++            or maximum != row['max_stack'] or hashlib.sha256(item['record']).hexdigest() != row['record_sha256']):
++            raise ValueError('Pass original material/box reader')
++    return tuple(data['items'])

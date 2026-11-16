@@ -1,0 +1,202 @@
+{
+  "release": "protocol-readwrite-20261113-v193",
+  "version": 193,
+  "parent_commit": "335699c1b77d0f8dec28391c2936546ca52823c2",
+  "integration_base": "f9c7bf58123c47d4ab490d73863d544304560a58",
+  "inherited_runtime_source_commit": "335699c1b77d0f8dec28391c2936546ca52823c2",
+  "inherited_launcher_logic_commit": "043caac543434c490587a7e051778512694fbdd8",
+  "production_files": [
+    {
+      "path": "els_server/domain/dungeon_rotation.py",
+      "size": 4069,
+      "sha256": "62426e1345a8c1b2e90ad51fa959b5845c9467bae71b91b688802f3730cc0278",
+      "parent_sha256": "eef62f95701fe5b6eac17bc1286341b276de1b11ae70d52666c38bb0dcb0c01f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/friends_pvp.py",
+      "size": 14328,
+      "sha256": "d58fa06c23cb3fd26e70594848332f52ce700b879acfaa5c81ae4a17827d4f3f",
+      "parent_sha256": "7c09dfb0cf582119b2e8bb1303a915e07e39f6a837e2bc74f3b063872ab8a198",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/housing_social.py",
+      "size": 23645,
+      "sha256": "bc6ce79b2958af41b5c87263a8fed8c845aac4442d375578865e75336c2a94cf",
+      "parent_sha256": "efd29b63ab6fdeff3058cea86f481de325a4048b07d063c6b4f0a3a7b958aeac",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/practice_pvp.py",
+      "size": 14367,
+      "sha256": "c80a7d4cc0dd2902a1b8d70de10fdbc453e80a251c02ec227e6c21b48ed79798",
+      "parent_sha256": "c384385c77c526f5393cd96948cb096fe595ae8ea20e82f4f7696d0895036a6b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pvp_registration.py",
+      "size": 10605,
+      "sha256": "059f3165ca6bf38622b8dd4a881b3e6dbc63b0fb1468b06b6b40f2e41014c40d",
+      "parent_sha256": "edadb95a8535171be86821916967e2bb55ccbd3454c92c5ac55f7d6978e5df99",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/silver_mirror_flow.py",
+      "size": 14299,
+      "sha256": "ad503b7ca3ea656ed4ff49ec4fb8de7cc89cb21e457bb89ffd9d864f724b5733",
+      "parent_sha256": "f6e793ebe1ed97f2cdbd0b46d04c205b324a25bac22812bb732ea7e0a2db3aa8",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/skill_trait_reset.py",
+      "size": 2312,
+      "sha256": "6ad7dd869da789fb4839a0eab34b81efb09d46b96847ac8fb1bea3f46912e124",
+      "parent_sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "size": 18386,
+      "sha256": "a00e538855dbe5f9c1901140ca828fff76fd87152804fe1181951e4e219ed582",
+      "parent_sha256": "14657e1bde828335893d68ade9dbb87397b4579a8f5cc9ffe7eccbb19d1e3082",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/guild_agit_messages.py",
+      "size": 3603,
+      "sha256": "25f38a3f464dabc32660212c8dfd2abae28c84dc057f3f8ac76737d8b22ba0cd",
+      "parent_sha256": "fa6f10c170c9f363cf6afa32711c145d961ba63515e7bb55f27d99cd355bf5fd",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/guild_farm_messages.py",
+      "size": 1236,
+      "sha256": "dac850f6e997c2bc494c387411f2d08489330fdb01f4641a7dbcda15a17fdb27",
+      "parent_sha256": "fc1b4a48e60830b891b65467b041c63f1fe4ab4a6e3b93b0e149d36b274407cb",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/guild_membership_profile.py",
+      "size": 6366,
+      "sha256": "43437293d61db7173c67eeacb829a22aabc14e988c910a38d15fad731968eeaf",
+      "parent_sha256": "d90d7e56bd2c8ad6ceb1f9909737cffe215dd319adc7c2133fcc80426910a564",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/housing_population_messages.py",
+      "size": 2711,
+      "sha256": "c01727927e82a9dc11d62688fc8788c20ce627194946a0210696c56586449ef7",
+      "parent_sha256": "c55c856cacca77c24d1a981286148234c737b09dfe155010405a52de126c93c9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "size": 22912,
+      "sha256": "517a7b3f00c31230139863cee462d4eafe7476a9f7062b7adc80310beeb17604",
+      "parent_sha256": "0ef42830ae62ab61f006b231ebf22e6f4ed9487220d390aa12e29d6ebcc32442",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/player_trade_messages.py",
+      "size": 3549,
+      "sha256": "6c5eb755a385ec8fc333ccdba47334c49d2e3c013ba694235f3b7c73331f4dc7",
+      "parent_sha256": "b282b19da2b7fb8a0d2be665aecad010114c10fb48ee77be8c8e06399eeff3c4",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/practice_pvp_messages.py",
+      "size": 5274,
+      "sha256": "06d9b68c921dab8ab335b0d4ecf0e8bb2cf5fea41aa27b49d4c4b7a2e1b97261",
+      "parent_sha256": "1b2a0a0390b1d0d34501d473afc5ea0b96ceb48b751942c2d183c2975205fdeb",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/profession_messages.py",
+      "size": 4206,
+      "sha256": "dec54661cfcb7c8d4b31fdcb7f91e965412495eeb88130d474aea6081c9099a4",
+      "parent_sha256": "ddcaa17b56b662d4d363549ecfd6cfb3bc31b689a844e55950bfa5d6e9f218c0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/shop_messages.py",
+      "size": 6145,
+      "sha256": "ad805cbbd3855e977ba52e92bbd3a194bc22a30fc759cb91caf4e1114130b5ff",
+      "parent_sha256": "7c9ebab73a9e8e62c1435cfb0baef9222a1668c56759083673e3e74f81bfe682",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "size": 18508,
+      "sha256": "80f811b2cdfa773796356eb20294521b3efc7a38f08ab0577c00b3c9a7584da2",
+      "parent_sha256": "53a8dcb9f458ed53980e1ddc2adb295b06c3447d72ec92be4f824261cd1a8e1c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/housing_rooms.py",
+      "size": 9705,
+      "sha256": "241672602dbb0b52e01c846361faf21e75d30de0b229fbac6c2499df5180e4a1",
+      "parent_sha256": "407e19dbc86887e2890d38445793487a1f7d37ed2f2d6cb3f313b02724ed4525",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/periodic_activities_flow.py",
+      "size": 15680,
+      "sha256": "020d54b9504ccbd0103860d1d92830e1e751490219a6ed051039471ab29a8484",
+      "parent_sha256": "a678d4d31c747899dfd2fdff75c791c2398ff47e12bbdd450e634c67b9e00347",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/pvp_support.py",
+      "size": 3218,
+      "sha256": "76cdcde8adaae7fa0f1450a7a9d3849f25506e2ab0e363865fbde81722802071",
+      "parent_sha256": "f43b933dfd69930d62c8bc5453c14a6e19f748b99f27d51e67a5a921e91419e1",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "size": 19976,
+      "sha256": "069ceb5f05e8020d18886b4798e9c19efe5f6bb06cd8b378c8bd7315316668e7",
+      "parent_sha256": "24c9d85c2634777112a70cff4ef84963fc3e55c7077d573a7fb9f54969cc86c4",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/housing_room_flow.py",
+      "size": 16356,
+      "sha256": "b00fe26eea70e2a423730bf50a56a1d18bed63e9106693452bb536957dbd54d1",
+      "parent_sha256": "977087496729cf27f88d2aa8cd903f018f6510b97eff08f9587367ef0bb41dac",
+      "scope": "server"
+    }
+  ],
+  "generated_launcher_files": [
+    {
+      "path": "AutoUpdate.cs",
+      "size": 14740,
+      "sha256": "0622d52d960c57cab8c498e57005fef45c46ebb692268a6f27a9f85f93ec5676",
+      "parent_sha256": "b32042506c39cbac481c539e2d730b1d37d43e966507e80e31be3b376e2c8f50",
+      "generated_only": true
+    },
+    {
+      "path": "UIScrollRuntimeCohort.cs",
+      "size": 2437,
+      "sha256": "dfb50cae0ced4de16a04963ac7bbc9d6c9359f245a1957dafdf98e6aaeb9660b",
+      "parent_sha256": "f0c90805065d08b5114ca3f41d7e0b821f1deb6e0ee013db6b730244967a60fe",
+      "generated_only": true
+    },
+    {
+      "path": "resources/ui-scroll-signedFriends.signed.json",
+      "size": 788037,
+      "sha256": "84b22398acd9491ed329762056ed7086201b00f3130b0f481696ce3d4300f3ae",
+      "parent_sha256": "4fc78c22852c56ec1bc0672a47c8fb24eafd4b32111e5d165727c2b3a2e520e1",
+      "generated_only": true
+    }
+  ],
+  "launcher_logic_changes": 0,
+  "runtime_archive_sha256": "f10d68f13394fd5c8b2579b7afc12e3dbea29afb082a9d8d3524d6cf8ee0cafe",
+  "original_EXE_KOM_changes": 0,
+  "source_inputs_sha256": "fadd174e82b333d6146c75e14f3695527084aaa9c743077124d2fdd49834fddb",
+  "source_candidates": {
+    "protocol_readwrite": "e7fcb4c052cf13f7403efc787ebb88c1261a15ce59c8707dd845932039228adc"
+  },
+  "private_data_included": false
+}

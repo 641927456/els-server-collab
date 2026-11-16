@@ -1,0 +1,278 @@
+{
+  "release": "anniversary-npc-varnimyr-20261110-v153",
+  "patch_sha256": "a6d81637c03688dbbba3b1cfa5e1adcc065bf2680b0adb8cf1b960c14e588f14",
+  "parents": {
+    "online": {
+      "release": "ed-shop-open-20261110-v152",
+      "manifest_sha256": "ed8317bf7c76e3660a5f9a2f162bf236a251d0e15c56de60b051077abcc62274"
+    },
+    "local": {
+      "release": "unified-server-84f64cc6a934959a-21e1f04a8de1",
+      "manifest_sha256": "b88de038377e0bf6f2e71b054361123f35bb0f29199c0d01200bf8aac5e846f9"
+    },
+    "launchers": {
+      "release": "ed-shop-open-20261110-v152",
+      "manifest_sha256": "4cdbb2a34f8cb0895b2c6931c1249397deac8992b563e05f3c044ea629320a70"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/data/anniversary_action_records.json",
+      "parent_sha256": null,
+      "sha256": "2388e03e9464f2438de15ce0fe32dd51aafe3941b3569532e03bb1ea1972c9de",
+      "size": 3867
+    },
+    {
+      "path": "els_server/data/anniversary_actions.json",
+      "parent_sha256": null,
+      "sha256": "0de0bc7b39127f4c30ae02e483dade17a45f17b4cc8ef82e75b400a07eb6e524",
+      "size": 3007
+    },
+    {
+      "path": "els_server/data/anniversary_exchange.json",
+      "parent_sha256": null,
+      "sha256": "b719a74f260ddc5eec50b06e716d77efcc2e0de141e52c24fc6a4f0fe8ff5163",
+      "size": 3391
+    },
+    {
+      "path": "els_server/data/anniversary_promotion.json",
+      "parent_sha256": null,
+      "sha256": "22edbe68375e18b83e613d7786c02ff47448d47aee025bd2e8b6cbf80cf3e6f0",
+      "size": 4686
+    },
+    {
+      "path": "els_server/data/npc_exchange.json",
+      "parent_sha256": "3e41e328b2b33a4e676761278b84cd748bc9ece981b59c1ebe4f5998c524a41a",
+      "sha256": "75402db5154184dfcce3bf6eab1a18c7acacea99258f3aa6229ed1e44599e4f0",
+      "size": 226129
+    },
+    {
+      "path": "els_server/data/npc_exchange.manifest.json",
+      "parent_sha256": "946e638a02329c49d6a8f08d3b37cd9c3985620f81fa6462b10e1e1e80f8327f",
+      "sha256": "9b284103ae62bd194f49c161922011776948cead238978361c247970b9f3a72a",
+      "size": 288
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "ca318b7119572654f8b90421d4d09a2ed006a686bde178313f0be38ad53f662c",
+      "sha256": "130a4dd60a0d2f3230b1f663c982280fe9fb4b2fe74d74a8a51fed5ac31a5597",
+      "size": 19724
+    },
+    {
+      "path": "els_server/domain/anniversary_actions.py",
+      "parent_sha256": null,
+      "sha256": "3e6d48bdefdeb5f70eaa4c7e5b47361096a659b0bcf882e15e4818f4aa8d6d39",
+      "size": 2730
+    },
+    {
+      "path": "els_server/domain/anniversary_exchange.py",
+      "parent_sha256": null,
+      "sha256": "30dac946b7f9fe1439bb87598282a1c44e3a03c12c4b67debbe1607596ed47a5",
+      "size": 3276
+    },
+    {
+      "path": "els_server/domain/anniversary_extras.py",
+      "parent_sha256": null,
+      "sha256": "e769ed31f8690cbc14f2e81028c4aeb4f2640eb30c558197870c5298a46631c7",
+      "size": 3018
+    },
+    {
+      "path": "els_server/domain/anniversary_promotion.py",
+      "parent_sha256": null,
+      "sha256": "6066e434577c96fbf911a22ef9f7e582cc9ad5087f27d7ca3e06bcfa55485a79",
+      "size": 2233
+    },
+    {
+      "path": "els_server/domain/anniversary_promotion_clock.py",
+      "parent_sha256": null,
+      "sha256": "034e412b4c6d067e0997ec6cdf78004b70c168cb463c19649430d25f87841de4",
+      "size": 1625
+    },
+    {
+      "path": "els_server/domain/attendance_online_2026.py",
+      "parent_sha256": "c3a85b50a835628fef90c9e1f4989898dc824880d3b49653082b0a9d1bb6ccc8",
+      "sha256": "3a5669fc4782a648edeb234bab48d7dbf7b63d8990ba9a431581b8bea13865ac",
+      "size": 9102
+    },
+    {
+      "path": "els_server/domain/board_ranking_flow.py",
+      "parent_sha256": "f00c0ae37d7addd9f67274b9fc087bb0d034099cb8a3d2d043eb56e5aee6f13a",
+      "sha256": "ed01ef9b71ca92763d139d3cb7f794e71a286bdd70a318fe0d177411dcb33cd7",
+      "size": 1043
+    },
+    {
+      "path": "els_server/domain/camilla_force.py",
+      "parent_sha256": "e989869a78c58530f303b5efb6e5c39d203bc3b278d39439a4f950a10beb1b72",
+      "sha256": "f4c07a9f149d1fe8fe6820f8e0c0d4e41a6501f7944239df251916f8f156dce7",
+      "size": 1325
+    },
+    {
+      "path": "els_server/domain/character_custom.py",
+      "parent_sha256": "3dc7e3a806e4b80f15b73855cd4eee652a220ca6315042bb30c46bb49ce9d8c5",
+      "sha256": "da500790edf97ac327d4d9516cdca20116f513bdeb3eb0ea99de26b51ce7dbe7",
+      "size": 10745
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "parent_sha256": "05fc619b496ebd1a1e0d375c46137bc723172a96e44da540cb31ddd52b7d5ee9",
+      "sha256": "af59b11e716567ea8d71421a046a7dc7399885ca074140ecc8ddbf7407ceeeb5",
+      "size": 35014
+    },
+    {
+      "path": "els_server/domain/dungeon_result_stats.py",
+      "parent_sha256": "a6c13f2febfeb2e3c5e9def055feec7f4dc69736e3b10fab2447701586e95f2a",
+      "sha256": "29e1211e43e90063422f11115d820af0466c875421bdfb45c40dc6eb43ae3fd3",
+      "size": 7686
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "parent_sha256": "e3cafffb4e166ff11535dc504e0759c5649610109070da71081aff8f2b6e6c25",
+      "sha256": "f147cec80cdd9aae6cdabbdc03954cf52c91ce3ee460683e189ddd3686a5d39c",
+      "size": 26706
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "51217221dbfdb601220b974b0a4c0c79f7276e2810da6892aa0c692ce57e6e52",
+      "sha256": "afcd2cddf41c662f9df50f36f377909fb1d9be90d91ea8b014116f5d0b485657",
+      "size": 98600
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "b57014ffab5a6f5ce66e1a9c71f590c6fb576896ff42a77cecc2a85d43a8c290",
+      "sha256": "1d351544d8135861ef01b61edb0ddb711fdd8be2f11120140f43dfbfbeb4aa76",
+      "size": 168714
+    },
+    {
+      "path": "els_server/domain/magma_coupon.py",
+      "parent_sha256": null,
+      "sha256": "2dcde3a07bc9fc2a6101efbf307bc730c68ec59d8330ae19495b08c5d472cc3a",
+      "size": 4752
+    },
+    {
+      "path": "els_server/domain/npc_exchange_flow.py",
+      "parent_sha256": "ee9c60f1d435957c14adc73e493c348b7ca5a15f77f07af9da1d28ca0c8470c5",
+      "sha256": "5521a173b929f26575a6fd29b7274e3aa9d110a5c5efe5332434b7e9a3ccd5a9",
+      "size": 3385
+    },
+    {
+      "path": "els_server/domain/npc_exchange_rules.py",
+      "parent_sha256": "cd90db5aa3828e3cfd46e935969ab7d3189ef6c1bdde963fd574032748064d2a",
+      "sha256": "eba5a13d0538af4563a7cc69bf6ce2dffad7f8844c4a39bf40c1d24a6238d351",
+      "size": 5828
+    },
+    {
+      "path": "els_server/domain/promotion_reward_boxes.py",
+      "parent_sha256": "6d0d79d8784d39be25821ec790eb8d5bfcc0927530240be85f1d0e760ce56642",
+      "sha256": "1061296a661f38904563f4e094ce41fe3c7e1fc9f2b05138862da5a6eee92017",
+      "size": 4190
+    },
+    {
+      "path": "els_server/domain/promotion_reward_flow.py",
+      "parent_sha256": "3ba28c000abba0a411dc16b38c533a6e2b23aa64657c1f121b5917a396e2a2e4",
+      "sha256": "927212b720432bb152da371f50573c12735e7c4378e31c73d8a9275914c2b7d4",
+      "size": 2380
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "parent_sha256": "5ce48e90efb5701760ecd82375d5ea38ab098863ba6f74437cb1416f617449d6",
+      "sha256": "6d0b3728cf912f1291024ed16efba3996fd53be6e7a16c5e45d375758983cdd8",
+      "size": 25535
+    },
+    {
+      "path": "els_server/domain/random_mission_flow.py",
+      "parent_sha256": "dbc6eac2a5d722caed4a728c5a4e3cfe8cabe46e8a0a885a067bc85b6dd984f6",
+      "sha256": "d8f05e27d8b623ca6782c3a9281cff1599931d7cb1c93a9666d0ab578231134c",
+      "size": 10088
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "parent_sha256": "179ed6381c4735e3a7ee534590a05b41fd6fb6b02422591a69bacbdadc8a874c",
+      "sha256": "b7cae6d88eb8d12a0aa86dc21744ef275ea3046336763b5d5a3b59fade30d40c",
+      "size": 21949
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "parent_sha256": "d4d1c0ee0fe89799b538f17f31fadab7e52ae73e5f84f5a0e3f982d57d36503a",
+      "sha256": "d82be2ee83bb48982c3b1c2ffb9ef3f5a261e536ea9b4d41c3c99584d0c867a4",
+      "size": 844784
+    },
+    {
+      "path": "els_server/domain/selected_2026_pair_runtime.py",
+      "parent_sha256": "d41876edaf7589e13e9bf167465d5791da1dd4c6d512a044a8362c8b9a8fb773",
+      "sha256": "2ae947bba1017369c40b1e919db325dc831e326e2571f55c89a83b8b40f3e58f",
+      "size": 11485
+    },
+    {
+      "path": "els_server/game_data.py",
+      "parent_sha256": "c8e852c5d083246788ce31b6e9332fec05ff55a725c21cd58f3a50c33258c97a",
+      "sha256": "a53e45a27c299ffe452f6b6d48917b7537faa6869edbe24f5fa63beca5038635",
+      "size": 6664
+    },
+    {
+      "path": "els_server/storage/anniversary_promotion.py",
+      "parent_sha256": null,
+      "sha256": "9caeb25efbeebb765c5cfbe680cf0aa17cadc2a3f647f1c0db7d0a09372d3b7d",
+      "size": 3589
+    },
+    {
+      "path": "els_server/storage/boosting_2026_nested_capacity.py",
+      "parent_sha256": "1251fe22acdfc57a4e1a9b84a61a1d6cd54a5d2b8a5058c7c11a82a95577c46f",
+      "sha256": "a4333418175a8c7d5eff33638b4255f9271916898e85f1deeab0a4cf8369a93f",
+      "size": 6900
+    },
+    {
+      "path": "els_server/storage/career_rewards.py",
+      "parent_sha256": "c201c6233bbf1c0055429246ad908757f8b834f841e40ba9d7d742b3d7e81037",
+      "sha256": "2fe053f119d17911e070058ea5e45e5cb0a690073551d13914aae96a04f7a226",
+      "size": 3403
+    },
+    {
+      "path": "els_server/storage/epic_followups.py",
+      "parent_sha256": "f7d659a2c7ff10bb9115d82a8d5217d61657a7ae072b5e0a16441670d07cdd19",
+      "sha256": "60662c89eb9c65f0f2bae6b405216b7d2e2c4da2a03900a8413d23f3088fbfdc",
+      "size": 9627
+    },
+    {
+      "path": "els_server/storage/material_exchange.py",
+      "parent_sha256": "8ed424dfbe39bde2ef81c07ff05522539d9f7e864850a8de779d9fb846a9e338",
+      "sha256": "fe392cf16f23ec498456ccb95f40c7dfff617ffdbddc3a3a7c34ed830be0c45b",
+      "size": 5778
+    },
+    {
+      "path": "els_server/storage/promotion_reward_boxes.py",
+      "parent_sha256": "c3b18d161b9ba37b2f6944d60ada310fba5ffb3ee6dd833b13dc34c817140f7a",
+      "sha256": "15fd62bfdc0e3d948949113d9b33f612d26e128180ebf9777e9aa6e40c49dec5",
+      "size": 6098
+    },
+    {
+      "path": "tools/client_compatibility.py",
+      "parent_sha256": "dd131db6f8a08b74aed7809690f6ffc743e1315cd72c3a6ff8500e5338ff64f5",
+      "sha256": "1bbda3f156837dedd1403c05653fd081194e7c25f5c6cf32ec25946e19c21a34",
+      "size": 19072
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "8b473e1fd6f314ac50e614bd24ef1677c04a1c30b9914b7cdcc2f343ff6cb1d2",
+      "sha256": "d4f4e5c7faf9c7bdeba55a29020c1451db55fe6ccaf4252f400ba332ff9aadd4",
+      "size": 24265
+    },
+    {
+      "path": "tools/local_stack_limits.js",
+      "parent_sha256": "c82937f875aa50e6aad6ee899178d68904ad553f5adf0386701a67befb15948c",
+      "sha256": "6182112010331157b8765d7daffdf40367a8bcdd75187eec2a7bcfa960bd16b7",
+      "size": 6732
+    },
+    {
+      "path": "tools/local_stack_limits.py",
+      "parent_sha256": "9533d8db3c61f14adfa9e4ffa8cba27d800cac409c5a13d7b4a3b042cf0c4cd9",
+      "sha256": "048fcf2e9d5950bb27b01be3492e532d98623bceb28487d6c2ea027dfbaacc45",
+      "size": 1180
+    },
+    {
+      "path": "tools/native_shadow_castle.json",
+      "parent_sha256": "b4bf233323a4b09c020ed106640825bb529e66120696f687e0d8cb09fdce9f67",
+      "sha256": "564703e0f6c1eeac2f568c3d930bff939c0c1107469fa059e7e9e9755b961931",
+      "size": 50907
+    }
+  ]
+}
