@@ -1,0 +1,116 @@
+{
+  "release": "guild-mail-market-20261110-v150",
+  "patch_sha256": "6a0c9cdfb89c8044eb92bebe5f99037062cc99c473497926bd7856ec0fbd51f7",
+  "parents": {
+    "online": {
+      "release": "hot-time-drop-tooltip-20261110-v148",
+      "manifest_sha256": "65f2d8525a291f26e3ad672ffa9747620aedb4963f50c7efcf370a7d92b8cb8e"
+    },
+    "local": {
+      "release": "unified-server-0ff249ea90879bf6-5305b16d1f4d",
+      "manifest_sha256": "7cd37095af3058a93a9de4a7c3f11c544cd17be59aabe196c6ce2e03067add17"
+    },
+    "launchers": {
+      "release": "hot-time-drop-tooltip-20261110-v148",
+      "manifest_sha256": "0c86e20f3916c1caf65469bb66abc5682a1378728bb8efef7315d557b93d36de"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/guild_agit_flow.py",
+      "parent_sha256": "1a9b959820822affced9edde33ab9d0d06a9742d0c80fd5593793a0894c6b9d5",
+      "sha256": "bf7104aff815a5d6d16da5e2073e011bcf6bbc6d13843dca2460ab90efb7b024",
+      "size": 16794
+    },
+    {
+      "path": "els_server/domain/guild_bank_rules.py",
+      "parent_sha256": "4ed8c66c231d78d46db261ca0c525194eda452121872dcdf45d93bbed783a625",
+      "sha256": "8f03e07ba69660f041e443fef02e1a6eeb805a1f816f7d8dfb30c5d2c36313fc",
+      "size": 2387
+    },
+    {
+      "path": "els_server/domain/guild_fountain.py",
+      "parent_sha256": "107845a7758622655afb4641816e24534af845dce6c636caca344878337688fc",
+      "sha256": "5725add2fa8243a3557eb63ecc543d7432c06b3e37a57997ac6057e0c7f62fa5",
+      "size": 2810
+    },
+    {
+      "path": "els_server/domain/guild_skins.py",
+      "parent_sha256": "15ede8c6ba2d95543d2401997b972c7a2ab163aefa81add67ecd7d136d50ff27",
+      "sha256": "bbbc1cc694b00477f19f2e3901d0a0d9e37e179c2b7f40c529dbc35a6a3da0a4",
+      "size": 3831
+    },
+    {
+      "path": "els_server/domain/guild_system_flow.py",
+      "parent_sha256": "b9d6ad65d7ce7445a5bf7f12f8cd2dc6b4e21403f5e98f2749df10412e8e67b7",
+      "sha256": "c3d439ec32be6fe4685b8cd37768f49a7f7620ee749074d53ab289aacba4c46e",
+      "size": 22021
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "parent_sha256": "746f7ba12de6892838ad4c7b372c75fd4dc1439826c6e608c6a7af7caa9b73e0",
+      "sha256": "c227769e717dcc97b01f5e2f5f52b80d336d2d2ba69a3b7446bf4bbc826de524",
+      "size": 18726
+    },
+    {
+      "path": "els_server/protocol/guild_agit_messages.py",
+      "parent_sha256": "5f1a9b995009b060ab5a9b320d5275bbcd41fde8d69eb6b39f3e52013072e600",
+      "sha256": "fa6f10c170c9f363cf6afa32711c145d961ba63515e7bb55f27d99cd355bf5fd",
+      "size": 3457
+    },
+    {
+      "path": "els_server/protocol/guild_membership_profile.py",
+      "parent_sha256": "e3f1d35c21d1be6a5f98e3c438b463b3863db984bc54f46883047340af4e6271",
+      "sha256": "d90d7e56bd2c8ad6ceb1f9909737cffe215dd319adc7c2133fcc80426910a564",
+      "size": 6501
+    },
+    {
+      "path": "els_server/protocol/guild_system_messages.py",
+      "parent_sha256": "a47323cf3789c9aa26951bce11817d591e6313e1b484bb6da1c3cef9f475aac2",
+      "sha256": "013bbbe1f065d20c3d2ede17efc25f58e145c4d830ffc0ca24a15799291c5876",
+      "size": 2957
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "parent_sha256": "45e26704ec4e5d489433532c9a954e24913a92be43d57372063e86c8f1522fed",
+      "sha256": "0fb7db0a94a10c8eb8872de885814cb57e5289283e16a180dce2f3837316a211",
+      "size": 22669
+    },
+    {
+      "path": "els_server/storage/guild_coin_state.py",
+      "parent_sha256": "aa4dbe8dd6a08ceb82f86707992692cce1653e78a6650517bea6aed2462cb920",
+      "sha256": "d56c0d3adef601c471d2587cdd37f5f6f94ccdc004cdd808cee3b904f8348212",
+      "size": 7223
+    },
+    {
+      "path": "els_server/storage/guild_membership_state.py",
+      "parent_sha256": "342c36fb8523f8d3042f8df8c568ce3deffe0c93cf43a2b993ed4e7160ea70d2",
+      "sha256": "5a12c5da401b61a5e1279006e2bc5f8475c6e19b10b9025b9048023867dd4448",
+      "size": 20740
+    },
+    {
+      "path": "els_server/storage/guild_quests.py",
+      "parent_sha256": "91bff38905272d1bc00b3daa623334f0a1aeea057f960166aba3cc197e86ba2a",
+      "sha256": "b470f97618ee203b02d3ca955fd9925fcb1d6813d87f42cfd2737a090d988356",
+      "size": 7101
+    },
+    {
+      "path": "els_server/storage/normal_fatigue.py",
+      "parent_sha256": "dd297bac2991dd38729e61da47d7f6fdd55e7e68ecc15524d8f40f550ececf9b",
+      "sha256": "96780fd9d00bad3ae029812f103960cfd5e196dd5a456da7d713884b8668ee3b",
+      "size": 8816
+    },
+    {
+      "path": "els_server/domain/trade_board_authority.py",
+      "parent_sha256": "8def63eba57f6b0d3a0ea8738a10a6ccff135ee1286cd2c0591efb3a78e80246",
+      "sha256": "603d07994cc44585cf8fdb63ab9ebc0bd6b60029d53b41c3a7b8dda34247c84e",
+      "size": 2366
+    },
+    {
+      "path": "els_server/storage/mail_attachments.py",
+      "parent_sha256": "6ea2ae68fd0d3883ef5d1f696efc4b6ae1aa36f2d13b8ad24daafba889d66e56",
+      "sha256": "7a93750bbacb3223dcc1b33a602ba02fb4cc78edef6d46de49541367d00a7810",
+      "size": 14110
+    }
+  ]
+}

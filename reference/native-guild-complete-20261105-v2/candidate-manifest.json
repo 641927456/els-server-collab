@@ -1,0 +1,994 @@
+{
+  "parent": {
+    "ok": true,
+    "verified": true,
+    "online_accepted": true,
+    "release": "native-feature-closure-20261105-v1",
+    "channel": "online",
+    "path": "releases/online/native-feature-closure-20261105-v1",
+    "manifest_sha256": "45759dacfd3c2ec7c1f8798c4c5a436e4fbf9f29d402b1c766ae4630a0bbde40",
+    "parent_release": "native-market-progress-20261105-v1",
+    "parent_manifest_sha256": "55e7b112d140170b72c5458f0f51935af072644a7f979bb7e2a87631236909c4",
+    "configuration_sha256": "1d01ee03ccd712a081b9e143dcdc9a651426179b2d94b320a07a7467aa11fa08",
+    "business_files_verified": 1533,
+    "delta_files": 62,
+    "client_delta": 0,
+    "observation_seconds": 127.129779699957,
+    "backup": "C:/ElsFriends/backups/native-feature-closure-20261105-v1",
+    "public_acceptance": {
+      "passed": true,
+      "evidence": "G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-independent-v1\\publication\\online-public-acceptance.json",
+      "lifecycle_evidence": "G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-independent-v1\\publication\\online-lifecycle-acceptance.json",
+      "own_accounts_cleaned": true,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "power_cache_complete": true,
+    "natural_GUI": false,
+    "natural_battle": false,
+    "scope": "原生直接交易取消等级/等待期；摄影棚与50ED票；宠物饰品原生50ED鉴定/流转；冰装固定45；定制可见重登与锁后资格/队列发布修复；公会最小进出场",
+    "player_database_restore": false,
+    "new_schema": true,
+    "new_schema_definitions": 2,
+    "inherited_schema_definitions": 5,
+    "new_tables": [
+      "native_photo_zone_unlocks",
+      "native_player_trades"
+    ],
+    "inherited_bank_tables": [
+      "native_guild_bank_expansions_v1",
+      "native_guild_bank_history_v1",
+      "native_guild_bank_items_v1",
+      "native_guild_bank_transfers_v1",
+      "native_guild_coin_donations_v1",
+      "native_guild_coin_v1"
+    ],
+    "install_DDL_statements": 0,
+    "eager_schema_migration": false,
+    "lazy_business_DDL": true,
+    "inherited_lazy_business_DDL": true,
+    "current_delta_defines": 0,
+    "private_Boss_ED0_qualified": true,
+    "public_Boss_ED0_verified": false,
+    "private_nine_leaf_App_qualified": true,
+    "public_nine_leaf_protocol_qualified": true,
+    "accessory_identification_groups": true,
+    "custom_menu_native_performer": true,
+    "server_delta": 62,
+    "support_delta": 0,
+    "new_files": 13,
+    "native_wardrobe_window_verified": true,
+    "Git_merge": false,
+    "enhancement_unlock_effects": true,
+    "wardrobe_batch_failure_messages": true,
+    "accessory_identification_3030_5150": true,
+    "native_four_repairs": true,
+    "parent_schema_sha256": "d2cbbcf741873dd6558a05a192e8b1865e90b05655732e15adee4450cffce566",
+    "all_eligible_onepieces": 962,
+    "shop_home_first_open_verified": true,
+    "wardrobe_success_popup": true,
+    "growing_kit_count_one": true,
+    "collection_quest_ticket": true,
+    "custom_items_register_apply": true,
+    "equipment_identification_pools": 194,
+    "equipment_identification_templates": 982,
+    "hero_common_templates": 16,
+    "nebulon_conversion_sourced_weights": true,
+    "reactor_pool_unresolved": 850000,
+    "force_categories_sources": true,
+    "existing_ownership_CHECK_expansion": true,
+    "dungeon_population_weights": true,
+    "random_group_boss_qualification": true,
+    "ED_drop_clear_repair": true,
+    "solace_true_ending_ground_reward": true,
+    "native_collection_six_slots": true,
+    "guidebook_upload_tail": true,
+    "inherited_source_merge_commits": {
+      "643": "4c112919de3025fbfa693a2078d783e29d80fa34",
+      "646": "a2c53227508d60dd882a8d2e7ce7149a003087a3",
+      "648": "4188db2f5628a0452ebc990be94c5eb90d88ef55",
+      "652": "883eaec021f7b4f967ada35cf9e106dec99c900d"
+    },
+    "public_controller_retirements": true,
+    "owned_common_boxes": true,
+    "solo_dungeon_wear_repair": true,
+    "shop_missing_692": true,
+    "current_delta_Git_merge": false,
+    "gm_high_scrolls": true,
+    "native_map_and_trigger_repair": true,
+    "mainline_leveling_exp20": true,
+    "ordinary_field_passage": true,
+    "spatial_error_text_repair": true,
+    "ep13_retained_inventory": true,
+    "epic_special14": true,
+    "native_scene_retirements": true,
+    "group_dungeon_wear_repair": true,
+    "inherited_parent_schema": {
+      "new_schema": false,
+      "new_tables": [],
+      "new_schema_definitions": 0,
+      "lazy_business_DDL": true
+    },
+    "native_line_selected_phase": true,
+    "native_dungeon_map_stages": true,
+    "profile_delta": 0,
+    "native_ground_fashion": true,
+    "retained_mail_login": true,
+    "registered_ground_items": true,
+    "native_controller_quest_gates": true,
+    "elrian_breakable_gates": true,
+    "shop_rare_navy_728": true,
+    "native_field_entry_identity": true,
+    "startup_DDL_statements": 0,
+    "lazy_table_definitions": 0,
+    "three_activities": true,
+    "changed_runtime_files": [
+      "els_server/application.py",
+      "els_server/data/photo_zone.json",
+      "els_server/data/photo_zone.manifest.json",
+      "els_server/data/photo_zone_ticket.json",
+      "els_server/domain/bank_rules.py",
+      "els_server/domain/character_custom.py",
+      "els_server/domain/decomposition_rules.py",
+      "els_server/domain/equipment_ui_flow.py",
+      "els_server/domain/friend_flow.py",
+      "els_server/domain/friends_dungeon.py",
+      "els_server/domain/friends_world.py",
+      "els_server/domain/guild_agit_flow.py",
+      "els_server/domain/guild_publication.py",
+      "els_server/domain/housing_room_flow.py",
+      "els_server/domain/ice_decomposition.py",
+      "els_server/domain/identification_ui.py",
+      "els_server/domain/inventory_items.py",
+      "els_server/domain/known_resurrection_flow.py",
+      "els_server/domain/luciel_state.py",
+      "els_server/domain/pet_accessory_rules.py",
+      "els_server/domain/pet_expedition.py",
+      "els_server/domain/pet_expedition_flow.py",
+      "els_server/domain/photo_zone_catalog.py",
+      "els_server/domain/photo_zone_flow.py",
+      "els_server/domain/photo_zone_quest.py",
+      "els_server/domain/player_trade_flow.py",
+      "els_server/domain/quest_flow.py",
+      "els_server/domain/raid_economy_flow.py",
+      "els_server/domain/seal_quests.py",
+      "els_server/domain/session_auxiliary.py",
+      "els_server/domain/shop_additions.py",
+      "els_server/domain/title_economy.py",
+      "els_server/domain/whisper.py",
+      "els_server/dungeon_workers.py",
+      "els_server/friends_relay.py",
+      "els_server/protocol/character_custom_messages.py",
+      "els_server/protocol/dungeon_messages.py",
+      "els_server/protocol/identification_messages.py",
+      "els_server/protocol/local_messages.py",
+      "els_server/protocol/photo_zone_messages.py",
+      "els_server/protocol/player_trade_messages.py",
+      "els_server/protocol/social_messages.py",
+      "els_server/realtime.py",
+      "els_server/storage/character_custom.py",
+      "els_server/storage/characters.py",
+      "els_server/storage/el_search_collection_tickets.py",
+      "els_server/storage/equipment_receipt_state.py",
+      "els_server/storage/game_mail.py",
+      "els_server/storage/growth_guide_boxes.py",
+      "els_server/storage/guild_bank_items.py",
+      "els_server/storage/housing_layouts.py",
+      "els_server/storage/identification_ui.py",
+      "els_server/storage/item_instances.py",
+      "els_server/storage/life_stamina.py",
+      "els_server/storage/pet_expedition.py",
+      "els_server/storage/pet_support.py",
+      "els_server/storage/photo_zone_state.py",
+      "els_server/storage/player_mail.py",
+      "els_server/storage/player_trade_state.py",
+      "els_server/storage/seal_quests.py",
+      "els_server/storage/titles.py",
+      "els_server/storage/trade_board_state.py"
+    ],
+    "native_contact_mechanisms": true,
+    "cross_bag_wear": true,
+    "player_summons": true,
+    "supported_templates": 55,
+    "permanent_growth_guide": true,
+    "guide_tasks": 61,
+    "guide_courses": 13,
+    "fixed_boxes": 63,
+    "fixed_items": 832,
+    "weapon_growth_lifecycle": true,
+    "idle_four_slot_full_snapshot": true,
+    "gift_title_quickstart_hp": true,
+    "dungeon_lag_v4": true,
+    "functional_rewards_v68": true,
+    "performance_buff_v69": true,
+    "scroll_mhp_v70": true,
+    "atlas_scroll_support": true,
+    "launcher_pending": false,
+    "shop_royal_guard": true,
+    "sky_crossroads_triggers": true,
+    "visible_mechanism_retirements_50": true,
+    "native_room_requests": true,
+    "adrian_solace_triggers_11": true,
+    "native_line_rule_count": 149,
+    "native_retirement_rule_count": 915,
+    "realtime_isolation": true,
+    "max_connections": 192,
+    "configuration_delta": {
+      "old_max_connections": 192,
+      "new_max_connections": 192,
+      "economy_workers": 2,
+      "sha256": "1d01ee03ccd712a081b9e143dcdc9a651426179b2d94b320a07a7467aa11fa08"
+    },
+    "economy_workers": 2,
+    "ice_wardrobe_projection_repaired": true,
+    "receipt_positions_repaired": true,
+    "online_history_projection_optimized": true,
+    "realtime_stale_wait": true,
+    "shop_catalog_process_cache": true,
+    "shop_catalogs_prewarmed": true,
+    "activity_reward_restore_merged": true,
+    "native_clear_alias_projection": true,
+    "blessed_timespace_shop": true,
+    "new_indexes": [],
+    "startup_index_definitions": 0,
+    "history_query_indexes": true,
+    "clock_stage_diagnostics": true,
+    "remaining_long_pause_root_cause_proven": false,
+    "player_feedback_quests_void_buff": true,
+    "attendance_projection_reuse": true,
+    "pr771_gameplay_racing": true,
+    "master_road_HP_unchanged": true,
+    "activity_armor_reset_scroll": true,
+    "native_dungeon_fatigue_errors": true,
+    "luciel_laby_skill_parameters": true,
+    "native_operation_error_messages": true,
+    "inherited_source_binding": null,
+    "dungeon_stalls_remaining_v7": true,
+    "native_player_summon_batches": true,
+    "native_erp_rejection_messages": true,
+    "mixed_player_scene_summons": true,
+    "dungeon_spawn_closure_v2": true,
+    "source_submission_pending": false,
+    "haures_mod_summon": true,
+    "dungeon_fatigue_total_correction": true,
+    "pickup_consumable_gate_repair": true,
+    "dungeon_skill_replacement": true,
+    "modern_ice_cubes_points": true,
+    "glass_door_lifecycle": true,
+    "dungeon_spawn_loot_scope_v6": true,
+    "native_hot_time_permanent": true,
+    "unlimited_ordinary_fatigue": true,
+    "ordinary_experience_multiplier": 2,
+    "resonance_experience_multiplier": 10,
+    "dungeon_callm_source_closure_v8": true,
+    "native_bottom_megaphone_announcements": true,
+    "ep_shop_native_categories": true,
+    "modern_ice_permanent_sale": true,
+    "attendance_reward_validation": true,
+    "native_modern_ice_withdrawal": true,
+    "teacher_potion_native_count1": true,
+    "pet_pickup_latency": true,
+    "dungeon_business_isolation": true,
+    "source_merge_pending": true,
+    "first_pickup_prewarm": true,
+    "isolated_natural_GUI": true,
+    "native_modern_ice_cube_open": true,
+    "dungeon_startup_prewarm": true,
+    "shop_unlisted_4121": true,
+    "inherited_previous_source_binding": {
+      "source_submission": {
+        "ok": true,
+        "repository": "641927456/els-server-collab",
+        "issue": 830,
+        "PR": 831,
+        "url": "https://github.com/641927456/els-server-collab/pull/831",
+        "head": "076874133bf70d4b039876f8f15f2f21af6212df",
+        "branch": "fix/830-dungeon-startup-prewarm",
+        "source_archive": "refs/native-dungeon-startup-prewarm-20261104-v1/source",
+        "exact_runtime_files": 1,
+        "pushed": true,
+        "Git_merge": false,
+        "CI": {
+          "run_id": 41798711896,
+          "head": "076874133bf70d4b039876f8f15f2f21af6212df",
+          "workflow": "collaboration-checks",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      },
+      "source_candidate_manifest_sha256": "67269ecc1ebe0935552cb57997b6cd19a61a9dde4608f52920d9cfc1fe76d1a5"
+    },
+    "source_archive_pending": false,
+    "source_Git_merged": false,
+    "source_delivery_manifest": "G:\\els\\analysis\\shop-unlisted-listing-20261104-v1\\delivery-manifest.json",
+    "cancelled_periodic_publication_fix": true,
+    "orb_guild_npc_consumables": true,
+    "monster_combat_hp": true,
+    "master_road_shared_hp": true,
+    "ice_draw_complete_reply_atomic": true,
+    "inherited_previous_source_submission": {
+      "ok": true,
+      "repository": "641927456/els-server-collab",
+      "issue": 844,
+      "PR": 845,
+      "url": "https://github.com/641927456/els-server-collab/pull/845",
+      "head": "6fccee2ea895dbf48d0714291a81143d3bfe1a9b",
+      "branch": "fix/844-master-mechanic-init-hp",
+      "source_archive": "refs/native-master-mechanic-init-hp-20261104-v1/source",
+      "exact_runtime_files": 2,
+      "pushed": true,
+      "Git_merge": false,
+      "source_CI_local_passed": true,
+      "platform_CI_pending": false,
+      "platform_PR_run": 41833511750,
+      "cancelled_duplicate_push_run": 41833459619,
+      "public_scope": "HP tables and sanitized validation only",
+      "platform_CI": "success",
+      "platform_CI_runs": [
+        41833511750
+      ],
+      "runtime_check": "not applicable to pull_request; main-only job skipped"
+    },
+    "master_mechanic_initial_hp": true,
+    "ice_economy_fair_turn": true,
+    "dungeon_whitebox_completion": true,
+    "unified_runtime": true,
+    "same_authenticated_server": true,
+    "dungeon_workers": 4,
+    "dungeon_queue_capacity": 16,
+    "dungeon_world_queue_bypassed": true,
+    "dungeon_periodics_isolated": true,
+    "prewarm_and_read_reuse": true,
+    "launcher_changed": true,
+    "local_changed": true,
+    "local_shared_server_update_pending": false,
+    "server_source_identity": "cbdc29ffe6af1b709753c0568d096610aaf5d5973588753a8ed73cb3698ef19e",
+    "server_source_files": 1298,
+    "source_submitted": true,
+    "latency_optimization_v2": true,
+    "inherited_latency_indexes": [
+      "reward_receipts_challenge_owner_time",
+      "reward_receipts_story_owner_map"
+    ],
+    "pickup_glass_optimization_v3": true,
+    "source_Git_submitted": true,
+    "source_archive": "reference/native-independent-closures-20261105-v4",
+    "task_reward_repairs": true,
+    "cooperative_periodics": true,
+    "sqlite_writer_turns": true,
+    "dungeon_tail_optimization_v4": true,
+    "dungeon_capacity_optimization_v5": true,
+    "sqlite_version": "3.54.1",
+    "runtime_component_delta": 1,
+    "capacity_guaranteed": false,
+    "current_delta_PR": 881,
+    "current_delta_head": "f212b9f123a6924129e6309e47663e7f61c6ab09",
+    "pet_growth_repairs": true,
+    "native_friend_relationships": true,
+    "pet_feeding_actor_review": true,
+    "market_transfer_progress_reset": true,
+    "source_PR": 881,
+    "source_head": "f212b9f123a6924129e6309e47663e7f61c6ab09",
+    "source_candidate_manifest_sha256": "9cfba51ed79d8cb29db0db99ae8e049236cd64310f34925c4d4068fd0c541da4",
+    "installation_receipt": "G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-independent-v1\\publication\\online-installation-acceptance.json",
+    "shared_runtime_archive_sha256": "6a766dd63217e4b1851ad8a85c751efee497acf2751e9de298442cc7d7709ba1",
+    "same_signed_definition_for_both_targets": true,
+    "parity_receipt": "G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-independent-v1\\publication\\unified-runtime-parity.json"
+  },
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "size": 38635,
+      "sha256": "5c704bcc1fe156030aecf7ae32dbcc9e4cbd161ee7ef71d8d5b9c0be1e39c2d1",
+      "base_sha256": "1538b56728c55efaea6f0d8366079d6ce29e18a611b20989f41532851421602d"
+    },
+    {
+      "path": "els_server/data/guild_expedition_policy.json",
+      "size": 30,
+      "sha256": "407fac41adbec75794b62f7887a302df15542f4fed3264bd56ce01e288377443",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_expedition_rewards.json",
+      "size": 353,
+      "sha256": "2011f77bdec69598049ec8bf6de1205c308799d83aad3ab7266e1ffc6e5135c8",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_profession_policy.json",
+      "size": 47,
+      "sha256": "99da5eba0e62075271daf18a496ca5e950d424d754f5b74d5d4b1fffdd175c03",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_quests.json",
+      "size": 14891,
+      "sha256": "7afdc43b50de08a7e430fc618e4e75c9bfd4450a12da5be437d124bc9fe03115",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_seed_pouch_policy.json",
+      "size": 158,
+      "sha256": "3b556dd6b846d26d471c1913a1a371793afae7654246114cabb2afabf1d91ce4",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_shop.json",
+      "size": 45202,
+      "sha256": "bd182ab643635a7481b2f1c5b1c79478b6674ce65d6098d8cad8d559d337040b",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_skill_tree.json",
+      "size": 1171,
+      "sha256": "5c11a24afbbf2f433d24a33de4c57700ece3e8fe3bcba417c25e3afd6fb47f4a",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_skins.json",
+      "size": 3065,
+      "sha256": "5a7fb96f8669da7a7b2d9805f515096b23cbece12f76eb12d06cabddcdc352e8",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/guild_system.json",
+      "size": 76899,
+      "sha256": "cc9487cafd32effdcc6e3c3fdcd8f7e5cda8a0c9de14a2617e500953eb94f19d",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/consumable_flow.py",
+      "size": 1438,
+      "sha256": "cffcd4c2626aa361a5205483f48d1f74b34981390fd3ed7a8f23fc4f408e86df",
+      "base_sha256": "f334c62761518c0d8b13767625eb0ceff17e366db634966857e06f807b650923"
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "size": 10096,
+      "sha256": "97aea7d709a7052865b81e79ffc9449430091f9ec89d02a7c2577fbc2cccea05",
+      "base_sha256": "89ad08661ed9754831981ac9dbca84e0b7d1d39b300c57d27dfe4869c972df5d"
+    },
+    {
+      "path": "els_server/domain/cubes.py",
+      "size": 6126,
+      "sha256": "e9c87ab5a763a733048ccf303bfc561092f7cbb684ac5b7930cbb52170b15fb6",
+      "base_sha256": "5fad145032f6f0eb6515bfdc337bdcb9842e3d5bedcea822fb973b6425472e82"
+    },
+    {
+      "path": "els_server/domain/elixir_economy.py",
+      "size": 4390,
+      "sha256": "169eb01d1908cb1356062ebe190f9327523f78dafc221482b683e25925942f36",
+      "base_sha256": "780cd7364a3af150b0047310744c29dd686d66a607ac78cb547ca39e0848f371"
+    },
+    {
+      "path": "els_server/domain/elixir_flow.py",
+      "size": 7664,
+      "sha256": "7f677ced9a7284ff4efa971d212dc09fa52158a122a67480c4beb7b7a2abb90a",
+      "base_sha256": "65933c44064b1fc76a9d179c92789995df3d9100a4f794deb06569114d5dcf90"
+    },
+    {
+      "path": "els_server/domain/flask_rules.py",
+      "size": 5687,
+      "sha256": "dabd911d33123cc1d2a57cb1eec484576e3d02402525a6062fc5c072d59a099f",
+      "base_sha256": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3"
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "size": 20778,
+      "sha256": "b49e6dfb02ecf96ec79778e9b56979f437073d8dfd81a885b67441e979721dd1",
+      "base_sha256": "3b90d93108171e8a46c4c7621c920586b9e2bc50ea350ca1228f854f902f79b8"
+    },
+    {
+      "path": "els_server/domain/guild_agit_flow.py",
+      "size": 14383,
+      "sha256": "a96285e0b9a293ce38d100c023d1d278a6b5bd4cb12e6daa1c78e4a41254a809",
+      "base_sha256": "eab62df370ab9f792e71978239f49dd6588073197fc5709194a2fce1bdfe2f21"
+    },
+    {
+      "path": "els_server/domain/guild_appearance.py",
+      "size": 2348,
+      "sha256": "721627c27404f356c7aa7a5181b4d4c919a54dbdb994c907c8d728d9c457ca7e",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_bank_rules.py",
+      "size": 2673,
+      "sha256": "4ed8c66c231d78d46db261ca0c525194eda452121872dcdf45d93bbed783a625",
+      "base_sha256": "62dab28fe85c0399518f46ab7812a405ae2490da5c0e4f1b9b13a71de4180bb7"
+    },
+    {
+      "path": "els_server/domain/guild_banner_flow.py",
+      "size": 2504,
+      "sha256": "4a324aeb8ce7005267a297fb43833a0438ac2fee7ffda9c4f2c82b344ff01e53",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_chat.py",
+      "size": 2463,
+      "sha256": "f21aa31714da101b51d91308fc00c8317dabac0bc25333e6a2a103b6b9d9cf9a",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_consumables.py",
+      "size": 4194,
+      "sha256": "c5baa3a1d9c7f8fa7702eec68c927a81b55c1a1beb8a93cd8c340c95c1170dc2",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_effects.py",
+      "size": 2768,
+      "sha256": "c813a53666ad4a0a9c6ddd1e835baca7fe1d93e2fb489e83511b09dae135b56d",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_emblems.py",
+      "size": 6862,
+      "sha256": "c0ee604884c5e5b1bbf6025de36bfde1524c9ddd7e5709a5843b749a90e53223",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_expedition.py",
+      "size": 17514,
+      "sha256": "27c383e2c969ba0618822cb777f54c97c90b89332674ad94a3f7fa4185f59aca",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_farm.py",
+      "size": 7562,
+      "sha256": "5c1f9ae62e5359793d52df6a386470d97716114ab56e13aa9be14f7db6b641ca",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_farm_items.py",
+      "size": 787,
+      "sha256": "eecae7e4556a5023d1862d578b1f6161acd6c39d20c8762f3ad8c08b57f0ed3e",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_fountain.py",
+      "size": 2490,
+      "sha256": "107845a7758622655afb4641816e24534af845dce6c636caca344878337688fc",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_initial_profile.py",
+      "size": 2207,
+      "sha256": "a0c46b252e06dfdcd210289ef6fb41042f1e2f849690b06dd9ff62b61f08a24b",
+      "base_sha256": "8cc416decfcf06c7c9abea3646f1b2cb94005d176e3105dcf77d4a67dde92bfb"
+    },
+    {
+      "path": "els_server/domain/guild_membership_flow.py",
+      "size": 7039,
+      "sha256": "e751f15323d56c740b573581e5d6b208a689b2f36ad17d37652847aed7c01800",
+      "base_sha256": "a28ddb420a96d4f0c0e8ea550ae249b6b1782358fe90c6cb08aa2249b6e3a765"
+    },
+    {
+      "path": "els_server/domain/guild_mount_fuel.py",
+      "size": 1609,
+      "sha256": "7882b72414b732edf090028d87358791d0eb7ef2b3451a89814c50311a20d270",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_periodic.py",
+      "size": 2785,
+      "sha256": "16e453dca04e4b7411daf986d32e15f33700ca2786df145caf89975080995593",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_publication.py",
+      "size": 3447,
+      "sha256": "019a9574771c593dc21ca7d5b4d752d83c82cf432f792a314a596d28871a9e2c",
+      "base_sha256": "8b24d1b7cc06807cfbb9cc536491328bb586deb0f99d3eb489a27e9a630a76ab"
+    },
+    {
+      "path": "els_server/domain/guild_quest_flow.py",
+      "size": 1995,
+      "sha256": "6f4ea74ce4c8eb00c8da2d9c29c6919cb3785071bae8ae59e5718326c2d68bb0",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_quests.py",
+      "size": 2453,
+      "sha256": "0f1def76be4cfcc27f042d0bea5c9e977bd8cffdfb86f8d1b8013e2088e5302d",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_recruit.py",
+      "size": 15315,
+      "sha256": "14e7e149160af4b57529e3b85d4ba37d910fc1af45d571cf5df2d75b950075f4",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_rename.py",
+      "size": 7024,
+      "sha256": "43622813b307753cf2963216955bbe0b917d88aa875b185a34ee876a732c1a90",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_rose.py",
+      "size": 3095,
+      "sha256": "9bd10909bf95ab0eb5bf6636f0849a2864a6d3a77a02628fcaa79a551966491f",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_rules.py",
+      "size": 2324,
+      "sha256": "bf8ac59b6591a796b11cf94fd1217f7dbed45916e1244da8e920c12acfc76a3c",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_seed_pouch.py",
+      "size": 1114,
+      "sha256": "92a7a6d3c64450f0da7ee26ecc61011a69be471bc8e9f79cb9446f0621c2a809",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_services.py",
+      "size": 8559,
+      "sha256": "feaa7334a7f173651d990c1aa79dfb2a8f1ae501706c931839ee0be6ab413544",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_shop.py",
+      "size": 5910,
+      "sha256": "8a52177f422b59fe932318cc63280503befca83c96d4803fcf4c2c985b8e07a4",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_shop_items.py",
+      "size": 1157,
+      "sha256": "39d14a69c733c5133030c0bc31a0300b3d4657b31e5d315a86aa869639f83810",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_skills.py",
+      "size": 8248,
+      "sha256": "5c94defc1b3ba9d3b593ff2e41672e4520582d95355f9f8d7d4b0a8072b922ff",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_skins.py",
+      "size": 3403,
+      "sha256": "15ede8c6ba2d95543d2401997b972c7a2ab163aefa81add67ecd7d136d50ff27",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/guild_system_flow.py",
+      "size": 21342,
+      "sha256": "b9d6ad65d7ce7445a5bf7f12f8cd2dc6b4e21403f5e98f2749df10412e8e67b7",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/hunter_chest_rules.py",
+      "size": 5737,
+      "sha256": "e37311d0f221cd5349aa055a89cf7a4a0d960b98aa651b461848bf992a94ab45",
+      "base_sha256": "01b03fc3e014a48fa2e673f685ec4b1ffefe43a7a9dcb91b99709c1fb396eb3f"
+    },
+    {
+      "path": "els_server/domain/hunter_sphere_rules.py",
+      "size": 3098,
+      "sha256": "b7b37f12a0bea6804a8f297d0e7b6826bad5fa36281033e13b0404e625ce14f8",
+      "base_sha256": "c0a18d84d7609cf1cda6279f9d832371e27ca74a11ba628bcddf15d8a11d82f8"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "size": 88038,
+      "sha256": "2dccd21e7a19e0d81a882ebe2301afc4f58c9485504e1ad690bfe867658e0f0e",
+      "base_sha256": "56047bd078050965f356e2ab54d4483f1d79212c51e727360eabfd834e2f5613"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "size": 154209,
+      "sha256": "d2a0a6091b422476127d06022af302971e676b2248b0e5481cd3c999cf6c2319",
+      "base_sha256": "620543de4cdb2197638e730eacf97d70e0d73e1cd71013fd1664eddba3d87cfe"
+    },
+    {
+      "path": "els_server/domain/luciel_state.py",
+      "size": 18004,
+      "sha256": "0e3dae7931b4e001c8f22460c3ff07d03931d85ed237d9de76d75b6dbb1e67b9",
+      "base_sha256": "6acad965418c7aaec2a92cfa3e2fd99c69e6cff359e32289312c71f0eec0f89a"
+    },
+    {
+      "path": "els_server/domain/manufacture_flow.py",
+      "size": 6178,
+      "sha256": "67d6cc478c381bcf50e3d7cf8f0931851f4658463a66b14964fdb10b5502ac5c",
+      "base_sha256": "e82e1e9d7b25682b2467aaa85a5ecd466cf866415a3f925c0859ac8506a598b5"
+    },
+    {
+      "path": "els_server/domain/manufacture_rules.py",
+      "size": 8058,
+      "sha256": "1c1071a97b9ddadcdf0a13b06c43d9c8abb3cb4d342e8a70d2d12f7b5b017c22",
+      "base_sha256": "1dd5ba092184c6864712bb015ac52ca7b475a97996d291cf2b92da83e18f9fe9"
+    },
+    {
+      "path": "els_server/domain/normal_fatigue_flow.py",
+      "size": 17735,
+      "sha256": "32ee909910122216142378c346d2aa2960f3a46be1b4ddce20bca2aecf5ab1ce",
+      "base_sha256": "5bba5b87d8c7a024f2f62f8784608f9ef5f98a88120470174363e255b88a6638"
+    },
+    {
+      "path": "els_server/domain/pet_progression.py",
+      "size": 1858,
+      "sha256": "f75d0760b7c1f3ae5ff09f6405b70cd9a65799907877fd54c759869553abfd9d",
+      "base_sha256": "93816ebbef987806b6af982192b0df71e0b57dc1784149a71f9be4f480ff3b6e"
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "size": 30643,
+      "sha256": "14d2c5f50f2e7671e11f64837d1e89b2975bf26c62515001156a1c240f4f9611",
+      "base_sha256": "b96684deedef14fec01ef164c1cdf8ede865ee4ef6a383fd3b1656980f6547e1"
+    },
+    {
+      "path": "els_server/domain/quest_selection.py",
+      "size": 3056,
+      "sha256": "b15d53551e52037809a049d2ade54f3ec9ccb0cf8b69f6e70e233429ebf948e2",
+      "base_sha256": "23865ff544ab5541e02f50cc663ad2caedc8ae8af2e8c888ec848f512f3fcbdb"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "size": 20132,
+      "sha256": "b042d2eaaa95b9b2dd44df642f2bee35a3912b2475a0abcfe9f7095346b336d1",
+      "base_sha256": "618e2dc72331eaef068130d99e7a2e8df346a81acb0912c8c22b16b310065d79"
+    },
+    {
+      "path": "els_server/domain/title_economy.py",
+      "size": 6535,
+      "sha256": "e4ad454c43c40f08d78283ed155b0d1fb52f4e26a3f65a0fc305bb48ec6dbd3a",
+      "base_sha256": "a73095de4d80fe04a54706fd8c7810ad367d7f32306d4527fa24800c39483f05"
+    },
+    {
+      "path": "els_server/domain/title_flow.py",
+      "size": 4540,
+      "sha256": "2c338b1f4a54fb7d67e73e145b789da265e4052870251428b4452477491844cd",
+      "base_sha256": "00a3d3109c6e18e66dcca1c98c7eaffa5e000eda23730fd163c22c9a9795f4c8"
+    },
+    {
+      "path": "els_server/domain/tutorial_accessory.py",
+      "size": 8589,
+      "sha256": "56189f5f5e1833850867f9027fa011f5ce3303d88bd75dd87239b9194938ab1a",
+      "base_sha256": "e02084170e095302da347c4644d95e3453d310d19938bbc533b64250184eb3fd"
+    },
+    {
+      "path": "els_server/protocol/guild_agit_messages.py",
+      "size": 2697,
+      "sha256": "e0a77ce3260837ae6a476360e392d88d4ede44f8995b2449637288927100726e",
+      "base_sha256": "f4b915f04f9347419128d9fd9e5087495e3430801181edcaea83047d79cc8db5"
+    },
+    {
+      "path": "els_server/protocol/guild_bank_history_messages.py",
+      "size": 2352,
+      "sha256": "38db9ac82e402e896a975dce6658f6aea8ea9cb899b315df807521861764bc63",
+      "base_sha256": "294e475027ed5367b768d354c5116c25697bfd256aafd9122391d413772ed2f4"
+    },
+    {
+      "path": "els_server/protocol/guild_bank_transfer_messages.py",
+      "size": 2343,
+      "sha256": "66032957cc39daf005e2bd22ef2f4e45b436401702ae772882b22cb690218b3f",
+      "base_sha256": "bafb2b7e15b3393d617aadab59d25587101e20daf4cfb75682cda1e7847d71a1"
+    },
+    {
+      "path": "els_server/protocol/guild_emblem_messages.py",
+      "size": 559,
+      "sha256": "1d05639f19b65c66e659e38048dd0008d1b829a51db81e5a05c400e0c7ee4e64",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/protocol/guild_farm_messages.py",
+      "size": 1129,
+      "sha256": "fc1b4a48e60830b891b65467b041c63f1fe4ab4a6e3b93b0e149d36b274407cb",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/protocol/guild_membership_messages.py",
+      "size": 3611,
+      "sha256": "de75447691aeee379f77faa2ff5964a9074f45f35dec70104eeb7f8c3e194524",
+      "base_sha256": "d0cc85b937339ccb63a845d6fd13111f870238012f32ca89b192c47c067aa5c9"
+    },
+    {
+      "path": "els_server/protocol/guild_membership_profile.py",
+      "size": 6451,
+      "sha256": "e3f1d35c21d1be6a5f98e3c438b463b3863db984bc54f46883047340af4e6271",
+      "base_sha256": "4f156bd516e702e8b1fd1c484901c380d0431991db842028af7ec9f2104af9f8"
+    },
+    {
+      "path": "els_server/protocol/guild_recruit_messages.py",
+      "size": 1633,
+      "sha256": "59b38b81c6e694b69ea85be3e9e67eddf774dd2c206fe022ed5b620e8596ead2",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/protocol/guild_system_messages.py",
+      "size": 2910,
+      "sha256": "a47323cf3789c9aa26951bce11817d591e6313e1b484bb6da1c3cef9f475aac2",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "size": 21106,
+      "sha256": "7470303c768f8321d4cf7f3d861bf7fb499246a7f801e7351c530327b3e68b6f",
+      "base_sha256": "0f71ba9bee1eb9821f0aedb4343871173aa462f61f46371bfa672acce9db00d7"
+    },
+    {
+      "path": "els_server/protocol/luciel_messages.py",
+      "size": 2223,
+      "sha256": "c79842b2c86d48ae32bf0c1ffc45707d5e46d86481dec78fb794bdae1e6f7c47",
+      "base_sha256": "64da7d44f308d22802c4d6bf67afb11eecae7d25b53351968cdf6add51cc7434"
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "size": 14602,
+      "sha256": "627cbcdb1eb6ff0ec90818975a7c5df346a4657852eae4dd2af17dd533b6dc04",
+      "base_sha256": "335b2271723f723e2b4fb8cdb2cdc8276136dec40f8d4c44cde439ddbcfc229a"
+    },
+    {
+      "path": "els_server/protocol/world_buff_messages.py",
+      "size": 3333,
+      "sha256": "ae48cae5838d0f751dffebd6718205b59c3f94c7f7638675b3f9f8ba33c4db4f",
+      "base_sha256": "ab49c841ca50178a407ac3b5baa2d3e0b25d2b6c650eed2f53507d39c4612f6e"
+    },
+    {
+      "path": "els_server/storage/anvil.py",
+      "size": 7724,
+      "sha256": "a9ceb69bea8171598c5458fbe9d73b4c785e9bb9dc48ba9c3720c06a37a5d294",
+      "base_sha256": "760ba93211681c3f28df62f6e28234f02182258ec7cdaf4d766416643cffd59c"
+    },
+    {
+      "path": "els_server/storage/artifact_progression.py",
+      "size": 11585,
+      "sha256": "9e3a2d99eb191263132f4337ee7d191199a6ecdf3f8711b64b410713607424d7",
+      "base_sha256": "3d5fcd9d2379a281e4db4e51997af16f1225452299da148a625b19a47e73975d"
+    },
+    {
+      "path": "els_server/storage/blacksmith_enhancement.py",
+      "size": 6677,
+      "sha256": "9de27caca2cb56a6d1b6d2e95eb4b3c8fafb0d1b8dfe6f0a0e34bf8785605683",
+      "base_sha256": "a1c80104443e47399d583d2dc8dd54a421374244c03a9273d762bd521560af43"
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "size": 9471,
+      "sha256": "769a57a1d539c2d06e866703011c5dc883f98a8ef5100dca9c0e4474f2fbaac3",
+      "base_sha256": "f170ba7c9bf25e1ea1dfca43306a93905d0bbba7065a290cfbcfa01fd696e1b6"
+    },
+    {
+      "path": "els_server/storage/decomposition.py",
+      "size": 6343,
+      "sha256": "0fb7a59375e350e38127ceaa56f7e515fd51e0d38ca833eb71f41bd205cf34df",
+      "base_sha256": "58a362173a30c20bf9b8c9fd690c48f26bf0e9081662674fc9faf18769fd04e4"
+    },
+    {
+      "path": "els_server/storage/elixir_economy.py",
+      "size": 5918,
+      "sha256": "a463b76ebe9dc8e60b361f6f87931188077bb3544bfa29e1ab098b20346cc65c",
+      "base_sha256": "561cd65815ad940baa2afc7c446228eaa66896ee21f97cf67523eb5a80a9ca58"
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "size": 3410,
+      "sha256": "765105ae1d5a0aaf1a9acbbda169a795760ecd122b37cd98b996e844fec8aa14",
+      "base_sha256": "19fd66346f71be151b12fd634c7ae319109b22a190d05bdc011453975eb392d3"
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "size": 12437,
+      "sha256": "552c170e6721593d886c9ebcc15ae4eaad65d253e3b31f1da3083794bbc10cc8",
+      "base_sha256": "a2741a103642a62b4dd96903a7840eb9e7edf1e0d2628594364b448725d0213f"
+    },
+    {
+      "path": "els_server/storage/flask.py",
+      "size": 11288,
+      "sha256": "91edcebf8a6147246e790e00a871ee30ba4365518dd5940ca2e15e1d3273b8f9",
+      "base_sha256": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86"
+    },
+    {
+      "path": "els_server/storage/guild_bank_items.py",
+      "size": 11765,
+      "sha256": "7094c4885702827b1dd1bbed54d178b29218a3c1d13c4e140857739af15d6cf4",
+      "base_sha256": "fc93770e6a48d2572133ffe67c2c6959fca6a1b272ea890bb357b0a5f2129e22"
+    },
+    {
+      "path": "els_server/storage/guild_coin_state.py",
+      "size": 6922,
+      "sha256": "aa4dbe8dd6a08ceb82f86707992692cce1653e78a6650517bea6aed2462cb920",
+      "base_sha256": "5327ff7fee177bcf91a32b4c7ce86e8cdfc3c746d04ffca56258ec11743694a9"
+    },
+    {
+      "path": "els_server/storage/guild_economy.py",
+      "size": 2729,
+      "sha256": "30ef24b5ee2550b64e6de1e32586298b4c0bb962263facf440c1238afc446c36",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/guild_membership_state.py",
+      "size": 20427,
+      "sha256": "1ff5e07de6a594c5a2f7545043bf755bf115883a4f720014a105f94b0a0f22fd",
+      "base_sha256": "663f8d0091ce262968b521efa73e6127e33d1a824eab5c1a3781024c2b39521f"
+    },
+    {
+      "path": "els_server/storage/guild_quests.py",
+      "size": 6956,
+      "sha256": "91bff38905272d1bc00b3daa623334f0a1aeea057f960166aba3cc197e86ba2a",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/guild_reward_mail.py",
+      "size": 5767,
+      "sha256": "f5efc3a3b23a60a23fdfb4e320a3986983f9564a35aeee013a9ce710c2199433",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/guild_system_state.py",
+      "size": 7692,
+      "sha256": "6c555345507796f72d31053dabcca2773459626d6e89753d984e0fb404143235",
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/hunter_chest.py",
+      "size": 7649,
+      "sha256": "f3ac2f2bdb8af5cf8da128ead2458003d3babe1ed2555684f81b82a3c1e75833",
+      "base_sha256": "82e294c39d648232fbaeaa83f2c745bba295cf32842c7014c3c53a9f962d9c0f"
+    },
+    {
+      "path": "els_server/storage/hunter_sphere.py",
+      "size": 5765,
+      "sha256": "650c1344f2d24b07f5d19e395b2a31e8e7a8bc3fceef791eb6559f3c4d07b727",
+      "base_sha256": "b49c8f38c8da7bd884adccfff3211e7aa0bce948ad4dc5ed94d5a73152e87720"
+    },
+    {
+      "path": "els_server/storage/luciel_state.py",
+      "size": 9902,
+      "sha256": "52f286e1d0b67c92dc18908888a6d23882e296d7b4c908664477062965e253e3",
+      "base_sha256": "e759891429f136884484ad7063cf8130d5d276cdde30b4a7ea9f9a1996190480"
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "size": 23260,
+      "sha256": "60497b19047015f9b9b051c38ce42ebe325b66c3c8fc8e453a097bf0095f2f9b",
+      "base_sha256": "9962373b9edfcafec286c807180eacad6da746d58ba590429ab24d126df2fe13"
+    },
+    {
+      "path": "els_server/storage/normal_fatigue.py",
+      "size": 8423,
+      "sha256": "b2c882dd1745798dca5a9e89a2608934c3eeb8e9e983ba98f804bb6a30b1e37c",
+      "base_sha256": "c8bcc2546295544c292e0c3a510b9206606047b716170fa6f645b0e39e189fe1"
+    },
+    {
+      "path": "els_server/storage/pet_progression.py",
+      "size": 9018,
+      "sha256": "067b0245481e62efe8d8f72095cc247a26d20466c8ad66f986f42da6211ea35d",
+      "base_sha256": "c1c680c1c8334b33f388b39a2bbbcd6d65d3a3e5a92a06e1a43a10a318500ed4"
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "size": 13955,
+      "sha256": "8974dd3ded796001b61d2603323bc9bcccb473e9638ec1478d198fc1a317f0fa",
+      "base_sha256": "b3c07a9d0f2ad423f7ac177ce4f8bae17327107940ee35505d457dca7e846baf"
+    },
+    {
+      "path": "els_server/storage/pvp_settlement.py",
+      "size": 9908,
+      "sha256": "15d5a6f42e6aabf384a6a46c760f56466a91846e02566f78da6cae82ab2f685b",
+      "base_sha256": "de1dd5810c5f85745204fa4399c0bfd9af8e00907954f8fd25c4cd076d4148cd"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "size": 41399,
+      "sha256": "796adf1c010176a7b85271f54bfb5d5c48fd4459c8babc08692937d6f85d0fba",
+      "base_sha256": "8882a7e3912e8ed70915240512026b10c5f9a88f80c18ebdcd21d08548aef7e3"
+    },
+    {
+      "path": "els_server/storage/titles.py",
+      "size": 10101,
+      "sha256": "d4c3e78551013aaf098160cf42d024bf5f129140587fc8d9f6815a2ca227dc3c",
+      "base_sha256": "f47ad673694c0fa2e2980bf5c2896ebf4dacb8e4e4290acbdb81430f00e089d4"
+    },
+    {
+      "path": "els_server/storage/wear_moves.py",
+      "size": 8016,
+      "sha256": "3e0f18b882f62a71f32da8d0a90b71b54bb26ee397a19e8c86862cc3f3959676",
+      "base_sha256": "6192d76635eafad9956d02543a6b0e0a04e02d72dff17847e9c5d34703e1e25b"
+    }
+  ],
+  "performance_peer_included": false,
+  "installed": false
+}

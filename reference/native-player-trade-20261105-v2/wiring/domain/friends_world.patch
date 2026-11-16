@@ -1,0 +1,28 @@
+--- a/els_server/domain/friends_world.py
++++ b/els_server/domain/friends_world.py
+@@ -46,6 +46,8 @@
+     def __init__(self):
+         self.towns={};self.members={};self.parties={};self.party_of={}
+         self.invitations={};self.next_party=900001
++        from els_server.domain.player_trade_flow import PlayerTrades
++        self.player_trades=PlayerTrades(self)
+         self.recruitment_candidates={};self.recruitment_cleanup_errors=deque(maxlen=32)
+         from els_server.domain.friends_dungeon import FriendsDungeons
+         self.dungeons=FriendsDungeons(self)
+@@ -63,7 +65,7 @@
+         from els_server.domain.friend_flow import disconnect as friend_disconnect
+         def invitations():
+             self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
+-        cleanup_all(lambda:photo_disconnect(session),lambda:friend_disconnect(session),lambda:self.racing.disconnect(session),lambda:self.pvp.disconnect(session),lambda:guild_disconnect(session), lambda:self.field_bosses.detach(session),
++        cleanup_all(lambda:self.player_trades.disconnect(session),lambda:photo_disconnect(session),lambda:friend_disconnect(session),lambda:self.racing.disconnect(session),lambda:self.pvp.disconnect(session),lambda:guild_disconnect(session), lambda:self.field_bosses.detach(session),
+             lambda:self.leave(session), lambda:self.leave_party(session), invitations)
+ 
+     def party_snapshot(self,party,reset=False):
+@@ -242,6 +244,7 @@
+         cleanup_all(lambda:invalidate(self,session), membership)
+ 
+     def synchronize(self,session):
++        self.player_trades.synchronize(session)
+         key=(1,session.active_map) if session.role=='game' and session.phase=='town_ready' else None
+         if key==self.members.get(session):return
+         self.leave(session)
