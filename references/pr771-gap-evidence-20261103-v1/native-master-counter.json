@@ -1,0 +1,83 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "original_function": "1A634A0",
+  "arithmetic_ranges": [
+    "1A635AA..1A63704",
+    "1A63B3A..1A63B84"
+  ],
+  "fields": {
+    "current_hp": "actor+1B564",
+    "extra_count": "actor+1B2D0",
+    "ui_gage_count": "ui+C0"
+  },
+  "cases": [
+    {
+      "max_hp": 100000.0,
+      "hp": 100000.0,
+      "number": 150,
+      "extra": 150,
+      "whole": 149,
+      "display_counter": 300
+    },
+    {
+      "max_hp": 100000.0,
+      "hp": 100.0,
+      "number": 150,
+      "extra": 150,
+      "whole": 0,
+      "display_counter": 151
+    },
+    {
+      "max_hp": 100000.0,
+      "hp": 100.0,
+      "number": 150,
+      "extra": 0,
+      "whole": 0,
+      "display_counter": 1
+    },
+    {
+      "max_hp": 100000.0,
+      "hp": 0.0,
+      "number": 150,
+      "extra": 0,
+      "whole": 0,
+      "display_counter": 0
+    },
+    {
+      "max_hp": 1866516480.0,
+      "hp": 1866516480.0,
+      "number": 150,
+      "extra": 150,
+      "whole": 149,
+      "display_counter": 300
+    },
+    {
+      "max_hp": 1866516480.0,
+      "hp": 1866516.5,
+      "number": 150,
+      "extra": 150,
+      "whole": 0,
+      "display_counter": 151
+    },
+    {
+      "max_hp": 1866516480.0,
+      "hp": 1866516.5,
+      "number": 150,
+      "extra": 0,
+      "whole": 0,
+      "display_counter": 1
+    },
+    {
+      "max_hp": 1866516480.0,
+      "hp": 0.0,
+      "number": 150,
+      "extra": 0,
+      "whole": 0,
+      "display_counter": 0
+    }
+  ],
+  "original_image_unchanged": true,
+  "controlled_UI_fixture": true,
+  "natural_boss_kill_tested": false,
+  "limitation": "Arithmetic consumer verified; no claim that these fixtures reproduce the live actor state or a full GUI frame."
+}
