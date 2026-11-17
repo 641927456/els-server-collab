@@ -1,0 +1,48 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "function": "1AA57B0 (Game v1F0)",
+  "caller": "103E610 stage initialization",
+  "type_getter": "8567D0 -> game+2CC",
+  "enum": "GAME_TYPE.GT_DUNGEON=2",
+  "creation_reason_field": "NPC+1B140; 1AA90C0 writes its reason argument",
+  "cases": [
+    {
+      "game_type": 2,
+      "creation_reason": 3,
+      "retained": true,
+      "full_function_returned": true,
+      "stopped_before_removal": false
+    },
+    {
+      "game_type": 2,
+      "creation_reason": 1,
+      "retained": true,
+      "full_function_returned": true,
+      "stopped_before_removal": false
+    },
+    {
+      "game_type": 1,
+      "creation_reason": 3,
+      "retained": false,
+      "full_function_returned": false,
+      "stopped_before_removal": true
+    },
+    {
+      "game_type": 3,
+      "creation_reason": 3,
+      "retained": false,
+      "full_function_returned": false,
+      "stopped_before_removal": true
+    },
+    {
+      "game_type": 2,
+      "creation_reason": 0,
+      "retained": false,
+      "full_function_returned": false,
+      "stopped_before_removal": true
+    }
+  ],
+  "original_image_unchanged": true,
+  "live_process": false,
+  "natural_GUI": false
+}

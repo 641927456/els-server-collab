@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "natural_acquisition": false,
+  "fixtures": "Owned99retained attempts, full enhancement gauge, level/ED/profession/materials and explicit isolated RNG draws",
+  "checks": [
+    "Actual full-gauge ordinary success crosses100 and immediately completes165; same committed operation replay is stable; actual no-change failure counts once, late encoding fault and foreign UID refusal add none",
+    "Actual blacksmith failure and success each count once with the original profession/material/ED transactions; same-account roles share103 and foreign account remains zero"
+  ],
+  "attempts": 103,
+  "actual_ordinary_success_and_failure": true,
+  "actual_smith_success_and_failure": true,
+  "actual_operation_replay_stable": true,
+  "isolated_RNG_draws": [
+    1000,
+    10000,
+    0
+  ],
+  "production_probability_policy_changed": false,
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "580373f8d3bb268a71d1bde42d784488112fa9353b94d5b7943c22f4e920331d",
+    "els_server/domain/duel_flow.py": "1509cb36253ca4e8a85daeea3c4a52675a3ea6b3c4f4b6429c718e2a5a87a203",
+    "els_server/storage/achievement_history.py": "ce3ae9d9e3ae541e20cdfbdeceb46c49a4bb907be49796df8ef0e94991abee82",
+    "els_server/storage/achievement_profiles.py": "b6064994a302b47798a6d6d1eb320c83518f50bee4ab1dc6cecae76903eda28f"
+  }
+}
