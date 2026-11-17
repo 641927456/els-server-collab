@@ -1,3 +1,3 @@
-# V253 quest inputs and committed ordinary-party title results
+# V253 writer queues, presence reads and pickup diagnostics
 
-Reviewed candidate; native gameplay acceptance remains pending.
+Reviewed batches73-80; natural multiplayer acceptance remains pending. See review.md and manifest.json for exact scope.
