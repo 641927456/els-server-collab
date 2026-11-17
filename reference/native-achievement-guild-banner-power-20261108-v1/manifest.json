@@ -1,0 +1,324 @@
+{
+  "status": "QUALIFIED_NOT_INSTALLED",
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "52a2ecfa63439ae8c3fd96d7d1373567ffc9f02cc70673b3b1cdf92953a4f4f2",
+      "sha256": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+      "size": 10086
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "parent_sha256": "04bb02d9d44adc595e7d2ce98abac97c45f2e9c44845378f3ea78fcf3732b8a4",
+      "sha256": "ff55d5181e48d3f6ddab7edf36ffaddbc2a83b3de56a7242f44f868dad3014dd",
+      "size": 23588
+    },
+    {
+      "path": "els_server/domain/guild_agit_flow.py",
+      "parent_sha256": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e",
+      "sha256": "1a9b959820822affced9edde33ab9d0d06a9742d0c80fd5593793a0894c6b9d5",
+      "size": 16267
+    },
+    {
+      "path": "els_server/domain/guild_banner_flow.py",
+      "parent_sha256": "4a324aeb8ce7005267a297fb43833a0438ac2fee7ffda9c4f2c82b344ff01e53",
+      "sha256": "52aede4b863cdd1d02931e877769f77e09089da75436218efed63bab188d2f81",
+      "size": 3590
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "64df708ff032e6e72502511ddbbe0ed48de05293f0e4829a561aacfd6dd959f8",
+      "sha256": "ff2ee09bfadb509b4772f14eb7a6b27b0a4d24cc025b2c01b35389d051375e82",
+      "size": 23885
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "ede2d3651ad1a6322d3a9b705de80beabba9beb25eafed3496288cbe71593492",
+      "sha256": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7",
+      "size": 5045
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "859b3ee28d97281185cee714cbc12374af7e8a68e54c7fb8ee3d27a70b3d3f36",
+      "sha256": "af27d3c775bd8201f7f06529f2976d55aba3bafbc8ea2b50cb9a501a375efacd",
+      "size": 23182
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "parent_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94",
+      "sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "size": 5978
+    }
+  ],
+  "parent_release": "native-santilus-adrian-retirement-20261108-v1",
+  "independent_review": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "sha256": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+      "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\domain\\achievement_flow.py",
+      "parent_sha256": "fb43385c086a316298b96b2328d99fc340f9f69b6f88ee3ea53591f14791b0da"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "sha256": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7",
+      "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\storage\\achievement_profiles.py",
+      "parent_sha256": "e99a5b81befa05648c3a63e1473d45d1b0b4ce29d831daa4d0c8a32425227ece"
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "parent": "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\tools\\raid_native_power.js",
+      "parent_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "sha256": "af27d3c775bd8201f7f06529f2976d55aba3bafbc8ea2b50cb9a501a375efacd",
+      "parent": "G:\\els\\releases\\online\\native-santilus-adrian-retirement-20261108-v1\\tools\\client_compatibility_profiles.json",
+      "parent_sha256": "859b3ee28d97281185cee714cbc12374af7e8a68e54c7fb8ee3d27a70b3d3f36"
+    }
+  ],
+  "connected_source_types": 47,
+  "connected_definitions": 318,
+  "remaining_source_types": 13,
+  "unresolved_original_reward_groups": 53,
+  "installed": false,
+  "whole_feature_complete": false,
+  "natural_GUI": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "90187254ad2931046393ac512a6af8b99b22d9a1266f74ae6d7db19382d14a78",
+      "size": 78
+    },
+    {
+      "path": "README.md",
+      "sha256": "2594e492df7d7aa1f73c7bfe1d142f0fee1426d192b33d8bf4aea1014306f93f",
+      "size": 2091
+    },
+    {
+      "path": "achievement_closure_client.py",
+      "sha256": "8a7cb5f9b0a643dedaa8cff37aa909fa66c130270a02d79252f2dd5f278aea21",
+      "size": 6031
+    },
+    {
+      "path": "achievement_fixture.py",
+      "sha256": "8bbd882c779f6bd3c7b0c704f6e621ae89413122cc8929b22c4c14806d4da4e3",
+      "size": 2385
+    },
+    {
+      "path": "achievement_protocol_client.py",
+      "sha256": "ae3d7fa5f2061156b586910cb3af31d23065ff734cd3c69e7b99ac3018992330",
+      "size": 2916
+    },
+    {
+      "path": "candidate-parent.json",
+      "sha256": "97282be07c82a47939d1fc096c26987f38810dc1ba1560baba150b64a3e07e05",
+      "size": 1123
+    },
+    {
+      "path": "check_qa_scenario.py",
+      "sha256": "249a89e69b543111b6e2c7ce5cb3741e4e9fc1f5c00d5f8f21c1f4d351fc9fd8",
+      "size": 3397
+    },
+    {
+      "path": "common-sender-review.md",
+      "sha256": "24563c2621ae5595db8222637d23a7ae95b7d108dc95811ca25493761e87247c",
+      "size": 2562
+    },
+    {
+      "path": "diagnostic-gate-qualification.json",
+      "sha256": "be8ae9bd3c35c451f1e349d069e8b610c2e294a0d017c90aa9ddf451d5c30c16",
+      "size": 1849
+    },
+    {
+      "path": "implementation-plan.md",
+      "sha256": "b415ef2d0d2a1f43f400647e622707a9a4469c63d0f854d493703482f6074939",
+      "size": 2781
+    },
+    {
+      "path": "independent-review-authorization.json",
+      "sha256": "e62f6e0e99f9d6f72b9053023602de913441238e34902d72333b10935d1ab0cf",
+      "size": 349
+    },
+    {
+      "path": "independent-review-v1.json",
+      "sha256": "ef9943da665a88deafdd3e41cec5c52759a1c0f06073099f821ad50c716d5701",
+      "size": 3055
+    },
+    {
+      "path": "independent-review-v1.md",
+      "sha256": "22d69d39f27e30a075dbd82bee7b84076d6a78eecf4654504771ac4311168cfc",
+      "size": 7366
+    },
+    {
+      "path": "independent-review-v2.json",
+      "sha256": "85c9e9e046029c809e19027377f7b5a3e0de0c593f051dd3f2c7e9571b92afbb",
+      "size": 3148
+    },
+    {
+      "path": "independent-review-v2.md",
+      "sha256": "8795f1ed7c18d7430ed5998227f74dbdac9b8ec5377519d5b56f41315547672c",
+      "size": 3571
+    },
+    {
+      "path": "live-power-1794071939081593800.json",
+      "sha256": "9c65586c31eee2e39e3d676b5468d205c3fa6abc10281053f917c6ac14234156",
+      "size": 1861
+    },
+    {
+      "path": "native-Game-first-overlay-qualified.json",
+      "sha256": "7c4d74fe5ca1169d65c3eaa2696de546f7a7cad7638fa21a17ed13dc1f274776",
+      "size": 841
+    },
+    {
+      "path": "native-Game-runtime-provenance.json",
+      "sha256": "c359e61ebc83fd307ed1a54a9ac04e981509e27b04bb5fe4eea9fe55667b7f4d",
+      "size": 769
+    },
+    {
+      "path": "native-Game-signed-selection-qualified.json",
+      "sha256": "0aa9f87f14949bfb5919b968559b9389bfb01b15e48862040c571aad153e5098",
+      "size": 841
+    },
+    {
+      "path": "native-power-abi-v2.json",
+      "sha256": "33cfabd9f00c405a5c16c018c519e13181f438f76eae9ed2aad9633e0af0ded3",
+      "size": 2223
+    },
+    {
+      "path": "native-power-authorization.json",
+      "sha256": "43787be2c6967144eeed37c4494c19d68a384b3d458d4895994014f6e2004782",
+      "size": 617
+    },
+    {
+      "path": "native-private-retirement.json",
+      "sha256": "19ad4595818917279a306c375b1ebf1796fcfc0be02b4bd03b45c0498d141dc5",
+      "size": 3562
+    },
+    {
+      "path": "native-selected-private-retirement.json",
+      "sha256": "b8db2637c1018d779fe3d8355451c87dbe12295469b314293b7c0019f7ee6cf8",
+      "size": 2180
+    },
+    {
+      "path": "parent-advancement.json",
+      "sha256": "6de931b0317905c90c80a0abf6867751aec764a32c161198db091bb3ee679864",
+      "size": 557
+    },
+    {
+      "path": "profile-dependency-qualification.json",
+      "sha256": "24ddc639c15a192ca148395d3f2fd027722e53048d6c3f54396942a605a03cea",
+      "size": 345
+    },
+    {
+      "path": "projection-1794071658577240500.json",
+      "sha256": "a0c25dc83711fe1901e202c6c44823bd485aa4d539382f4cda668eeffdbaea63",
+      "size": 1137
+    },
+    {
+      "path": "qa-scenario-qualification.json",
+      "sha256": "97f9ba507955085aeaf81fe15ca84e1e5b4ee3a68ab913df1bd5fab91f5d7855",
+      "size": 1132
+    },
+    {
+      "path": "qa-scenario-reuse-v3.json",
+      "sha256": "19a5b8796507fae2b92866d389bffa52fb2a1cdf8a699852aad1877754df5dcf",
+      "size": 1083
+    },
+    {
+      "path": "qualify_diagnostic_gate.py",
+      "sha256": "da16d25471fc2e4f713be580316728781e151c25a465baa1b4fb14f48f5c68d1",
+      "size": 2554
+    },
+    {
+      "path": "review-scope-v2.json",
+      "sha256": "f7c6dd1acda452e02b083ff08dec431d25779c648d6709260a4d9cccd9d0e008",
+      "size": 1781
+    },
+    {
+      "path": "review-scope.json",
+      "sha256": "f62f05cf5064acb343790fbcd168c2b01e812bb1007b51bc8346802d0f190582",
+      "size": 1304
+    },
+    {
+      "path": "review-unified.diff",
+      "sha256": "73edfdc64ebc925865d32a22d0f3125a78626930851b3e3b53659327c3914076",
+      "size": 9314
+    },
+    {
+      "path": "source-manifest-v2.json",
+      "sha256": "2afb402c059f618f77be25c518c7280b18d89fed6bcbd1fcbc58aa4e4a4f3ff7",
+      "size": 2587
+    },
+    {
+      "path": "source-qualification-v2.json",
+      "sha256": "00885527ee36ed56bcab64d3715b6575d8bf012b68fe0bbb3e3f9a4f12e922e2",
+      "size": 8703
+    },
+    {
+      "path": "source-qualification.json",
+      "sha256": "6810bf4482d612bf5aec2b4db29833322e177c446508c646be7f1e89bd7cb9f5",
+      "size": 6577
+    },
+    {
+      "path": "source-v2/els_server/domain/achievement_flow.py",
+      "sha256": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+      "size": 10086
+    },
+    {
+      "path": "source-v2/els_server/domain/friends_world.py",
+      "sha256": "ff55d5181e48d3f6ddab7edf36ffaddbc2a83b3de56a7242f44f868dad3014dd",
+      "size": 23588
+    },
+    {
+      "path": "source-v2/els_server/domain/guild_agit_flow.py",
+      "sha256": "1a9b959820822affced9edde33ab9d0d06a9742d0c80fd5593793a0894c6b9d5",
+      "size": 16267
+    },
+    {
+      "path": "source-v2/els_server/domain/guild_banner_flow.py",
+      "sha256": "52aede4b863cdd1d02931e877769f77e09089da75436218efed63bab188d2f81",
+      "size": 3590
+    },
+    {
+      "path": "source-v2/els_server/storage/achievement_history.py",
+      "sha256": "ff2ee09bfadb509b4772f14eb7a6b27b0a4d24cc025b2c01b35389d051375e82",
+      "size": 23885
+    },
+    {
+      "path": "source-v2/els_server/storage/achievement_profiles.py",
+      "sha256": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7",
+      "size": 5045
+    },
+    {
+      "path": "source-v2/tools/client_compatibility_profiles.json",
+      "sha256": "af27d3c775bd8201f7f06529f2976d55aba3bafbc8ea2b50cb9a501a375efacd",
+      "size": 23182
+    },
+    {
+      "path": "source-v2/tools/raid_native_power.js",
+      "sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "size": 5978
+    },
+    {
+      "path": "test_live_power.attempt1.py",
+      "sha256": "dc63f572e5b2c4723cc51a293df05c8a10336213ccd156aaaee4de11d2016fb8",
+      "size": 9222
+    },
+    {
+      "path": "test_live_power.py",
+      "sha256": "c39051452d0279532d45e6ebb5051a5652216d8f4eab2f8f07cc9be8ad9e87f5",
+      "size": 9248
+    },
+    {
+      "path": "test_native_support.py",
+      "sha256": "a51ca9707ce6b19d156633af303935f791a55d7a3720e0c7360bfc9e07a4d72b",
+      "size": 11081
+    },
+    {
+      "path": "test_projection.py",
+      "sha256": "f91605534c3157f505df2c36b343725505f02f298206db2bb3ccaf95e2ad22aa",
+      "size": 5213
+    }
+  ]
+}

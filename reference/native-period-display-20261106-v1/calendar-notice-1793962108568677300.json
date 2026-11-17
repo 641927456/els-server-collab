@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "cases": [
+    {
+      "unix_ms": 0,
+      "date": "1970-01-01 08:00:00",
+      "clock_numeric_fields": true,
+      "login19C_calendar": true,
+      "VIP19C_calendar_and_service_map": true
+    },
+    {
+      "unix_ms": 999,
+      "date": "1970-01-01 08:00:00",
+      "clock_numeric_fields": true,
+      "login19C_calendar": true,
+      "VIP19C_calendar_and_service_map": true
+    },
+    {
+      "unix_ms": 1000,
+      "date": "1970-01-01 08:00:01",
+      "clock_numeric_fields": true,
+      "login19C_calendar": true,
+      "VIP19C_calendar_and_service_map": true
+    },
+    {
+      "unix_ms": 1793961853508,
+      "date": "2026-11-06 18:44:13",
+      "clock_numeric_fields": true,
+      "login19C_calendar": true,
+      "VIP19C_calendar_and_service_map": true
+    },
+    {
+      "unix_ms": 2147483648000,
+      "date": "2038-01-19 11:14:08",
+      "clock_numeric_fields": true,
+      "login19C_calendar": true,
+      "VIP19C_calendar_and_service_map": true
+    }
+  ],
+  "legacy_wire_unchanged": true,
+  "native_Game": false,
+  "source_pins": {
+    "els_server/domain/inventory_items.py": "a7d8244ec2ad1ef6612e15a633c11ac553be00abc1a65c777a0a0df4f3725473",
+    "els_server/domain/item_expiration.py": "90fb59bee585cd489f6a2bc9fcda7851fd36803f1f450826c859013e493981a1",
+    "els_server/protocol/fishing_vip_messages.py": "3e1ce1f414ef1a07e137d8c2447b7ae17efb62fa23a9b2ef1a06903cd7b38fa7",
+    "els_server/protocol/local_messages.py": "3cfb71b7e91ffaa6721db897bdeb58738db9f213f76c043c84e108f45a501901",
+    "els_server/protocol/session_clock.py": "3c5bbc6dce47c345f80d4450d930b10d157e607532ef14067b8ef72e4b972efd",
+    "els_server/storage/mail_attachments.py": "6ea2ae68fd0d3883ef5d1f696efc4b6ae1aa36f2d13b8ad24daafba889d66e56",
+    "els_server/storage/trade_board_state.py": "dedadada1263b7ce8a3715918792ca6241a16250b2fe9534707c3e9db0d207a6"
+  }
+}
