@@ -1,0 +1,119 @@
+{
+  "ok": true,
+  "actual_TLS": true,
+  "public_network": false,
+  "phases": [
+    {
+      "ok": true,
+      "phase": "test",
+      "actual_TLS": true,
+      "public_network": false,
+      "cases": [
+        {
+          "account_API": {
+            "ok": true,
+            "status": true,
+            "token_resume": true,
+            "pinned_TLS": true
+          },
+          "power": {
+            "ok": true,
+            "actual_TLS": true,
+            "native_session": false,
+            "phase": "test",
+            "side": 0,
+            "fixture_raw": 3999.5,
+            "entry_boundaries": true,
+            "AD_replayed": true,
+            "natural_battle": false
+          }
+        }
+      ],
+      "natural_GUI": false
+    },
+    {
+      "ok": true,
+      "read_only": true,
+      "retired": false,
+      "cases": [
+        {
+          "scenario": "client_power",
+          "ok": true,
+          "read_only": true,
+          "client_origin_fixture": true,
+          "native_session": false,
+          "current_form_unrounded": true,
+          "facts": [
+            {
+              "side": 0,
+              "raw": 3999.5,
+              "basis_points": 2000
+            }
+          ],
+          "ERP_level": 201,
+          "kill_receipts": 1,
+          "replayed_without_extra_fact": true
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "phase": "retire",
+      "actual_TLS": true,
+      "public_network": false,
+      "cases": [
+        {
+          "account_API": {
+            "ok": true,
+            "status": true,
+            "token_resume": true,
+            "pinned_TLS": true
+          },
+          "power": {
+            "ok": true,
+            "actual_TLS": true,
+            "native_session": false,
+            "phase": "retire",
+            "side": 1,
+            "fixture_raw": 4000.5,
+            "entry_boundaries": false,
+            "AD_replayed": true,
+            "natural_battle": false
+          }
+        }
+      ],
+      "natural_GUI": false
+    },
+    {
+      "ok": true,
+      "read_only": true,
+      "retired": true,
+      "cases": [
+        {
+          "scenario": "client_power",
+          "ok": true,
+          "read_only": true,
+          "client_origin_fixture": true,
+          "native_session": false,
+          "current_form_unrounded": true,
+          "facts": [
+            {
+              "side": 0,
+              "raw": 3999.5,
+              "basis_points": 2000
+            },
+            {
+              "side": 1,
+              "raw": 4000.5,
+              "basis_points": 2500
+            }
+          ],
+          "ERP_level": 201,
+          "kill_receipts": 2,
+          "replayed_without_extra_fact": true
+        }
+      ]
+    }
+  ],
+  "GIL_enabled": false
+}

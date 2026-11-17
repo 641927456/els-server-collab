@@ -1,0 +1,535 @@
+{
+  "release": "market-performance-20261118-v260",
+  "parent_release": "missed-repairs-20261118-v258",
+  "files": [
+    {
+      "path": "els_server/gm_runtime.py",
+      "size": 21369,
+      "sha256": "5fcaf09ac6c0efe301c1be50d945fb00f9c6f843e3f7f271d745e2fdbbd0834b",
+      "parent_sha256": "556b4f7ef4a6fbec4b303ccc1e3354b2009e1371bd95a0305ac5626814b302f7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/transport.py",
+      "size": 45463,
+      "sha256": "07e0dfd3793d623dee02b0933361c818ab72f82068a896f87447cca8ef3a8c14",
+      "parent_sha256": "fce09e41d2a9286d40c7b739bd8b925477041afb785e63ade65d8d733e8cf2e3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/__main__.py",
+      "size": 9597,
+      "sha256": "aeaa27ed9db5eca3bdb96937749aca95b344f7e12bea0f527cedffc7559ffe5e",
+      "parent_sha256": "4a41c95ff5df02eec668edfa36e8fde40027090af7d2fa4a8e29f2dc0e77de74",
+      "scope": "server"
+    },
+    {
+      "path": "gm_console/service.py",
+      "size": 29035,
+      "sha256": "70ae522d5238f63cac719495efa31c64acbe538662bfb96fde5dabd5a936f0f9",
+      "parent_sha256": "71e277820332d1780a91cdddb7ece656ae0e9037ecddd24cc4e493e81ce62f9b",
+      "scope": "server"
+    },
+    {
+      "path": "gm_console/__main__.py",
+      "size": 10327,
+      "sha256": "0b4d937b9280e6cc3c61eb4b9c9d2f0ddcb3b8d064cfe0c8147c1dfb0ddfaab8",
+      "parent_sha256": "17763cb85b6b728bea20ea525f7754665e0f4637c3c90d472e6a4f6d6e8ea9b2",
+      "scope": "server"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "size": 20739,
+      "sha256": "a4258d0b5784eb7accab726f255f2e9a8e78ea13c41a4546a9ae21006afefe79",
+      "parent_sha256": "e5e985940cba245d8b9472985c9d2bf679af1c918b900460b087ada61f49e38c",
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_notices.js",
+      "size": 3537,
+      "sha256": "0b9501fd55d516f160bf5c0279c21f9b299ea32a3927765e2b1a2388dad9c8a6",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_notices.py",
+      "size": 2788,
+      "sha256": "bfa70113a9a3a53d145dba7d26bf63715f52710d0285f127028bfb7117aeb528",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_support.json",
+      "size": 1708067,
+      "sha256": "dd5d5f19c444a781a5c4e2c680b8180c72e6934a6ee3383182ee134922ab4457",
+      "parent_sha256": "ae44a909665e074f1ba927fec5f7b2e51c1c888ec059068338d25984ec0c495e",
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_support.py",
+      "size": 994,
+      "sha256": "e6fc7cb0a99223716e49b49613f44e890105be517dbd2fc6fc2159d57bf423c8",
+      "parent_sha256": "670d481ecaca086b25ba23e8cb30a64f52edcb49dd3dcca5f4d0db7722b9b883",
+      "scope": "support"
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "size": 40811,
+      "sha256": "f6934c9a776b02ff2fc9c5d9341b7907dde22a7f73bbe58697386833c9f56fd1",
+      "parent_sha256": "b2df6f9b0dd65824380a2e1eaadea989371a7866d75cc82d1c81f9d62ef78206",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/data/client_notices.json",
+      "size": 445,
+      "sha256": "b6c3ecc811226bb2dea0eb3c84ad1762560974ff17c3cf880f598a5a5ca807f4",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/armor_coupon_shop.py",
+      "size": 1878,
+      "sha256": "65f68efc589d39cd6c90b584123e6440ff74f2016d0defe6413c95ccaa2279bb",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/armor_support_bundle.py",
+      "size": 2235,
+      "sha256": "ffa09d0289f96ca922eed838bfb027980ed14f5990f510c882fedce05f4fae34",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/client_notices.py",
+      "size": 2491,
+      "sha256": "2adcb4fa634fff64bfe14b99e4d1509c4f68ffab9b562e18e730d75e311774b2",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "size": 184704,
+      "sha256": "e1bc9bcd828ea1b23f4fcb8c8f2d87f89cf7b1cad8da3594e79e35bc0485bc42",
+      "parent_sha256": "20ac61ad84679299dec9242f304c5a254b0341f512c09c42c8e9a8d95ec6b049",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/palette_shop.py",
+      "size": 5010,
+      "sha256": "6c39a4588c987f01bb69f161b9319f99477d35c535eec0aa09be0e82f8938552",
+      "parent_sha256": "e2e5a117aa7e6c28354daed89d7a736a1c03c8fea1f4bba81b3e9f31450f5027",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/periodic_activities_flow.py",
+      "size": 16237,
+      "sha256": "b8a1c5b5559a4c6ca5741361d5e6b4cebf6cc1686f3c9d71e05c3584c1b6483b",
+      "parent_sha256": "f7cda4f39d9ee6338a2888d5201ff05d0db4af0c0497bcb069dc5d0b835995ae",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/season_pass_shop.py",
+      "size": 2744,
+      "sha256": "d9dd33b0973ce3da7d8e6f46469d97b27bce9ad73fb1ae7288f0be2ff43ddffd",
+      "parent_sha256": "dc18655790d84a82dc200a5838025d41dab8a591af0828ee964a9df0ac5295a0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "size": 24045,
+      "sha256": "b10a89aa3444cdd891a17bd2c6bcbbe67def56dbb80abf79a84a53e493c68f29",
+      "parent_sha256": "0ff9a92fd22f17d2cd2dbe6e07bc743b35a6b40224f2c343f41237c64c857618",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/server_announcement_messages.py",
+      "size": 620,
+      "sha256": "b84138f58fe475bec403941790651fdb3a32d7957deb901824f4e9f5b3088fbc",
+      "parent_sha256": "ceb7c4837dd75c554dc1966d14af1bf53ec8ea4d557091404d8176711939280c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/shop_messages.py",
+      "size": 6945,
+      "sha256": "fe2d43e566b5c18f70dd6297bd244ed9d0e2517f3f5217966a4445a1c305ef37",
+      "parent_sha256": "ad805cbbd3855e977ba52e92bbd3a194bc22a30fc759cb91caf4e1114130b5ff",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "size": 39626,
+      "sha256": "77bbe39a6ac426117ad7cb2e91cae2a4f0dda16f4f49a74d13c138c9cb88c0c9",
+      "parent_sha256": "a78f6f8c5b85f68d49bec1309f8f72484eea877c9f73d20a1b5018a69f986e08",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/season_pass.py",
+      "size": 14963,
+      "sha256": "b640efb2b71d29496738c87ff073828f7739b9d1268b0cf8d5efdd2994b33db9",
+      "parent_sha256": "41502acf8d6851ac042b37657a4279dc2ce21300ebdc4ab617ab3d1de251e88f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/shop_state.py",
+      "size": 26040,
+      "sha256": "c68eb61e948393a502614354b042d7395d8ae8f5a58fa01a2ba2c1c36e496488",
+      "parent_sha256": "99387352fffb3761bc4699d24526dd21dc5ba8971302c79e78b002619f8fe6f4",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/bank_state.py",
+      "size": 18056,
+      "sha256": "38e8a0138dd444ecb89adcd65535fa2744abf006c5ff78d351b0d45325877a04",
+      "parent_sha256": "a0fc80de3a526f5192e2e1f5071700167a197b7774c7b6bb08e7751f25b80848",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "size": 19439,
+      "sha256": "aaac98448000d1918ecb9b03b926a356b5e042391f82452f3176931d42a11efb",
+      "parent_sha256": "04efbef9b03634be44fcd4be4bdd2eb4442497ca54461ec88e0868ef58c96d52",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/mainline_find_npc.py",
+      "size": 10601,
+      "sha256": "5ed0c8e4e574e7a343461cf754e3650730584b2fef41ffbbcc3dc5b19e8c7c1f",
+      "parent_sha256": "e19e26fd5b32bbefae420ccad21c9fd9f26defa676a582b225f8d4c5c52a9680",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/boosting_2026_limited_pet.py",
+      "size": 8392,
+      "sha256": "14600556bcd4c791707602cd7045f4f60b4069286586c5681790d1110fc584de",
+      "parent_sha256": "e7ef95da39c15b7bfcde8498734b4f8bffb9a782f59c367349ef1017cb745e8a",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pet_support_periods.py",
+      "size": 4976,
+      "sha256": "877f6c5760e9d4d95f0a1db9f5514eb50f5295f9271288850f18532599e38124",
+      "parent_sha256": "0bba4a5a4bb5fb988e7d0a9c8f29ecd9c2dfa70743be06a7ff5caf8164b5c4c1",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/custom_periods.py",
+      "size": 5049,
+      "sha256": "ed66258641f43fe4c098cbbc1a03c3916e8d3eb939b38a434199697f4f6d0276",
+      "parent_sha256": "7995ee154317599c4504439e7e1c4702d64102e0f2ae1214ae9b4a6b6e4388be",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/relationship_mail.py",
+      "size": 11838,
+      "sha256": "f47d293bcf242c5fd33233a23d20cdc1a31a6d426ac425033c48c1cda8c29bd5",
+      "parent_sha256": "5db974868591ef9893077a9be806f92fd897e309641306bed234977adc0ba001",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/sqlite_timing.py",
+      "size": 8891,
+      "sha256": "3aac13bf580a78a62db42c0a165818650eaa1f7f8daf7b3621fee481311f87de",
+      "parent_sha256": "53a00359c2b74d8bfceaa6b256de6a2a2408b2a9fa1a3c41000983ca5454acd3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/performance.py",
+      "size": 11987,
+      "sha256": "1ac15e478ee4a1d205ce3870f1cdd604c5ec6b8ab3f8d09492507a024cc205ef",
+      "parent_sha256": "4fc479b5f689e485b72623826181018c47ce394d2101dacadff3d05c6bfe87ea",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/wal_checkpoints.py",
+      "size": 6345,
+      "sha256": "a20c5f747af8cea200ff5cf2fb37c8418eae619f79439a9b574f39dffc431776",
+      "parent_sha256": "c5c3eab1925386459f3fb221f058eb4d42be7fd87cdae2237a265f5b134042dc",
+      "scope": "server"
+    }
+  ],
+  "shared_files": [
+    {
+      "path": "els_server/gm_runtime.py",
+      "size": 21369,
+      "sha256": "5fcaf09ac6c0efe301c1be50d945fb00f9c6f843e3f7f271d745e2fdbbd0834b",
+      "parent_sha256": "556b4f7ef4a6fbec4b303ccc1e3354b2009e1371bd95a0305ac5626814b302f7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/transport.py",
+      "size": 45463,
+      "sha256": "07e0dfd3793d623dee02b0933361c818ab72f82068a896f87447cca8ef3a8c14",
+      "parent_sha256": "fce09e41d2a9286d40c7b739bd8b925477041afb785e63ade65d8d733e8cf2e3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/__main__.py",
+      "size": 9597,
+      "sha256": "aeaa27ed9db5eca3bdb96937749aca95b344f7e12bea0f527cedffc7559ffe5e",
+      "parent_sha256": "4a41c95ff5df02eec668edfa36e8fde40027090af7d2fa4a8e29f2dc0e77de74",
+      "scope": "server"
+    },
+    {
+      "path": "gm_console/service.py",
+      "size": 29035,
+      "sha256": "70ae522d5238f63cac719495efa31c64acbe538662bfb96fde5dabd5a936f0f9",
+      "parent_sha256": "71e277820332d1780a91cdddb7ece656ae0e9037ecddd24cc4e493e81ce62f9b",
+      "scope": "server"
+    },
+    {
+      "path": "gm_console/__main__.py",
+      "size": 10327,
+      "sha256": "0b4d937b9280e6cc3c61eb4b9c9d2f0ddcb3b8d064cfe0c8147c1dfb0ddfaab8",
+      "parent_sha256": "17763cb85b6b728bea20ea525f7754665e0f4637c3c90d472e6a4f6d6e8ea9b2",
+      "scope": "server"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "size": 20739,
+      "sha256": "a4258d0b5784eb7accab726f255f2e9a8e78ea13c41a4546a9ae21006afefe79",
+      "parent_sha256": "e5e985940cba245d8b9472985c9d2bf679af1c918b900460b087ada61f49e38c",
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_notices.js",
+      "size": 3537,
+      "sha256": "0b9501fd55d516f160bf5c0279c21f9b299ea32a3927765e2b1a2388dad9c8a6",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_notices.py",
+      "size": 2788,
+      "sha256": "bfa70113a9a3a53d145dba7d26bf63715f52710d0285f127028bfb7117aeb528",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_support.json",
+      "size": 1708067,
+      "sha256": "dd5d5f19c444a781a5c4e2c680b8180c72e6934a6ee3383182ee134922ab4457",
+      "parent_sha256": "ae44a909665e074f1ba927fec5f7b2e51c1c888ec059068338d25984ec0c495e",
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_support.py",
+      "size": 994,
+      "sha256": "e6fc7cb0a99223716e49b49613f44e890105be517dbd2fc6fc2159d57bf423c8",
+      "parent_sha256": "670d481ecaca086b25ba23e8cb30a64f52edcb49dd3dcca5f4d0db7722b9b883",
+      "scope": "support"
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "size": 40811,
+      "sha256": "f6934c9a776b02ff2fc9c5d9341b7907dde22a7f73bbe58697386833c9f56fd1",
+      "parent_sha256": "b29556be5b340602888ca105598b1854ed77bbf933d8aa5d022aa312255fa477",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/data/client_notices.json",
+      "size": 445,
+      "sha256": "b6c3ecc811226bb2dea0eb3c84ad1762560974ff17c3cf880f598a5a5ca807f4",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/armor_coupon_shop.py",
+      "size": 1878,
+      "sha256": "65f68efc589d39cd6c90b584123e6440ff74f2016d0defe6413c95ccaa2279bb",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/armor_support_bundle.py",
+      "size": 2235,
+      "sha256": "ffa09d0289f96ca922eed838bfb027980ed14f5990f510c882fedce05f4fae34",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/client_notices.py",
+      "size": 2491,
+      "sha256": "2adcb4fa634fff64bfe14b99e4d1509c4f68ffab9b562e18e730d75e311774b2",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "size": 184704,
+      "sha256": "e1bc9bcd828ea1b23f4fcb8c8f2d87f89cf7b1cad8da3594e79e35bc0485bc42",
+      "parent_sha256": "20ac61ad84679299dec9242f304c5a254b0341f512c09c42c8e9a8d95ec6b049",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/palette_shop.py",
+      "size": 5010,
+      "sha256": "6c39a4588c987f01bb69f161b9319f99477d35c535eec0aa09be0e82f8938552",
+      "parent_sha256": "e2e5a117aa7e6c28354daed89d7a736a1c03c8fea1f4bba81b3e9f31450f5027",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/periodic_activities_flow.py",
+      "size": 16237,
+      "sha256": "b8a1c5b5559a4c6ca5741361d5e6b4cebf6cc1686f3c9d71e05c3584c1b6483b",
+      "parent_sha256": "f7cda4f39d9ee6338a2888d5201ff05d0db4af0c0497bcb069dc5d0b835995ae",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/season_pass_shop.py",
+      "size": 2744,
+      "sha256": "d9dd33b0973ce3da7d8e6f46469d97b27bce9ad73fb1ae7288f0be2ff43ddffd",
+      "parent_sha256": "dc18655790d84a82dc200a5838025d41dab8a591af0828ee964a9df0ac5295a0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "size": 24045,
+      "sha256": "b10a89aa3444cdd891a17bd2c6bcbbe67def56dbb80abf79a84a53e493c68f29",
+      "parent_sha256": "0ff9a92fd22f17d2cd2dbe6e07bc743b35a6b40224f2c343f41237c64c857618",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/server_announcement_messages.py",
+      "size": 620,
+      "sha256": "b84138f58fe475bec403941790651fdb3a32d7957deb901824f4e9f5b3088fbc",
+      "parent_sha256": "ceb7c4837dd75c554dc1966d14af1bf53ec8ea4d557091404d8176711939280c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/shop_messages.py",
+      "size": 6945,
+      "sha256": "fe2d43e566b5c18f70dd6297bd244ed9d0e2517f3f5217966a4445a1c305ef37",
+      "parent_sha256": "ad805cbbd3855e977ba52e92bbd3a194bc22a30fc759cb91caf4e1114130b5ff",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "size": 39626,
+      "sha256": "77bbe39a6ac426117ad7cb2e91cae2a4f0dda16f4f49a74d13c138c9cb88c0c9",
+      "parent_sha256": "a78f6f8c5b85f68d49bec1309f8f72484eea877c9f73d20a1b5018a69f986e08",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/season_pass.py",
+      "size": 14963,
+      "sha256": "b640efb2b71d29496738c87ff073828f7739b9d1268b0cf8d5efdd2994b33db9",
+      "parent_sha256": "41502acf8d6851ac042b37657a4279dc2ce21300ebdc4ab617ab3d1de251e88f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/shop_state.py",
+      "size": 26040,
+      "sha256": "c68eb61e948393a502614354b042d7395d8ae8f5a58fa01a2ba2c1c36e496488",
+      "parent_sha256": "99387352fffb3761bc4699d24526dd21dc5ba8971302c79e78b002619f8fe6f4",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/bank_state.py",
+      "size": 18056,
+      "sha256": "38e8a0138dd444ecb89adcd65535fa2744abf006c5ff78d351b0d45325877a04",
+      "parent_sha256": "a0fc80de3a526f5192e2e1f5071700167a197b7774c7b6bb08e7751f25b80848",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "size": 19439,
+      "sha256": "aaac98448000d1918ecb9b03b926a356b5e042391f82452f3176931d42a11efb",
+      "parent_sha256": "04efbef9b03634be44fcd4be4bdd2eb4442497ca54461ec88e0868ef58c96d52",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/mainline_find_npc.py",
+      "size": 10601,
+      "sha256": "5ed0c8e4e574e7a343461cf754e3650730584b2fef41ffbbcc3dc5b19e8c7c1f",
+      "parent_sha256": "e19e26fd5b32bbefae420ccad21c9fd9f26defa676a582b225f8d4c5c52a9680",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/boosting_2026_limited_pet.py",
+      "size": 8392,
+      "sha256": "14600556bcd4c791707602cd7045f4f60b4069286586c5681790d1110fc584de",
+      "parent_sha256": "e7ef95da39c15b7bfcde8498734b4f8bffb9a782f59c367349ef1017cb745e8a",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pet_support_periods.py",
+      "size": 4976,
+      "sha256": "877f6c5760e9d4d95f0a1db9f5514eb50f5295f9271288850f18532599e38124",
+      "parent_sha256": "0bba4a5a4bb5fb988e7d0a9c8f29ecd9c2dfa70743be06a7ff5caf8164b5c4c1",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/custom_periods.py",
+      "size": 5049,
+      "sha256": "ed66258641f43fe4c098cbbc1a03c3916e8d3eb939b38a434199697f4f6d0276",
+      "parent_sha256": "7995ee154317599c4504439e7e1c4702d64102e0f2ae1214ae9b4a6b6e4388be",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/relationship_mail.py",
+      "size": 11838,
+      "sha256": "f47d293bcf242c5fd33233a23d20cdc1a31a6d426ac425033c48c1cda8c29bd5",
+      "parent_sha256": "5db974868591ef9893077a9be806f92fd897e309641306bed234977adc0ba001",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/sqlite_timing.py",
+      "size": 8891,
+      "sha256": "3aac13bf580a78a62db42c0a165818650eaa1f7f8daf7b3621fee481311f87de",
+      "parent_sha256": "53a00359c2b74d8bfceaa6b256de6a2a2408b2a9fa1a3c41000983ca5454acd3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/performance.py",
+      "size": 11987,
+      "sha256": "1ac15e478ee4a1d205ce3870f1cdd604c5ec6b8ab3f8d09492507a024cc205ef",
+      "parent_sha256": "4fc479b5f689e485b72623826181018c47ce394d2101dacadff3d05c6bfe87ea",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/wal_checkpoints.py",
+      "size": 6345,
+      "sha256": "a20c5f747af8cea200ff5cf2fb37c8418eae619f79439a9b574f39dffc431776",
+      "parent_sha256": "c5c3eab1925386459f3fb221f058eb4d42be7fd87cdae2237a265f5b134042dc",
+      "scope": "server"
+    }
+  ],
+  "desktop_files": [
+    {
+      "path": "gm_console/static/app.js",
+      "size": 36693,
+      "sha256": "fbbaf31a4ce0f12ec8bc9e22d5314444a25a81d0852885422f70f7bd2320c3b0",
+      "parent_sha256": "19643359d8b09ff1d22a0c0875f119eeb10303c200562fbfb53dd4d34b094a7a",
+      "scope": "desktop"
+    },
+    {
+      "path": "gm_console/static/client-notices.css",
+      "size": 874,
+      "sha256": "c1f46fb754b9be900ff31801dc578c7dfbd59d6ab286c98dea85a601ca0f0301",
+      "parent_sha256": null,
+      "scope": "desktop"
+    },
+    {
+      "path": "gm_console/static/client-notices.js",
+      "size": 3151,
+      "sha256": "8cd4f89a2dad1636cc0321832c0159b62bb3d9af827456dfcf02937679b66055",
+      "parent_sha256": null,
+      "scope": "desktop"
+    },
+    {
+      "path": "gm_console/static/index.html",
+      "size": 39925,
+      "sha256": "68321b5796810e57951a3122681dc9c569ea8d8c5a9b7ea8a16cdc54ff91fc97",
+      "parent_sha256": "c96e45c0e8d03f74dbc03547eb735c941e47882e6c794e45a8ccf25b151c86a2",
+      "scope": "desktop"
+    }
+  ],
+  "runtime_files": 2167,
+  "lazy_tables": [
+    "shop_weekly_support_v1"
+  ],
+  "installed_online": false,
+  "installed_local": false,
+  "natural_GUI": false
+}

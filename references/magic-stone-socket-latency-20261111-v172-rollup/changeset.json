@@ -1,0 +1,66 @@
+{
+  "release": "title-socket-hidden-items-artifact-20261111-v172",
+  "patch_sha256": "87906617dbf5ffcd10093d25855150fae07bebb5aaa5006c088806015837169d",
+  "parents": {
+    "online": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "f8714987467c9195b008cb73e93f4328dd4cae93cb900e492995332906b9e2ed"
+    },
+    "local": {
+      "release": "unified-server-5ea03ca5f01728b3-d21f0c50eba1",
+      "manifest_sha256": "b73f5c2b5e816c7b4d949c75d86dd457873633d86144430569ae6e2af43034f8"
+    },
+    "launchers": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "edc8441c7d8f8001053f6240125244efce542331580e6f4b0213c06020c35ef4"
+    }
+  },
+  "files": [
+    {
+      "cohort": "socket-latency",
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "ff2ee09bfadb509b4772f14eb7a6b27b0a4d24cc025b2c01b35389d051375e82",
+      "sha256": "a41adcb332044e264df9cb148454b48502f5fe561a1089c1e0f9affc98103dad",
+      "size": 26165,
+      "source_parent_sha256": "ff2ee09bfadb509b4772f14eb7a6b27b0a4d24cc025b2c01b35389d051375e82",
+      "source_sha256": "a41adcb332044e264df9cb148454b48502f5fe561a1089c1e0f9affc98103dad",
+      "rebased": false,
+      "phase_version": 169,
+      "parent_archive": {
+        "commit": "00f3f2e7109a621e1740cafa3f6016f16b11dfaa",
+        "ref": "refs/heads/feature/achievement-guild-banner-20261108-v1",
+        "archive": "reference/native-achievement-guild-banner-20261108-v1/source/els_server/storage/achievement_history.py",
+        "sha256": "ff2ee09bfadb509b4772f14eb7a6b27b0a4d24cc025b2c01b35389d051375e82",
+        "exact_archive_in_origin_main": false
+      }
+    },
+    {
+      "cohort": "socket-latency",
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "45eca512c1f900ddf61432f3cd4d75792d360b4a09adb007dc7f262fc2269807",
+      "sha256": "5781d7b20de32965bc63cf75637441df49aaaa9a8e2f7faac87b0a0385b83478",
+      "size": 6286,
+      "source_parent_sha256": "45eca512c1f900ddf61432f3cd4d75792d360b4a09adb007dc7f262fc2269807",
+      "source_sha256": "5781d7b20de32965bc63cf75637441df49aaaa9a8e2f7faac87b0a0385b83478",
+      "rebased": false,
+      "phase_version": 169,
+      "parent_archive": {
+        "commit": "d77699de12a6ceab97653a7b9465972328c0119c",
+        "archive": "reference/native-housing-expansion-presets-20261108-v1/source-v1/els_server/storage/achievement_profiles.py",
+        "sha256": "45eca512c1f900ddf61432f3cd4d75792d360b4a09adb007dc7f262fc2269807",
+        "exact_archive_in_origin_main": true
+      }
+    },
+    {
+      "cohort": "socket-latency",
+      "path": "els_server/storage/sage_sockets.py",
+      "parent_sha256": "55a3758e317392732dd0117a03f6068a5daae86c0f25776f93b09ba61acceeb1",
+      "sha256": "281a5eb892c95618a93ee9430b187b61257fc6a9604cd1ba5b6ca234a844f5a0",
+      "size": 9628,
+      "source_parent_sha256": "55a3758e317392732dd0117a03f6068a5daae86c0f25776f93b09ba61acceeb1",
+      "source_sha256": "281a5eb892c95618a93ee9430b187b61257fc6a9604cd1ba5b6ca234a844f5a0",
+      "rebased": false,
+      "phase_version": 169
+    }
+  ]
+}
