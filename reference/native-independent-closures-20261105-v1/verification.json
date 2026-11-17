@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "source_manifest_sha256": "d83e7112fc5ec54f86ef66f43b20cdd3bc690ff03a98c7aeecc993a929082ef3",
+  "inherited_source_PRs": [
+    868,
+    869
+  ],
+  "root_related_verification": [
+    {
+      "sha256": "1a960ea2ab4e5134fc1fff75769249ef316356d65f1e38ad8c37f075f6190547",
+      "checks": {
+        "concurrent_notice_count": 1,
+        "concurrent_producer_blocked": true,
+        "temporary_directory_removed": true
+      }
+    },
+    {
+      "sha256": "e52e81b48f3dc520bdee7a02f53b32c7e14fc441e879e503bc11252b1a0f8b0e",
+      "checks": {
+        "lock_retention": [
+          true,
+          true
+        ],
+        "actual_town_709_and_4E2": true,
+        "temporary_directory_removed": true
+      }
+    },
+    {
+      "sha256": "c701ca06cbc7206595ee9cd44556e1110af5175f657aa21c9307f3f1db35e4f8",
+      "checks": {
+        "guild_join_presence_counts": [
+          1,
+          1
+        ],
+        "temporary_directory_removed": true
+      }
+    },
+    {
+      "sha256": "a24f3f8d0503b255be9dfdd95521e096d711b71c2d253bc69e974ece39af8884",
+      "checks": {
+        "checks": [
+          "3 authenticated ordinary town characters from private saves",
+          "Original85 ordinary studio chat reaches both admitted members and never the outside town character",
+          "Both room admission and a host background change refresh both members maps in the authorized outside friends subscription",
+          "Existing name/UID-checked whisper works in both directions across studio and town",
+          "A selected scene revoked during original chat encoding publishes no prepared message or rate-limit mutation"
+        ],
+        "temporary_directory_removed": true
+      }
+    }
+  ],
+  "raw_runtime_traffic_included": false,
+  "installed": false,
+  "natural_GUI": false
+}

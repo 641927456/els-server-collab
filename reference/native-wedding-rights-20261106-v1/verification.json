@@ -1,0 +1,158 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "source": "blank-invitation-shop-TLS-1793949792111115700.json",
+      "source_sha256": "5deaad5ee4eeafb88474d7d17d1c3732c20992d9cf9ecc9b53e668b485460c6a",
+      "ok": true,
+      "checks": [
+        "Normal80D lists the SKU; original80F buys two for exactly100 ED",
+        "Cold reauthentication preserves tickets; one costs50 ED; insufficient ED preserves items and balance"
+      ],
+      "actual_authenticated_TLS": true,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": true,
+      "source_file_sha256": "e3e29891fb19d31bc7b40ec30345b6b004fd0c4b284fc45e158c7bf9e5d93a6c",
+      "original_function": null,
+      "original_image_sha256": null,
+      "clear_roster_fixture": false,
+      "actor_virtuals_fixture": false
+    },
+    {
+      "source": "marriage-titles-TLS-1793952587199234400.json",
+      "source_sha256": "b1ab0c7eef6f379a91866fdd2cd93c22fd5227650c8180bf554b6f0d1c1d3d8e",
+      "ok": true,
+      "checks": [
+        "Original marriage producer grants each spouse12360 for exactly30days;100/200/365 boundaries and idempotent ownership pass",
+        "Original drop writer freezes20%, zero absence and historical receipts; expiry/equipment changes do not redraw; conflicting context and rollback pass",
+        "Actual authenticatedC22/C23 restores the30day title; original213 equips it; clear reward resolves exactly20% XP",
+        "Actual married41A quotes zero ED; a late41D encoder failure rolls back both memberships and the closure ledger",
+        "Original41C closes exactly two current members for zero ED, notifies each once and preserves inventory, marriage facts and mail; guarded-handler replay changes nothing",
+        "Both accounts cold-restore as solo; marriage-only skill equipment is absent"
+      ],
+      "actual_authenticated_TLS": true,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": true,
+      "source_file_sha256": {
+        "els_server/domain/elixir_economy.py": "eb499570a5f46777c07e33815e0ab4354395f4e2fa058e10d05604c6d687cd57",
+        "els_server/domain/shop_additions.py": "e3e29891fb19d31bc7b40ec30345b6b004fd0c4b284fc45e158c7bf9e5d93a6c",
+        "els_server/protocol/relationship_messages.py": "fbcf6f8a44ea2a2c455ecc4422e8262765e744c4737c45517219c4eab6895031",
+        "els_server/storage/couple_closures.py": "9d6512e80f5e065d25d9642bf077cfb88028fc33f06813e78d02680fdec3df97",
+        "els_server/storage/elixir_economy.py": "bee422052393ae4be5fc17dc914513ae0151f342314f1bb8169391151f848aac",
+        "els_server/storage/title_drop_rewards.py": "91b46319bbe831a640b3f3aed74425fcc0a6b43ea19010b8dd74c90953026811",
+        "els_server/storage/title_levels.py": "d961bcd5af64d6a59441da7ad44357f784b319cada8bc5102dce77c637537381",
+        "els_server/storage/wedding_ceremonies.py": "39da557e2e8aee70cafa45330cbda93c2f04af34fe7dc54047badc83d916be21",
+        "els_server/storage/wedding_titles.py": "6f0d69325eb0dbeadfde1a3452953178a2561d72e4171b7deaa4eb88884dd077"
+      },
+      "original_function": null,
+      "original_image_sha256": null,
+      "clear_roster_fixture": false,
+      "actor_virtuals_fixture": false
+    },
+    {
+      "source": "wedding-weekly-TLS-1793953685385237400.json",
+      "source_sha256": "7967426c2e4879e18ded77bcb32579e3ba00f94dd8402e432a0299b98dabc994",
+      "ok": true,
+      "checks": [
+        "Actual EE/EF/F0 accepts original31130; explicit clear fixtures count each shared source once; solo, excluded, inadequate and generic observations count zero",
+        "Actual F4/F5 grants exactly2+2 for zero ED/XP; failed F5 rolls back all reward/action/source tables; repeated claim adds nothing; generic fatigue-potion grants remain closed",
+        "Wednesday10 weekly completion resets while unfinished two-clear progress carries;365day eligibility boundary is exact; future-clock fixture is rolled back",
+        "Both authenticated accounts cold-restore with current completion, unfinished counters and exact saved rewards"
+      ],
+      "actual_authenticated_TLS": true,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": true,
+      "source_file_sha256": {
+        "els_server/data/wedding_quests.json": "184a54afa86d883ba55d232860ca35c792780278cf90525715cf4965a4b6156c",
+        "els_server/domain/acquisition_policy.py": "9fa16c32786cdadf124cd50289b66daaa02c5307b9be04a8faaac5dd56aa2532",
+        "els_server/domain/elixir_economy.py": "eb499570a5f46777c07e33815e0ab4354395f4e2fa058e10d05604c6d687cd57",
+        "els_server/domain/raid_economy_flow.py": "17ddd68bfc57c29f7cb255150aec37e4463749ebdc424b315f6789eea7101671",
+        "els_server/domain/seal_quests.py": "0ce383b76d56051a34899691b73f0f6f78a8f57776643b5666e6b02c8a49efce",
+        "els_server/domain/shop_additions.py": "e3e29891fb19d31bc7b40ec30345b6b004fd0c4b284fc45e158c7bf9e5d93a6c",
+        "els_server/domain/wedding_quests.py": "ef943ef3b036c2bef891203c471a5290d4e571b93ff7958421f7e860a21c2e33",
+        "els_server/protocol/relationship_messages.py": "fbcf6f8a44ea2a2c455ecc4422e8262765e744c4737c45517219c4eab6895031",
+        "els_server/storage/couple_closures.py": "9d6512e80f5e065d25d9642bf077cfb88028fc33f06813e78d02680fdec3df97",
+        "els_server/storage/elixir_economy.py": "bee422052393ae4be5fc17dc914513ae0151f342314f1bb8169391151f848aac",
+        "els_server/storage/seal_quests.py": "d32926696bcbf62d92736723797b0323e6208646e9a204680c7d1c92d99d16a8",
+        "els_server/storage/title_drop_rewards.py": "91b46319bbe831a640b3f3aed74425fcc0a6b43ea19010b8dd74c90953026811",
+        "els_server/storage/title_levels.py": "d961bcd5af64d6a59441da7ad44357f784b319cada8bc5102dce77c637537381",
+        "els_server/storage/wedding_ceremonies.py": "39da557e2e8aee70cafa45330cbda93c2f04af34fe7dc54047badc83d916be21",
+        "els_server/storage/wedding_quests.py": "2212bf550f29475ef06c1d167166f3aa1be24fcf858f017c23aea0b6f190dcd3",
+        "els_server/storage/wedding_titles.py": "6f0d69325eb0dbeadfde1a3452953178a2561d72e4171b7deaa4eb88884dd077"
+      },
+      "original_function": null,
+      "original_image_sha256": null,
+      "clear_roster_fixture": true,
+      "actor_virtuals_fixture": false
+    },
+    {
+      "source": "native-newlywed-buff-1793953042913936700.json",
+      "source_sha256": "13e3ed73c5dd32ca055d7f80b821f0e92e1e0d09cb8416cdb88bec001042644a",
+      "ok": true,
+      "checks": [
+        {
+          "name": "married together before30days",
+          "original_added_factor": [
+            [
+              1617,
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "name": "married partner absent",
+          "original_added_factor": []
+        },
+        {
+          "name": "exact30day expiry",
+          "original_added_factor": []
+        },
+        {
+          "name": "ordinary couple",
+          "original_added_factor": []
+        },
+        {
+          "name": "solo after divorce",
+          "original_added_factor": []
+        }
+      ],
+      "actual_authenticated_TLS": false,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": null,
+      "source_file_sha256": null,
+      "original_function": "194BF20",
+      "original_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+      "clear_roster_fixture": false,
+      "actor_virtuals_fixture": true
+    }
+  ],
+  "reused_scope": "Shop bytes unchanged. The9-file title/divorce input is unchanged within this16-file delta; weekly TLS additionally covers the shared quest/catalog/acquisition changes.",
+  "failed_cases_retained": [
+    {
+      "source": "marriage-titles-TLS-1793952508886857300.json",
+      "reason": "Fragment fixture omitted the unchanged relative elixir data dependency; replaced with a complete isolated source tree"
+    },
+    {
+      "source": "native-newlywed-buff-1793953034778617600.json",
+      "reason": "Resource research parser assumed all arguments were dictionaries; fixed only the parser"
+    }
+  ],
+  "exclusions": [
+    "Full multiplayer dungeon completion with31130",
+    "Original Game title/equipment UI",
+    "Natural GUI",
+    "Native title tooltip still says10% drop",
+    "Temporary costume/action gift opening and expiry"
+  ],
+  "production_data_access": false,
+  "original_EXE_KOM_modified": false,
+  "new_production_Hook": false,
+  "main_merged": false,
+  "installed": false,
+  "public_progress_updated": false
+}

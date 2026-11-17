@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "QA_only": true,
+  "server_candidate_unchanged": true,
+  "checks": [
+    "SQLite JSON member filter returns the one owned Native duel receipt",
+    "Three unrelated UID parameters return zero receipts"
+  ],
+  "private_seven_case_result_reused": "G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-duel-v1\\combined-private-1793902096043922100.json",
+  "reason": "Only restrict SQL readback to the three newly allocated QA owners; protocol inputs and owned outputs are unchanged."
+}

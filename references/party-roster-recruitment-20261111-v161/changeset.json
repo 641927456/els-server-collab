@@ -1,0 +1,92 @@
+{
+  "release": "party-roster-recruitment-20261111-v161",
+  "patch_sha256": "d1ee0db3ef9376bc738856f4e26acbf98e2251c63526b2945a5d16832cc3b3de",
+  "parents": {
+    "online": {
+      "release": "avatar-set-wire-diagnostic-20261111-v160",
+      "manifest_sha256": "a40ee329941c4012a25fde0281a0efb8266d48f3d03b2f7aac358bcef70649b1"
+    },
+    "local": {
+      "release": "unified-server-5053f09f1a60d8c1-e8b79f6de909",
+      "manifest_sha256": "3fad74537baa60166fe291928fd68e6158fb51a06795e565580d75f24bd60206"
+    },
+    "launchers": {
+      "release": "avatar-set-wire-diagnostic-20261111-v160",
+      "manifest_sha256": "42b32e538d2b7cd9f35474f82cf05208391300419795ae42409c4d0c8e014f08"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "a04f397dc262b174cbb714e8a30662383f6e569a957d30c4d1083fcb6b798226",
+      "sha256": "8821ed5d9e6c7d914383c43a33c6807ee96b6c667363ffa51f017f622ab41e50",
+      "size": 70450
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "parent_sha256": "8195e8ba26f25e94844f8a7e6a392d8388de4176726eab17c85f466acd93ca6d",
+      "sha256": "ee9f4bfbaacad2599405f12e6e7581c1a8dcdde4790fd7a5f58b2846644fc343",
+      "size": 42761
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "parent_sha256": "7b043c1a1a5e9078986cf48cd88163d57b683675eaabbffd9bb9e485412f776c",
+      "sha256": "0a23181eedd54263007b5e21caa1fbac10cc3c45846eedbd761db5321b277e12",
+      "size": 25172
+    },
+    {
+      "path": "els_server/domain/normal_party.py",
+      "parent_sha256": "d07f1bb889a939a59274bfa2299750169df09d149363cbd4ce6249e9e1c1c4ba",
+      "sha256": "9718106d68291e6c1ded0b37994e9f85ce561dbb30d5b172c59bdeef92b48df3",
+      "size": 6100
+    },
+    {
+      "path": "els_server/domain/party_commands.py",
+      "parent_sha256": "8a504f035e2cf8a319f393d8d156b64569432bc2eaf6a151504134708f3a95d0",
+      "sha256": "f76cb18c09a198505eb6fc13235b20707d03435735d8fab2802be7f65fcf3fe7",
+      "size": 5870
+    },
+    {
+      "path": "els_server/domain/party_recruitment.py",
+      "parent_sha256": "3e09fa3818547ba015bb76a2ff35ed29c90ba7d585d7f9b71cc7f1505fdf46aa",
+      "sha256": "f29f62ea9dfac1e427eec5e4f39378d75dde1084b93cab236063557e25e0400b",
+      "size": 20699
+    },
+    {
+      "path": "els_server/domain/raid_native_power.py",
+      "parent_sha256": "f709ba2fbc2ee015fae35b29dd5fb3f8d3b8a3e3e1666dbcdf3675dda50cbf6e",
+      "sha256": "3ce857414708dc26ca1868a897beb9420f9c45b80829261c3e9347680ed6b4ba",
+      "size": 4223
+    },
+    {
+      "path": "els_server/domain/raid_party.py",
+      "parent_sha256": "8acf3f15845f68dd2e2d0b5f03309703065d4438b59767f77436d8d9a4b6a5cf",
+      "sha256": "9a0d64e4308251dc3fe943d0a7d45cfb5f63b2efc94cb551475339f0ec495a80",
+      "size": 3558
+    },
+    {
+      "path": "els_server/protocol/party_recruitment_messages.py",
+      "parent_sha256": "4042b8efc997d65e8961e206c9133cbb54f0ea5df63f58a06f490047f09791a7",
+      "sha256": "e45e62203428e1b0235b74bbd20b76012d8564381469ee5a8c4c4719467af07b",
+      "size": 3967
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "parent_sha256": "8495aa3e970c97133c785ac5b200015898c358256c9e8707c4a236bb7692dea8",
+      "sha256": "804084dd6bb6cc40c9b3c7d8930390e0fb627c3f5741f739375b133c8c9cf312",
+      "size": 16991
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "parent_sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "sha256": "51a5316bbd3ea9c046bdd75241aabd2487b4afed52a724dbadc168d8f0a69513",
+      "size": 6580
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "d5d001f5775bcc57b78d35fc0090d959540fef1b064853fb858e57eb3a7e1ff2",
+      "sha256": "6fac35492debd2d0ee5af64a1a9a079578baf020984d887b9690baaf328db7d9",
+      "size": 24953
+    }
+  ]
+}

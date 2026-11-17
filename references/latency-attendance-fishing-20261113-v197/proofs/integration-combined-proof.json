@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "release": "latency-attendance-fishing-20261113-v197",
+  "business_changes": 40,
+  "transaction_leaves": 41,
+  "retained_recovery": 6,
+  "production_databases_used": false,
+  "original_EXE_modified": false,
+  "tests": {
+    "full-party-run.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\integration-checks\\full-party-run.json",
+      "sha256": "72f4e6f007c3768cc627a905466263bbe801ba60fae56261e62a8a05cf701de8"
+    },
+    "replay-candidate.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\integration-checks\\replay-candidate.json",
+      "sha256": "ce020414d98f23e45c2f93f69482b8b4815b6321a37a749a9f8c48d19124873b"
+    },
+    "edge-cases.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\integration-checks\\edge-cases.json",
+      "sha256": "2ce3b5b0bcef9ac8cac7c86d4c9b6eedfacf27597d6d98c711e31a5e20a80ec4"
+    },
+    "new-focused-result.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\integration-checks\\new-focused-result.json",
+      "sha256": "6295413015083b130b83767efb68fcd0de092bc7dd762ca0573d1fff54fefa01"
+    },
+    "recovery-result.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\integration-checks\\recovery-result.json",
+      "sha256": "9919eabf14935bb752e0e4fbcaf1d1b569763e5184806057e41e37bc15eee82d"
+    },
+    "career-final-runtime.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\integration-checks\\career-final-runtime.json",
+      "sha256": "648afed0a01f32a8666750e3e20fdecaa38c4f57247b82bae4fd062a8fea51bd"
+    },
+    "public-final-runtime.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\integration-checks\\public-final-runtime.json",
+      "sha256": "5837a2fe6ed74e8bacd7c70fb5c431ffaf9565bdb62cbc820e16e4afbf04e06f"
+    },
+    "public-wire-proof.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\publication\\public-wire-proof.json",
+      "sha256": "c46c2e71cbaae42b11366d51cb2d63d01c1ace814af6856a29f519b635904126"
+    },
+    "recovery-controller-proof.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\publication\\recovery-controller-proof.json",
+      "sha256": "4100da56739c645629ea9d0d49aba1108f9cce24e78b0a04a21e5b98aa68b764"
+    },
+    "compatible-runtime-proof.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\publication\\compatible-runtime-proof.json",
+      "sha256": "df2165b71e59ffadfb0f82f7ca62a11e7e5bde5086201f275426df00830a0380"
+    },
+    "formal-check.json": {
+      "path": "G:\\els\\analysis\\publisher-v197-20261113-v1\\publication\\formal-check\\formal-check.json",
+      "sha256": "9c99607823345644285854444317c42ae1f664e77ac5a3b57741e136a7f220ad"
+    }
+  },
+  "notes": "Only affected integration scenarios rerun; exact author successes reused. Fixture corrections did not change production code. No natural GUI or live speedup claim."
+}
