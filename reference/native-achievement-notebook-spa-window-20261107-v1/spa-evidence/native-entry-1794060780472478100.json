@@ -1,0 +1,15 @@
+{
+  "ok": false,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "live_process_access": false,
+  "client_changes": 0,
+  "natural_GUI": false,
+  "seams": [
+    "terminal store-state setter captured without rendering",
+    "wait-indicator UI call omitted",
+    "network facade captured after click construction",
+    "transport send captured after native serialization",
+    "sequence source supplied"
+  ],
+  "failure": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\spa-egg-purchase-v1\\test_native_spa_entry.py\", line 45, in <module>\n    replay.call5(0x21577b0,(0,0,0,0xc3a,buf))\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\spa-egg-purchase-v1\\test_native_spa_entry.py\", line 26, in call5\n    self.uc.reg_write(UC_X86_REG_RSP,sp);self.uc.emu_start(self.base+rva,self.stop,count=1000000)\n                                         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\tools\\launcher_testdeps\\unicorn\\unicorn_py3\\unicorn.py\", line 766, in emu_start\n    raise UcError(status)\nunicorn.unicorn_py3.unicorn.UcError: Invalid memory read (UC_ERR_READ_UNMAPPED)\n"
+}

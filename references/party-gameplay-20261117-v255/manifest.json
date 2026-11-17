@@ -1,0 +1,434 @@
+{
+  "release": "party-gameplay-20261117-v255",
+  "parent_release": "gameplay-performance-20261117-v254",
+  "files": [
+    {
+      "path": "els_server/protocol/equipment_spell_exchange.py",
+      "size": 1081,
+      "sha256": "ec56a1942a8314266c2befb476fc02d5884fe1149355ad1e78b0c1292fe65b1d",
+      "parent_sha256": "0311a52e02ddb38773e650923150635c248231e823c2a514160e027eebb6b7f3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/equipment_spell_rules.py",
+      "size": 5128,
+      "sha256": "30c6d849c6c7685c429c30ce758508243999048dc6b4df7a41073663f9f0aced",
+      "parent_sha256": "075bf909ec2b509dc51f13ab7c4d0527290187d96bcab32210a9cd27b4c9f225",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/equipment_spell_exchange.py",
+      "size": 3450,
+      "sha256": "e906cf88459f252278d8e54b87dfc043bf1e7cf79d591202ad97096b8a79770e",
+      "parent_sha256": "709d4c57400960d21d3be94d910acb281d7e08cdf7f60ec50de7d73a10715e61",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/shop_additions.py",
+      "size": 4003,
+      "sha256": "d0010da1b298d8c9e55c521c582b49dcef7efe04ac9487f66741fe4e94072ff6",
+      "parent_sha256": "07737e3268db0b7e2277d4f4aa27321bc4579739be0f519c21a90da0e5ec093d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/ariel_attendance_flow.py",
+      "size": 6140,
+      "sha256": "f5b5e5dabfe9dd885c19a4b6e246af89c11a408ffed950fa3e6306132e8b660b",
+      "parent_sha256": "7b23569149d668bf4f02eb0ed4d6409b6c872ec35639ffed5d4f42ddbcd1da29",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "size": 181025,
+      "sha256": "20ac61ad84679299dec9242f304c5a254b0341f512c09c42c8e9a8d95ec6b049",
+      "parent_sha256": "d852f5746d82812059458513e2f74ad55ead140170518ec8a5e279804531200c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/secret_clear_rewards.py",
+      "size": 12391,
+      "sha256": "ce200b7ef70db7ddcfc60a742a06395302d87381b0275b58c2b30b980e794398",
+      "parent_sha256": "2d51f1a5ec2a33e5b8fc3c461c609e5c751176639bbd31f6a9f5241eb34e9bfc",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/secret_dungeon_sweep.py",
+      "size": 3412,
+      "sha256": "c9c68bd496a38d30a5b904548d2f6c9c61e85cddf8814c77e9d274cf36231d54",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/session_dispatch.py",
+      "size": 20149,
+      "sha256": "73de4ab432fd616181517806c454854f2f26f97950872f154b1063436810b8c6",
+      "parent_sha256": "d5398c8457182c9a12ca48b6f47d6b55ccf958cabcfbb6e9827bc1c3c687f3db",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/ariel_daily_special_messages.py",
+      "size": 4009,
+      "sha256": "e04bd5e437f3ec7c021f4432846958a07c6d7564d89d8e4352ae54cdaf819c4e",
+      "parent_sha256": "81b909c2105330adbac82932ff0aed201c9799c76e1bb933087b1b647efced2f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/secret_dungeon_sweep.py",
+      "size": 786,
+      "sha256": "13f1aa098fa0991c99a9e75c0d5378215284323872b4974a5740d9d406b6fa7d",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/ariel_daily_special.py",
+      "size": 11644,
+      "sha256": "575b1a6752ba77dfae30a4823380126d832d51389dae0d83c12e2be501cc1337",
+      "parent_sha256": "5193e9f8a566ed17326bdcb9d40d7164149f8beb4f7340598a2eeecb7662f561",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "size": 3493,
+      "sha256": "81790620a617b2019a1a48c195b26461dcd156b04852b6176373701428adbf1c",
+      "parent_sha256": "2c6a1df6f1e8c6548b1071eda47bbf586d9241215dd2e4e7a65c147d70104241",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/resonance_state.py",
+      "size": 8336,
+      "sha256": "94f731f863f6b635faf65ea653fb094e1fa8c6721653757ec5fe97d331bd5c94",
+      "parent_sha256": "8601c9f03f98fc84b26ad9a5a41b8a11aa15d613b9e4b694285d1bccd15bc8f9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "size": 27765,
+      "sha256": "6727b8a614288aa7337a24af1694df74721ae1c73b51ed957e96e931cd14dc6d",
+      "parent_sha256": "7fae08c1ec961e05f5441a22de4fcc2dca669d9a07b75baa1477b6787e7143de",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/secret_dungeon_sweep.py",
+      "size": 5759,
+      "sha256": "cda868c7fb10272e9474247152d7cfc87a890f3f7c114f55396d80d471369e12",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "size": 1086986,
+      "sha256": "fe82dc64a4df391920df4a09023206abf960ffcfb8dc135451b9ec0b8d6ad681",
+      "parent_sha256": "8d162d20130dcfea2c72223b1390c23fa32df9ce5af76c91e69ac88be1aec6d8",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/native_line_triggers.json",
+      "size": 1626674,
+      "sha256": "e410b1abc3ec121c6838cee9efdb8d5ae0e279fdc60030ef8536e5c996d9aa34",
+      "parent_sha256": "32daaebb094617d6a866fc30eda719cc63f5e459fa14230d7493b1a07da66827",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/additional_magic_stones.py",
+      "size": 1859,
+      "sha256": "750fdc6d4a7c601ea82cbdb85f090e3468615c7ff6dd119ba10b3bc17a4a1adb",
+      "parent_sha256": "20c65a204fec9ebdfe9265195d812e780b67665758841985d58891783944279c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/additional_magic_stones.json",
+      "size": 60949,
+      "sha256": "9b4d22fa825f4d5d310837ae155fdc5092512b29b4ea0505176911e8d7c6d33f",
+      "parent_sha256": "4d09c493ac6fde1bc7b5d7be774d09ab853b340f1d5152bca757e100e0e44907",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/abyss_weapon_2026.py",
+      "size": 11922,
+      "sha256": "7b2996d97c30b10578034ee5dbbc10ae082c96666ddafce1e6fa7d341c46d82d",
+      "parent_sha256": "a120a1eaf4a58036100abb92c49e74bc35f5b5a4ceac94600d0eaf827420753c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/boosting_2026_first_rewards.py",
+      "size": 11381,
+      "sha256": "a1dff59fffa36250d4e38b79d56a8f7fb635c9296e880d88c0a4166e7ecc9bb2",
+      "parent_sha256": "e54bafa65bfab45b5f00be6315e2c1110251b8590c48476d4670d464a860819b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/client_reward_power.py",
+      "size": 7124,
+      "sha256": "23faee772f5a084c10ec6ff71be82c663b113035438936864eee530a3468139f",
+      "parent_sha256": "17acd2824f53ae244847460038a6cc3ab014bedac20548197bb6035063c5a7be",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_bonus_counts.py",
+      "size": 2192,
+      "sha256": "fadd506b52be70287e4e33e9428d582ae0074b4a2578dd4debd7b10b1d0ce949",
+      "parent_sha256": "42cf9c92ceeb170e784a5ea9a8b6565343caea354de66b35cb9ad7eb4d11ac06",
+      "scope": "server"
+    },
+    {
+      "path": "tools/native_support.json",
+      "size": 1570528,
+      "sha256": "2d6df7067934823058e2a3f4cf77118f826872c591a18fb248a4bd98a9fcf1da",
+      "parent_sha256": "1c45b04ff3dd9fc11c4101f72faef205b34c4dfe7196dad46bd6f062349b3d55",
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_support.py",
+      "size": 994,
+      "sha256": "5d87c29f807b8182d35a5694e080d06a8d861cabcd92bf52be62b50dec00cbd0",
+      "parent_sha256": "6e3e143b593e21709cfd04ad43047c1e010610c6fb1696bb4f5dd212fe84d05d",
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "size": 20299,
+      "sha256": "0f7be3d9fca4d2bdfeed215482e4cc83969b451214a6314c639eba8bbfa1041c",
+      "parent_sha256": "69dd5563d5d732b60f827092440de774da0f76e0e10680fd0b5b533b1d12a0f7",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/storage/artifact_progression.py",
+      "size": 11692,
+      "sha256": "428a5a1f8799ead16dd78031a571b265fa803fe86689581843309480e507aa7f",
+      "parent_sha256": "df3ac8393a2060ba2d12ca8ee5ba5cc24e3274b2756ee0a52e9292d83b1e2706",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/local_clear_rules.py",
+      "size": 4905,
+      "sha256": "89ac3f4a19b88e4b33b1be64c89ee16b29b059dbd85dd2d5aedf6ca32a044519",
+      "parent_sha256": "007a398c8c3801f8aabc1a77e4f9e404b614b17f2397c71eb9171869e8bd811f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/gameplay_diagnostics.py",
+      "size": 14429,
+      "sha256": "dba25e55fb3efbe1c04fbf49f695e5b3375fc1962cccadf444e6dd1ed83e90a0",
+      "parent_sha256": "27fb8fd6af3800d75b37212322b23ae1d5a8a0a24f6462bb6300d67fee954c9e",
+      "scope": "server"
+    }
+  ],
+  "shared_files": [
+    {
+      "path": "els_server/protocol/equipment_spell_exchange.py",
+      "size": 1081,
+      "sha256": "ec56a1942a8314266c2befb476fc02d5884fe1149355ad1e78b0c1292fe65b1d",
+      "parent_sha256": "0311a52e02ddb38773e650923150635c248231e823c2a514160e027eebb6b7f3",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/equipment_spell_rules.py",
+      "size": 5128,
+      "sha256": "30c6d849c6c7685c429c30ce758508243999048dc6b4df7a41073663f9f0aced",
+      "parent_sha256": "075bf909ec2b509dc51f13ab7c4d0527290187d96bcab32210a9cd27b4c9f225",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/equipment_spell_exchange.py",
+      "size": 3450,
+      "sha256": "e906cf88459f252278d8e54b87dfc043bf1e7cf79d591202ad97096b8a79770e",
+      "parent_sha256": "709d4c57400960d21d3be94d910acb281d7e08cdf7f60ec50de7d73a10715e61",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/shop_additions.py",
+      "size": 4003,
+      "sha256": "d0010da1b298d8c9e55c521c582b49dcef7efe04ac9487f66741fe4e94072ff6",
+      "parent_sha256": "07737e3268db0b7e2277d4f4aa27321bc4579739be0f519c21a90da0e5ec093d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/ariel_attendance_flow.py",
+      "size": 6140,
+      "sha256": "f5b5e5dabfe9dd885c19a4b6e246af89c11a408ffed950fa3e6306132e8b660b",
+      "parent_sha256": "7b23569149d668bf4f02eb0ed4d6409b6c872ec35639ffed5d4f42ddbcd1da29",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "size": 181025,
+      "sha256": "20ac61ad84679299dec9242f304c5a254b0341f512c09c42c8e9a8d95ec6b049",
+      "parent_sha256": "d852f5746d82812059458513e2f74ad55ead140170518ec8a5e279804531200c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/secret_clear_rewards.py",
+      "size": 12391,
+      "sha256": "ce200b7ef70db7ddcfc60a742a06395302d87381b0275b58c2b30b980e794398",
+      "parent_sha256": "2d51f1a5ec2a33e5b8fc3c461c609e5c751176639bbd31f6a9f5241eb34e9bfc",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/secret_dungeon_sweep.py",
+      "size": 3412,
+      "sha256": "c9c68bd496a38d30a5b904548d2f6c9c61e85cddf8814c77e9d274cf36231d54",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/session_dispatch.py",
+      "size": 20149,
+      "sha256": "73de4ab432fd616181517806c454854f2f26f97950872f154b1063436810b8c6",
+      "parent_sha256": "d5398c8457182c9a12ca48b6f47d6b55ccf958cabcfbb6e9827bc1c3c687f3db",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/ariel_daily_special_messages.py",
+      "size": 4009,
+      "sha256": "e04bd5e437f3ec7c021f4432846958a07c6d7564d89d8e4352ae54cdaf819c4e",
+      "parent_sha256": "81b909c2105330adbac82932ff0aed201c9799c76e1bb933087b1b647efced2f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/secret_dungeon_sweep.py",
+      "size": 786,
+      "sha256": "13f1aa098fa0991c99a9e75c0d5378215284323872b4974a5740d9d406b6fa7d",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/ariel_daily_special.py",
+      "size": 11644,
+      "sha256": "575b1a6752ba77dfae30a4823380126d832d51389dae0d83c12e2be501cc1337",
+      "parent_sha256": "5193e9f8a566ed17326bdcb9d40d7164149f8beb4f7340598a2eeecb7662f561",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "size": 3493,
+      "sha256": "81790620a617b2019a1a48c195b26461dcd156b04852b6176373701428adbf1c",
+      "parent_sha256": "2c6a1df6f1e8c6548b1071eda47bbf586d9241215dd2e4e7a65c147d70104241",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/resonance_state.py",
+      "size": 8336,
+      "sha256": "94f731f863f6b635faf65ea653fb094e1fa8c6721653757ec5fe97d331bd5c94",
+      "parent_sha256": "8601c9f03f98fc84b26ad9a5a41b8a11aa15d613b9e4b694285d1bccd15bc8f9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "size": 27765,
+      "sha256": "6727b8a614288aa7337a24af1694df74721ae1c73b51ed957e96e931cd14dc6d",
+      "parent_sha256": "7fae08c1ec961e05f5441a22de4fcc2dca669d9a07b75baa1477b6787e7143de",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/secret_dungeon_sweep.py",
+      "size": 5759,
+      "sha256": "cda868c7fb10272e9474247152d7cfc87a890f3f7c114f55396d80d471369e12",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "size": 1086986,
+      "sha256": "fe82dc64a4df391920df4a09023206abf960ffcfb8dc135451b9ec0b8d6ad681",
+      "parent_sha256": "8d162d20130dcfea2c72223b1390c23fa32df9ce5af76c91e69ac88be1aec6d8",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/native_line_triggers.json",
+      "size": 1626674,
+      "sha256": "e410b1abc3ec121c6838cee9efdb8d5ae0e279fdc60030ef8536e5c996d9aa34",
+      "parent_sha256": "32daaebb094617d6a866fc30eda719cc63f5e459fa14230d7493b1a07da66827",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/additional_magic_stones.py",
+      "size": 1859,
+      "sha256": "750fdc6d4a7c601ea82cbdb85f090e3468615c7ff6dd119ba10b3bc17a4a1adb",
+      "parent_sha256": "20c65a204fec9ebdfe9265195d812e780b67665758841985d58891783944279c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/additional_magic_stones.json",
+      "size": 60949,
+      "sha256": "9b4d22fa825f4d5d310837ae155fdc5092512b29b4ea0505176911e8d7c6d33f",
+      "parent_sha256": "4d09c493ac6fde1bc7b5d7be774d09ab853b340f1d5152bca757e100e0e44907",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/abyss_weapon_2026.py",
+      "size": 11922,
+      "sha256": "7b2996d97c30b10578034ee5dbbc10ae082c96666ddafce1e6fa7d341c46d82d",
+      "parent_sha256": "a120a1eaf4a58036100abb92c49e74bc35f5b5a4ceac94600d0eaf827420753c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/boosting_2026_first_rewards.py",
+      "size": 11381,
+      "sha256": "a1dff59fffa36250d4e38b79d56a8f7fb635c9296e880d88c0a4166e7ecc9bb2",
+      "parent_sha256": "e54bafa65bfab45b5f00be6315e2c1110251b8590c48476d4670d464a860819b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/client_reward_power.py",
+      "size": 7124,
+      "sha256": "23faee772f5a084c10ec6ff71be82c663b113035438936864eee530a3468139f",
+      "parent_sha256": "17acd2824f53ae244847460038a6cc3ab014bedac20548197bb6035063c5a7be",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_bonus_counts.py",
+      "size": 2192,
+      "sha256": "fadd506b52be70287e4e33e9428d582ae0074b4a2578dd4debd7b10b1d0ce949",
+      "parent_sha256": "42cf9c92ceeb170e784a5ea9a8b6565343caea354de66b35cb9ad7eb4d11ac06",
+      "scope": "server"
+    },
+    {
+      "path": "tools/native_support.json",
+      "size": 1570528,
+      "sha256": "2d6df7067934823058e2a3f4cf77118f826872c591a18fb248a4bd98a9fcf1da",
+      "parent_sha256": "d283aad3bdf708a2a2943b02c5769fb231412369da0343d4bee77c219d809f6a",
+      "scope": "support"
+    },
+    {
+      "path": "tools/native_support.py",
+      "size": 994,
+      "sha256": "5d87c29f807b8182d35a5694e080d06a8d861cabcd92bf52be62b50dec00cbd0",
+      "parent_sha256": "677858edfe5d2cfc09558aa5888c2754a9a4ac7724fc6e2a10ab83b3a872932f",
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "size": 20299,
+      "sha256": "0f7be3d9fca4d2bdfeed215482e4cc83969b451214a6314c639eba8bbfa1041c",
+      "parent_sha256": "71edbf9428d57dd70b268d46fe5f8f2f067a234fa1f5c976168fedfffe1d980a",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/storage/artifact_progression.py",
+      "size": 11692,
+      "sha256": "428a5a1f8799ead16dd78031a571b265fa803fe86689581843309480e507aa7f",
+      "parent_sha256": "df3ac8393a2060ba2d12ca8ee5ba5cc24e3274b2756ee0a52e9292d83b1e2706",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/local_clear_rules.py",
+      "size": 4905,
+      "sha256": "89ac3f4a19b88e4b33b1be64c89ee16b29b059dbd85dd2d5aedf6ca32a044519",
+      "parent_sha256": "007a398c8c3801f8aabc1a77e4f9e404b614b17f2397c71eb9171869e8bd811f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/gameplay_diagnostics.py",
+      "size": 14429,
+      "sha256": "dba25e55fb3efbe1c04fbf49f695e5b3375fc1962cccadf444e6dd1ed83e90a0",
+      "parent_sha256": "27fb8fd6af3800d75b37212322b23ae1d5a8a0a24f6462bb6300d67fee954c9e",
+      "scope": "server"
+    }
+  ],
+  "desktop_files": [],
+  "runtime_files": 2161,
+  "lazy_tables": [],
+  "installed_online": false,
+  "installed_local": false,
+  "natural_GUI": false
+}

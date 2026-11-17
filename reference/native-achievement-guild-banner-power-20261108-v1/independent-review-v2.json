@@ -1,0 +1,58 @@
+{
+  "status": "INDEPENDENT_ADDENDUM_REVIEW_COMPLETE",
+  "reviewer": "/root/native_cp_independent_review",
+  "time_utc": "2026-11-07T17:56:33.442314+00:00",
+  "scope": "One added compatibility registry artifact pin; prior three code files unchanged",
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "sha256": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+      "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\domain\\achievement_flow.py",
+      "parent_sha256": "fb43385c086a316298b96b2328d99fc340f9f69b6f88ee3ea53591f14791b0da"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "sha256": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7",
+      "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\storage\\achievement_profiles.py",
+      "parent_sha256": "e99a5b81befa05648c3a63e1473d45d1b0b4ce29d831daa4d0c8a32425227ece"
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "parent": "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\tools\\raid_native_power.js",
+      "parent_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "sha256": "af27d3c775bd8201f7f06529f2976d55aba3bafbc8ea2b50cb9a501a375efacd",
+      "parent": "G:\\els\\releases\\online\\native-santilus-adrian-retirement-20261108-v1\\tools\\client_compatibility_profiles.json",
+      "parent_sha256": "859b3ee28d97281185cee714cbc12374af7e8a68e54c7fb8ee3d27a70b3d3f36"
+    }
+  ],
+  "source_pins_verified": true,
+  "original_three_files_unchanged": true,
+  "only_new_file": "tools/client_compatibility_profiles.json",
+  "only_changed_JSON_pointer": "/profiles/0/artifacts/tools~1raid_native_power.js",
+  "exact_single_string_byte_replacement": true,
+  "old_JS_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94",
+  "new_JS_sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+  "loader_sha256": "d1f2d91d0094708c47e4d8fc17744b012dfb26ab6bc882bc411efdf92c7e241a",
+  "loader_unchanged": true,
+  "preflight_not_bypassed": true,
+  "N5_Game_launched": false,
+  "N5_failure_retained": true,
+  "actionable_findings": [],
+  "recommendation": "APPROVE_METADATA_FIX_REUSE_V1_CODE_REVIEW_SUBJECT_TO_ACTUAL_DELIVERY_QUALIFICATION",
+  "prior_review": {
+    "path": "independent-review-v1.md",
+    "sha256": "22d69d39f27e30a075dbd82bee7b84076d6a78eecf4654504771ac4311168cfc"
+  },
+  "report": {
+    "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\independent-review-v2.md",
+    "sha256": "8795f1ed7c18d7430ed5998227f74dbdac9b8ec5377519d5b56f41315547672c"
+  },
+  "new_tests_run": 0,
+  "final_signed_Game_qualification_pending": true,
+  "Git_approval": false,
+  "release_authorization": false
+}
