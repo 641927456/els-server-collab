@@ -1,0 +1,190 @@
+{
+  "release": "dungeon-result-retry-party-hud-20261111-v182",
+  "source_manifest": {
+    "path": "G:\\els\\analysis\\dungeon-result-retry-20261111-v3\\release-v182\\combined-source-manifest.json",
+    "sha256": "bc42b4bc9b9d22540cfb63b77109a3bf937f293a0d91a1e9bf20b6d8f8719e88"
+  },
+  "originals": {
+    "f8": {
+      "manifest": {
+        "path": "G:\\els\\analysis\\dungeon-result-retry-20261111-v3\\candidate-manifest.json",
+        "sha256": "2cb225b33d33afdd9a1be4e5450b381fd6a6aa2685184092afba961424fb6f94"
+      },
+      "patch": {
+        "path": "G:\\els\\analysis\\dungeon-result-retry-20261111-v3\\dungeon-result-retry.patch",
+        "sha256": "71e0cc0c56f8822c968ae6c378eded8a3e961755434628376d392fa10842f475"
+      }
+    },
+    "hud": {
+      "manifest": {
+        "path": "G:\\els\\analysis\\ordinary-party-other-team-ui-20261111-v1\\manifest.json",
+        "sha256": "b891893139940518a6334365bc116cbfaf8baa4613890e4feddfda5445a994de"
+      },
+      "patch": {
+        "path": "G:\\els\\analysis\\ordinary-party-other-team-ui-20261111-v1\\ordinary-party-hud.patch",
+        "sha256": "46f1583f3cbb8f4ed0e99560b0e97a01eb26b3dd54bf787e6875b782075c389f"
+      }
+    }
+  },
+  "parent_archive_sha256": "98c018c51e65a74cd817592d25c36c81efb4c790bf8bbe390540b280f520cead",
+  "parent_manifests": {
+    "online": {
+      "path": "G:\\els\\releases\\online\\title-battle-refresh-20261111-v181\\rollup-manifest.json",
+      "sha256": "c54f09a2150268dd889e87276466ec7f85f2bcd960840002ce6602c1294cbec1"
+    },
+    "local": {
+      "path": "G:\\els\\releases\\local\\unified-server-36d97533ad247ee7-8de7e7edca56\\local-business-manifest.json",
+      "sha256": "3c658468c342c38d51b54c76c0cab32164b4e8cc5aaa6cbb6663101bae37edc1"
+    },
+    "launchers": {
+      "path": "G:\\els\\analysis\\title-switch-shortcut-20261111-v2\\cold-title-initialization-v177\\release-v181\\launcher-preview-v181\\signedFriends.signed.json",
+      "sha256": "9133d2b1f37a403b7601d93b98864381c75dc03461188f7a48477b98288be812"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/aurora_admission.py",
+      "parent_sha256": "beefceb17e2cb77e7d0c7deac185ab8ea47d1d6768dace347a4f90ef4fae57ce",
+      "sha256": "636932b7371169b91bc4f31801af20ef6f3292e5eb8827edb882667e53447d12",
+      "size": 3596,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/aurora_group_admission.py",
+      "parent_sha256": "b98be6fd5c7af68e793eeb569f86a68d5be4b3851c34b0d9fa76001275dba158",
+      "sha256": "6bf9b09eb15361b7cce433c4b6046d4179e030c53259fab2f0f326218571b977",
+      "size": 6472,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/dungeon_hp_c1.py",
+      "parent_sha256": "3a79ac9daf52c2e2bdf07bf13ad0bb817ad39b3ec13b9d01d9ef14848d17f348",
+      "sha256": "1c846c84f08242803ca9ead6a0841c5837f5b75781d8c0c0897e6f59fcdb78dc",
+      "size": 607996,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/dungeon_retry.py",
+      "parent_sha256": null,
+      "sha256": "8557e6ef846a678a6302c5ae73e4e51eff821ba7b30d800bc7d86459254f245e",
+      "size": 5886,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "parent_sha256": "1bc4263ff1bd5ad3c4ff0369fc757bb4e44c6ae1c8f5b36f25e4e3e095191384",
+      "sha256": "47473260839d93b9bb5c07fd4e277ab9d01aa05c42b559c6781d7e62deea15ed",
+      "size": 50534,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "a9fe65d1f45f5c2f6341cc4d2d405284348d251699fbb672d25be2a5f067648d",
+      "sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "size": 171273,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/mentor_play.py",
+      "parent_sha256": "c37fc0417f2dbbc3ede805b5f2c11f8549fe4fd3b3a01e895a7e9f20de6990c7",
+      "sha256": "81c90ee03dad9f271a281c3f9f460b477592b7026dcca5a652306b6b6e9d9a6f",
+      "size": 5353,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/native_ticket_admission.py",
+      "parent_sha256": "b60a10528bf36550bec472f0a6f938e3f71b3d6cf2cb098d5960ee52587450f1",
+      "sha256": "b885a559810baeb73fa483eeed7dc3909257f5031a6141cc35454e7e1b7de1ef",
+      "size": 3796,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/normal_fatigue_flow.py",
+      "parent_sha256": "a5f340c5826cf1d8bcec0f6b6605f479dab75a47625a3d5d7ab113f6933adf06",
+      "sha256": "916553f844324f1eea666a1f09dc92448fd4abee2eedfe69738e7aaef7379724",
+      "size": 22003,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/raid_native_power.py",
+      "parent_sha256": "10b29ef748222e981dae145867ad6b14c5cb5a92a6571b67ff345e838c5fde05",
+      "sha256": "bb6d810cfa52e83b0b86a5aad58aef6059450c5208ae7efe0e400f184a98b01f",
+      "size": 7693,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/domain/silver_mirror_flow.py",
+      "parent_sha256": "f0b4978ec7ada165a8cf962827f64b0cc208a7a241159c593a132e1e96c26e4c",
+      "sha256": "f6e793ebe1ed97f2cdbd0b46d04c205b324a25bac22812bb732ea7e0a2db3aa8",
+      "size": 14500,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "parent_sha256": "4f4cb8c3f0c386825fcb6fbdcf4e1370c80feab1051a9fc6a131d2b58594a26a",
+      "sha256": "81d4fc27ad4037b6c9e595fa2d01f05b68bb79916a4701d2539f338e9620f880",
+      "size": 17856,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "de0fc77ddbc16f8e4ef3239d871ab423e27103efb3fb5eb827e57c38e7aa12ca",
+      "sha256": "30ac91851cd374f3fc9914a745b3ab7703a0c4355d93561b8e9465e1104a9ea8",
+      "size": 35716,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/transport.py",
+      "parent_sha256": "d609d41c15d1aff27d8c221a1107e4ca9b72e685db0b1aeafb5848833b588331",
+      "sha256": "45d23789ca49cacc48274b3a2a8b74c8e20941b9b7b34bfb902e0f086062beca",
+      "size": 35550,
+      "scope": "server",
+      "source": "f8"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "dc22c9244c8656c9b0afee8490bec9bd5a0fd10bf12b51bfb3d4c97cbf294a0e",
+      "sha256": "5f034124d8c8916b04254cd22fb144ee191194f589db365708ae151b85ff9499",
+      "size": 24953,
+      "scope": "support",
+      "source": "f8"
+    },
+    {
+      "path": "tools/dungeon_result_stats.js",
+      "parent_sha256": "7d8f6c3491ad572d70aeaf836ca73300e75c5bd3f6f20fe2d6a6533c7d03665d",
+      "sha256": "fbca145b5bfb9dc03660d2083187cb549f361b83d8b72e2f00680b5401ce04b0",
+      "size": 9241,
+      "scope": "support",
+      "source": "f8"
+    },
+    {
+      "path": "tools/dungeon_result_stats.py",
+      "parent_sha256": "0ed0aa4af8b667864d062c307aec478fbb061b24b3259d7d7f6192a51a632927",
+      "sha256": "85c49fcb68a2f4a16bce4ee2a859cc25ba31dbe3f86f0f4f53363361dacd8a01",
+      "size": 2409,
+      "scope": "support",
+      "source": "f8"
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "parent_sha256": "a007ce47ecf606afe9d811795c93def3f0c1e88ea43ba9fe5764acbdc6c22da4",
+      "sha256": "df1a8629b6544b82238dacac5e266f2a594ba1c403eec5920a2f079eebb561aa",
+      "size": 17528,
+      "scope": "server",
+      "source": "hud"
+    }
+  ]
+}

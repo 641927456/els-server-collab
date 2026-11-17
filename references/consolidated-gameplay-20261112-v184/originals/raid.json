@@ -1,0 +1,96 @@
+{
+  "parent_releases": {
+    "online": {
+      "release": "dungeon-result-retry-party-hud-20261111-v182",
+      "manifest_sha256": "35c2f639eefe9d1fc04d4f026a98764623c2f41d2d1bd68fa245393c7cc2f1f1"
+    },
+    "local": {
+      "release": "unified-server-844492cc0c41e26c-f24298f0058c",
+      "manifest_sha256": "565500fdb5caae5d13acace5c2788cdc96e2515bdb904668b286d7b430e1c646"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/data/formal_raid_economy.json",
+      "before_sha256": "1bb2db1f5f869efc319a5703f1c9f2acce42e485adfeed11dad538986291c326",
+      "after_sha256": "bbd2dcd481c11d646d2d9d4f228494a93a4394934866fb66142bd2495834d97e"
+    },
+    {
+      "path": "els_server/data/formal_raid_economy.manifest.json",
+      "before_sha256": "80fea302ae92441e391914112760687bb887ddfcc6f9047d3df76d52100d903e",
+      "after_sha256": "2af3bb4e3e938078400cc83714dfb6a86ed9e735a0334cce3f99fd8b4dcda695"
+    },
+    {
+      "path": "els_server/domain/formal_raid_economy.py",
+      "before_sha256": "a0f9862506bbf514fc473d3482d2c6e67ddbac4a11578a3a20a276fb984ec0a1",
+      "after_sha256": "51f6ad0526e1ccffd77b8753735155fde748afe6f51cfdc745ea54060c51605f"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "before_sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "after_sha256": "67c78986582ee0edad7ce1e44c59b8da4b771567795deffdd1b67ee2d9716abc"
+    },
+    {
+      "path": "els_server/domain/raid_economy_flow.py",
+      "before_sha256": "9fe6ccacae8f894021bc5e94a5134ee34db9ef882e144334525a970c4e84a20d",
+      "after_sha256": "8a3af464a78855d5701f2c788f6982422ff990919b9736e5fe1af0b2a622c65c"
+    },
+    {
+      "path": "els_server/domain/raid_mark_drops.py",
+      "before_sha256": null,
+      "after_sha256": "3dcc95ecae1dbe7b89845ef62c27e909ba6f983dddd3a69da8bca21b77c65bfe"
+    },
+    {
+      "path": "els_server/storage/group_settlement.py",
+      "before_sha256": "48aabcf18d953f31f182837e70762b679c047dabe935eb67cdbd162cd3be47c9",
+      "after_sha256": "07c41cd8353df2b328076852bae0016686c4dfcc6dc4752d32e6a82200b7eb62"
+    },
+    {
+      "path": "els_server/storage/raid_economy_state.py",
+      "before_sha256": "5c528a71a19e3648a7c6c03a2d9d765efd167455fff4c2fa2cb51ab961e7d765",
+      "after_sha256": "5dc5e2abc9ffc00159cfa9d9c5699d7ab654a9919ad9b857dfbd8e26d6a6b77a"
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "before_sha256": "1a8687a72a406f5cd98ffd23444028e2bfc93681ddbdc0c2365844caad6cf743",
+      "after_sha256": "bea92997b667bb5e740e1a1775ed16235389fd4052dab9f7ef42cb4b3b9ecedb"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_flow.py",
+      "before_sha256": "5521a173b929f26575a6fd29b7274e3aa9d110a5c5efe5332434b7e9a3ccd5a9",
+      "after_sha256": "8be669b33e6e06b12a15d68e0976f5e642af330044a62546419138033f9f3714"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_rules.py",
+      "before_sha256": "eba5a13d0538af4563a7cc69bf6ce2dffad7f8844c4a39bf40c1d24a6238d351",
+      "after_sha256": "a5a75e0724080f7df257068442b454884caf9afa63ec0fd22446e50634cdbd3d"
+    },
+    {
+      "path": "els_server/domain/town_growth_exchange.py",
+      "before_sha256": "24591226cd4f3f40abbf8103d5976ff3a6c5ea3ae69be68ac66b7ad709547ca2",
+      "after_sha256": "1ca273b846120ce68c3b0c186a9174fd54d4b8c8f40334b34272838b8d3910cd"
+    }
+  ],
+  "sources": [
+    {
+      "path": "analysis/raid-phase-drops-20261112-v1",
+      "zip_sha256": "368f7154c7de23acd14303381881c8fc0fce8601b1129d7a1d1637cab34f89f3",
+      "manifest_sha256": "50b4639009f32585a9029c21396e0363bd8416028b6d6a7f5ff721a803c4247b"
+    },
+    {
+      "path": "analysis/raid-mark-exchange-20261112-v1",
+      "zip_sha256": "2411e5f8d17c9bced3ca615eb04dbb6100f31dc5f51effb5c497b85c1fa2da11",
+      "manifest_sha256": "109bba6dafe3085f659751928726e17665476924392732d18397f7c8d64e7398"
+    }
+  ],
+  "source_patch_sha256": "eb93f2b155b19aeab5320ce8bf3407a027744a423d838cedd6d816c9e3103f89",
+  "v183_frozen_overlap": [],
+  "prospective_queue_overlap": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "other": "fishing_housing",
+      "previous_candidate_sha256": "69e57afd362a716fcfd835e144528769694650b75bb95ba6ac9d086d823c9021",
+      "dry_three_way_merged_sha256": "b6e2519effa2d58a24711d7cc74b0bf87edb6a03187230263504f84d040e5073"
+    }
+  ]
+}

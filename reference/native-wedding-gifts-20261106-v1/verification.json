@@ -1,0 +1,234 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "evidence": "first-use-TLS-1793955689681733100.json",
+      "evidence_sha256": "8f7eeeb43fcced4aa88053fd22b8a6f3d101e752461022df69767aa32a9344da",
+      "ok": true,
+      "checks": [
+        "Pending1/30day periods survive cold reads; original bank transfer preserves UID and pending seconds without starting the timer",
+        "Actual authenticated104/105 starts30days on first wear; repeated wear and cold reauthentication retain the same UID/deadline",
+        "Late prepare rejection rolls back timer, positions and receipts; exact operation replay returns current response with no extra activation",
+        "Permanent wearing stays permanent; existing expiry sweep removes both activated items and their child rows while retaining permanent wear"
+      ],
+      "actual_authenticated_TLS": true,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": true,
+      "source_pins": {
+        "els_server/data/wedding_gifts.json": "9ef9eed58e119b6ee274ddb87b0c306ae58557fa08ad30753293e63a1420398c",
+        "els_server/domain/acquisition_policy.py": "d2a1a53808810aad0674255b449a759eb2cdc203d314fb14f144fb6768a2b700",
+        "els_server/domain/fashion_state.py": "232903caf3feb1909f2733dd8bd5ba32b7bef85378f7903f4069e4b1716a06de",
+        "els_server/domain/inventory_items.py": "5992e8ed0a88edc9f439eae9b1c25700bd1f449b866fa4e6dae17baefa532a31",
+        "els_server/domain/item_expiration.py": "fefaece236d22f0f301913a8bb286dfd5844465ea4f3c83a0515a6c2c55e82a5",
+        "els_server/domain/wedding_gifts.py": "bb48a208f3f6065960ae35a8752c37e71c364fc1ab55a9a1330b3459636c7d49",
+        "els_server/storage/inventory_state.py": "6258b7ec581488014df95a1b1a918fa598cd9bdfbdddddc5c6e211c454e86bb5",
+        "els_server/storage/item_expiration.py": "652c67e793205d1ccd45ced25d8b4861ef7ad79d1361b68e880cc197701982d4",
+        "els_server/storage/item_instances.py": "b6503723b9c0d250da1d682fa2319fd75f74a9ce0c8a32f13082695c14639113",
+        "els_server/storage/item_seals.py": "95225530378a92c22d8eee608b579bd518d708b10a64eff484a3813b00a22ecc",
+        "els_server/storage/wardrobe.py": "bdd76e537b70bef06046bb21eca9a5b1cdbc1577345d5a947a14f31c990e843e",
+        "els_server/storage/wear_moves.py": "bffb18f3266703472d1a9ea4935a8c5b898be59016648a9a641cc669e9a3da21"
+      },
+      "source_sha256": null
+    },
+    {
+      "evidence": "custom-period-TLS-1793956618696776300.json",
+      "evidence_sha256": "311b6741fb35f9795a7b35d2d1f009fb56196b0751b4117606c6295938237176",
+      "ok": true,
+      "checks": [
+        "All49 affected permanent Lu sits restore as native major variant2; old saved variant3 is projected correctly without rewriting ownership/receipts",
+        "Actual219/21A+4CD starts exactly30days at registration; original4CB/4CC+18E selects the owned dated tuple; incorrect side and active duplicate preserve inventory/deadline",
+        "Exact registration replay adds no period or item; cold2A restore preserves dated ownership and selected sit",
+        "Exact expiry boundary matches native item time; expired ownership/selection disappear, Apply refuses, failed expiry notice rolls back, cleanup/replay never extends the period"
+      ],
+      "actual_authenticated_TLS": true,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": true,
+      "source_pins": {
+        "els_server/data/character_custom_permanent.json": "be7b24f98129da245487987457b2a8d53896905c0a4315238aa5f1efa0cb7673",
+        "els_server/data/wedding_gifts.json": "05aff1706ccf8ac590a85776cfddf82469b89c1aa37ddb13ab68856f1dce6e2e",
+        "els_server/domain/acquisition_policy.py": "d2a1a53808810aad0674255b449a759eb2cdc203d314fb14f144fb6768a2b700",
+        "els_server/domain/character_custom.py": "107058824b2a8942e85d389d9788ad9b0b02fa7d39afd9e761919a6fec19f00e",
+        "els_server/domain/custom_periods.py": "f237993d7f26f5fe8757080958ba9354b22ead616139ff6bcdd86508040d41c6",
+        "els_server/domain/fashion_state.py": "232903caf3feb1909f2733dd8bd5ba32b7bef85378f7903f4069e4b1716a06de",
+        "els_server/domain/inventory_items.py": "5992e8ed0a88edc9f439eae9b1c25700bd1f449b866fa4e6dae17baefa532a31",
+        "els_server/domain/item_expiration.py": "fefaece236d22f0f301913a8bb286dfd5844465ea4f3c83a0515a6c2c55e82a5",
+        "els_server/domain/local_session.py": "e8d070b6b1e5be7d65a77cea1aebb932d49cf76258271bef64f83d1bb8d9c7ad",
+        "els_server/domain/wedding_gifts.py": "69941da9fbf5bd411fb2cd493e0fc2ca95af7bd7c9bc31d7f2e90321cf7f4c15",
+        "els_server/protocol/character_custom_messages.py": "99784e6224e79e19a1123d4af218521b33d82943e53171a8c53c8b74406d84f8",
+        "els_server/storage/character_custom.py": "73a9ee75dcf1231efb98c0e6518f5a8211f026490936782161e9a77d94b1cea6",
+        "els_server/storage/custom_periods.py": "7ff0bbed566873bd118af92c4a7876079a6d40c20b52a2c446a49c32a1079d2a",
+        "els_server/storage/inventory_state.py": "6258b7ec581488014df95a1b1a918fa598cd9bdfbdddddc5c6e211c454e86bb5",
+        "els_server/storage/item_expiration.py": "652c67e793205d1ccd45ced25d8b4861ef7ad79d1361b68e880cc197701982d4",
+        "els_server/storage/item_instances.py": "b6503723b9c0d250da1d682fa2319fd75f74a9ce0c8a32f13082695c14639113",
+        "els_server/storage/item_seals.py": "95225530378a92c22d8eee608b579bd518d708b10a64eff484a3813b00a22ecc",
+        "els_server/storage/wardrobe.py": "bdd76e537b70bef06046bb21eca9a5b1cdbc1577345d5a947a14f31c990e843e",
+        "els_server/storage/wear_moves.py": "bffb18f3266703472d1a9ea4935a8c5b898be59016648a9a641cc669e9a3da21"
+      },
+      "source_sha256": null
+    },
+    {
+      "evidence": "wedding-gifts-TLS-1793957314162862000.json",
+      "evidence_sha256": "f8eec3227735344eaf1b34cbb6264b5e4428c78f6d2d12e24fb09390c9a80d95",
+      "ok": true,
+      "checks": [
+        "Actual559/55A previews and196/197 opens all four choices; packages grant exactly7/9/10/6 pieces, including alternate hair and accessories, pending1day each",
+        "Late result failure and a genuinely full fashion bag roll back debit, UID sequence, pending periods, source ledger and receipts; the preserved box works after space is freed",
+        "Female temporary/permanent robes use current Lithia277255; congratulations grants277256 plus200 cakes; unsupported May/Lithia and wrong-gender robe preserve the box and inventory",
+        "Every exact open receipt replays without new awards; cold login retains outputs; generic new wedding grants and arbitrary first-use timer plans remain closed"
+      ],
+      "actual_authenticated_TLS": true,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": true,
+      "source_pins": {
+        "els_server/data/character_custom_permanent.json": "be7b24f98129da245487987457b2a8d53896905c0a4315238aa5f1efa0cb7673",
+        "els_server/data/wedding_gifts.json": "fd6a0719c47766ced81f675a21bb4d95c21e9bbb90a4135be5bc95f56cc30d0d",
+        "els_server/domain/acquisition_policy.py": "8f53b264424a96b960c1d4d8dbd6cd78496c890dae4c9a98c72f560aaf4c4a9e",
+        "els_server/domain/character_custom.py": "107058824b2a8942e85d389d9788ad9b0b02fa7d39afd9e761919a6fec19f00e",
+        "els_server/domain/cubes.py": "5e04f52cef67c95b5d9b4e5c5d663986cc36a523adadc71d095394117e5b35b1",
+        "els_server/domain/custom_periods.py": "f237993d7f26f5fe8757080958ba9354b22ead616139ff6bcdd86508040d41c6",
+        "els_server/domain/fashion_state.py": "232903caf3feb1909f2733dd8bd5ba32b7bef85378f7903f4069e4b1716a06de",
+        "els_server/domain/inventory_items.py": "94411a58f08e2d146b7e467ff148404f8e8afda648570f425a6c454b1497c5b6",
+        "els_server/domain/item_expiration.py": "fefaece236d22f0f301913a8bb286dfd5844465ea4f3c83a0515a6c2c55e82a5",
+        "els_server/domain/local_session.py": "88e469ea0988e60bdb0bd6045fd3a1916d63ec3324628852ba6092781856ae90",
+        "els_server/domain/wedding_gifts.py": "f27fef8e167a9cd1628067e1e1166da759d68a26b7cbf478dd2375d6fd9ec865",
+        "els_server/protocol/character_custom_messages.py": "99784e6224e79e19a1123d4af218521b33d82943e53171a8c53c8b74406d84f8",
+        "els_server/storage/character_custom.py": "73a9ee75dcf1231efb98c0e6518f5a8211f026490936782161e9a77d94b1cea6",
+        "els_server/storage/custom_periods.py": "7ff0bbed566873bd118af92c4a7876079a6d40c20b52a2c446a49c32a1079d2a",
+        "els_server/storage/fixed_cubes.py": "0af01111d2e21f43ece92f7551a1c65d457c9701a591e500d77811ce57640d71",
+        "els_server/storage/inventory_state.py": "2a32b0f80019188695ab0a2512902ed2647c0f689f014afef2309f199230173d",
+        "els_server/storage/item_expiration.py": "652c67e793205d1ccd45ced25d8b4861ef7ad79d1361b68e880cc197701982d4",
+        "els_server/storage/item_instances.py": "b6503723b9c0d250da1d682fa2319fd75f74a9ce0c8a32f13082695c14639113",
+        "els_server/storage/item_seals.py": "95225530378a92c22d8eee608b579bd518d708b10a64eff484a3813b00a22ecc",
+        "els_server/storage/wardrobe.py": "bdd76e537b70bef06046bb21eca9a5b1cdbc1577345d5a947a14f31c990e843e",
+        "els_server/storage/wear_moves.py": "bffb18f3266703472d1a9ea4935a8c5b898be59016648a9a641cc669e9a3da21"
+      },
+      "source_sha256": null
+    },
+    {
+      "evidence": "first-weapon-TLS-1793957428914988300.json",
+      "evidence_sha256": "9c67deeb9e40de97b8b98670a1ef1c902dc4cac05f1fb2bbaa7859676aacdccc",
+      "ok": true,
+      "checks": [
+        "Pending1/30day periods survive cold reads; original bank transfer preserves UID and pending seconds without starting the timer",
+        "Actual authenticated104/105 starts30days on first wear; repeated wear and cold reauthentication retain the same UID/deadline",
+        "Late prepare rejection rolls back timer, positions and receipts; exact operation replay returns current response with no extra activation",
+        "Permanent wearing stays permanent; existing expiry sweep removes both activated items and their child rows while retaining permanent wear"
+      ],
+      "actual_authenticated_TLS": true,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": true,
+      "source_pins": {
+        "els_server/data/character_custom_permanent.json": "be7b24f98129da245487987457b2a8d53896905c0a4315238aa5f1efa0cb7673",
+        "els_server/data/wedding_gifts.json": "fd6a0719c47766ced81f675a21bb4d95c21e9bbb90a4135be5bc95f56cc30d0d",
+        "els_server/domain/acquisition_policy.py": "8f53b264424a96b960c1d4d8dbd6cd78496c890dae4c9a98c72f560aaf4c4a9e",
+        "els_server/domain/character_custom.py": "107058824b2a8942e85d389d9788ad9b0b02fa7d39afd9e761919a6fec19f00e",
+        "els_server/domain/cubes.py": "5e04f52cef67c95b5d9b4e5c5d663986cc36a523adadc71d095394117e5b35b1",
+        "els_server/domain/custom_periods.py": "f237993d7f26f5fe8757080958ba9354b22ead616139ff6bcdd86508040d41c6",
+        "els_server/domain/fashion_state.py": "232903caf3feb1909f2733dd8bd5ba32b7bef85378f7903f4069e4b1716a06de",
+        "els_server/domain/inventory_items.py": "94411a58f08e2d146b7e467ff148404f8e8afda648570f425a6c454b1497c5b6",
+        "els_server/domain/item_expiration.py": "fefaece236d22f0f301913a8bb286dfd5844465ea4f3c83a0515a6c2c55e82a5",
+        "els_server/domain/local_session.py": "88e469ea0988e60bdb0bd6045fd3a1916d63ec3324628852ba6092781856ae90",
+        "els_server/domain/wedding_gifts.py": "f27fef8e167a9cd1628067e1e1166da759d68a26b7cbf478dd2375d6fd9ec865",
+        "els_server/protocol/character_custom_messages.py": "99784e6224e79e19a1123d4af218521b33d82943e53171a8c53c8b74406d84f8",
+        "els_server/storage/character_custom.py": "73a9ee75dcf1231efb98c0e6518f5a8211f026490936782161e9a77d94b1cea6",
+        "els_server/storage/custom_periods.py": "7ff0bbed566873bd118af92c4a7876079a6d40c20b52a2c446a49c32a1079d2a",
+        "els_server/storage/fixed_cubes.py": "0af01111d2e21f43ece92f7551a1c65d457c9701a591e500d77811ce57640d71",
+        "els_server/storage/inventory_state.py": "2a32b0f80019188695ab0a2512902ed2647c0f689f014afef2309f199230173d",
+        "els_server/storage/item_expiration.py": "652c67e793205d1ccd45ced25d8b4861ef7ad79d1361b68e880cc197701982d4",
+        "els_server/storage/item_instances.py": "b6503723b9c0d250da1d682fa2319fd75f74a9ce0c8a32f13082695c14639113",
+        "els_server/storage/item_seals.py": "95225530378a92c22d8eee608b579bd518d708b10a64eff484a3813b00a22ecc",
+        "els_server/storage/wardrobe.py": "bdd76e537b70bef06046bb21eca9a5b1cdbc1577345d5a947a14f31c990e843e",
+        "els_server/storage/wear_moves.py": "bffb18f3266703472d1a9ea4935a8c5b898be59016648a9a641cc669e9a3da21"
+      },
+      "source_sha256": null
+    },
+    {
+      "evidence": "native-custom-periods-1793957506962788600.json",
+      "evidence_sha256": "0ccbafcda76444f51add12583f5d5391747ca1fddea161977bbcea9831109a27",
+      "ok": true,
+      "checks": [
+        "OriginalBB7F30/11F2B10 retained both original date strings and exact Lu/Ciel variants for49 corrected permanent sits plus16 period sits",
+        "Original2BDF5D0 reader and125F700 producer round-tripped all16 dated Apply maps byte-for-byte"
+      ],
+      "actual_authenticated_TLS": false,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": null,
+      "source_pins": {
+        "els_server/data/character_custom_permanent.json": "be7b24f98129da245487987457b2a8d53896905c0a4315238aa5f1efa0cb7673",
+        "els_server/data/wedding_gifts.json": "fd6a0719c47766ced81f675a21bb4d95c21e9bbb90a4135be5bc95f56cc30d0d",
+        "els_server/domain/acquisition_policy.py": "8f53b264424a96b960c1d4d8dbd6cd78496c890dae4c9a98c72f560aaf4c4a9e",
+        "els_server/domain/character_custom.py": "107058824b2a8942e85d389d9788ad9b0b02fa7d39afd9e761919a6fec19f00e",
+        "els_server/domain/cubes.py": "5e04f52cef67c95b5d9b4e5c5d663986cc36a523adadc71d095394117e5b35b1",
+        "els_server/domain/custom_periods.py": "f237993d7f26f5fe8757080958ba9354b22ead616139ff6bcdd86508040d41c6",
+        "els_server/domain/fashion_state.py": "232903caf3feb1909f2733dd8bd5ba32b7bef85378f7903f4069e4b1716a06de",
+        "els_server/domain/inventory_items.py": "94411a58f08e2d146b7e467ff148404f8e8afda648570f425a6c454b1497c5b6",
+        "els_server/domain/item_expiration.py": "fefaece236d22f0f301913a8bb286dfd5844465ea4f3c83a0515a6c2c55e82a5",
+        "els_server/domain/local_session.py": "88e469ea0988e60bdb0bd6045fd3a1916d63ec3324628852ba6092781856ae90",
+        "els_server/domain/wedding_gifts.py": "f27fef8e167a9cd1628067e1e1166da759d68a26b7cbf478dd2375d6fd9ec865",
+        "els_server/protocol/character_custom_messages.py": "99784e6224e79e19a1123d4af218521b33d82943e53171a8c53c8b74406d84f8",
+        "els_server/storage/character_custom.py": "73a9ee75dcf1231efb98c0e6518f5a8211f026490936782161e9a77d94b1cea6",
+        "els_server/storage/custom_periods.py": "7ff0bbed566873bd118af92c4a7876079a6d40c20b52a2c446a49c32a1079d2a",
+        "els_server/storage/fixed_cubes.py": "0af01111d2e21f43ece92f7551a1c65d457c9701a591e500d77811ce57640d71",
+        "els_server/storage/inventory_state.py": "2a32b0f80019188695ab0a2512902ed2647c0f689f014afef2309f199230173d",
+        "els_server/storage/item_expiration.py": "652c67e793205d1ccd45ced25d8b4861ef7ad79d1361b68e880cc197701982d4",
+        "els_server/storage/item_instances.py": "b6503723b9c0d250da1d682fa2319fd75f74a9ce0c8a32f13082695c14639113",
+        "els_server/storage/item_seals.py": "95225530378a92c22d8eee608b579bd518d708b10a64eff484a3813b00a22ecc",
+        "els_server/storage/wardrobe.py": "bdd76e537b70bef06046bb21eca9a5b1cdbc1577345d5a947a14f31c990e843e",
+        "els_server/storage/wear_moves.py": "bffb18f3266703472d1a9ea4935a8c5b898be59016648a9a641cc669e9a3da21"
+      },
+      "source_sha256": null
+    },
+    {
+      "evidence": "custom-period-renewal-1793957709050762900.json",
+      "evidence_sha256": "54c099cfa8a5bbe72430518ac50d3efd5d70ec1db2c6d4e742f21c8812b7dde3",
+      "ok": true,
+      "checks": [
+        "A stale expired saved selection remains hidden after cold read; renewing the same sit starts a new30day period without automatically selecting it",
+        "A late receipt failure rolls back source debit, renewed ownership and removal of expired selection",
+        "Replaying the older registration after renewal cannot extend or replace the new deadline"
+      ],
+      "actual_authenticated_TLS": false,
+      "native_Game": false,
+      "natural_GUI": false,
+      "owned_private_directory_removed": true,
+      "source_pins": null,
+      "source_sha256": "21e161b363f733c4ae3e3215f33d78a121706631048693c36129f5b445f1e885"
+    }
+  ],
+  "qualified_scope": [
+    "Ten wedding gift kinds through original authenticated559/196",
+    "Pending1day/30day clothing and fashion weapons/accessories; first authenticated104 starts timer",
+    "Sixteen dated sit tuples plus49 corrected permanent Lu variants accepted by original offline4CD and Apply reader/producer",
+    "Expired selection and renewal SQL rollback/replay"
+  ],
+  "reused_scope": "Initial robe and choice successes retained in the first failed gift report. Costume/sit source identities, canonical/registration/selection consumers are unchanged after adding the separate style package data. Renewal change affects only the previously expired ownership branch and is verified separately.",
+  "failed_cases_retained": [
+    {
+      "evidence": "wedding-gifts-TLS-1793957143585924700.json",
+      "reason": "First-use eligibility omitted native item_type1 fashion weapons; fixed to admit the exact typed wedding source for singleton types1/2/3. Failed style case and remaining cases rerun."
+    },
+    {
+      "reason": "Research decompiler timed out on1205860; recovered the IS_MAJOR block from unwind-bounded assembly and ran missing/false/true cases offline without changing original code"
+    },
+    {
+      "reason": "Isolated renewal fixture initially lacked ordinary owner identity and then collided with the legacy default location; replaced with the unchanged Application/registry initializer"
+    }
+  ],
+  "exclusions": [
+    "Natural Game GUI and multiplayer marriage ceremony",
+    "Unstarted clothing still uses the original empty date wire and has no verified remaining-duration tooltip",
+    "Native newlywed12360 tooltip still shows older10% drop",
+    "Pet battle combat/task integration"
+  ],
+  "production_data_access": false,
+  "original_EXE_KOM_modified": false,
+  "new_production_Hook": false,
+  "main_merged": false,
+  "installed": false,
+  "public_progress_updated": false
+}
