@@ -1,0 +1,110 @@
+{
+  "release": "merchant-purchases-and-dennis-20261111-v168",
+  "patch_sha256": "faaf33b43eee25eb3bd13f1024b317dff956a1046a169a8d92257e13791cfd2d",
+  "parents": {
+    "online": {
+      "release": "season-pass-and-attribute-enchant-20261111-v167",
+      "manifest_sha256": "9473fe0e13096e38f49b56e6121393d3efec5aef8485dea70dea2ca9983f1549"
+    },
+    "local": {
+      "release": "unified-server-f846e6a39318791f-4f9109f58873",
+      "manifest_sha256": "5132ec5182329becca1480e1f109bea033979b78c9e0b89a5b56d85519e63922"
+    },
+    "launchers": {
+      "release": "season-pass-and-attribute-enchant-20261111-v167",
+      "manifest_sha256": "f64443a45d84de83b92dd23070ebdbbc12a3b68118f637c42d89b42158d961ea"
+    }
+  },
+  "files": [
+    {
+      "cohort": "merchant",
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "5f89acb9be3513663a08f5865661677cda7d0575c553ea982090ddab08f33f53",
+      "sha256": "4a49320259059ac114b57b8aa6ba8a2e1bef80671c5e2fd26ac707f8b92265f8",
+      "size": 20273,
+      "source_parent_sha256": "e46d9b92ac604aba191196ceb07d0fc1729edec79246ad6fb67114a9a5ca0926",
+      "source_sha256": "0655a31d5edbc203e7c0071f23a22f93306dbf5d220f1e5f616cb2ee56b1a48c",
+      "rebased": true
+    },
+    {
+      "cohort": "merchant",
+      "path": "els_server/domain/alchemist_ap_shop.py",
+      "parent_sha256": null,
+      "sha256": "d0d5dc1c85404036d22115b25281e8a60a6799439366ef32e487ce7a5804ac27",
+      "size": 1051,
+      "source_parent_sha256": null,
+      "source_sha256": "d0d5dc1c85404036d22115b25281e8a60a6799439366ef32e487ce7a5804ac27",
+      "rebased": false
+    },
+    {
+      "cohort": "merchant",
+      "path": "els_server/domain/consumables.py",
+      "parent_sha256": "a0b884ad913a62d0b05177a3bad24274fd1a21fb05611ee572f216617855d97c",
+      "sha256": "30c3be1a7e5d8d9e269d75863aa5061f4fe83373b2302dd76be4e00e46de392a",
+      "size": 10649,
+      "source_parent_sha256": "a0b884ad913a62d0b05177a3bad24274fd1a21fb05611ee572f216617855d97c",
+      "source_sha256": "30c3be1a7e5d8d9e269d75863aa5061f4fe83373b2302dd76be4e00e46de392a",
+      "rebased": false
+    },
+    {
+      "cohort": "merchant",
+      "path": "els_server/domain/ep_shop.py",
+      "parent_sha256": "4e9449b324dbef7d843a9333cd846536e612e7298d738a3ee9c6c982421216b4",
+      "sha256": "e8d2c7d89229237d34acabfd81ec34016d5c4fa900642c145bb21725e5c8d9e0",
+      "size": 4970,
+      "source_parent_sha256": "4e9449b324dbef7d843a9333cd846536e612e7298d738a3ee9c6c982421216b4",
+      "source_sha256": "e8d2c7d89229237d34acabfd81ec34016d5c4fa900642c145bb21725e5c8d9e0",
+      "rebased": false
+    },
+    {
+      "cohort": "merchant",
+      "path": "els_server/domain/furniture_rules.py",
+      "parent_sha256": "71ca385efba86ac2d7a062dcec99bcf839dfa97156d458f1429227a101c78cfa",
+      "sha256": "514b928b18564983856a0f43aa5b6f84abfa597fd5f395370ce05863b4df3355",
+      "size": 7093,
+      "source_parent_sha256": "71ca385efba86ac2d7a062dcec99bcf839dfa97156d458f1429227a101c78cfa",
+      "source_sha256": "514b928b18564983856a0f43aa5b6f84abfa597fd5f395370ce05863b4df3355",
+      "rebased": false
+    },
+    {
+      "cohort": "merchant",
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "dcfab910dc83c712d29d5858e63af3d571be6f21d0970355cb220f2cb9ecdae7",
+      "sha256": "ad916ba8b32b790a08a16966646708723e6fbaa2fcb27b0578404b4ae9ff83a4",
+      "size": 99815,
+      "source_parent_sha256": "c23923d32b12d6d7da245d9873d485f7e032c6c67d8ebec752ebee5dbb18ac48",
+      "source_sha256": "92ca03a1f247644ba269e6527e21453b1963fcf78fd1f6bb6503eb6209708f85",
+      "rebased": true
+    },
+    {
+      "cohort": "merchant",
+      "path": "els_server/storage/ep_shop.py",
+      "parent_sha256": "18e18d0d620f5101bb2d32f128e25bebc00cceea900f5712021ad772d6a76d04",
+      "sha256": "eb7fd0af1d57b3339bc6f2cba58aa4de6a18931eef4e5813193f6aa56a937371",
+      "size": 9476,
+      "source_parent_sha256": "18e18d0d620f5101bb2d32f128e25bebc00cceea900f5712021ad772d6a76d04",
+      "source_sha256": "eb7fd0af1d57b3339bc6f2cba58aa4de6a18931eef4e5813193f6aa56a937371",
+      "rebased": false
+    },
+    {
+      "cohort": "merchant",
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "9c35f7aa3f7d3b42bf3e9057ced704b6eb18143828f3442e9cf847b8de62ce68",
+      "sha256": "4b0a55e3574fe88f2cad13667ab70ff899f5f413f1f0d81273dc189ec4cee908",
+      "size": 35374,
+      "source_parent_sha256": "397eda57317f8b4e8dc1552dcc4fe85ca73931b45ea3cbc6daa7b4d52fe04275",
+      "source_sha256": "868786dcf73b9d9b5921dace66aa6f6f0a81352696a010c689ec3b506c04ab76",
+      "rebased": true
+    },
+    {
+      "cohort": "merchant",
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "0042003c42d3b4e32ccba3859016a6906a946c0006dc89ba4078cd6c8cf4de5c",
+      "sha256": "67510a482a387924bf769ec30b4034da3e524e440cc8e4bc325f5e5b4ac06811",
+      "size": 14466,
+      "source_parent_sha256": "0042003c42d3b4e32ccba3859016a6906a946c0006dc89ba4078cd6c8cf4de5c",
+      "source_sha256": "67510a482a387924bf769ec30b4034da3e524e440cc8e4bc325f5e5b4ac06811",
+      "rebased": false
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "ok": true,
+  "signed_parent": "V183",
+  "signed_parent_archive": {
+    "path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\launcher-preview-v183\\runtime-307f8b8f8b409c03b87bc0567184eb5e800a8eefcb1672d54d7b02987ad563cf.zip",
+    "sha256": "307f8b8f8b409c03b87bc0567184eb5e800a8eefcb1672d54d7b02987ad563cf",
+    "size": 192450153
+  },
+  "changes": [
+    {
+      "path": "els_server/domain/paid_enhancement.py",
+      "parent_sha256": "26f78abdd8178d1e88a8f0987be6b213f9606035979d96988f2ef2c325165dc9",
+      "candidate_sha256": "4e693de857f058fdf5cc12957113c78883d76f6a1d92f99c1808d84aa027f5f6",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\els_server\\domain\\paid_enhancement.py",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/equipment_enhancement.py",
+      "parent_sha256": "b898081f5105db0d1290abbb9a271935345aaecce9b12e41cc1af99238c92331",
+      "candidate_sha256": "211b964e4d4eb362b86382ded853845fc61eea03aaf88c58d467d03cfac05b77",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\els_server\\domain\\equipment_enhancement.py",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/equipment_restoration.py",
+      "parent_sha256": "1e1f60043858fe1eaed43c8dfc3ceba3dd091f1a97ce77d03567bd7415254de9",
+      "candidate_sha256": "87e8a01de48b16857e1ccc26556e2a3652b7ba92337b951c146971db09567a0a",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\els_server\\storage\\equipment_restoration.py",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/blacksmith_enhancement_rules.py",
+      "parent_sha256": "128636536a30cf404acf1d7f985cb63125a6766eb0d86f97625f0c5c09c15c4a",
+      "candidate_sha256": "8f559c470ea1ab94c3766744d3d37fe958879979664cf84bbc9e3089ebfc1331",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\els_server\\domain\\blacksmith_enhancement_rules.py",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/gm_rates.py",
+      "parent_sha256": "c979771d32853ba6e047c633930baacd05f7111a5efbaa19632ea77378a2eeed",
+      "candidate_sha256": "3ada1c48b5432311baef42c2dc7df4529df8c0309a6f6771e9a3894755f77159",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\els_server\\domain\\gm_rates.py",
+      "scope": "server"
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "parent_sha256": "c7c5e433e1b67a48ffd40a7cd6f1c168ac99c6bce178b8114bb9bb7fd3f68acb",
+      "candidate_sha256": "11831b5b90ad29cf49055621591ed81e34ed0c6a48887a188b7c9bcefa6879dc",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\tools\\native_cache_sync.py",
+      "scope": "support"
+    },
+    {
+      "path": "tools/enhancement_cap.py",
+      "parent_sha256": null,
+      "candidate_sha256": "acefc7c5157deafe70019ae6488c904960765ac4c0bb43372e393f2098390090",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\tools\\enhancement_cap.py",
+      "scope": "support"
+    },
+    {
+      "path": "tools/enhancement_cap.js",
+      "parent_sha256": null,
+      "candidate_sha256": "e0b4ceba08463f4c438bc6c25cecf81dfffe8bb71a5a49bc17b0f2d763c0427d",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\tools\\enhancement_cap.js",
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "5f034124d8c8916b04254cd22fb144ee191194f589db365708ae151b85ff9499",
+      "candidate_sha256": "42b8138ba0a4407e432bd7405a76d00bd76573357e9769da798ee2cc5c497c40",
+      "candidate_path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\candidate\\tools\\client_compatibility_profiles.json",
+      "scope": "support"
+    }
+  ],
+  "support_paths": [
+    "tools/native_cache_sync.py",
+    "tools/enhancement_cap.py",
+    "tools/enhancement_cap.js",
+    "tools/client_compatibility_profiles.json"
+  ],
+  "retained_readers": [
+    {
+      "path": "els_server/domain/equipment_enhancement.py",
+      "sha256": "211b964e4d4eb362b86382ded853845fc61eea03aaf88c58d467d03cfac05b77"
+    },
+    {
+      "path": "els_server/domain/gm_rates.py",
+      "sha256": "3ada1c48b5432311baef42c2dc7df4529df8c0309a6f6771e9a3894755f77159"
+    },
+    {
+      "path": "els_server/storage/equipment_restoration.py",
+      "sha256": "87e8a01de48b16857e1ccc26556e2a3652b7ba92337b951c146971db09567a0a"
+    }
+  ],
+  "compatibility_profile_passed": true,
+  "gm_online_parent_sha256": "f3a00242a229a1cf9ad0ca13826e1c2c97c4cce996a5980ba624a1dd79908960",
+  "gm_online_parent_source": "G:\\els\\releases\\online\\dungeon-result-retry-party-hud-20261111-v182\\els_server\\domain\\gm_rates.py",
+  "gm_formal_drop_functions_unchanged": true,
+  "gm_changed_functions": [
+    "configure",
+    "validate"
+  ],
+  "prior_independent_review": {
+    "path": "G:\\els\\analysis\\enhancement-cap20-20261111-v1\\independent-review\\review.json",
+    "sha256": "eaab4b83b6f4b5965b89818284617b5262279296f04f068a498f2fac727afd39"
+  },
+  "supports_composed_sha256": "a8eea8f72c859e8cf303a1ac665fdc24b829fa4845f6af2b9715b94b1380e14b",
+  "whole_batch_must_rebind_profile_artifacts": true
+}

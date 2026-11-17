@@ -1,0 +1,3 @@
+Six reviewed leaves on actual V249; frozen65–67 and original500 capacity candidate.22 related component checks; capacity checks rerun against current dependencies. Registration limit500 is separate from unchanged192 connection cap. Existing queues, ownership, transaction guards and all player data preserved. No actual party performance acceptance. Private config edit and GM supervisor restart are required for effective500; wait active remote owned QA cleanup before maintenance.
+
+The signed server-settings template also sets500, because normal local provisioning rewrites deployment settings from that template. This prevents a later launch from reverting capacity to128. All other template values remain identical.
