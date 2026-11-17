@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ELS · GM 控制台</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script><script defer src="/extended.js"></script><script defer src="/operations.js"></script><script defer src="/accounts-ui.js"></script><script defer src="/levels.js"></script><script defer src="/coupons.js"></script><script defer src="/batch-give.js"></script><link rel="stylesheet" href="/operations.css"></head>
+<body><link rel="stylesheet" href="/refinements.css">
+<aside><a class="brand" href="/"><span class="brand-icon">E</span><span>ELS FRIENDS<small>GAME MASTER CONSOLE</small></span></a><div class="nav-label">工作空间</div><nav>
+<div class="nav-label">运行与账号</div>
+<button data-tab="overview" class="active"><span>◈</span>运行概览</button><button data-tab="players"><span>♙</span>在线玩家<b id="navCount">0</b></button><button data-tab="accounts"><span>▤</span>账号与角色</button>
+<div class="nav-label">发放与运营</div>
+<button data-tab="items"><span>▣</span>物品发放</button><button data-tab="coupons"><span>▧</span>兑换码管理</button><button data-tab="cash"><span>◈</span>账号现金</button><button data-tab="events"><span>◉</span>活动管理</button><button data-tab="announcements"><span>⚑</span>游戏公告</button><button data-tab="rates"><span>≋</span>掉落率与强化</button>
+<div class="nav-label">配置与记录</div>
+<button data-tab="settings"><span>⚙</span>服务参数</button><button data-tab="history"><span>◷</span>操作记录</button><button data-tab="maintenance"><span>⚙</span>维护与备份</button>
+</nav><div class="side-bottom"><span class="dot"></span>本地安全连接<small>管理服务独立运行</small><button id="logout">退出管理</button></div></aside>
+<main><header><div class="breadcrumb">服务管理 <span>/</span> <strong id="crumb">运行概览</strong></div><div class="header-right"><span class="chip" id="targetEndpoint">目标未确认</span><span class="avatar">GM</span></div></header>
+<div id="error" role="alert" hidden></div><div id="toast" role="status" hidden></div>
+<section class="page active" id="overview"><div class="page-title"><div><div class="eyebrow">SERVER OVERVIEW</div><h1>掌握你的游戏世界<span class="title-dot">.</span></h1><p>查看服务状态与玩家动态，从这里开始今天的管理。</p></div><button class="secondary" id="refresh">↻ 刷新状态</button></div>
+<div class="stats"><article><span class="stat-label">游戏服务 <i>◈</i></span><strong id="serverState">未连接</strong><small id="serverMessage">正在读取管理状态</small></article><article><span class="stat-label">在线角色 <i>♙</i></span><strong><span id="playerCount">0</span><em>位</em></strong><small>当前已进入游戏的角色</small></article><article><span class="stat-label">游戏监听端口 <i>⇄</i></span><strong id="gamePort">—</strong><small id="mode">朋友服 · 独立账号与存档</small></article><article><span class="stat-label">概率配置版本 <i>≋</i></span><strong id="revision">v0</strong><small>提交后对后续操作生效</small></article></div>
+<div class="overview-grid"><article class="card server-card"><div class="card-heading"><h2>服务控制</h2><span id="statusBadge" class="badge">已停止</span></div><div class="server-visual"><div class="server-symbol">E<span>ELSWORD</span></div><div><h3 id="currentChannel">频道名称</h3><p id="serviceDetail">独立 GM 管理服务已连接</p><span class="tiny">正常关服会保存数据并断开游戏连接</span></div></div><div class="button-row"><button class="primary start-action">▶ 开服</button><button class="danger stop-action">■ 关服</button></div></article><article class="card"><div class="card-heading"><h2>快捷操作</h2><span class="tiny">常用工具</span></div><div class="quick-actions"><button data-jump="items"><span>▣</span><strong>发放物品</strong><small>图标检索 · 在线发货</small><b>↗</b></button><button data-jump="announcements"><span>⚑</span><strong>发布公告</strong><small>全服滚动 · 重复计划</small><b>↗</b></button><button data-jump="rates"><span>≋</span><strong>调整掉落率</strong><small>掉落倍率 · 强化成功率</small><b>↗</b></button><button data-jump="events"><span>◉</span><strong>配置活动</strong><small>活动开关 · 入场排期</small></button><button class="backup-action"><span>◫</span><strong>创建备份</strong><small>游戏库 · 账号库</small></button></div></article></div>
+<article class="card"><div class="card-heading"><h2>在线玩家</h2><button class="text-button" data-jump="players">查看全部 →</button></div><div id="overviewPlayers"></div></article><article class="card"><div class="card-heading"><h2>全部管理功能</h2><span class="tiny">按用途查找入口</span></div><label class="search"><input id="operationSearch" type="search" placeholder="搜索功能，例如：现金、经验、签到、注册"></label><div id="operationDirectory" class="operation-grid"></div></article></section>
+<section class="page" id="players"><div class="page-title"><div><div class="eyebrow">ONLINE PLAYERS</div><h1>在线玩家</h1><p>只展示已进入游戏的角色；切换角色与重新登录后自动更新。</p></div><button class="secondary refresh-action">↻ 刷新</button></div><article class="card"><div id="playersTable"></div></article></section>
+<section class="page" id="accounts"><div class="page-title"><div><div class="eyebrow">ACCOUNT DIRECTORY</div><h1>账号与角色</h1><p>搜索账号名、角色名或精确编号；展开账号查看角色，直接进入背包、调级和现金管理。</p></div><button class="secondary" id="refreshAccounts">↻ 刷新账号</button></div><article class="card"><div class="search-row"><label class="search"><span>⌕</span><input id="accountSearch" placeholder="搜索账号名、账号 ID、角色名或角色 UID" aria-label="搜索账号角色"></label></div><div class="account-toolbar"><div class="account-filters" role="group" aria-label="筛选账号状态"><button type="button" data-account-status="all" class="active">全部</button><button type="button" data-account-status="online">在线</button><button type="button" data-account-status="offline">离线</button><button type="button" data-account-status="disabled">停用</button><button type="button" data-account-status="empty">未建角</button></div><select id="accountSort" aria-label="账号排序"><option value="newest">最近注册优先</option><option value="oldest">最早注册优先</option><option value="name">账号名称</option><option value="characters">角色数量</option></select><button type="button" id="clearAccountSearch" class="text-button">清空筛选</button></div><div id="accountStats" class="scope" role="status"></div><div class="account-results-bar"><span id="accountTopPage"></span><div><label>每页 <select id="accountPageSize" aria-label="每页账号数量"><option>20</option><option selected>30</option><option>50</option><option>100</option></select></label><button id="prevAccountsTop" type="button" class="secondary" aria-label="上一页账号">上一页</button><button id="nextAccountsTop" type="button" class="secondary" aria-label="下一页账号">下一页</button></div></div><div id="accountList"></div><div class="pagination"><button id="prevAccounts" class="secondary">← 上一页</button><div class="account-pagination"><span id="accountPage">1</span><form id="accountJumpForm"><label>跳至 <input id="accountJump" type="number" min="1" step="1" value="1" aria-label="跳至页码"></label><button type="submit" class="secondary">前往</button></form></div><button id="nextAccounts" class="secondary">下一页 →</button></div></article></section>
+<section class="page" id="events"><div class="page-title"><div><div class="eyebrow">EVENT CONTROL</div><h1>活动管理</h1><p>按可配置入场、活动开关和固定运营排期查看当前服务端。</p></div><div class="button-row"><button type="button" class="secondary" id="reloadEvents">重新载入排期</button><span class="chip" id="eventsRevision">—</span></div></div><div class="info-note">开放仍须满足原等级、门票、任务和组队条件；不会绕过原门禁。时间按本机时区输入，服务端统一保存时间戳。</div><h2 class="subheading">开放与入场排期</h2><form id="eventsForm"><div id="eventCards" class="two-columns"></div><article class="card save-bar"><label>入场排期操作原因<input id="eventsReason" required minlength="2" maxlength="200" placeholder="例如：开启周末校园祭"></label><button type="submit" class="primary" id="saveEvents" disabled>保存开关与排期</button></article></form><article class="card" id="selectedActivities"><div class="card-heading"><h2>签到、在线称号与战斗力助力</h2><button class="secondary" id="loadSelectedActivities" type="button">读取实际活动</button></div><p id="selectedActivitiesState" class="scope">从当前游戏进程读取已安装范围、排期与开关。</p><form id="selectedActivitiesForm"><fieldset id="selectedActivitiesFields" disabled><div id="selectedActivitiesCards" class="two-columns"></div><label>操作原因<input id="selectedActivitiesReason" required minlength="2" maxlength="200"></label><div class="button-row"><button id="saveSelectedActivities" class="primary" type="submit">保存活动开关</button></div></fieldset></form><button id="retrySelectedActivities" class="secondary" type="button" hidden>使用原编号核查并重提</button><pre id="selectedActivitiesReceipt" class="operation-receipt"></pre></article><article class="card"><h2>固定运营排期</h2><div class="activity-calendar" id="activityCalendar"></div></article></section>
+<section class="page" id="items"><div class="page-title"><div><h1>道具发放</h1><p>先选单人发放或群发，再按页面步骤操作。提交前可以核对范围和数量。</p></div></div>
+<div class="workspace-switch" role="group" aria-label="发放方式">
+    <button type="button" class="secondary" id="singleGiveTab" aria-pressed="true">发给一位在线角色</button>
+    <button type="button" class="secondary" id="batchGiveTab" aria-pressed="false">群发道具</button>
+</div>
+<div class="delivery-layout"><article class="card catalog-card"><h2>道具目录</h2><p class="scope" id="catalogAction">点击道具，或拖到发放区。</p><div class="search-row"><label class="search"><span>⌕</span><input id="search" placeholder="输入名称、精确编号或组合关键词，如：贤者 魔法石" aria-label="搜索物品"></label><select id="bagFilter" aria-label="背包分类"><option value="">全部背包</option></select></div><div class="search-row filters-row"><select id="categoryFilter" aria-label="道具细分类"><option value="">全部道具种类</option></select><select id="sortFilter" aria-label="排序"><option value="relevance">相关度优先</option><option value="id">物品编号</option><option value="name">物品名称</option><option value="level">装备等级从高到低</option></select><label class="favorite-filter"><input type="checkbox" id="favoritesOnly"> 仅看收藏</label><button class="text-button" id="clearSearch">清空筛选</button></div><p class="scope" id="iconCoverage"></p><div class="catalog-meta"><span id="itemTotal">正在加载物品目录…</span><label><input type="checkbox" id="iconsOnly"> 仅有原始图标</label></div><div id="itemGrid" class="item-grid"></div><div class="pagination"><button id="prevItems" class="secondary">← 上一页</button><span id="itemPage">1</span><button id="nextItems" class="secondary">下一页 →</button></div></article><div class="delivery-workspace">
+<article class="card delivery-form" id="singleGive"><div class="card-heading"><h2>单人发放</h2></div><div id="selectedItem" class="selected-item empty-item drop-target">点击道具，或拖到这里</div><form id="giveForm"><label>接收角色<select id="recipient" required><option value="">暂无在线角色</option></select></label><label>发放数量<input type="number" id="quantity" min="1" max="99" value="1" required></label><label>操作原因<textarea id="giveReason" placeholder="例如：活动奖励补发" minlength="2" maxlength="200" required></textarea></label><p class="hint">道具直接进入所选角色的背包。背包装不下时，本次发放取消。</p><button class="primary full" id="giveButton" type="submit" disabled>核对发放</button></form><button class="secondary full" type="button" id="favoriteItem" disabled>☆ 收藏此道具</button><div id="deliveryReceipt" class="receipt" hidden></div></article>
+<article class="card" id="batchGive" hidden>
+    <h2>群发清单</h2>
+    <p id="batchStatus" class="workflow-status" role="status"></p>
+    <form id="batchForm">
+        <fieldset id="batchFields">
+            <h3 class="workflow-step">1. 添加道具</h3>
+            <div class="drop-target" id="batchDrop">从目录点击添加，或把道具拖到这里</div>
+            <div class="draft-summary"><strong id="batchCount">0 种道具</strong>
+                <button class="text-button" type="button" id="clearBatch">清空清单</button></div>
+            <div id="batchRows" class="draft-rows"></div>
+            <h3 class="workflow-step">2. 选择接收范围</h3>
+            <label>发给谁<select id="batchMode" required>
+                <option value="">请选择接收范围</option>
+                <option value="online">当前在线角色 · 直接入背包</option>
+                <option value="characters">全服有效角色 · 角色邮件</option>
+                <option value="accounts">全服启用账号 · 账号共享邮件</option>
+            </select></label>
+            <p class="hint" id="batchModeHelp">选好接收范围后，这里会说明玩家到哪里领取。</p>
+            <h3 class="workflow-step">3. 核对并确认</h3>
+            <label>发放原因<input id="batchReason" placeholder="例如：周末活动奖励" minlength="2" maxlength="200" required></label>
+            <button class="primary" id="batchGiveButton" type="submit" disabled>预览接收范围和道具</button>
+        </fieldset>
+    </form>
+    <p id="batchReceipt" class="scope" role="status"></p>
+    <details class="workflow-details" id="batchRecovery">
+        <summary>查询发放记录</summary>
+        <label>操作编号<input id="batchOperation" autocomplete="off" maxlength="36"></label>
+        <div class="button-row">
+            <button type="button" class="secondary" id="batchInspect">查询回执</button>
+            <button type="button" class="secondary" id="batchRetry" disabled>重试这笔发放</button>
+        </div>
+    </details>
+</article>
+</div></div>
+</section>
+<section class="page" id="announcements">
+    <link rel="stylesheet" href="/announcement-preview.css">
+    <div class="page-title"><div><h1>游戏公告</h1><p>向当前服务的在线玩家发布公告，支持定时重复。</p></div></div>
+    <div class="announcement-layout">
+        <article class="card">
+            <h2>发布公告</h2>
+            <form id="announceForm" class="workflow-form">
+                <label>公告类型
+                    <select id="announcementDisplay">
+                        <option value="both">喇叭和底边系统公告</option>
+                        <option value="megaphone">喇叭</option>
+                        <option value="system">底边公告和系统聊天</option>
+                        <option value="system-only">仅底边系统公告</option>
+                        <option value="maintenance">维护与下线通知</option>
+                        <option value="guild-war-results">公会战排名</option>
+                        <option value="duba-dam-complete">杜巴水坝建成</option>
+                    </select>
+                </label>
+                <label id="announcementScopeField">原生公告格式
+                    <select id="announcementScope">
+                        <option value="server-group">服务器组</option>
+                        <option value="all-servers">跨服务器格式（当前服务内发送）</option>
+                    </select>
+                </label>
+                <label id="announcementTextField">玩家看到的正文<textarea id="announcementText" rows="5" maxlength="200" placeholder="输入要发送的内容…" required></textarea></label>
+                <label id="announcementGuildField" hidden>公会编号（按实际名次顺序，以空格或逗号分隔）<input id="announcementGuildIds" maxlength="180" disabled></label>
+                <div class="form-pair"><label>发送次数<input id="repeat" type="number" value="1" min="1" max="20" required></label><label id="announcementInterval">每隔多少秒重发<input id="interval" type="number" value="60" min="10" max="3600" required></label></div>
+                <label>操作原因<input id="announceReason" minlength="2" maxlength="200" required placeholder="例如：维护通知"></label>
+                <button class="primary" type="submit">发布全服公告</button>
+            </form>
+            <p class="hint">关服会结束重复计划。每轮只发给当时已进游戏的在线玩家。</p>
+        </article>
+        <div class="announcement-preview-column">
+            <article class="card announcement-preview-card">
+                <div class="card-heading"><h2>游戏内预览</h2><div class="announcement-preview-actions"><button id="toggleAnnouncementChat" type="button" class="secondary" aria-controls="gameChatPanel" aria-expanded="true" hidden>收起聊天</button><button id="replayAnnouncement" type="button" class="secondary" hidden>重播滚动</button></div></div>
+                <div class="announcement-scene" id="announcementScene" aria-label="魔奇村庄公告预览">
+                    <span class="announcement-map">魔奇村庄</span>
+                    <div class="announcement-chat" id="gameChatPanel">
+                        <div class="announcement-chat-tabs" aria-hidden="true"><span>全体</span><span>队伍</span><span>公会</span><span>私聊</span><span>定制</span></div>
+                        <div class="announcement-horn-line" id="gameHorn"><img src="/announcement-horn.png" alt=""><span class="announcement-sender">系统公告</span><span id="gameHornBody"></span></div>
+                        <div class="announcement-chat-lines" id="gameChat"></div>
+                        <div class="announcement-chat-footer" aria-hidden="true">全体<span>▾</span></div>
+                    </div>
+                    <div class="announcement-statusbar">
+                        <div class="announcement-gauges" aria-hidden="true"><i></i><i></i></div>
+                        <div class="announcement-ticker" id="gameTicker"><img src="/announcement-horn.png" alt=""><div class="announcement-ticker-window" id="gameTickerWindow"><span id="gameTickerBody"></span></div></div>
+                    </div>
+                </div>
+                <p class="announcement-preview-caption" id="announcementPreviewStatus" role="status">输入正文后预览。</p>
+            </article>
+            <article class="card"><h2>重复计划</h2><div id="announcementJobs"></div><h2 class="subheading">本次运行的发送记录</h2><div id="announcementHistory"></div></article>
+        </div>
+    </div>
+</section>
+<section class="page" id="rates"><div class="page-title"><div><div class="eyebrow">PROBABILITY SETTINGS</div><h1>掉落率、经验与强化</h1><p>单位为百分比，保留两位小数；留空表示沿用原规则。</p></div><div class="button-row rate-toolbar"><button class="secondary" id="reloadRates">重新载入配置</button><button class="secondary" id="resetRates">全部恢复默认</button></div></div>
+<form id="formalDropsForm">
+    <article class="card">
+        <div class="card-heading"><h2>普通副本掉落倍率</h2><span class="chip" id="formalDropsRevision"></span></div>
+        <p class="scope">适用于正式普通副本的随机材料、食材、装备和额外通关掉落。1 倍沿用原概率，0 倍关闭这些随机掉落，单次概率最高 100%。固定奖励和周奖励沿用各自规则。</p>
+        <fieldset id="formalDropsFields" disabled>
+            <div class="form-pair">
+                <label>掉落倍率<input id="formalDropMultiplier" type="number" min="0" max="100" step="0.01" value="1" required></label>
+                <label>操作原因<input id="formalDropsReason" minlength="2" maxlength="200" required></label>
+            </div>
+            <button type="submit" class="primary">保存掉落倍率</button>
+        </fieldset>
+        <p id="formalDropsStatus" class="scope" role="status"></p>
+    </article>
+</form>
+<form id="ratesForm"><article class="card"><div class="card-heading"><h2>通关经验与指定来源掉落概率</h2><span class="badge">后续掉落判定生效</span></div><p class="scope" id="rateScope"></p><label class="experience-label">通关角色经验倍率<input type="number" id="experienceMultiplier" min="0" max="100" step="0.01" value="1" required><small>0–100 倍；1 为默认。仅角色通关经验，神器经验保持原规则。单次按原生字段上限封顶，重复结算不重复加成。</small></label><div class="three-columns" id="dropInputs"></div><div class="button-row rate-presets"><button type="button" class="secondary" data-xp="2">双倍经验</button><button type="button" class="secondary" data-xp="3">三倍经验</button><button type="button" class="secondary" data-xp="1">默认经验</button></div></article><article class="card"><div class="card-heading"><h2>普通装备强化成功率</h2><span class="tiny">+0 → +13</span></div><p class="scope">修改后，其余失败结果按原比例分配。锤子在设定成功率上翻倍并封顶 100%；保底、保护材料与消耗仍按原逻辑执行。</p><div id="enhancementInputs" class="enhancement-grid"></div></article><article class="card save-bar"><label>修改原因<input id="ratesReason" required minlength="2" maxlength="200" placeholder="例如：周末强化活动"></label><button class="primary" id="saveRates" type="submit" disabled>保存概率配置</button></article></form></section>
+
+<section class="page" id="coupons"><div class="page-title"><div><h1>兑换码管理</h1><p>选好奖励和领取规则后生成兑换码。玩家兑换后在现金保管箱领取道具。</p></div></div><article class="card" id="couponPanel"><h2>1. 添加奖励道具</h2><p class="scope" id="couponScope">支持已核定的永久时装、普通消耗品和材料。添加时由游戏服务核验道具资格。</p>
+<form id="couponLookupForm"><label class="search"><input id="couponSearch" type="search" aria-label="搜索兑换码奖励" placeholder="输入道具名或精确编号" required></label><button type="submit" class="secondary" id="couponLookup">查找奖励</button></form>
+<div id="couponMatches" class="reward-matches"></div><form id="couponIssueForm" class="workflow-form" autocomplete="off"><p id="couponEmpty" class="workflow-status">还没有添加奖励。先输入道具名或编号，再点「查找奖励」。</p><div id="couponRewards"></div><h2 class="workflow-step">2. 设置领取规则</h2><div class="form-pair"><label>生成多少个码<input id="couponCount" type="number" min="1" max="100" step="1" value="1" required></label><label>每个码最多几个账号使用<input id="couponUses" type="number" min="1" max="100" step="1" value="1" required></label></div><label>仅限指定账号领取（选填账号 ID）<input id="couponAccount" type="number" min="2" step="1"></label><div class="form-pair"><label>开始时间（留空立即）<input id="couponStart" type="datetime-local"></label><label>兑换截止时间<input id="couponExpiry" type="datetime-local" required></label></div><h2 class="workflow-step">3. 核对并生成</h2><label>生成原因<input id="couponReason" minlength="2" maxlength="200" required></label><p class="hint">每码每账号限一次；1至8行不同奖励，每行1至99件、总计不超过99件。提取时检查背包容量；时装继续检查角色族和职业。奖励与期限提交后不可更改。</p><button id="couponIssue" class="primary" type="submit" disabled>核对奖励并生成</button></form><div id="couponOutput" hidden><h2 class="workflow-step">已生成的兑换码</h2><label>复制后发给玩家<textarea id="couponCodes" readonly rows="5" autocomplete="off" spellcheck="false"></textarea></label><button type="button" class="secondary" id="couponClear">清空屏幕上的兑换码</button></div><details class="workflow-details" id="couponRecovery"><summary>查询或撤销已生成的兑换码</summary><form id="couponRevokeForm" class="workflow-form" autocomplete="off"><label>撤销批次（原发行UUID）<input id="couponBatch" required maxlength="36"></label><label>撤销原因<input id="couponRevokeReason" minlength="2" maxlength="200" required></label><p class="hint">仅阻止新兑换，不倒扣已兑换或已提取物品。</p><button type="submit" class="secondary">撤销未兑换权益</button></form><hr><label>原操作编号<input id="couponOperation" autocomplete="off" maxlength="36"></label><label>原操作类型<select id="couponOperationAction"><option value="coupon-issue">发行</option><option value="coupon-revoke">撤销</option></select></label><div class="button-row"><button type="button" class="secondary" id="couponInspect">查询原操作</button><button type="button" class="secondary" id="couponRetry">核查后重提保留的原请求</button></div><p class="hint" id="couponPending">结果不明时先查回执，不自动重发、不生成替代码。刷新页面后仅用原UUID查询已提交批次。</p><pre id="couponReceipt"></pre><hr><label>批次列表偏移<input id="couponOffset" type="number" min="0" max="100000" step="20" value="0"></label><button type="button" class="secondary" id="couponList">读取批次摘要（不显示原码）</button><pre id="couponBatches"></pre></details></article></section>
+<section class="page" id="cash"><div class="page-title"><div><div class="eyebrow">ACCOUNT CASH</div><h1>账号现金</h1><p>为指定账号增加本服独立现金，余额由同账号角色共享。</p></div></div>
+<div class="two-columns"><article class="card"><h2>查询与充值</h2><form id="cashForm" autocomplete="off">
+<label>账号 ID<input id="cashAccount" type="number" min="1" step="1" required></label><button id="cashLoad" type="button" class="secondary">查询当前余额</button><p id="cashBalance" class="scope">先在账号与角色页核对账号，再查询余额。</p>
+<label>增加现金<input id="cashAmount" type="number" min="1" max="2147483647" step="1" required></label><label>操作原因<input id="cashReason" minlength="2" maxlength="200" required></label><p class="hint">仅增加本服现金，不兑换或扣除 ED。提交前核对账号和余额；余额发生变化时整笔拒绝。</p><button id="cashSubmit" class="primary" type="submit" disabled>确认充值</button></form></article>
+<article class="card"><h2>原操作核查</h2><label>操作编号<input id="cashOperation" maxlength="36" autocomplete="off"></label><div class="button-row"><button id="cashInspect" class="secondary" type="button">查询原回执</button><button id="cashRetry" class="secondary" type="button" disabled>核查后重提原请求</button><button id="cashRelease" class="text-button" type="button" disabled>结束未落账请求</button></div><p class="hint">结果未确认时保留原编号；重提仍使用原请求，不重复充值。刷新页面后可粘贴原编号查询。</p><pre id="cashReceipt" class="operation-receipt"></pre></article></div></section>
+<section class="page" id="settings"><div class="page-title"><div><div class="eyebrow">SERVER SETTINGS</div><h1>服务运营参数</h1><p>管理注册、连接容量、现有装备功能入口与日志参数。</p></div><button id="loadServerSettings" class="secondary" type="button">重新载入参数</button></div><p id="serverSettingsState" class="info-note">正常关服后可保存，下次开服生效。</p><form id="serverSettingsForm"><fieldset id="serverSettingsFields" disabled><div id="serverSettingsCards" class="two-columns"></div><article class="card save-bar"><label>操作原因<input id="serverSettingsReason" required minlength="2" maxlength="200"></label><button id="saveServerSettings" class="primary" type="submit">保存服务参数</button></article></fieldset></form><p class="scope">网络地址、数据库、TLS 身份和固定玩法表沿用部署配置。组队准入保留当前状态与既有发布门禁。</p><pre id="serverSettingsReceipt" class="operation-receipt"></pre></section>
+<section class="page" id="history"><div class="page-title"><div><div class="eyebrow">AUDIT LOG</div><h1>每一次操作，都留下记录</h1><p>按操作编号追踪提交内容、执行结果与发货回执。</p></div><button class="secondary" id="refreshHistory">↻ 刷新记录</button></div><article class="card"><div id="historyList"></div></article></section>
+<section class="page" id="maintenance"><div class="page-title"><div><div class="eyebrow">MAINTENANCE</div><h1>维护有序，数据有备</h1><p>使用 SQLite backup API 备份游戏库和账号库，正常保存后关闭服务。</p></div></div><div class="two-columns"><article class="card"><h2>服务维护</h2><p class="scope">关服后游戏连接将断开，管理页面保持可访问。开服会使用已配置的朋友服存档与账号库。</p><div class="button-row"><button class="primary start-action">▶ 开服</button><button class="danger stop-action">■ 正常关服</button></div></article><article class="card"><h2>创建双库备份</h2><p class="scope">备份游戏数据库、账号数据库和服务配置，并验证数据库完整性。备份保存在服务器私有目录。</p><button class="secondary backup-action">◫ 立即备份</button></article></div><article class="card"><div class="card-heading"><h2>游戏进程日志</h2><button class="text-button" id="refreshLogs">刷新日志</button></div><pre id="gameLogs">尚未读取日志</pre></article></section>
+<dialog id="levelDialog"><form id="levelForm"><div class="eyebrow">CHARACTER LEVEL</div><h2>调整角色等级</h2><p id="levelTarget"></p><label>目标等级<input id="targetLevel" type="number" min="1" max="99" step="1" value="99" required></label><label>操作原因<input id="levelReason" minlength="2" maxlength="200" required placeholder="例如：角色测试调级"></label><p class="hint">仅支持提升至 1–99 级。该账号所有角色需先返回角色选择或退出游戏。保存前自动备份双库，等级与经验同时保存，下次进入角色生效。</p><div class="button-row"><button id="cancelLevel" type="button" class="secondary">取消</button><button id="saveLevel" type="submit" class="primary">保存等级</button></div></form><p id="levelReceipt" class="receipt" hidden></p><button id="retryLevel" type="button" class="secondary" hidden>核实上次调级结果</button></dialog><dialog id="inventoryDialog"><div class="card-heading"><h2 id="inventoryTitle">角色背包</h2><button class="secondary" id="closeInventory">关闭</button></div><label class="search"><input id="inventorySearch" placeholder="在当前角色背包搜索名称或编号"></label><p id="inventoryTotal" class="scope"></p><div id="inventoryGrid" class="item-grid"></div><div class="pagination"><button id="prevInventory" class="secondary">← 上一页</button><span id="inventoryPage">1</span><button id="nextInventory" class="secondary">下一页 →</button></div></dialog><footer><span>ELS Friends · GM Console</span><span id="lastUpdated">尚未连接</span></footer>
+</main>
+<dialog id="loginDialog"><form id="loginForm"><span class="login-logo">E</span><div class="eyebrow">ELS FRIENDS / ADMIN</div><h2>进入 GM 控制台</h2><p>使用管理器私有目录中的 access.key 登录。<br>远程服务请通过 SSH 本地转发连接。</p><label>管理访问密钥<input id="accessKey" type="password" autocomplete="off" required minlength="40" autofocus></label><div id="loginError" role="alert"></div><button class="primary full" type="submit">连接管理服务 →</button></form></dialog>
+<dialog id="confirmDialog"><form id="confirmForm"><div class="eyebrow">CONFIRM ACTION</div><h2 id="confirmTitle">确认操作</h2><p id="confirmText"></p><label>操作原因<input id="confirmReason" minlength="2" maxlength="200" required></label><label id="confirmWordLabel">输入确认文字<input id="confirmWord" autocomplete="off"></label><div class="button-row"><button class="secondary" id="cancelConfirm" type="button">取消</button><button class="primary" id="confirmSubmit" type="submit">确认执行</button></div></form></dialog>
+</body></html>

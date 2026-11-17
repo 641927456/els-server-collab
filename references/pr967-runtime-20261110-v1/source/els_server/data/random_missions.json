@@ -1,0 +1,997 @@
+{
+  "schema": 1,
+  "enabled": true,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "policy": "native-random-mission-local-policy-20261026-v1",
+  "authorization_sha256": "70a57091cb27cae7e1fde4351a81f561c6639f382f1368f7260c656389e47611",
+  "base_chance": 20,
+  "potion_chance": 100,
+  "mission_type": 5,
+  "mission_text_id": 30681,
+  "experience_weights": [
+    [
+      110,
+      50
+    ],
+    [
+      120,
+      25
+    ],
+    [
+      150,
+      15
+    ],
+    [
+      200,
+      7
+    ],
+    [
+      300,
+      2
+    ],
+    [
+      500,
+      1
+    ]
+  ],
+  "pools": {
+    "ordinary": [
+      380,
+      381,
+      382,
+      383
+    ],
+    "maximum": [
+      384,
+      385,
+      386,
+      368,
+      369,
+      387
+    ]
+  },
+  "duration": 1800,
+  "maximum_stacks": 3,
+  "new_potion_sources": false,
+  "routes": {
+    "30172": {
+      "mid": 30172,
+      "source": "Dungeon_Besma_Lake_Expert.lua",
+      "graph_sha256": "3afcfd4f19ee836a57a8e7db5ee1637cc20806185c888f23a7654a7325c5b4b2",
+      "stages": 3,
+      "minimum_level": 16,
+      "conditions": [
+        63
+      ]
+    },
+    "30182": {
+      "mid": 30182,
+      "source": "Dungeon_Besma_Dragon_Nest_Expert.lua",
+      "graph_sha256": "beb270845a77bef951e89efe21f3910a2d72b0fade4de3ffe8fe2f054de1a295",
+      "stages": 3,
+      "minimum_level": 19,
+      "conditions": [
+        63
+      ]
+    },
+    "30192": {
+      "mid": 30192,
+      "source": "Dungeon_Besma_Air_Ship_Expert.lua",
+      "graph_sha256": "0da5cb743399e949e3221f14460349191771454e19db2029d77d7d55f9a120b9",
+      "stages": 3,
+      "minimum_level": 25,
+      "conditions": [
+        63
+      ]
+    },
+    "30212": {
+      "mid": 30212,
+      "source": "Dungeon_Besma_MINE2_Expert.lua",
+      "graph_sha256": "bb040bea7889dd2c6b1e1ca3d85e050f5cb97e4fddd1af5753e00e5f63160099",
+      "stages": 3,
+      "minimum_level": 22,
+      "conditions": [
+        63
+      ]
+    },
+    "30242": {
+      "mid": 30242,
+      "source": "Dungeon_Altera_Battle_Air_Ship_Expert.lua",
+      "graph_sha256": "eb4d00505a3d8d5270e1a36796debaf87097d4f8f1b1e21b7538389849128841",
+      "stages": 3,
+      "minimum_level": 28,
+      "conditions": [
+        63
+      ]
+    },
+    "30252": {
+      "mid": 30252,
+      "source": "Dungeon_Altera_Plain_Recycle_Expert.lua",
+      "graph_sha256": "f965765a2687f6226f1d41c31f18e0d989840d7c162fc56239d4f0bb8a0bdfd8",
+      "stages": 3,
+      "minimum_level": 30,
+      "conditions": [
+        63
+      ]
+    },
+    "30262": {
+      "mid": 30262,
+      "source": "Dungeon_Altera_Below_Tunnel_Expert.lua",
+      "graph_sha256": "026cef6fd807cbe6da671c0b958763c3a062a4343647b6530013d4f35599e0a9",
+      "stages": 3,
+      "minimum_level": 33,
+      "conditions": [
+        63
+      ]
+    },
+    "30282": {
+      "mid": 30282,
+      "source": "Dungeon_Altera_Nasod_Factory_Expert.lua",
+      "graph_sha256": "3da2896f31f56f9f1c1239455bd40dbab24c87b46b63409ca6e47a54f956ca5d",
+      "stages": 3,
+      "minimum_level": 35,
+      "conditions": [
+        63
+      ]
+    },
+    "30302": {
+      "mid": 30302,
+      "source": "Dungeon_Altera_Core_Expert.lua",
+      "graph_sha256": "92fb9a602537def90092736f0403c60aefa3cee613a3947cbc67a4422f8b8b15",
+      "stages": 4,
+      "minimum_level": 37,
+      "conditions": [
+        63
+      ]
+    },
+    "32602": {
+      "mid": 32602,
+      "source": "Dungeon_Peita_Offerings_Expert.lua",
+      "graph_sha256": "75a899c90d57a7ea19c0aa7413cc60911baf7952f4d43d4d19716edfe870d858",
+      "stages": 3,
+      "minimum_level": 40,
+      "conditions": [
+        63
+      ]
+    },
+    "32952": {
+      "mid": 32952,
+      "source": "Dungeon_Peita_Chapel_Expert.lua",
+      "graph_sha256": "5a9a0e4207664389059a0403dd0b27fe9517a8790bfdb4c0457f684a8054f7a4",
+      "stages": 3,
+      "minimum_level": 43,
+      "conditions": [
+        63
+      ]
+    },
+    "32982": {
+      "mid": 32982,
+      "source": "Dungeon_Peita_Offerings_Alter_Expert.lua",
+      "graph_sha256": "0f2ba14f8aa34b03a12f2a9166b344b7894bdceaa56647cdbba5fec96a21f86c",
+      "stages": 5,
+      "minimum_level": 45,
+      "conditions": [
+        63
+      ]
+    },
+    "33012": {
+      "mid": 33012,
+      "source": "Dungeon_Velder_Bridge_Hope_Expert.lua",
+      "graph_sha256": "b7eebcc1fd466c09be00a2e2ab9a5c22b48711c1dd43b9b32554caa07fa3c63b",
+      "stages": 4,
+      "minimum_level": 48,
+      "conditions": [
+        63
+      ]
+    },
+    "33062": {
+      "mid": 33062,
+      "source": "Dungeon_Velder_Palace_Entrance_Expert.lua",
+      "graph_sha256": "07f7d3871f8b8cc5aa6ac2cd323d78e8b6a3860b7d560b7cba093ed470f48471",
+      "stages": 3,
+      "minimum_level": 50,
+      "conditions": [
+        63
+      ]
+    },
+    "33082": {
+      "mid": 33082,
+      "source": "Dungeon_Velder_Market_Expert.lua",
+      "graph_sha256": "c58e9e8324bd04e5eeed0b8234ca1f3df129c81e3db5efd65fb149b4dc140368",
+      "stages": 4,
+      "minimum_level": 53,
+      "conditions": [
+        63
+      ]
+    },
+    "33092": {
+      "mid": 33092,
+      "source": "Dungeon_Velder_Gate_Expert.lua",
+      "graph_sha256": "c53ca760b30121b619ab4576048679d936bba18f1fddcf8edf896c034bee05c7",
+      "stages": 2,
+      "minimum_level": 55,
+      "conditions": [
+        63
+      ]
+    },
+    "33122": {
+      "mid": 33122,
+      "source": "Dungeon_Hamel_Outskirts_Resiam_Expert.lua",
+      "graph_sha256": "c1acb1aa4f56c31d12058ca7f32eb8f1f6a36e0c22b5f7d40614e88bf175b98b",
+      "stages": 3,
+      "minimum_level": 58,
+      "conditions": [
+        63
+      ]
+    },
+    "33142": {
+      "mid": 33142,
+      "source": "Dungeon_Hamel_Waterway_Expert.lua",
+      "graph_sha256": "7b2d7257c1724cceaa116dae2de107ff9be6baeb14fc7888d68f783f6ffc1b52",
+      "stages": 3,
+      "minimum_level": 60,
+      "conditions": [
+        63
+      ]
+    },
+    "33162": {
+      "mid": 33162,
+      "source": "Dungeon_Hamel_Cave_Of_Magmanta_Expert.lua",
+      "graph_sha256": "3e482045d760c13969260a722c263aedcb32f4d3756fe80e8eb5dc7d5b4d1d82",
+      "stages": 4,
+      "minimum_level": 63,
+      "conditions": [
+        63
+      ]
+    },
+    "33182": {
+      "mid": 33182,
+      "source": "Dungeon_Hamel_Frozen_Water_Hall_Expert.lua",
+      "graph_sha256": "d9dfc8ca84404b5937e13e3a250b635fbd5ea62a5def67c4616fc556590a0ee2",
+      "stages": 6,
+      "minimum_level": 65,
+      "conditions": [
+        63
+      ]
+    },
+    "33202": {
+      "mid": 33202,
+      "source": "Dungeon_Sander_Dry_Sander_Expert.lua",
+      "graph_sha256": "c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2",
+      "stages": 5,
+      "minimum_level": 68,
+      "conditions": [
+        63
+      ]
+    },
+    "33232": {
+      "mid": 33232,
+      "source": "Dungeon_Sander_Karuso_Village_Expert.lua",
+      "graph_sha256": "2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365",
+      "stages": 5,
+      "minimum_level": 70,
+      "conditions": [
+        63
+      ]
+    },
+    "33242": {
+      "mid": 33242,
+      "source": "Dungeon_Sander_Santilus_Ship_Expert.lua",
+      "graph_sha256": "9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a",
+      "stages": 5,
+      "minimum_level": 72,
+      "conditions": [
+        63
+      ]
+    },
+    "33252": {
+      "mid": 33252,
+      "source": "Dungeon_Sander_Behimoss_Heart_Expert.lua",
+      "graph_sha256": "f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e",
+      "stages": 4,
+      "minimum_level": 75,
+      "conditions": [
+        63
+      ]
+    },
+    "33282": {
+      "mid": 33282,
+      "source": "Dungeon_Ranox_AshesVillage_Expert.lua",
+      "graph_sha256": "a38c95834275def7544d914b0789483c5ac6ed636c440ff6f6dae144ae0bcbe9",
+      "stages": 4,
+      "minimum_level": 77,
+      "conditions": [
+        63
+      ]
+    },
+    "33292": {
+      "mid": 33292,
+      "source": "Dungeon_Ranox_Geyser_Expert.lua",
+      "graph_sha256": "df17537593b3892881263dd98f051a6da04ec6fbe059c063975fd916db825e3b",
+      "stages": 3,
+      "minimum_level": 80,
+      "conditions": [
+        63
+      ]
+    },
+    "33302": {
+      "mid": 33302,
+      "source": "Dungeon_Ranox_Gateway_Expert.lua",
+      "graph_sha256": "112ff72dafc176c7402a932e707743314ddffbc2ba328c0759511a8f305ec62f",
+      "stages": 4,
+      "minimum_level": 82,
+      "conditions": [
+        63
+      ]
+    },
+    "33312": {
+      "mid": 33312,
+      "source": "Dungeon_Ranox_FireTemple_Expert.lua",
+      "graph_sha256": "2d90340883af2f5643bd6782f3c7b506683358a34a5d2f7d1a5a8aab89bac1c1",
+      "stages": 3,
+      "minimum_level": 84,
+      "conditions": [
+        63
+      ]
+    },
+    "33322": {
+      "mid": 33322,
+      "source": "Dungeon_Ranox_FinalHall_Expert.lua",
+      "graph_sha256": "09e9169df1004f1ab340afc673921f861560b9f1b5c9b375e8451007c89086be",
+      "stages": 4,
+      "minimum_level": 86,
+      "conditions": [
+        63
+      ]
+    },
+    "33332": {
+      "mid": 33332,
+      "source": "Dungeon_Elysion_AtlasDevelopment_Expert.lua",
+      "graph_sha256": "7d9b0870bda9338fbeeb123d81be36edb74ff2ad660a5001cf05edfa5afde0de",
+      "stages": 4,
+      "minimum_level": 89,
+      "conditions": [
+        63
+      ]
+    },
+    "33342": {
+      "mid": 33342,
+      "source": "Dungeon_Elysion_AtlasCity_Expert.lua",
+      "graph_sha256": "7b9486a4f342ce1592c96bf4ddcac5df23cd61a1e4c61de0a852f9877a0f626b",
+      "stages": 4,
+      "minimum_level": 90,
+      "conditions": [
+        63
+      ]
+    },
+    "33352": {
+      "mid": 33352,
+      "source": "Dungeon_Elysion_Tower_Expert.lua",
+      "graph_sha256": "f6396fb34037cdcd3f72d231f351c3e23c3a23407e4a0d5a642963b208f6f856",
+      "stages": 4,
+      "minimum_level": 91,
+      "conditions": [
+        63
+      ]
+    },
+    "33872": {
+      "mid": 33872,
+      "source": "Dungeon_Elysion_SkyCrossroads_Expert.lua",
+      "graph_sha256": "b2fc7a644eb702d4840af7c0ad7ba9fa7926e3182d6e1ef0335193228ad807c2",
+      "stages": 4,
+      "minimum_level": 92,
+      "conditions": [
+        63
+      ]
+    },
+    "33881": {
+      "mid": 33881,
+      "source": "Dungeon_Elysion_Adrian_Hard.lua",
+      "graph_sha256": "8a32a9853d4709a8e8e1ee4000f20c78b2767391755ce7ecea3bf33710a4ea8c",
+      "stages": 5,
+      "minimum_level": 93,
+      "conditions": [
+        32,
+        63
+      ]
+    },
+    "33891": {
+      "mid": 33891,
+      "source": "Dungeon_Elysion_Soless_Hard.lua",
+      "graph_sha256": "e4bb437fbd97673d8b17024b07013afab1c2baad334f85835da540d800ffb5e4",
+      "stages": 6,
+      "minimum_level": 95,
+      "conditions": [
+        32,
+        63
+      ]
+    },
+    "33901": {
+      "mid": 33901,
+      "source": "Dungeon_Elysion_Memory_Hard.lua",
+      "graph_sha256": "24b45ca412b55654727a09b63d6c0fde146bdd57e4fbe3a299233b493cdf8de2",
+      "stages": 5,
+      "minimum_level": 97,
+      "conditions": [
+        32,
+        63
+      ]
+    },
+    "34000": {
+      "mid": 34000,
+      "source": "Dungeon_Sanctuary.lua",
+      "graph_sha256": "8e0ac4e8bb714df7cde41c2731f9ce4816395fe1a8373ab6a28c6e3dc9c5fbc9",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        19,
+        63
+      ]
+    },
+    "34020": {
+      "mid": 34020,
+      "source": "Dungeon_En_DevLab.lua",
+      "graph_sha256": "366251c9a091fe23cf81d875ac6a5cea05ba90a7231d943f722f073b19b2462d",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        19,
+        63
+      ]
+    },
+    "34040": {
+      "mid": 34040,
+      "source": "Dungeon_En_Story_DevLab.lua",
+      "graph_sha256": "46ea487517cf7fd2e96970f87153b3ba47ce8d8bc5993e7b10f61749f401ede6",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        63
+      ]
+    },
+    "34060": {
+      "mid": 34060,
+      "source": "Dungeon_En_Tunnel.lua",
+      "graph_sha256": "54a2d968cdcf563eae3592d597b930bceebb56321ac8e3aad53179000ec3d20b",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        19,
+        63
+      ]
+    },
+    "34090": {
+      "mid": 34090,
+      "source": "Dungeon_Devildom1_Henir.lua",
+      "graph_sha256": "57f327e11988b929cbf655cf07f1ca51c1501970bc5113db14f65ce9c1a49ffb",
+      "stages": 7,
+      "minimum_level": 99,
+      "conditions": [
+        7,
+        16,
+        63
+      ]
+    },
+    "34100": {
+      "mid": 34100,
+      "source": "Dungeon_Devildom1_Forest.lua",
+      "graph_sha256": "f985d4e332c3f6da74d87c68fab5df141787a9cc7a340c1e2cc5877873b11db1",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        7,
+        16,
+        63
+      ]
+    },
+    "34110": {
+      "mid": 34110,
+      "source": "Dungeon_Devildom1_DarkElf.lua",
+      "graph_sha256": "dccdfeac85dcc0eeb8fb95e9a52e33a3eeb35f592123819c26dc5b3c76890704",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        7,
+        16,
+        63
+      ]
+    },
+    "34120": {
+      "mid": 34120,
+      "source": "Dungeon_Devildom1_Mountain.lua",
+      "graph_sha256": "bf9b90689d5d582cc8a3231252c2761fd71652dc6f4d1e279b7a3a3f486e1a00",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        7,
+        16,
+        63
+      ]
+    },
+    "34160": {
+      "mid": 34160,
+      "source": "Dungeon_Devildom1_Heritage.lua",
+      "graph_sha256": "56439479c7fc3a8bbf377b1c6775154e34adf433f1d8d7b7cbbff4385cc57c4b",
+      "stages": 3,
+      "minimum_level": 99,
+      "conditions": [
+        7,
+        16,
+        63
+      ]
+    },
+    "34240": {
+      "mid": 34240,
+      "source": "Dungeon_Laby_North1.lua",
+      "graph_sha256": "12aa4d83836bfbcea59537dbe1b05d0932dd93d967b100415dd3c39a568135ec",
+      "stages": 3,
+      "minimum_level": 32,
+      "conditions": [
+        63
+      ]
+    },
+    "34250": {
+      "mid": 34250,
+      "source": "Dungeon_Laby_North2.lua",
+      "graph_sha256": "588b575aacfbd8e6eb264eda485bbedf0ff18c02a8629c53c7d459c4acd72adf",
+      "stages": 3,
+      "minimum_level": 39,
+      "conditions": [
+        63
+      ]
+    },
+    "34260": {
+      "mid": 34260,
+      "source": "Dungeon_Laby_North3.lua",
+      "graph_sha256": "89cb670bc15f356c2bb7fb03f2f047337bf0d444f8f4d5f2bc629043a6236ae1",
+      "stages": 3,
+      "minimum_level": 48,
+      "conditions": [
+        63
+      ]
+    },
+    "34270": {
+      "mid": 34270,
+      "source": "Dungeon_Laby_North4.lua",
+      "graph_sha256": "a94dcbf8ca7c43d06cfd0eed1e570d9eb46361fb42aae31325050557dfdba7f3",
+      "stages": 3,
+      "minimum_level": 56,
+      "conditions": [
+        63
+      ]
+    },
+    "34280": {
+      "mid": 34280,
+      "source": "Dungeon_Laby_North5.lua",
+      "graph_sha256": "569e420d1e616b699a1638cdb4a2a21efbce47fc42c0bf6d66213283d32f9a07",
+      "stages": 2,
+      "minimum_level": 64,
+      "conditions": [
+        63
+      ]
+    },
+    "34290": {
+      "mid": 34290,
+      "source": "Dungeon_Laby_En1.lua",
+      "graph_sha256": "c0b59cc694291c3652f83e1c9435a0a64b2a4ba75ccb0a492197c4638cf2b3b7",
+      "stages": 3,
+      "minimum_level": 75,
+      "conditions": [
+        63
+      ]
+    },
+    "34300": {
+      "mid": 34300,
+      "source": "Dungeon_Laby_En2.lua",
+      "graph_sha256": "71db7b96d942fae310f95015b157060d1a56f73564a7671fdab595804d5bb493",
+      "stages": 4,
+      "minimum_level": 85,
+      "conditions": [
+        63
+      ]
+    },
+    "34320": {
+      "mid": 34320,
+      "source": "Dungeon_Devildom2_Henir.lua",
+      "graph_sha256": "b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        63
+      ]
+    },
+    "34330": {
+      "mid": 34330,
+      "source": "Dungeon_Devildom2_Tunnel.lua",
+      "graph_sha256": "4a470538f0eb1294f20c406119b8371a74b0db0bdc4580357fce96d66f522516",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        63
+      ]
+    },
+    "34340": {
+      "mid": 34340,
+      "source": "Dungeon_Devildom2_Residence.lua",
+      "graph_sha256": "e0995cf9f2274bbb9b763fb384c46062ea87915428d4dca313c03d5fc4ecb3e1",
+      "stages": 3,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        63
+      ]
+    },
+    "34350": {
+      "mid": 34350,
+      "source": "Dungeon_Devildom2_Factory.lua",
+      "graph_sha256": "da42ed2edc201421e8d6a0ecaaf4ade75217b4785c08ff010a0850c81da6d6c0",
+      "stages": 2,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        35,
+        37,
+        63
+      ]
+    },
+    "34510": {
+      "mid": 34510,
+      "source": "Dungeon_Devildom3_Snowmount.lua",
+      "graph_sha256": "3ee2ff335678f3f118857d9833035b2b4afb78e460175b6f4e0244111ed15505",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        37,
+        63
+      ]
+    },
+    "34520": {
+      "mid": 34520,
+      "source": "Dungeon_Devildom3_Village.lua",
+      "graph_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "stages": 3,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        63
+      ]
+    },
+    "34530": {
+      "mid": 34530,
+      "source": "Dungeon_Devildom3_Suburbs.lua",
+      "graph_sha256": "e9d342db3a5300137a37664b01a276db1ac8b87df8200417c093be530c343415",
+      "stages": 2,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        20,
+        63
+      ]
+    },
+    "34540": {
+      "mid": 34540,
+      "source": "Dungeon_Devildom3_Train.lua",
+      "graph_sha256": "753c6a906e4a0cbb03c5e857c89d5d904ab4cc659035ca6be8289615c7e81f9e",
+      "stages": 2,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        20,
+        37,
+        63
+      ]
+    },
+    "34630": {
+      "mid": 34630,
+      "source": "Dungeon_NOAH_RETURN1.lua",
+      "graph_sha256": "26b9d62f658cfd6ebbbe4fe873cf4290f49dba6715fa1e1a6f27cd0295b50b5f",
+      "stages": 3,
+      "minimum_level": 38,
+      "conditions": [
+        44,
+        63
+      ]
+    },
+    "34640": {
+      "mid": 34640,
+      "source": "Dungeon_NOAH_RETURN2.lua",
+      "graph_sha256": "3cb1368064ea525057c789943cccdbcba9b251a059d264f251cc11d3d1ee533b",
+      "stages": 4,
+      "minimum_level": 45,
+      "conditions": [
+        44,
+        63
+      ]
+    },
+    "34650": {
+      "mid": 34650,
+      "source": "Dungeon_NOAH_RETURN3.lua",
+      "graph_sha256": "71d2a893bdf66b6a48f7cea98369804d12b0bb74e6e66a0189c10e38c83f470a",
+      "stages": 3,
+      "minimum_level": 59,
+      "conditions": [
+        44,
+        63
+      ]
+    },
+    "34660": {
+      "mid": 34660,
+      "source": "Dungeon_NOAH_RETURN4.lua",
+      "graph_sha256": "daeb1418bdb9d9ddcb6987f4005f9c3d2cccb3ed4d5ce9217cb437575a6ddef9",
+      "stages": 3,
+      "minimum_level": 69,
+      "conditions": [
+        44,
+        63
+      ]
+    },
+    "34670": {
+      "mid": 34670,
+      "source": "Dungeon_Noah_Return5.lua",
+      "graph_sha256": "43f7c916deefbd03a782b7817a86f0bdc8b1726b845f909424556bf96d7b3d9d",
+      "stages": 3,
+      "minimum_level": 79,
+      "conditions": [
+        44,
+        63
+      ]
+    },
+    "34680": {
+      "mid": 34680,
+      "source": "Dungeon_Noah_Return6.lua",
+      "graph_sha256": "47d8cee8daa7ef7c8e2e8d513c4a1802879a4411fdab9b1ee81646406eeaee5b",
+      "stages": 4,
+      "minimum_level": 91,
+      "conditions": [
+        44,
+        63
+      ]
+    },
+    "34710": {
+      "mid": 34710,
+      "source": "Dungeon_Devildom_Side1.lua",
+      "graph_sha256": "2211ae6755c22eeb3fde663258faf497831ab045f43b66c21848cb1eafcaba58",
+      "stages": 8,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "34720": {
+      "mid": 34720,
+      "source": "Dungeon_Devildom_Side2.lua",
+      "graph_sha256": "3238ea8132e0b1dec4e803f2c8f5970563f748175967416e73a224ba4d0f5c62",
+      "stages": 3,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "34760": {
+      "mid": 34760,
+      "source": "Dungeon_Devildom4_Themepark.lua",
+      "graph_sha256": "ff7a84eb43a539de17c9f0432ac2056f4ab29abd0fd3fdc11ef81a3a82123571",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "34770": {
+      "mid": 34770,
+      "source": "Dungeon_Devildom4_TrickyHouse.lua",
+      "graph_sha256": "aae2cb6f388206f17adbe42a572a207531a4bb6abc8637bd42d4fa07f116ea00",
+      "stages": 6,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "34780": {
+      "mid": 34780,
+      "source": "Dungeon_Devildom4_Puppet.lua",
+      "graph_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "stages": 3,
+      "minimum_level": 99,
+      "conditions": [
+        8,
+        16,
+        44,
+        63
+      ]
+    },
+    "34790": {
+      "mid": 34790,
+      "source": "Dungeon_Devildom4_Concert.lua",
+      "graph_sha256": "0c6b29e4d2bc595986d381eb8067f778e9b5077bb7da72a7bb5e46fd0852f3a0",
+      "stages": 2,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "34800": {
+      "mid": 34800,
+      "source": "Dungeon_Devildom4_Shadow.lua",
+      "graph_sha256": "3239dda07b43a5705f1a21ecbf3bf0f8c05ad4419b7ec3447170003e7affabee",
+      "stages": 5,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        37,
+        44,
+        63
+      ]
+    },
+    "35080": {
+      "mid": 35080,
+      "source": "Dungeon_Devildom5_GoldCastle.lua",
+      "graph_sha256": "7be2bc7bc6636de6a7bb5d62e9e90e470ad65f6a5153f1e9617d75fe48fb549c",
+      "stages": 5,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "35090": {
+      "mid": 35090,
+      "source": "Dungeon_Devildom5_UnderGround.lua",
+      "graph_sha256": "72bddd85273702560b22616f5cf47795128f0ecafae674ac23c74ee1d380fcfc",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "35100": {
+      "mid": 35100,
+      "source": "Dungeon_Devildom5_Arena.lua",
+      "graph_sha256": "4f9fd1bf57aa26c0c686728b5ace50c9f7221ebbd0bcc27a248acbccc4b712c6",
+      "stages": 5,
+      "minimum_level": 99,
+      "conditions": [
+        8,
+        16,
+        37,
+        44,
+        63
+      ]
+    },
+    "35340": {
+      "mid": 35340,
+      "source": "Dungeon_Devildom6_Street.lua",
+      "graph_sha256": "c65eec1f5122894e35dfd69928a32ec0d121aa4640de91562c2ac6ab28fbafcc",
+      "stages": 3,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "35350": {
+      "mid": 35350,
+      "source": "Dungeon_Devildom6_Workshop.lua",
+      "graph_sha256": "bc117a0857ec124e66d4bd938f1c78255d6137abf04b8cc8d7675a5a843ca0c3",
+      "stages": 3,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "35360": {
+      "mid": 35360,
+      "source": "Dungeon_Devildom6_Garden.lua",
+      "graph_sha256": "d469d5f21de31b706756eb6c437276406cd15f226d3ef52de82f0a208d12648a",
+      "stages": 3,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "35690": {
+      "mid": 35690,
+      "source": "Dungeon_Devildom6_Side1.lua",
+      "graph_sha256": "55c4f45216a764e01124e8f99cea59b063efb389b5b5f8e0d52897c82eb3d256",
+      "stages": 5,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    },
+    "35890": {
+      "mid": 35890,
+      "source": "Dungeon_Devildom7_TransPort.lua",
+      "graph_sha256": "c81e55a2463fff33a3f06af82f14f5769700694401efcf61cec443a1175d0524",
+      "stages": 4,
+      "minimum_level": 99,
+      "conditions": [
+        16,
+        44,
+        63
+      ]
+    }
+  },
+  "buffs": {
+    "368": {
+      "factor": 393,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "369": {
+      "factor": 394,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "380": {
+      "factor": 407,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "381": {
+      "factor": 408,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "382": {
+      "factor": 409,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "383": {
+      "factor": 410,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "384": {
+      "factor": 411,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "385": {
+      "factor": 412,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "386": {
+      "factor": 413,
+      "period": 1800,
+      "maximum_stacks": 3
+    },
+    "387": {
+      "factor": 414,
+      "period": 1800,
+      "maximum_stacks": 3
+    }
+  },
+  "source_selection": "Finite first qualification: current formal ordinary routes, positive native ordinary-party flag63, multiple world stages; explicit special/restricted and nonstandard entries excluded. No missing dungeon-type-as-zero inference. Further sources remain subject to qualification.",
+  "bonus_basis": "Additional floor(original GM-pinned clear EXP * percent /100), independently from title bonuses; original ERP10x once after addition.",
+  "trigger": "Existing all-roster fatigue BEGIN IMMEDIATE at the original second world-stage loaded barrier, once per original epoch; old unsealed runs are not backfilled."
+}
