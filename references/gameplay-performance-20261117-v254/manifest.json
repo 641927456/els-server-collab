@@ -1,0 +1,700 @@
+{
+  "release": "gameplay-performance-20261117-v254",
+  "parent_release": "performance-shared-20261117-v252",
+  "files": [
+    {
+      "path": "els_server/storage/world_elixirs.py",
+      "size": 18254,
+      "sha256": "f46cb9dd791520285cee8ad35836ef961984970cb89dd84654e5f3643d95b441",
+      "parent_sha256": "82c482a3286364e3be7185dedea672ae8822f0d1fd0205aeb2a6d52b39500516",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/mount_state.py",
+      "size": 10344,
+      "sha256": "45bb146151ad506c26f319c4fb519c9b1c24b98b4329ccc93c2f8cf9d86d1fad",
+      "parent_sha256": "35c32f62f9fe7924f9d220eb383774c431bfaeb75f09f9437ef726ba04a57f1c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/growth_guide_flow.py",
+      "size": 8179,
+      "sha256": "ccdb89f22cc7ba636bff10dccdcc6971fbd45007a9283f2779aaf2992bfc42bb",
+      "parent_sha256": "dfd3bc1873732ef27540ee703464a5ccda10cea05a945d7cbf724493374a5838",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/bag_moves.py",
+      "size": 5438,
+      "sha256": "8b7256567b525700077ee13fbf0436564e45ec18b159b8547f3e01ac158f65ce",
+      "parent_sha256": "072f8c362af0faf064a42e83024a89a12611805b657b0edb6fc45964eb1f00d5",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/dungeon_workers.py",
+      "size": 32781,
+      "sha256": "3ba0d2cc16a67fcbe82c4e3efc00bf5ae55a29d0cd6c339527873ea6d642ce7c",
+      "parent_sha256": "aa352dbb361cb57beefe0a08fadb05686e587fffd63c5651a960891ed7ddd7c0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/friend_flow.py",
+      "size": 9923,
+      "sha256": "efd840effb6bf1a6b5098fa2fef12242e86318eead7a56eb0db3c6e40f39d8a3",
+      "parent_sha256": "821f6189402e381c9ac09c0646b48a25fe7d729d8d6920475b37e8b393fcdf95",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/mentor_flow.py",
+      "size": 16762,
+      "sha256": "bf1c55f49c049e15dd58be5a5ba4f5cff819fcded723093a83a23fc39a6755f6",
+      "parent_sha256": "a348a340024ec04b4c3db9b96ecfaf2066cc6ff637ca980c23b82fb716a8d57f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/death_writer.py",
+      "size": 8859,
+      "sha256": "f20a3cbc2159050248167506d09e36bc34bf0e62e0365531d7d4bb768324d827",
+      "parent_sha256": "7498921d7e92aa334f68da52f0ddb1a8ed66bfd645088fcf1599fde516cf65de",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/coin_writer.py",
+      "size": 8902,
+      "sha256": "ad01c591aa67b40447abd73a292175feba9eaa89f48cfd4f87cb9100e969cc0e",
+      "parent_sha256": "25817f30b8085051eec8793c28cbe2cc8ea23176349ecd229bab2a26a217cf00",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "size": 180900,
+      "sha256": "d852f5746d82812059458513e2f74ad55ead140170518ec8a5e279804531200c",
+      "parent_sha256": "3b24fa79d0357965ac50c03589edc8030040ad4b19ef0bfaa1dcead1785be4e6",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_flow.py",
+      "size": 9695,
+      "sha256": "c2362f764a3629e4c6d655510f7866dd0a8be5708115711df36d67369b930551",
+      "parent_sha256": "f31d61a9aacd3a73000ff3a637c1a4d27c059da2dfb2388896a85d73f95afdad",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/friends_relay.py",
+      "size": 22257,
+      "sha256": "a95cc4877d46b7e1b7fb44dbbb4f9f267fa0f3373ed712b1bd768c8eed1f90e0",
+      "parent_sha256": "2c42c94a0933f87484891de59cdc7cace8ab485c955a949b5fd673ab61790620",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/gameplay_diagnostics.py",
+      "size": 13950,
+      "sha256": "27fb8fd6af3800d75b37212322b23ae1d5a8a0a24f6462bb6300d67fee954c9e",
+      "parent_sha256": "89386f504eb57fa2c5e2a8e2eb43640f36be3675132a859f1fecc28929be2e2e",
+      "scope": "server"
+    },
+    {
+      "path": "tools/client_delivery_profile.json",
+      "size": 9168,
+      "sha256": "d6ad9be5c481a9f9cec53363b44852f5c44f6a3da9431b6dd6085f3d7a63c0b3",
+      "parent_sha256": "ce5d1ddf77c630c415be95247285e321015440a0b2083489a342850873d91e49",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "size": 269289,
+      "sha256": "2689c51e52236ebaee6d0cd8e6b5d0978e33896a26d81cc391e00cc3eb09bece",
+      "parent_sha256": "a676a0953677eba9f49492a3f6c7e8f928edaa5de07d7691fed4e551d9aeb019",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "size": 182,
+      "sha256": "dfaed4f40b2ce88341f2f435b0397007b7c2e8e6898ebb883c612d6e27b65bce",
+      "parent_sha256": "d63d9cc95054f0501b5107d85351c0194e119b1906b1ae313a7d824b0a762bc7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/aqua_whistle_loot.py",
+      "size": 1928,
+      "sha256": "e79d114e5a69fc1715585fe02867dd9d1b086efb61dff50d9b6f749d96468bb7",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/atma_temple_reward_flow.py",
+      "size": 5855,
+      "sha256": "ed2f4c4aa215f9dbfb3a10b5d09d956832a0a78e9e76c669b28e585c6a37f9d1",
+      "parent_sha256": "0bfb20bf4a14a64a5326c0d010538a271f95644a57ac473fa46844f1227cec22",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/camilla_ap_shop.py",
+      "size": 2869,
+      "sha256": "ee282d7f45b85bbd3be2132e799958dcbb88782a6f28b4b8de1913d175081d08",
+      "parent_sha256": "524de35923cbe26a6345ec0d5d3aebdd8ed8baccecf4e8d9d2b03c63fd75c5d2",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/client_reward_power.py",
+      "size": 6922,
+      "sha256": "17acd2824f53ae244847460038a6cc3ab014bedac20548197bb6035063c5a7be",
+      "parent_sha256": "ead088f16c0551aa0e033ec42d0392469e9e020a141daece0f4f29407a5eb272",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_diagnostics.py",
+      "size": 5920,
+      "sha256": "ac860a599d519a72af4c4cd7fbea1678522a6dbc82d7d1f479271d93855f11cf",
+      "parent_sha256": "de4951d3af6011c979f262b647819f48f0c1d8536e83f631ebb03a31c29aa113",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_environment_phases.py",
+      "size": 7483,
+      "sha256": "7d55caff0b0f305d9ee722a71d17cce5d924d19f99cfdf0297e2d15112d41143",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_requests.py",
+      "size": 11229,
+      "sha256": "727f5be4e918227dec7aac4b7c3d90279e7c1dc9ce1218423a3d8446da48acbd",
+      "parent_sha256": "edb706c1dc4ad4b24bf0d8284e7ca414727a67441cd6f3a5587ac5666985a332",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_spawns.py",
+      "size": 9656,
+      "sha256": "4c45493c730856137be306a44b723264502ef20399a71a7bd6b3e7cfc3f30b1b",
+      "parent_sha256": "c9ae4588aac99978c80cff4b9e22fa854440d8250b7cb816f56cfb0386be59e9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/elixir_flow.py",
+      "size": 8938,
+      "sha256": "799a604801df06bd639e6ddb22f4bd2d6adee51d51cd924c08b0657fb5760b9c",
+      "parent_sha256": "554a30198b0772243231a5d49ad43dbc9dcbfe87dcd86f653b3dc4de034671a2",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "size": 13809,
+      "sha256": "df6bd2401677a21cfe0e0a963ade3071edae89e398100dcb7f9d07f6445369b0",
+      "parent_sha256": "e4073d7f9f3c2c13cd503bad66e6e7cbc70709b580ae8ba3d5fe800a9fdf3e62",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "size": 28274,
+      "sha256": "e8adae11b16c66996dc1dea05e2090f8ac41c30dc9e1b57a8f412faab1b6a0d8",
+      "parent_sha256": "4c599b34086e53a1c09fd5b8977b63265e49ea47826dc1e92f29a9d19e7ce6c0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/giant_misc_loot.py",
+      "size": 7734,
+      "sha256": "26b13de7f1d161fc1f6eb3490a58aaf068f7b22786d487629ad79599324642da",
+      "parent_sha256": "b87fd2ee156e0f9d8c06cbd4fe66dd660bade391293b96cfcc23acf35391ecb1",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/group_wear.py",
+      "size": 11328,
+      "sha256": "56ddd908108a227d014711625e9a06c49be3ae71284f87b044e713e65b10f110",
+      "parent_sha256": "bd1ba7c3aa247c3f8a23bd840b07397fde85b7306e76423cd202c04b5bc9d6c6",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/magma_coupon.py",
+      "size": 5951,
+      "sha256": "f8e1f2475168f548349d9d4375810890eb785fc27478869786f548ca5f6c71cb",
+      "parent_sha256": "ff334f2341fd1cc1a471baf75e569c6067530d14de3b55b1ce1214458bd17026",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/npc_training_flow.py",
+      "size": 5229,
+      "sha256": "30f1fa291824f776e16092894d711e380ad46e0f775eab67c978ef868d26c42c",
+      "parent_sha256": "34eeb952fcb4bdc352fd2bb826135a3fce0dcb45b606973081cac0a294820808",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "size": 16064,
+      "sha256": "7f1d7a3d4f437df3810e5459cae482ecd089b2b4045b83f81d01048b5e2c1f6c",
+      "parent_sha256": "4a5e135de6ae8321b51ec87dd914472a6f09e1610d1a9f253a980e1eda1dbc24",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "size": 1058066,
+      "sha256": "8d162d20130dcfea2c72223b1390c23fa32df9ce5af76c91e69ac88be1aec6d8",
+      "parent_sha256": "4a1e4d41e81df7fbc6ac3d110ad2de970a3072b5524dca1798e668ea2e8c756b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/skill_essence_eligibility.py",
+      "size": 2368,
+      "sha256": "7cc0ead6be81a54b5950c66020c466e2c575a52f9f3439259fc87d49ddd5f894",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/npc_trade_messages.py",
+      "size": 2596,
+      "sha256": "66546cbc377cdfb53abebf1eaad292569153246306ffb77f57367bfb57516782",
+      "parent_sha256": "291594b2c2579845b7e80ca7731a0a61c8f1da75cc7ca61ad18265243da895c7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/world_buff_messages.py",
+      "size": 3333,
+      "sha256": "a64c2999d2ad72a293d668169bf39e93bbd15af0ad30e3a66b43a97d24e06f2f",
+      "parent_sha256": "ae48cae5838d0f751dffebd6718205b59c3f94c7f7638675b3f9f8ba33c4db4f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/atma_temple_weekly.py",
+      "size": 1527,
+      "sha256": "132f6e05aebb6d15e41fc9ca455a467ae96f30adc0550505045b2568bd74e82f",
+      "parent_sha256": "2e98812a5a1f1445cef668cf460138ea999ec7f63985bfada0b8210441ceab4d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/boosting_2026_essence.py",
+      "size": 6421,
+      "sha256": "94fc6b7d96f6766d12b97203bc8b3b7ba5907e9d1915d954c8146f0007cd060a",
+      "parent_sha256": "0fb0e030289babbae0e236b0ee389aaf1f9154597443e29c3990b6f30272d9da",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "size": 39039,
+      "sha256": "a78f6f8c5b85f68d49bec1309f8f72484eea877c9f73d20a1b5018a69f986e08",
+      "parent_sha256": "fc9ffdf9fc1a6406d0f97d2576ea6ca20ab298ca5e60b0ec12e37a97e286e769",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "size": 15212,
+      "sha256": "7d5180bccd58e55a7a0e5ccfecd9d211d7d7ba12e9341bd3ad0a0118561e4e1b",
+      "parent_sha256": "0cb8c0e1d7017ee36402ebdae33c86b80e7585e7a219b5949753cbc899e5a97e",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/ordinary_misc_loot.py",
+      "size": 6259,
+      "sha256": "7f5c040df9b817b57fdf79d5d857d145d99d4af42f3c31333858386492f6683c",
+      "parent_sha256": "7c5a49973221f04f22d0232803e6843ae4c55659f9a1d4f2ed6014bcba85e1ca",
+      "scope": "server"
+    },
+    {
+      "path": "analysis/ara-missing-fashion-20261117-v1/human-policy.json",
+      "size": 394,
+      "sha256": "3bb2760b1bcf7af5a9874c0c3691ecefeb745c756e3783a42f03e4b4bfb458aa",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "analysis/client-6c6b5180/extended-shop-body-proof.json",
+      "size": 2869590,
+      "sha256": "c7e00d6ebd52804b15d2079aa67a5abbffd0e5eb9a74abf5a6fe66620f822d10",
+      "parent_sha256": "5981e02a2bfe265088410a2466514d0aae9108a1c14e0ca8b71850be4b2f12cc",
+      "scope": "support"
+    },
+    {
+      "path": "analysis/client-6c6b5180/extended-shop-catalog.json",
+      "size": 5314741,
+      "sha256": "4ad41d651d07c1f4693b9a65b6255884b7c3270357d3d87d70995881675a7b47",
+      "parent_sha256": "93ee60c841305cf3cbb5ac60aafdbfe5a71c2330ebc72844bee7be4cb56989b2",
+      "scope": "support"
+    },
+    {
+      "path": "analysis/shop-listing-20261015/bundle-order.json",
+      "size": 1114587,
+      "sha256": "cbd75c430e6b029da1fa51533fb5b134e27c85e4afd25a62d69aeac7a150e47f",
+      "parent_sha256": "d0feeb89f36107f3e6690d4a9ad8d9242e1a80db69fb91ee23ea2e5d7c11c56e",
+      "scope": "support"
+    },
+    {
+      "path": "analysis/shop-listing-20261015/fashion-bundles-body-proof.json",
+      "size": 20674872,
+      "sha256": "36ec5af96fd230a4fb11ceccd10a4bd65972bf471dfb580404fb1b0f69f5fde7",
+      "parent_sha256": "cb0c693630967ad86b49d1936ccc2382a72c179318b2208608dfa6104af1e509",
+      "scope": "support"
+    },
+    {
+      "path": "analysis/shop-listing-20261015/fashion-bundles.json",
+      "size": 35250826,
+      "sha256": "a6363982222bdac7aa846f6410c237f6ae6815f69a83bc942e24001b4ba63c65",
+      "parent_sha256": "db2347289e3b985dcc603221e2d25dfe3998c1c1e3af6412b800767e00cb399a",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/storage/lifecycle.py",
+      "size": 3734,
+      "sha256": "781c91de4c47bd25807ac8264bd18a42309bd7bfed51dfff0819910688e4feab",
+      "parent_sha256": "fcef1e60aa9ed59f8a778d0eae903d1cf0016d20940f7ad4937f94a0a7c20057",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/__main__.py",
+      "size": 9616,
+      "sha256": "4a41c95ff5df02eec668edfa36e8fde40027090af7d2fa4a8e29f2dc0e77de74",
+      "parent_sha256": "3a448d7a43c3cd8d971353098ce41608fcd2d4097c3b6504fbc29790cfe86063",
+      "scope": "server"
+    }
+  ],
+  "shared_files": [
+    {
+      "path": "els_server/storage/world_elixirs.py",
+      "size": 18254,
+      "sha256": "f46cb9dd791520285cee8ad35836ef961984970cb89dd84654e5f3643d95b441",
+      "parent_sha256": "82c482a3286364e3be7185dedea672ae8822f0d1fd0205aeb2a6d52b39500516",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/mount_state.py",
+      "size": 10344,
+      "sha256": "45bb146151ad506c26f319c4fb519c9b1c24b98b4329ccc93c2f8cf9d86d1fad",
+      "parent_sha256": "35c32f62f9fe7924f9d220eb383774c431bfaeb75f09f9437ef726ba04a57f1c",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/growth_guide_flow.py",
+      "size": 8179,
+      "sha256": "ccdb89f22cc7ba636bff10dccdcc6971fbd45007a9283f2779aaf2992bfc42bb",
+      "parent_sha256": "dfd3bc1873732ef27540ee703464a5ccda10cea05a945d7cbf724493374a5838",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/bag_moves.py",
+      "size": 5438,
+      "sha256": "8b7256567b525700077ee13fbf0436564e45ec18b159b8547f3e01ac158f65ce",
+      "parent_sha256": "072f8c362af0faf064a42e83024a89a12611805b657b0edb6fc45964eb1f00d5",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/dungeon_workers.py",
+      "size": 32781,
+      "sha256": "3ba0d2cc16a67fcbe82c4e3efc00bf5ae55a29d0cd6c339527873ea6d642ce7c",
+      "parent_sha256": "aa352dbb361cb57beefe0a08fadb05686e587fffd63c5651a960891ed7ddd7c0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/friend_flow.py",
+      "size": 9923,
+      "sha256": "efd840effb6bf1a6b5098fa2fef12242e86318eead7a56eb0db3c6e40f39d8a3",
+      "parent_sha256": "821f6189402e381c9ac09c0646b48a25fe7d729d8d6920475b37e8b393fcdf95",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/mentor_flow.py",
+      "size": 16762,
+      "sha256": "bf1c55f49c049e15dd58be5a5ba4f5cff819fcded723093a83a23fc39a6755f6",
+      "parent_sha256": "a348a340024ec04b4c3db9b96ecfaf2066cc6ff637ca980c23b82fb716a8d57f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/death_writer.py",
+      "size": 8859,
+      "sha256": "f20a3cbc2159050248167506d09e36bc34bf0e62e0365531d7d4bb768324d827",
+      "parent_sha256": "7498921d7e92aa334f68da52f0ddb1a8ed66bfd645088fcf1599fde516cf65de",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/coin_writer.py",
+      "size": 8902,
+      "sha256": "ad01c591aa67b40447abd73a292175feba9eaa89f48cfd4f87cb9100e969cc0e",
+      "parent_sha256": "25817f30b8085051eec8793c28cbe2cc8ea23176349ecd229bab2a26a217cf00",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "size": 180900,
+      "sha256": "d852f5746d82812059458513e2f74ad55ead140170518ec8a5e279804531200c",
+      "parent_sha256": "3b24fa79d0357965ac50c03589edc8030040ad4b19ef0bfaa1dcead1785be4e6",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/title_flow.py",
+      "size": 9695,
+      "sha256": "c2362f764a3629e4c6d655510f7866dd0a8be5708115711df36d67369b930551",
+      "parent_sha256": "f31d61a9aacd3a73000ff3a637c1a4d27c059da2dfb2388896a85d73f95afdad",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/friends_relay.py",
+      "size": 22257,
+      "sha256": "a95cc4877d46b7e1b7fb44dbbb4f9f267fa0f3373ed712b1bd768c8eed1f90e0",
+      "parent_sha256": "2c42c94a0933f87484891de59cdc7cace8ab485c955a949b5fd673ab61790620",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/gameplay_diagnostics.py",
+      "size": 13950,
+      "sha256": "27fb8fd6af3800d75b37212322b23ae1d5a8a0a24f6462bb6300d67fee954c9e",
+      "parent_sha256": "89386f504eb57fa2c5e2a8e2eb43640f36be3675132a859f1fecc28929be2e2e",
+      "scope": "server"
+    },
+    {
+      "path": "tools/client_delivery_profile.json",
+      "size": 9168,
+      "sha256": "d6ad9be5c481a9f9cec53363b44852f5c44f6a3da9431b6dd6085f3d7a63c0b3",
+      "parent_sha256": "ce5d1ddf77c630c415be95247285e321015440a0b2083489a342850873d91e49",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "size": 269289,
+      "sha256": "2689c51e52236ebaee6d0cd8e6b5d0978e33896a26d81cc391e00cc3eb09bece",
+      "parent_sha256": "a676a0953677eba9f49492a3f6c7e8f928edaa5de07d7691fed4e551d9aeb019",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "size": 182,
+      "sha256": "dfaed4f40b2ce88341f2f435b0397007b7c2e8e6898ebb883c612d6e27b65bce",
+      "parent_sha256": "d63d9cc95054f0501b5107d85351c0194e119b1906b1ae313a7d824b0a762bc7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/aqua_whistle_loot.py",
+      "size": 1928,
+      "sha256": "e79d114e5a69fc1715585fe02867dd9d1b086efb61dff50d9b6f749d96468bb7",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/atma_temple_reward_flow.py",
+      "size": 5855,
+      "sha256": "ed2f4c4aa215f9dbfb3a10b5d09d956832a0a78e9e76c669b28e585c6a37f9d1",
+      "parent_sha256": "0bfb20bf4a14a64a5326c0d010538a271f95644a57ac473fa46844f1227cec22",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/camilla_ap_shop.py",
+      "size": 2869,
+      "sha256": "ee282d7f45b85bbd3be2132e799958dcbb88782a6f28b4b8de1913d175081d08",
+      "parent_sha256": "524de35923cbe26a6345ec0d5d3aebdd8ed8baccecf4e8d9d2b03c63fd75c5d2",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/client_reward_power.py",
+      "size": 6922,
+      "sha256": "17acd2824f53ae244847460038a6cc3ab014bedac20548197bb6035063c5a7be",
+      "parent_sha256": "ead088f16c0551aa0e033ec42d0392469e9e020a141daece0f4f29407a5eb272",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_diagnostics.py",
+      "size": 5920,
+      "sha256": "ac860a599d519a72af4c4cd7fbea1678522a6dbc82d7d1f479271d93855f11cf",
+      "parent_sha256": "de4951d3af6011c979f262b647819f48f0c1d8536e83f631ebb03a31c29aa113",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_environment_phases.py",
+      "size": 7483,
+      "sha256": "7d55caff0b0f305d9ee722a71d17cce5d924d19f99cfdf0297e2d15112d41143",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_requests.py",
+      "size": 11229,
+      "sha256": "727f5be4e918227dec7aac4b7c3d90279e7c1dc9ce1218423a3d8446da48acbd",
+      "parent_sha256": "edb706c1dc4ad4b24bf0d8284e7ca414727a67441cd6f3a5587ac5666985a332",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/dungeon_spawns.py",
+      "size": 9656,
+      "sha256": "4c45493c730856137be306a44b723264502ef20399a71a7bd6b3e7cfc3f30b1b",
+      "parent_sha256": "c9ae4588aac99978c80cff4b9e22fa854440d8250b7cb816f56cfb0386be59e9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/elixir_flow.py",
+      "size": 8938,
+      "sha256": "799a604801df06bd639e6ddb22f4bd2d6adee51d51cd924c08b0657fb5760b9c",
+      "parent_sha256": "554a30198b0772243231a5d49ad43dbc9dcbfe87dcd86f653b3dc4de034671a2",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "size": 13809,
+      "sha256": "df6bd2401677a21cfe0e0a963ade3071edae89e398100dcb7f9d07f6445369b0",
+      "parent_sha256": "e4073d7f9f3c2c13cd503bad66e6e7cbc70709b580ae8ba3d5fe800a9fdf3e62",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "size": 28274,
+      "sha256": "e8adae11b16c66996dc1dea05e2090f8ac41c30dc9e1b57a8f412faab1b6a0d8",
+      "parent_sha256": "4c599b34086e53a1c09fd5b8977b63265e49ea47826dc1e92f29a9d19e7ce6c0",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/giant_misc_loot.py",
+      "size": 7734,
+      "sha256": "26b13de7f1d161fc1f6eb3490a58aaf068f7b22786d487629ad79599324642da",
+      "parent_sha256": "b87fd2ee156e0f9d8c06cbd4fe66dd660bade391293b96cfcc23acf35391ecb1",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/group_wear.py",
+      "size": 11328,
+      "sha256": "56ddd908108a227d014711625e9a06c49be3ae71284f87b044e713e65b10f110",
+      "parent_sha256": "bd1ba7c3aa247c3f8a23bd840b07397fde85b7306e76423cd202c04b5bc9d6c6",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/magma_coupon.py",
+      "size": 5951,
+      "sha256": "f8e1f2475168f548349d9d4375810890eb785fc27478869786f548ca5f6c71cb",
+      "parent_sha256": "ff334f2341fd1cc1a471baf75e569c6067530d14de3b55b1ce1214458bd17026",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/npc_training_flow.py",
+      "size": 5229,
+      "sha256": "30f1fa291824f776e16092894d711e380ad46e0f775eab67c978ef868d26c42c",
+      "parent_sha256": "34eeb952fcb4bdc352fd2bb826135a3fce0dcb45b606973081cac0a294820808",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "size": 16064,
+      "sha256": "7f1d7a3d4f437df3810e5459cae482ecd089b2b4045b83f81d01048b5e2c1f6c",
+      "parent_sha256": "4a5e135de6ae8321b51ec87dd914472a6f09e1610d1a9f253a980e1eda1dbc24",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "size": 1058066,
+      "sha256": "8d162d20130dcfea2c72223b1390c23fa32df9ce5af76c91e69ac88be1aec6d8",
+      "parent_sha256": "4a1e4d41e81df7fbc6ac3d110ad2de970a3072b5524dca1798e668ea2e8c756b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/skill_essence_eligibility.py",
+      "size": 2368,
+      "sha256": "7cc0ead6be81a54b5950c66020c466e2c575a52f9f3439259fc87d49ddd5f894",
+      "parent_sha256": null,
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/npc_trade_messages.py",
+      "size": 2596,
+      "sha256": "66546cbc377cdfb53abebf1eaad292569153246306ffb77f57367bfb57516782",
+      "parent_sha256": "291594b2c2579845b7e80ca7731a0a61c8f1da75cc7ca61ad18265243da895c7",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/protocol/world_buff_messages.py",
+      "size": 3333,
+      "sha256": "a64c2999d2ad72a293d668169bf39e93bbd15af0ad30e3a66b43a97d24e06f2f",
+      "parent_sha256": "ae48cae5838d0f751dffebd6718205b59c3f94c7f7638675b3f9f8ba33c4db4f",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/atma_temple_weekly.py",
+      "size": 1527,
+      "sha256": "132f6e05aebb6d15e41fc9ca455a467ae96f30adc0550505045b2568bd74e82f",
+      "parent_sha256": "2e98812a5a1f1445cef668cf460138ea999ec7f63985bfada0b8210441ceab4d",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/boosting_2026_essence.py",
+      "size": 6421,
+      "sha256": "94fc6b7d96f6766d12b97203bc8b3b7ba5907e9d1915d954c8146f0007cd060a",
+      "parent_sha256": "0fb0e030289babbae0e236b0ee389aaf1f9154597443e29c3990b6f30272d9da",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "size": 39039,
+      "sha256": "a78f6f8c5b85f68d49bec1309f8f72484eea877c9f73d20a1b5018a69f986e08",
+      "parent_sha256": "fc9ffdf9fc1a6406d0f97d2576ea6ca20ab298ca5e60b0ec12e37a97e286e769",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "size": 15212,
+      "sha256": "7d5180bccd58e55a7a0e5ccfecd9d211d7d7ba12e9341bd3ad0a0118561e4e1b",
+      "parent_sha256": "0cb8c0e1d7017ee36402ebdae33c86b80e7585e7a219b5949753cbc899e5a97e",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/ordinary_misc_loot.py",
+      "size": 6259,
+      "sha256": "7f5c040df9b817b57fdf79d5d857d145d99d4af42f3c31333858386492f6683c",
+      "parent_sha256": "7c5a49973221f04f22d0232803e6843ae4c55659f9a1d4f2ed6014bcba85e1ca",
+      "scope": "server"
+    },
+    {
+      "path": "analysis/ara-missing-fashion-20261117-v1/human-policy.json",
+      "size": 394,
+      "sha256": "3bb2760b1bcf7af5a9874c0c3691ecefeb745c756e3783a42f03e4b4bfb458aa",
+      "parent_sha256": null,
+      "scope": "support"
+    },
+    {
+      "path": "analysis/client-6c6b5180/extended-shop-body-proof.json",
+      "size": 2869590,
+      "sha256": "c7e00d6ebd52804b15d2079aa67a5abbffd0e5eb9a74abf5a6fe66620f822d10",
+      "parent_sha256": "5981e02a2bfe265088410a2466514d0aae9108a1c14e0ca8b71850be4b2f12cc",
+      "scope": "support"
+    },
+    {
+      "path": "analysis/client-6c6b5180/extended-shop-catalog.json",
+      "size": 5314741,
+      "sha256": "4ad41d651d07c1f4693b9a65b6255884b7c3270357d3d87d70995881675a7b47",
+      "parent_sha256": "93ee60c841305cf3cbb5ac60aafdbfe5a71c2330ebc72844bee7be4cb56989b2",
+      "scope": "support"
+    },
+    {
+      "path": "analysis/shop-listing-20261015/bundle-order.json",
+      "size": 1114587,
+      "sha256": "cbd75c430e6b029da1fa51533fb5b134e27c85e4afd25a62d69aeac7a150e47f",
+      "parent_sha256": "d0feeb89f36107f3e6690d4a9ad8d9242e1a80db69fb91ee23ea2e5d7c11c56e",
+      "scope": "support"
+    },
+    {
+      "path": "analysis/shop-listing-20261015/fashion-bundles-body-proof.json",
+      "size": 20674872,
+      "sha256": "36ec5af96fd230a4fb11ceccd10a4bd65972bf471dfb580404fb1b0f69f5fde7",
+      "parent_sha256": "cb0c693630967ad86b49d1936ccc2382a72c179318b2208608dfa6104af1e509",
+      "scope": "support"
+    },
+    {
+      "path": "analysis/shop-listing-20261015/fashion-bundles.json",
+      "size": 35250826,
+      "sha256": "a6363982222bdac7aa846f6410c237f6ae6815f69a83bc942e24001b4ba63c65",
+      "parent_sha256": "db2347289e3b985dcc603221e2d25dfe3998c1c1e3af6412b800767e00cb399a",
+      "scope": "support"
+    },
+    {
+      "path": "els_server/storage/lifecycle.py",
+      "size": 3734,
+      "sha256": "781c91de4c47bd25807ac8264bd18a42309bd7bfed51dfff0819910688e4feab",
+      "parent_sha256": "fcef1e60aa9ed59f8a778d0eae903d1cf0016d20940f7ad4937f94a0a7c20057",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/__main__.py",
+      "size": 9616,
+      "sha256": "4a41c95ff5df02eec668edfa36e8fde40027090af7d2fa4a8e29f2dc0e77de74",
+      "parent_sha256": "3a448d7a43c3cd8d971353098ce41608fcd2d4097c3b6504fbc29790cfe86063",
+      "scope": "server"
+    }
+  ],
+  "desktop_files": [],
+  "runtime_files": 2158,
+  "lazy_tables": [],
+  "installed_online": false,
+  "installed_local": false,
+  "natural_GUI": false
+}

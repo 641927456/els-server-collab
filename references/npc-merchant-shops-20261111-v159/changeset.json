@@ -1,0 +1,122 @@
+{
+  "release": "npc-merchant-shops-20261111-v159",
+  "patch_sha256": "93f642db5633f561f21378c5f174104964b044255509d56fb599c1fc3a6b186e",
+  "parents": {
+    "online": {
+      "release": "avatar-set-diagnostic-20261111-v158",
+      "manifest_sha256": "856cecfa161d26d46095c66e48fa2555bc6a151368b8abeb0b6fc86f603651ba"
+    },
+    "local": {
+      "release": "unified-server-2400ad70cef31ad7-910c8e7b6c29",
+      "manifest_sha256": "a7ae25a240ab8e9916bcadf416e97b4c71277f3948fa9cf0daf013fb3dc3647b"
+    },
+    "launchers": {
+      "release": "avatar-set-diagnostic-20261111-v158",
+      "manifest_sha256": "4c4e9937022f5729108398a0e1b1760e2c14fa8d9785304d5a85763bddb82bb4"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "130a4dd60a0d2f3230b1f663c982280fe9fb4b2fe74d74a8a51fed5ac31a5597",
+      "sha256": "ad518241de9cc3cac43a08357a39ab9f343f1dd870afe3705289ac01bef04863",
+      "size": 19828
+    },
+    {
+      "path": "els_server/domain/bank_rules.py",
+      "parent_sha256": "3e389cf11b199a4b843156e5246a3dcc6628c3ba49f7c151d9e54e77a8c04917",
+      "sha256": "fa5e573019537e94e6f1d02315a183bd4469ff1dbaa8b78b5a2b6bea4e24ecff",
+      "size": 2774
+    },
+    {
+      "path": "els_server/domain/el_search_collection_flow.py",
+      "parent_sha256": "ac57dd1ec93dc181f7a890a0c548db419e1439ce6f38d1db178583dfbad47790",
+      "sha256": "13b42ed7e6a2d685a548f8b97ef95513fbfc76e27e75801e597423aec3fe1cfa",
+      "size": 3870
+    },
+    {
+      "path": "els_server/domain/el_search_collection_quest.py",
+      "parent_sha256": "2919a086187c452b430c68e3ef9c08c07c26ec2789f2f06720313f5d65b3c752",
+      "sha256": "1b5eb1e311bcd93a5daa9702ccadff2dc1c97fb31a47ab2da0dfdf86a07d1910",
+      "size": 3013
+    },
+    {
+      "path": "els_server/domain/el_search_collection_tickets.py",
+      "parent_sha256": "3df0a731f5d21efebfa0839037f1354df0d7e7c473abf45c92a4b1546789c86a",
+      "sha256": "121b04f0bbe74eef644e0cb243d8c57be3e1c4d3ce3680545c837216d27ca430",
+      "size": 2228
+    },
+    {
+      "path": "els_server/domain/ep_accessory_boxes.py",
+      "parent_sha256": null,
+      "sha256": "a80ff649125287b6ebe745fec8b01942194d7e1c170f6c057ab7ea641c387f3e",
+      "size": 1905
+    },
+    {
+      "path": "els_server/domain/ep_shop.py",
+      "parent_sha256": "8cd6b70681d30994d736b9279d97b69c228f8a58328fce74b55b40a4ebc9c5d5",
+      "sha256": "4e9449b324dbef7d843a9333cd846536e612e7298d738a3ee9c6c982421216b4",
+      "size": 4737
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "e5fe5d213575944d2c812dd595956535ad563bc3fdeb5c413553297df87c4ecf",
+      "sha256": "f977b3f2ac51752ea21a640f483ceb3c3269c406277163f0f65fa51967b28e12",
+      "size": 99464
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "1d351544d8135861ef01b61edb0ddb711fdd8be2f11120140f43dfbfbeb4aa76",
+      "sha256": "d235d8afb183eccd6ae0f67ecbcf011fa987778282ac6c31daa0ef2347cc278b",
+      "size": 168979
+    },
+    {
+      "path": "els_server/domain/owned_reward_boxes.py",
+      "parent_sha256": "22cbf6974e2a9ece731dbf8eff15476d3596e3fddace1b6a32749db30f3f57bc",
+      "sha256": "3f984a0f34d9d0ff98667795a465358397394d1e47eb86fbafa0dffc9cab0e56",
+      "size": 5925
+    },
+    {
+      "path": "els_server/domain/shop_additions.py",
+      "parent_sha256": "7c11cb32a23c10272ccd950add2d8275c0ba7b062ae517356b5a8e6af70e95ee",
+      "sha256": "69ee1200154c696d3b5f0fec9a9e396232852a4269bb6ec2ef5829f1ff8b8a3c",
+      "size": 3484
+    },
+    {
+      "path": "els_server/protocol/ep_shop_messages.py",
+      "parent_sha256": "27f9a32f4b38b34224365ccd7e50bcccf1596f1c83af9608c56827c95753db1b",
+      "sha256": "90b8ffabc8480e87eaa88a3d7d695a31074f08c2cdf120fc8dab97a4a095973c",
+      "size": 5118
+    },
+    {
+      "path": "els_server/storage/el_search_collection.py",
+      "parent_sha256": "9e08bc8645faa2673182809fa0da90ee2d92414dc12aac78600487cf61509589",
+      "sha256": "00aba09192b119392c6f107fef1e3bb35517c9944b88b14420814ec118e1e674",
+      "size": 7724
+    },
+    {
+      "path": "els_server/storage/el_search_collection_tickets.py",
+      "parent_sha256": "c2f610315eb3f7531cd7da6939c6a945389513a1fc53091789d9fd0e2a37c171",
+      "sha256": "7f8d3fe7786daafce3c2bab38993998992efaba883a2ca75f7c3e78f57687d22",
+      "size": 6392
+    },
+    {
+      "path": "els_server/storage/ep_shop.py",
+      "parent_sha256": "5a03cbcae27d377d9ca6340d784d9e02beb4aea7bc5612e3ccf93c941db2c724",
+      "sha256": "18e18d0d620f5101bb2d32f128e25bebc00cceea900f5712021ad772d6a76d04",
+      "size": 9460
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "37e50a42ec01280f884cdf7461cda03eb6221bae190a89440276df86c7765f29",
+      "sha256": "16fbffcc35adf6e730c47d95e5db50b263d223d5083c57d6e947d08f27cb8659",
+      "size": 34919
+    },
+    {
+      "path": "els_server/storage/shop_state.py",
+      "parent_sha256": "d83f1f9a7bad58e3a5beed09571eecb7fcb3f6e799755ad7278923aee1521b2d",
+      "sha256": "2f070d4dab4786e387025b37431f4283aeecb9bf6cda603ec6f15bf3abc2e65e",
+      "size": 20526
+    }
+  ]
+}

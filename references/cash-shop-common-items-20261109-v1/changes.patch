@@ -1,0 +1,20 @@
+--- a/els_server/domain/shop_additions.py
++++ b/els_server/domain/shop_additions.py
+@@ -3,6 +3,11 @@
+ from els_server.paths import PROJECT_ROOT
+ from els_server.game_data import CLIENT_SHA,client_data
+ BASE=PROJECT_ROOT/'analysis/shop-standalone-20261015'
++
++# Ordinary Poru seals (normal, elite, unique, legendary armor) and enhancement protection.
++# The ordinary restoration scroll already has a 50 ED offer in the base catalog.
++SEAL_AND_PROTECTION = (710066, 710070, 710074, 119353, 163136, 163137)
++ARTIFACT_REROLL = (710329, 136226)
+ 
+ @functools.lru_cache(maxsize=2)
+ def catalog(name):
+@@ -37,4 +42,5 @@
+     return supplements+ticket_offers()+tuple(dict(sku=1200000000+template,template=template,
+         name=client_data().item(template)['name'],category=category,price=50,quantity=1)
+         for template,category in ((287960,41),(288494,41),(277141,32),(277142,32),(277150,32),
++                                  *((t,32) for t in SEAL_AND_PROTECTION + ARTIFACT_REROLL),
+                                   *((t,41)for t in SHOP_ITEMS)))
