@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_record_sha256": "4a1a9518259ccfbf463be79e4345f6a4b0a04126a0bbc2c7c249e6eedc366c7e",
+  "run_support_version": 122,
+  "exception_code": "0xc0000005",
+  "fault_rva": "0x3586543",
+  "cleanup_rva": "0x3586460",
+  "native_class": "STX::CX2STXMyBuff",
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "mechanism": "Cleanup calls original RemoveBuff(current key), whose map erasure releases the current node; cleanup then reads that erased node to increment its iterator.",
+  "same_run_heap_page_available": false,
+  "same_run_first_free_stack_available": false,
+  "live_virtual_target_captured": false,
+  "first_writer_identified": false,
+  "correlation": "Exact function, instruction and register roles strongly match the established same-image erased-node iteration defect.",
+  "raw_private_artifacts_included": false
+}

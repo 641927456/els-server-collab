@@ -1,0 +1,10 @@
+{
+  "ok": false,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "original_native_reader": true,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\test_housing_population_producer_r2.py\", line 19, in <module>\n    first=Characters(path,1).create('OwnHouseStatus',1,'owned-house-status')['uid']\n          ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\release-integration-v1\\qa\\source-v1\\els_server\\storage\\characters.py\", line 393, in create\n    validate_name(name)\n    ~~~~~~~~~~~~~^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\release-integration-v1\\qa\\source-v1\\els_server\\storage\\characters.py\", line 39, in validate_name\n    raise ValueError('Character name length')\nValueError: Character name length\n",
+  "housing_source_sha256": "82b9132e2c71e409da082c5ed06f6fdf36eaea581defb265187b06e0bc8c8975"
+}
