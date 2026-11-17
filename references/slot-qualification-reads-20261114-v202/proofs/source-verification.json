@@ -1,0 +1,111 @@
+{
+  "ok": true,
+  "created_utc": "2026-11-13T21:42:31.787084+00:00",
+  "parent": {
+    "release": "lean-reads-latency-20261114-v200",
+    "path": "releases/online/lean-reads-latency-20261114-v200",
+    "manifest_sha256": "5bbf03175ec29e79445cf6b7785e52a6a310926c5d46a0a37ed12afe3163b5b1",
+    "source_head": "86ad202dfa1c5d9ac9086bdca1a5012fbbf186a9",
+    "source_PR": 1001
+  },
+  "candidate_bindings": {
+    "els_server/domain/skill_state.py": "fb5c6133926873ee4f30fe36a8009715aaf10d4ad93cf61f6266c626c3ae5461",
+    "els_server/storage/careers.py": "2303ec7b2b7ad44d972a9d704e5bd4ad7cb5a7b76ad7ab60cb3084107fea50e8",
+    "els_server/storage/local_state.py": "47a3654cfbd1d9994f24e56851bdc1035bd9ac7923815cd2ba1427d27f86e523"
+  },
+  "server_files": 3,
+  "new_schema": false,
+  "new_cache": false,
+  "new_files": false,
+  "regression": {
+    "ok": true,
+    "slot_comparisons": 2532,
+    "storage_comparisons": 19,
+    "character_cases": 422,
+    "qualification_calls_per_validation": {
+      "parent": 22,
+      "candidate": 1
+    },
+    "career_wire_and_SQL_equal": true,
+    "career_encoder_rollback": true,
+    "career_replay_once": true,
+    "foreign_item_rejected": true,
+    "corrupt_storage_preserved": true,
+    "readonly_skill_load_unchanged": true,
+    "owned_runtime_removed": true,
+    "connections": 0
+  },
+  "unprofiled_TLS": {
+    "ok": true,
+    "shape_roles": 16,
+    "roster_bytes": 72921,
+    "complete488_equal": true,
+    "medians": {
+      "0x485": {
+        "parent": {
+          "total_ms": 187.852,
+          "handler_ms": 185.062
+        },
+        "candidate": {
+          "total_ms": 91.89,
+          "handler_ms": 88.994
+        }
+      },
+      "0x227": {
+        "parent": {
+          "total_ms": 93.748,
+          "handler_ms": 92.403
+        },
+        "candidate": {
+          "total_ms": 65.855,
+          "handler_ms": 64.548
+        }
+      }
+    },
+    "owned_runtime_removed": true,
+    "connections": 0,
+    "parse_counter_enabled": false
+  },
+  "parse_counts": {
+    "0x485": {
+      "parent": {
+        "total_ms": 221.509,
+        "handler_ms": 218.542,
+        "skill_json_parses": 14669.0
+      },
+      "candidate": {
+        "total_ms": 109.287,
+        "handler_ms": 106.197,
+        "skill_json_parses": 5471.0
+      }
+    },
+    "0x227": {
+      "parent": {
+        "total_ms": 111.285,
+        "handler_ms": 109.945,
+        "skill_json_parses": 3737.0
+      },
+      "candidate": {
+        "total_ms": 85.524,
+        "handler_ms": 83.998,
+        "skill_json_parses": 1553.0
+      }
+    }
+  },
+  "cold_process_samples": {
+    "parent": {
+      "total_ms": 357.2072999959346,
+      "handler_ms": 353.9372000086587
+    },
+    "candidate": {
+      "total_ms": 185.20659999921918,
+      "handler_ms": 181.93809999502264
+    }
+  },
+  "cold_samples_each": 1,
+  "online_installed": false,
+  "local_installed": false,
+  "launcher_installed": false,
+  "Git_merged": false,
+  "natural_acceleration_not_claimed": true
+}

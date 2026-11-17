@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "root_cause": "AccountGateway has application but is not a game session; its three-argument handle entered run_call and accessed nonexistent phase before status/resume could run.",
+  "repair": "Use the same exact FriendsSession boundary as Application.call and reward finalization; account/registry/GM work bypasses CP context.",
+  "files": [
+    {
+      "path": "els_server/domain/client_reward_power.py",
+      "parent_sha256": "1eb5dd1835df7693147ea51b044007e776c877930e1886201bd69f5eae56301b",
+      "sha256": "ead088f16c0551aa0e033ec42d0392469e9e020a141daece0f4f29407a5eb272",
+      "size": 6894,
+      "scope": "server",
+      "candidate_path": "G:\\els\\analysis\\publisher-auth-scope-20261114-v203\\runtime\\server\\els_server\\domain\\client_reward_power.py"
+    }
+  ],
+  "source_log_summary": {
+    "path": "G:\\els\\analysis\\publisher-slot-qualification-20261114-v202\\publication\\transport-attribute-error-summary.json",
+    "sha256": "d4bcb2ff322fe8bb089631d3caa9e97568d8827a59586a0da18e0c57ff20d380"
+  },
+  "no_new_schema": true,
+  "no_client_change": true,
+  "existing_CP_receive_checkpoint_selector_and_reward_logic_unchanged": true,
+  "qualified_source_package": {
+    "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\gateway-scope-fix-v1\\gateway-scope-fix-20261114-v1.zip",
+    "sha256": "9ece73d13aca4bb76084e4544d8748ad9732372257059b459874fca6ea26f45d"
+  },
+  "verification": {
+    "path": "G:\\els\\analysis\\online-latency-residual-20261114-v1\\gateway-scope-fix-v1\\verification.json",
+    "sha256": "283ddfb8e2d8f391f562862ccb01650e57ff4e440857ae5411ca02cccab06577"
+  },
+  "actual_TLS_gateway_and_game_context_qualified": true,
+  "static_independent_review": "Independent source reproduced old failure, verified exact FriendsSession boundary and unchanged five CP/reward bodies."
+}
