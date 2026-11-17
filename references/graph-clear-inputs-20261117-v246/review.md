@@ -1,0 +1,1 @@
+Reviewed 14 exact files from batches43–48 over V245. Reused44 component checks; additionally checked30 Hero scene catalogs and15 tutorial map exclusions. Graph equality predicates, transaction guards and independent run copies are preserved. Character eligibility remains fresh. No schema/client change. Natural multiplayer latency/damage acceptance remains pending.

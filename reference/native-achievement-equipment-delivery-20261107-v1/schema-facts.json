@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "new_schema_definitions": 2,
+  "definitions": [
+    {
+      "name": "native_achievement_anvil_account",
+      "sql": "CREATE INDEX IF NOT EXISTS native_achievement_anvil_account ON profession_anvil_receipts(account_id)"
+    },
+    {
+      "name": "native_achievement_consumable_owner_template",
+      "sql": "CREATE INDEX IF NOT EXISTS native_achievement_consumable_owner_template ON consumable_uses(owner,template)"
+    }
+  ],
+  "required_native_QA_schema_names": [
+    "native_achievement_anvil_account",
+    "native_achievement_consumable_owner_template"
+  ],
+  "lazy_schema_names": [
+    "native_achievement_anvil_account",
+    "native_achievement_consumable_owner_template"
+  ],
+  "new_tables": [],
+  "install_DDL_statements": 0,
+  "startup_DDL_statements": 0
+}

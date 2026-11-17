@@ -1,0 +1,180 @@
+{
+  "date": "2026-11-07",
+  "client_executable_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "runtime_files_changed": false,
+  "checks": [
+    {
+      "attempt": "native-result-ui-v27",
+      "marker_fixture": true,
+      "native_clear_triggered_by_original_combat": false,
+      "physical_input": false,
+      "original_InputKey_TAB_handler": true,
+      "original_gate_and_toggle": true,
+      "fields_equal_13_of_13": true,
+      "total_damage": 1234567,
+      "received": 6789,
+      "ED": "120",
+      "EXP": "50",
+      "rank": 0,
+      "solo_MVP": 1,
+      "GPU_render": {
+        "width": 1920,
+        "height": 1080,
+        "TEST_present": false,
+        "pixels_sha256": "8dcc9bb05a68c1f60606a790960591a7e0e7523572f3399050f172e894beaa68"
+      },
+      "original_executable_unchanged": true,
+      "owned_Job_closed": true
+    },
+    {
+      "attempt": "native-natural-clear-v33",
+      "marker_fixture": false,
+      "native_clear_triggered_by_original_combat": true,
+      "physical_input": false,
+      "original_InputKey_TAB_handler": true,
+      "original_gate_and_toggle": true,
+      "fields_equal_13_of_13": true,
+      "total_damage": 290253.21875,
+      "received": 784,
+      "ED": "232",
+      "EXP": "13500",
+      "rank": 0,
+      "solo_MVP": 1,
+      "GPU_render": {
+        "width": 1920,
+        "height": 1080,
+        "TEST_present": false,
+        "pixels_sha256": "618f651f0f6c27cf4182e47f3f8de5982ef0e6a62a251d68a956832818f3809b"
+      },
+      "original_executable_unchanged": true,
+      "owned_Job_closed": true
+    }
+  ],
+  "original_Benders_predicate": [
+    {
+      "template": 5,
+      "script_type": 0,
+      "dynamic_type": 0,
+      "original_boss": false
+    }
+  ],
+  "scope": "Owned original client and original actor-input API; no mouse, keyboard, focus, HP or clear-state control; map30000 original population QA profile. Does not stand in for a human-operated playthrough.",
+  "limitations": [
+    "Original contribution weights, CP-normalized grade thresholds, team MVP and award tie/reward values remain unavailable.",
+    "Nonzero cooldown support in a natural multiplayer battle remains unverified.",
+    "Fresh QA character key-mapping prompt remains over part of the rendered UI; numeric values are also checked at the untouched original detail-control input."
+  ],
+  "private_evidence_not_bundled": true,
+  "current_V87_readback": {
+    "release": "unified-server-230069a22b88309f-8be319a5adf6",
+    "runtime": "G:\\els\\releases\\local\\unified-server-230069a22b88309f-8be319a5adf6",
+    "files": [
+      {
+        "path": "els_server/application.py",
+        "installed": "c30bf78a624d712b93c2dd5b669eb44f4df6157fbe7cef6acc372bb35f0516d7",
+        "statistics_delivery": "919cce0eb0149f080bf8c79162b3acc5ff42159505f79e3059de38374e4d6266",
+        "same": false
+      },
+      {
+        "path": "els_server/dungeon_workers.py",
+        "installed": "d231985f70a97c3703788bec77064f0b7ec90c49b979820dffdb19d198b3d249",
+        "statistics_delivery": "d231985f70a97c3703788bec77064f0b7ec90c49b979820dffdb19d198b3d249",
+        "same": true
+      },
+      {
+        "path": "els_server/domain/dungeon_requests.py",
+        "installed": "4421932c3ff90eb5a74c857a65a9263316f66d340de2cb3d8d8720eaad75dd4f",
+        "statistics_delivery": "4421932c3ff90eb5a74c857a65a9263316f66d340de2cb3d8d8720eaad75dd4f",
+        "same": true
+      },
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "installed": "41bf3d064f94e55424b7897369a7572305aa06810fef845fe3556a3bcea6ea6f",
+        "statistics_delivery": "41bf3d064f94e55424b7897369a7572305aa06810fef845fe3556a3bcea6ea6f",
+        "same": true
+      },
+      {
+        "path": "els_server/protocol/pvp_play_messages.py",
+        "installed": "e15f3ad4f148eab7109a2ab156b9a650afc94794433b9471d8f8ea5325797a5f",
+        "statistics_delivery": "e15f3ad4f148eab7109a2ab156b9a650afc94794433b9471d8f8ea5325797a5f",
+        "same": true
+      },
+      {
+        "path": "tools/native_cache_sync.py",
+        "installed": "d6fd13e75c3523d40168b4c8e962e8f538a87cffee4c266bb0967d57ba4a46f6",
+        "statistics_delivery": "244780537a73f88bd40d97382def39d8338cacd965447bce273e0e80435e44a4",
+        "same": false
+      },
+      {
+        "path": "tools/dungeon_result_stats.py",
+        "installed": "f7cbf30e763e9e2d933b44812839dc79ad9b80f992f8899c5d312efb83c8872e",
+        "statistics_delivery": "f7cbf30e763e9e2d933b44812839dc79ad9b80f992f8899c5d312efb83c8872e",
+        "same": true
+      },
+      {
+        "path": "tools/dungeon_result_stats.js",
+        "installed": "df449f05fe03ac2ad1a41ccaac44c11b3423b45ce51708c58fe373c8a669eea8",
+        "statistics_delivery": "df449f05fe03ac2ad1a41ccaac44c11b3423b45ce51708c58fe373c8a669eea8",
+        "same": true
+      },
+      {
+        "path": "tools/pvp_hp_source.js",
+        "installed": "d5406f6bf67fe188ce569c8f22e011926a8fabdb76ddd7f134387f476862a3c7",
+        "statistics_delivery": "d5406f6bf67fe188ce569c8f22e011926a8fabdb76ddd7f134387f476862a3c7",
+        "same": true
+      },
+      {
+        "path": "tools/client_compatibility_profiles.json",
+        "installed": "3c41a1ba59f2c51ffcfda3e522943ecec89e4ebca8fe9a2597118ce441e95a86",
+        "statistics_delivery": "2330dd7f0d86f0c4e4984776fcd9e2e59d10d72d0047a7c3affc902563757c01",
+        "same": false
+      }
+    ],
+    "formal_probe_sha256": "67d20d9e7777cbc9d7f0502cf917a3b38ec228a4dd0c81fdee42067ee59a071d"
+  },
+  "cold_reward_receipt": {
+    "clear_receipts": 1,
+    "result_ED": 232,
+    "result_experience_gain": 13500,
+    "late_pickup_receipts": 1,
+    "read_only_cold_read": true
+  },
+  "installed_related_source_parity": {
+    "local": {
+      "release": "unified-server-230069a22b88309f-8be319a5adf6",
+      "manifest_sha256": "ab33ea85c6624f859d25a41f5fc68d824d888f2822a09387050afbd950a20606",
+      "manifest_readback": true,
+      "files": {
+        "els_server/application.py": "c30bf78a624d712b93c2dd5b669eb44f4df6157fbe7cef6acc372bb35f0516d7",
+        "els_server/dungeon_workers.py": "d231985f70a97c3703788bec77064f0b7ec90c49b979820dffdb19d198b3d249",
+        "els_server/domain/dungeon_requests.py": "4421932c3ff90eb5a74c857a65a9263316f66d340de2cb3d8d8720eaad75dd4f",
+        "els_server/domain/dungeon_result_stats.py": "41bf3d064f94e55424b7897369a7572305aa06810fef845fe3556a3bcea6ea6f",
+        "els_server/protocol/pvp_play_messages.py": "e15f3ad4f148eab7109a2ab156b9a650afc94794433b9471d8f8ea5325797a5f",
+        "tools/native_cache_sync.py": "d6fd13e75c3523d40168b4c8e962e8f538a87cffee4c266bb0967d57ba4a46f6",
+        "tools/dungeon_result_stats.py": "f7cbf30e763e9e2d933b44812839dc79ad9b80f992f8899c5d312efb83c8872e",
+        "tools/dungeon_result_stats.js": "df449f05fe03ac2ad1a41ccaac44c11b3423b45ce51708c58fe373c8a669eea8",
+        "tools/pvp_hp_source.js": "d5406f6bf67fe188ce569c8f22e011926a8fabdb76ddd7f134387f476862a3c7",
+        "tools/client_compatibility_profiles.json": "3c41a1ba59f2c51ffcfda3e522943ecec89e4ebca8fe9a2597118ce441e95a86"
+      }
+    },
+    "online": {
+      "release": "native-feature-closures-20261107-v1",
+      "manifest_sha256": "34d45dcecbe548b9326d8db6417f729c17ef136798cca5a7f6f0a76201cf079b",
+      "manifest_readback": true,
+      "files": {
+        "els_server/application.py": "c30bf78a624d712b93c2dd5b669eb44f4df6157fbe7cef6acc372bb35f0516d7",
+        "els_server/dungeon_workers.py": "d231985f70a97c3703788bec77064f0b7ec90c49b979820dffdb19d198b3d249",
+        "els_server/domain/dungeon_requests.py": "4421932c3ff90eb5a74c857a65a9263316f66d340de2cb3d8d8720eaad75dd4f",
+        "els_server/domain/dungeon_result_stats.py": "41bf3d064f94e55424b7897369a7572305aa06810fef845fe3556a3bcea6ea6f",
+        "els_server/protocol/pvp_play_messages.py": "e15f3ad4f148eab7109a2ab156b9a650afc94794433b9471d8f8ea5325797a5f",
+        "tools/native_cache_sync.py": "d6fd13e75c3523d40168b4c8e962e8f538a87cffee4c266bb0967d57ba4a46f6",
+        "tools/dungeon_result_stats.py": "f7cbf30e763e9e2d933b44812839dc79ad9b80f992f8899c5d312efb83c8872e",
+        "tools/dungeon_result_stats.js": "df449f05fe03ac2ad1a41ccaac44c11b3423b45ce51708c58fe373c8a669eea8",
+        "tools/pvp_hp_source.js": "d5406f6bf67fe188ce569c8f22e011926a8fabdb76ddd7f134387f476862a3c7",
+        "tools/client_compatibility_profiles.json": "3c41a1ba59f2c51ffcfda3e522943ecec89e4ebca8fe9a2597118ce441e95a86"
+      }
+    },
+    "identical_related_sources": 10,
+    "test_run_runtime": "G:\\els\\releases\\local\\unified-server-230069a22b88309f-8be319a5adf6"
+  }
+}

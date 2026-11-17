@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "scope": "V187 Ironwall native rider-owned aiming targets; V186 three-way preparation",
+  "parent_version": 186,
+  "parent_archive": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v186\\launcher-preview-v186\\runtime-369c95048de2fac4ebd3e09e8d34e8c5c43ce8c13bb3167db869dc09fdcdf76d.zip",
+  "parent_archive_sha256": "369c95048de2fac4ebd3e09e8d34e8c5c43ce8c13bb3167db869dc09fdcdf76d",
+  "source_manifest": "G:\\els\\analysis\\ironwall-turret-20261112-v1\\manifest.json",
+  "source_manifest_sha256": "4d086af2c17ef687d1db6c2055db34e5f40058431c6ea5f292d6ddfe4d06cb81",
+  "source_patch_sha256": "da94717975866d9255d38af5702637956573d27f5fb213670809c69473d7ed61",
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_spawns.py",
+      "local_parent": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "online_parent": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "parent_sha256": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-turret-v187-prep\\candidate\\els_server\\domain\\dungeon_spawns.py",
+      "sha256": "d75873243d52d0e626d2ef336ebce1dbd6b3a80e59a3e1717e6ddbaed26ec080",
+      "candidate": "d75873243d52d0e626d2ef336ebce1dbd6b3a80e59a3e1717e6ddbaed26ec080",
+      "bytes": 8797,
+      "source_parent": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "source_candidate": "d75873243d52d0e626d2ef336ebce1dbd6b3a80e59a3e1717e6ddbaed26ec080",
+      "merge": "identical V185 and signed V186 parent; exact reviewed source candidate"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "local_parent": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "online_parent": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "parent_sha256": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-turret-v187-prep\\candidate\\els_server\\domain\\friends_spawns.py",
+      "sha256": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd",
+      "candidate": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd",
+      "bytes": 26818,
+      "source_parent": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "source_candidate": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd",
+      "merge": "identical V185 and signed V186 parent; exact reviewed source candidate"
+    },
+    {
+      "path": "els_server/domain/special_riding_targets.py",
+      "local_parent": null,
+      "online_parent": null,
+      "parent_sha256": null,
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-turret-v187-prep\\candidate\\els_server\\domain\\special_riding_targets.py",
+      "sha256": "474343db65bec7ec448dfdb003c67953eebdf5ed5e8373f1a162fa8ae6b6d254",
+      "candidate": "474343db65bec7ec448dfdb003c67953eebdf5ed5e8373f1a162fa8ae6b6d254",
+      "bytes": 1492,
+      "source_parent": null,
+      "source_candidate": "474343db65bec7ec448dfdb003c67953eebdf5ed5e8373f1a162fa8ae6b6d254",
+      "merge": "identical V185 and signed V186 parent; exact reviewed source candidate"
+    }
+  ],
+  "changes": [
+    {
+      "path": "els_server/domain/dungeon_spawns.py",
+      "local_parent": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "online_parent": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "parent_sha256": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-turret-v187-prep\\candidate\\els_server\\domain\\dungeon_spawns.py",
+      "sha256": "d75873243d52d0e626d2ef336ebce1dbd6b3a80e59a3e1717e6ddbaed26ec080",
+      "candidate": "d75873243d52d0e626d2ef336ebce1dbd6b3a80e59a3e1717e6ddbaed26ec080",
+      "bytes": 8797,
+      "source_parent": "3ec6a535e05ece7625f1fbed2f0c4a5b12770ebda118b88f41498c7507004a77",
+      "source_candidate": "d75873243d52d0e626d2ef336ebce1dbd6b3a80e59a3e1717e6ddbaed26ec080",
+      "merge": "identical V185 and signed V186 parent; exact reviewed source candidate"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "local_parent": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "online_parent": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "parent_sha256": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-turret-v187-prep\\candidate\\els_server\\domain\\friends_spawns.py",
+      "sha256": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd",
+      "candidate": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd",
+      "bytes": 26818,
+      "source_parent": "7c70b2019eb85f31fa94aba043a4b465b56bbdfbe2a460d3d269918fb0f39b57",
+      "source_candidate": "0972776a99f14b248948b04f8b77711ea4761314e9fa0f9f5d212d959cca15fd",
+      "merge": "identical V185 and signed V186 parent; exact reviewed source candidate"
+    },
+    {
+      "path": "els_server/domain/special_riding_targets.py",
+      "local_parent": null,
+      "online_parent": null,
+      "parent_sha256": null,
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\remaining-turret-v187-prep\\candidate\\els_server\\domain\\special_riding_targets.py",
+      "sha256": "474343db65bec7ec448dfdb003c67953eebdf5ed5e8373f1a162fa8ae6b6d254",
+      "candidate": "474343db65bec7ec448dfdb003c67953eebdf5ed5e8373f1a162fa8ae6b6d254",
+      "bytes": 1492,
+      "source_parent": null,
+      "source_candidate": "474343db65bec7ec448dfdb003c67953eebdf5ed5e8373f1a162fa8ae6b6d254",
+      "merge": "identical V185 and signed V186 parent; exact reviewed source candidate"
+    }
+  ],
+  "client_delta": 0,
+  "database_schema_delta": 0,
+  "natural_original_client": false,
+  "installed": false,
+  "git_committed": false,
+  "patch_sha256": "da94717975866d9255d38af5702637956573d27f5fb213670809c69473d7ed61"
+}
