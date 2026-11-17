@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "baseline_reproducer": true,
+  "production_database_access": false,
+  "loader_seconds": 0.8095935001038015,
+  "writer": {
+    "committed": false,
+    "code": 5,
+    "error": "OperationalError('database is locked')"
+  },
+  "committed_value": 0,
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "f854527c525a65aab4dc6745ed7eb8b24c5c0fa43f74cb645ed7b2fc37674ad9",
+    "els_server/domain/environment_buff_flow.py": "33843be3fcd58019d17344e6a3dab1369dc3832b7c2c7363362bb36619bdc1ef",
+    "els_server/storage/achievement_history.py": "f5dd527a0c40a8d117ed91b70d642b74e66acd1ef07e5a262b73ad878ea5ed24",
+    "els_server/storage/achievement_profiles.py": "3a8777975f6bbff233dc5e2beaad847029de9c4c68a2266c4734313cdfe13a53",
+    "els_server/storage/environment_buffs.py": "6dcdeb1a640d2311f97f09c56e24cf3f80c930cf3bafd186bd0f7d21ff19c484"
+  }
+}

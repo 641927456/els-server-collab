@@ -1,0 +1,60 @@
+{
+  "rows": [
+    {
+      "name": "RidingPetTemplet.lua",
+      "archive_sha256": "56bb739e04e856e2ebf4c93c0df0cca7c181914e65d7cf4d140e167f593c6601",
+      "sha256": "059f7cd1f8ce73c53067bcac0cb8d723f07f7d26934ebe102bd3889cde102966",
+      "initializer_error": null
+    },
+    {
+      "name": "2022_GoGoElrider.lua",
+      "archive_sha256": "99732fcc0df12a6d10bcce11dfa36ccca100ef70dde775a3711db17a68687106",
+      "sha256": "1de6c82954016205ee0fe3bacb704465c64268c74a6444dc006f3e8cc7dd2f13",
+      "initializer_error": "Unsupported symbolic call shape"
+    },
+    {
+      "name": "2022_GoGoElrider_LineMap.lua",
+      "archive_sha256": "99732fcc0df12a6d10bcce11dfa36ccca100ef70dde775a3711db17a68687106",
+      "sha256": "73f6e985f109cbea948d9926b3c9c48420819660c06699bd8b3bfb87fc4c18ee",
+      "initializer_error": null
+    },
+    {
+      "name": "MD_ROSSO_DROP1.lua",
+      "archive_sha256": "a972add6eed7efd6af448cf05ff5a2cd4db9da70f19be5e8032269269be3a308",
+      "sha256": "1471b2f290381cd34d5ac11009f735d84ccefa6c2162b63a916f946d3c90255e",
+      "initializer_error": null
+    },
+    {
+      "name": "MD_ROSSO_DROP2.lua",
+      "archive_sha256": "a972add6eed7efd6af448cf05ff5a2cd4db9da70f19be5e8032269269be3a308",
+      "sha256": "110e072302b563c9cc56e82972f4abcf6e130511467d0168913cdcb65f4841a8",
+      "initializer_error": null
+    }
+  ],
+  "numeric_rank_experience_found": false,
+  "upgrade_weight_found": false,
+  "reset_weight_found": false,
+  "master_drop_states": {
+    "DROP1": "DYING_END=TRUE",
+    "DROP2": "DYING_END=TRUE"
+  },
+  "scope": "Three newly decoded riding template/track resources and two Rosso hidden-actor scripts; not the whole client.",
+  "public_sources": [
+    {
+      "url": "https://els.ztgame.com/html/news/1348b20/006-1656-0155b-927754.shtml",
+      "role": "CN official2022 launch; ranks award EXP, random stats, no numeric table found"
+    },
+    {
+      "url": "https://elsword.koggames.com/2022/07/july-6th-patch-notes/",
+      "role": "NA official; same mechanism, no numeric rank EXP or draw weights found"
+    },
+    {
+      "url": "https://hangame-jp.elsword.com/Information/View/8105?category=Information&page=82",
+      "role": "JP official; same mechanism, regional evidence only"
+    },
+    {
+      "url": "https://forum.gamer.com.tw/Co.php?bsn=12259&sn=1437445",
+      "role": "Forum2022 update search hit; no verified numeric rule extracted"
+    }
+  ]
+}

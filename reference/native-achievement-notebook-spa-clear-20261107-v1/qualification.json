@@ -1,0 +1,102 @@
+{
+  "status": "PRIVATE_APP_TLS_COMPOSED_QUALIFIED_NOT_INSTALLED",
+  "parent_Git_head": "3787799358afba47ce130dbd4d7aa9cd7449e60d",
+  "source_files": [
+    {
+      "path": "els_server/data/spa_market.json",
+      "parent_sha256": null,
+      "sha256": "fcdb7775daa3aa1eaac323ba8f6e8c62fc6656edf4153e3518fd1ef5bbe99ed4"
+    },
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "522747c52236850812eb2736ccb6de9f6005eb110d6f484d174f3ce210522322",
+      "sha256": "52a2ecfa63439ae8c3fd96d7d1373567ffc9f02cc70673b3b1cdf92953a4f4f2"
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "parent_sha256": "f003a869c8c71e5126c053b5006970b3ec8ef934dc34e56b5461e10bd8ac2fdc",
+      "sha256": "485279106612d43bb600008556b68961877e220df5b31d9adfdf3ef0221f9189"
+    },
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "parent_sha256": "33843be3fcd58019d17344e6a3dab1369dc3832b7c2c7363362bb36619bdc1ef",
+      "sha256": "223700eadbac5e0441b38684a729c9ab2cc953d975aa3b1c11e0a80520253325"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "d1e5acaf615a410e20ef95fc929e92ec2de3d80192a8d7c014f498b923592b70",
+      "sha256": "f12cef31e7fd89442f031e78b90a190c2f76875d0f7331b7c5b982111952ccb3"
+    },
+    {
+      "path": "els_server/domain/npc_trade.py",
+      "parent_sha256": "e05ca93f18df40460083e3975de3bcdca53d92cd36070a91ab4f037dd18d621b",
+      "sha256": "46a464394c4be6b62e82c25b8776b745832a998d90eda49900dab7cf3072099d"
+    },
+    {
+      "path": "els_server/domain/spa_market.py",
+      "parent_sha256": null,
+      "sha256": "0ae308bd69b6fdcab19146a83c74c8497f5be07ede2725a5ed3da2568c24585b"
+    },
+    {
+      "path": "els_server/domain/town_dialogue.py",
+      "parent_sha256": "7592302c1739574f9788e6b775b4a763c98a6c8d7e22b5ce9779fad4bd0aa55d",
+      "sha256": "9df081ad86ece52a5ab51b05480d285a285d5b46c76bce4e0ea2167589057189"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "c27161c6cde476c2108f9baefac0e636323feb91fc3ed970f596b89a7df91a2d",
+      "sha256": "64df708ff032e6e72502511ddbbe0ed48de05293f0e4829a561aacfd6dd959f8"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "a037ea02a31543b3bcf644cc5be849ea0fd7a9093e105470eaa4087092b5012b",
+      "sha256": "ede2d3651ad1a6322d3a9b705de80beabba9beb25eafed3496288cbe71593492"
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "56617923b1f8f766ad9586b4f0f089d9cfaacba34e0d0a510bda6884a0f077ae",
+      "sha256": "17e3832de4fce1d9d87a55fbd3222e46206ce749e62068f090ded927adb0d380"
+    },
+    {
+      "path": "els_server/storage/town_dialogue.py",
+      "parent_sha256": "db95f0257c0cf0031362da94364426d9ef5258da4bad6bb7e42e44335d264492",
+      "sha256": "39ea71a4f3fa9a726ca0a5178f328c00f166750551e5ff10388f90967833617d"
+    }
+  ],
+  "tested_parent_release": "native-achievement-equipped-set-history-20261107-v2",
+  "tested_parent_manifest_sha256": "9c63345f34fda6187ec5707f8abbf8e4b1e1586a481217f0a07978413b559f50",
+  "new_files": 2,
+  "new_tables": 0,
+  "new_indexes": [
+    "native_achievement_clear_owner_dungeon"
+  ],
+  "install_DDL": 0,
+  "delta_added_lines": 196,
+  "delta_removed_lines": 29,
+  "source_types": 45,
+  "definitions": 285,
+  "remaining_source_types": 15,
+  "unresolved_original_reward_groups": 53,
+  "native_Game": false,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "original_EXE_KOM_changes": 0,
+  "new_Hooks": 0,
+  "installed": false,
+  "signed_build_started": false,
+  "evidence": [
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\notebook-spa-clear-closure-v1\\scenario-1794063313117104400.json",
+      "sha256": "c9ddf7bb7898d73769a9f1cec67c067076aacb77ce5c8ebfc6e1e7493546c395"
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\dungeon-clear-count-v1\\projection-1794063098540106900.json",
+      "sha256": "8edca4d9513ad47910bf90ca9b2795a5c7fd1021ad70a8da5d57ac56ecabcffc"
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\dungeon-clear-count-v1\\live-clear-count-1794063101718579900.json",
+      "sha256": "44ef9cca47bade750f89f46c00d10a0882a87bd360097b16eb7b4bc92627f6b8"
+    }
+  ],
+  "review": "review.md"
+}
