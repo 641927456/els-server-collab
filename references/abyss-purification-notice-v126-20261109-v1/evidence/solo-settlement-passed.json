@@ -1,0 +1,65 @@
+{
+  "ok": true,
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "cases": [
+    {
+      "name": "native_solo_settlement",
+      "cases": [
+        {
+          "name": "weekly",
+          "purifier_gain": 2,
+          "dungeon": 35650,
+          "points": [
+            22,
+            24
+          ],
+          "encode_fault_rollback": true,
+          "final_request_replay_unchanged": true
+        },
+        {
+          "name": "repeat_miss",
+          "purifier_gain": 0,
+          "dungeon": 35650,
+          "points": [
+            24,
+            24
+          ],
+          "encode_fault_rollback": false,
+          "final_request_replay_unchanged": true
+        },
+        {
+          "name": "repeat_hit",
+          "purifier_gain": 2,
+          "dungeon": 35650,
+          "points": [
+            25,
+            26
+          ],
+          "encode_fault_rollback": false,
+          "final_request_replay_unchanged": true
+        },
+        {
+          "name": "full_gauge_origin_reward",
+          "box_gain": 1,
+          "cold_read_points": 0,
+          "dungeon": 35680,
+          "points": [
+            84,
+            84,
+            0
+          ],
+          "encode_fault_rollback": false,
+          "final_request_replay_unchanged": true
+        }
+      ],
+      "TLS_entry": true,
+      "controlled_deaths_and_clock": true
+    }
+  ],
+  "actual_Application": true,
+  "production_mutations": 0,
+  "natural_GUI_or_combat": false,
+  "test_source_sha256": "134705d7c85f25128a840438b047ba495fc63501eeeb95c2fba9a4bda759cd0a"
+}
