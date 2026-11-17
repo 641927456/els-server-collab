@@ -1,0 +1,13 @@
+#clientNoticeCard { min-width: 0; }
+#clientNoticeCard .scope { line-height: 1.65; color: #52677a; }
+#clientNoticeFields { display: grid; gap: 16px; margin: 0; padding: 0; border: 0; min-width: 0; }
+#clientNoticeFields label { display: grid; gap: 8px; }
+#clientNoticeFields .scope { margin: 0; }
+#clientNoticeFields button { justify-self: start; }
+#clientNoticeCard .client-notice-toggle { display: flex; align-items: center; gap: 10px; }
+#clientNoticeEnabled { width: 18px; height: 18px; accent-color: #286386; }
+#clientNoticeText { min-height: 190px; line-height: 1.65; resize: vertical; }
+#clientNoticeOriginal { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.65; }
+#clientNoticeCard details { margin-top: 18px; }
+#clientNoticeCard summary { cursor: pointer; color: #285b7a; }
+#clientNoticeCard .card-heading { flex-wrap: wrap; gap: 12px; }

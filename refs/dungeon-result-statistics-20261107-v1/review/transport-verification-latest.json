@@ -1,0 +1,91 @@
+{
+  "natural_battle": false,
+  "natural_GUI": false,
+  "production_mutation": false,
+  "run_and_clear": "explicit QA state fixtures; authentication, selection, lease, workers, TLS and codecs are actual",
+  "source": "current candidate",
+  "checks": [
+    "Authenticated town9E cannot store a dungeon report; original town no-ACK behavior retained",
+    "Both actual selected leases accept native9E through dungeon worker and9F",
+    "Malformed native9E does not replace actual session snapshot",
+    "Mailbox C1 projected before native source capture; original native reader accepts full roster, counters, recipient-scoped provided cooldown and rewards",
+    "Valid later clear reports ACK0 for native retries without replacing frozen statistics"
+  ],
+  "award_rows": [
+    {
+      "uid": 1001,
+      "rank": 0,
+      "mvp": 0,
+      "awards": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "uid": 1002,
+      "rank": 0,
+      "mvp": 0,
+      "awards": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "native_source_failures": [
+    0,
+    0
+  ],
+  "passed": true,
+  "rows": [
+    {
+      "uid": 1001,
+      "ed": 120,
+      "experience": 50,
+      "received": 44,
+      "rank": 0,
+      "mvp": false,
+      "values": {
+        "0xfe": 1000.0,
+        "0x140": 800.0,
+        "0x144": 200.0,
+        "0x148": 50.0,
+        "0x14c": 40.0,
+        "0x150": 100.0,
+        "0x154": 80.0,
+        "0x158": 30.0,
+        "0x15c": 20.0,
+        "0x160": 7.5,
+        "0x164": 700.0,
+        "0x168": 600.0,
+        "0x16c": 100.0
+      }
+    },
+    {
+      "uid": 1002,
+      "ed": 240,
+      "experience": 51,
+      "received": 44,
+      "rank": 0,
+      "mvp": false,
+      "values": {
+        "0xfe": 2000.0,
+        "0x140": 800.0,
+        "0x144": 200.0,
+        "0x148": 50.0,
+        "0x14c": 80.0,
+        "0x150": 300.0,
+        "0x154": 180.0,
+        "0x158": 30.0,
+        "0x15c": 20.0,
+        "0x160": 3.5,
+        "0x164": 700.0,
+        "0x168": 600.0,
+        "0x16c": 100.0
+      }
+    }
+  ],
+  "errors": [],
+  "owned_service_closed": true
+}

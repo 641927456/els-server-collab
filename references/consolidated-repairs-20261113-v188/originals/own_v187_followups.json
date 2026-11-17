@@ -1,0 +1,105 @@
+{
+  "ok": true,
+  "status": "reviewed_and_tested_candidates_not_installed",
+  "scope": "Twelve named V187 repair chats and their direct shared consumers",
+  "parent_release": "consolidated-repairs-20261112-v187",
+  "current_pointers": {
+    "online": {
+      "path": "G:\\els\\releases\\online\\current.json",
+      "sha256": "21fbe1a450abfd93ef58661d61dd31fe4428ec93838856e3499071f122ab52db"
+    },
+    "local": {
+      "path": "G:\\els\\releases\\local\\current.json",
+      "sha256": "8e761c35093a22d51ec74342c83f40ed886523930dd34395ccef97fe990dbc96"
+    },
+    "launchers": {
+      "path": "G:\\els\\releases\\launchers\\current.json",
+      "sha256": "31321c86cc7ea0b4b74eea7ff2629992ef746daaa3a9fa4da6290bdca3965e5e"
+    }
+  },
+  "reviewed_source_manifest": {
+    "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\release-v187-final\\combined-source-manifest.json",
+    "sha256": "e98e53d1ad79557a995c51f3c336da6c3684671eaefb2568dff7398ef5643a0e"
+  },
+  "reviewed_runtime": "G:\\els\\releases\\local\\unified-server-1d9bf1dc353a66a5-3755f8cbd302",
+  "findings": [
+    {
+      "id": "V187-R1",
+      "severity": "P2",
+      "issue": "Singleton eligible raid recruitment waits for a confirmation the leader never sends; shared encoder also hard-codes at least two members."
+    },
+    {
+      "id": "V187-R2",
+      "severity": "P2",
+      "issue": "Henir challenge events carry normal-mode identity into normal growth objectives."
+    }
+  ],
+  "changes": [
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "parent_sha256": "ee3637da015e4b9541511c828a67727237e17c78cc01a9809e98d59aae047e3a",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\fixes\\candidate\\els_server\\domain\\friends_dungeon.py",
+      "sha256": "0356d1ff08125b4d0115899d70b7c2d8617cc7ccfa442c2515b6fedcb25e2abf",
+      "size": 50704,
+      "added": 1,
+      "removed": 1
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "parent_sha256": "e25de278d805bf5d5bc1bb7354d8f20e904a45912a472c63fccf90064dc80466",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\fixes\\candidate\\els_server\\protocol\\dungeon_messages.py",
+      "sha256": "27b44eff8307aed9866be6f48687a20125593cdb9251c650f36e633143b1b78b",
+      "size": 17806,
+      "added": 2,
+      "removed": 1
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "parent_sha256": "7a941617367b91500f2cdc9e44c7057e0d58720ec42d29e29f1f9cff8ae9b17f",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\fixes\\candidate\\els_server\\domain\\quest_flow.py",
+      "sha256": "6ebe7c7dc1505cb75a5179b0efad0bd7af765360d29a9af98e9d08108c67654f",
+      "size": 37934,
+      "added": 2,
+      "removed": 2
+    }
+  ],
+  "new_schema": false,
+  "new_tables": [],
+  "support_delta": 0,
+  "original_EXE_KOM_changes": 0,
+  "installed_online": false,
+  "installed_local": false,
+  "launcher_published": false,
+  "Git_submitted": false,
+  "proofs": {
+    "singleton": {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\singleton-candidate-result.json",
+      "sha256": "5d3e51fda678e3bf5935f6757d09b76c9142352a2c88c0b833998ea69ace07fc"
+    },
+    "henir": {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\fixes\\henir-quest-mode-verification.json",
+      "sha256": "d38d02938e8374afa1f8782c5708194eef8eb69c1d05990cb824cca8efffc291"
+    },
+    "independent_review": {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\fixes\\independent-fix-review.md",
+      "sha256": "92669c4b75a63baa5034f8c539fe1b76647a0c9d630f22c598b0d1861eb9d689"
+    }
+  },
+  "review_reports": [
+    {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\party-turret-review.md",
+      "sha256": "bda50c89da5d43bf4b94a0726a537919c539c3a2fb3cb3ebde26636ca551947b"
+    },
+    {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\henir-purifier-gate-review.md",
+      "sha256": "276e07ef3f90b5866944cb8d675eeaf4426c8168a1b474517bb3ef8a4620341a"
+    },
+    {
+      "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\review-v187-20261112\\mail-pickup-collection-review.md",
+      "sha256": "c76136d944c023a3d7fd97eddb0939ca61971a26c5f8b7475413e8b46305e6fc"
+    }
+  ],
+  "natural_GUI": false,
+  "natural_battle": false,
+  "cleanup": "Only memory probes and owned TemporaryDirectory TLS fixtures; fixture teardown completed. Existing historical cleanup rejections were not retried."
+}

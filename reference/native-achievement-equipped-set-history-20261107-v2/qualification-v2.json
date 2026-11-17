@@ -1,0 +1,83 @@
+{
+  "status": "PRIVATE_APP_TLS_QUALIFIED_NOT_INSTALLED",
+  "parent_Git_head": "1a0ebb1d69aa7001089f0c720feb58bcb963733b",
+  "parent_release": "native-altera-mine-retirement-20261107-v1",
+  "parent_installed_source_head": "8907b533a43696e78c25c9d30c53a277a4720088",
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "f854527c525a65aab4dc6745ed7eb8b24c5c0fa43f74cb645ed7b2fc37674ad9",
+      "sha256": "522747c52236850812eb2736ccb6de9f6005eb110d6f484d174f3ce210522322"
+    },
+    {
+      "path": "els_server/domain/guild_agit_flow.py",
+      "parent_sha256": "ff66390722c849a42d2ac2ffbd1b5a11b7381e6eec7fd57dcdd6a35997928155",
+      "sha256": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e"
+    },
+    {
+      "path": "els_server/storage/achievement_collections.py",
+      "parent_sha256": "93846568f54857e35bd7153cc1c0ecdbffc8ce2734991c7dce7ef150784ac12d",
+      "sha256": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "f5dd527a0c40a8d117ed91b70d642b74e66acd1ef07e5a262b73ad878ea5ed24",
+      "sha256": "c27161c6cde476c2108f9baefac0e636323feb91fc3ed970f596b89a7df91a2d"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "3a8777975f6bbff233dc5e2beaad847029de9c4c68a2266c4734313cdfe13a53",
+      "sha256": "a037ea02a31543b3bcf644cc5be849ea0fd7a9093e105470eaa4087092b5012b"
+    }
+  ],
+  "source_subdirectory": "source-v1",
+  "source_review": "review-parent-v2.md",
+  "connected_source_types": 42,
+  "connected_definitions": 253,
+  "remaining_other_source_types": 18,
+  "unresolved_original_reward_groups": 53,
+  "substitute_reward": false,
+  "new_schema_definitions": 0,
+  "new_tables": [],
+  "new_indexes": [],
+  "install_DDL_statements": 0,
+  "startup_DDL_statements": 0,
+  "original_EXE_KOM_changes": 0,
+  "new_client_Hooks": 0,
+  "evidence": [
+    {
+      "file": "delivery-scenario-1794052476045275000.json",
+      "sha256": "eb24e2eba6b7043d0889964e5a8d8f7ec228404efe1498354833d479dfe0f77e"
+    },
+    {
+      "file": "source-transactions-1794052460713157500.json",
+      "sha256": "e38bd475e53769945c7bf0864b77a2afa8315edc9810ab465866c4dac19b719b"
+    },
+    {
+      "file": "calendar-days-1794052551256620200.json",
+      "sha256": "4a9a4c8d7eae309e6ea0a408578be9084bf7b345f0458b7a35f761ea128d929b"
+    }
+  ],
+  "independent_reader_commit": {
+    "file": "appearance-reader-followup-1794052519349895700.json",
+    "sha256": "0441f1920f618bf38db14a59cfab8a84eb06ad2399845e6e34e6a2afa64281a9",
+    "commits": 3
+  },
+  "natural_GUI": false,
+  "natural_battle": false,
+  "installed": false,
+  "parent_installed_PR": 940,
+  "parent_change_files": [
+    "els_server/domain/scene_retirement_sources.py"
+  ],
+  "parent_change_original_AST_prefix_unchanged": true,
+  "parent_change_added_rules": 13,
+  "source_files_unchanged": 5,
+  "prior_qualified_source": {
+    "archive": "reference/native-achievement-equipped-set-history-20261107-v1",
+    "head": "f3f666543fd58cb8fdda88af360a52ad4156b2fe",
+    "qualification_sha256": "55bf072cb278398d26cf8428dc736a39b440955bd5679d19a156d83f0cd4ff39",
+    "related_successes_reused": true
+  },
+  "source_review_notes": "ActualV101 adds exactly one disjoint data-only source file delta: append13inactive no-drop Altera_Mine sources in30252. Original module AST prefix is unchanged. All five parent input files and own source bytes remain exact. Earlier related storage/calendar/independent getter successes reuse unchanged paths; upcoming selected signed-runtime QA runs on the new actual parent. Original candidate was rejected before preflight, stop or production install."
+}
