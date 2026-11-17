@@ -1,0 +1,162 @@
+{
+  "online": {
+    "ok": true,
+    "release": "lean-reads-latency-20261114-v200",
+    "public": {
+      "ok": true,
+      "public_tls": true,
+      "actual_runtime_only": true,
+      "test": {
+        "ok": true,
+        "phase": "test",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          {
+            "unit": 1,
+            "roles": 8,
+            "roster_bytes": 35329,
+            "guide_messages": 1,
+            "town_ready": true
+          },
+          {
+            "unit": 5,
+            "roles": 1,
+            "roster_bytes": 4476,
+            "guide_messages": 1,
+            "town_ready": true
+          },
+          {
+            "unit": 10,
+            "roles": 1,
+            "roster_bytes": 4486,
+            "guide_messages": 1,
+            "town_ready": true
+          }
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "economic_requests": 0,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2079,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "d01dc2fec2c8376b7d8d2152414dd5ebbe363934ef9decb801c24bdc893f6265",
+          "server-addon": "83dd840d3dea99ceebb34cc8efb5f858531129ad4080a0be71dc316dbae9a7cd"
+        },
+        "signed_target_manifest_sha256": "37762f9e13679185e10f8cade74a58400229207b80a871276047b0fa3984974c"
+      },
+      "retire": {
+        "ok": true,
+        "phase": "retire",
+        "public_network": true,
+        "actual_TLS": true,
+        "cases": [
+          {
+            "unit": 1,
+            "roles": 8,
+            "roster_bytes": 35329,
+            "guide_messages": 1,
+            "town_ready": true
+          },
+          {
+            "unit": 5,
+            "roles": 1,
+            "roster_bytes": 4476,
+            "guide_messages": 1,
+            "town_ready": true
+          },
+          {
+            "unit": 10,
+            "roles": 1,
+            "roster_bytes": 4486,
+            "guide_messages": 1,
+            "town_ready": true
+          }
+        ],
+        "natural_GUI": false,
+        "natural_battle": false,
+        "economic_requests": 0,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2079,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "d01dc2fec2c8376b7d8d2152414dd5ebbe363934ef9decb801c24bdc893f6265",
+          "server-addon": "83dd840d3dea99ceebb34cc8efb5f858531129ad4080a0be71dc316dbae9a7cd"
+        },
+        "signed_target_manifest_sha256": "37762f9e13679185e10f8cade74a58400229207b80a871276047b0fa3984974c"
+      },
+      "expected_game_authentications": 6,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "cold": {
+      "ok": true,
+      "read_only": true,
+      "retired": true,
+      "roles": [
+        {
+          "unit": 1,
+          "roles": 8,
+          "inventory_count": 1261,
+          "inventory_unchanged": true,
+          "ED": 1000
+        },
+        {
+          "unit": 5,
+          "roles": 1,
+          "inventory_count": 10,
+          "inventory_unchanged": true,
+          "ED": 1000
+        },
+        {
+          "unit": 10,
+          "roles": 1,
+          "inventory_count": 15,
+          "inventory_unchanged": true,
+          "ED": 1000
+        }
+      ]
+    },
+    "public_tls": true,
+    "candidate_pid": 3416,
+    "requirements_sha256": "fbaaea18ac13be8566127b83c2a15952fbb5c71152f96c7dec2a1057117bfd41",
+    "started_utc": "2026-11-13T21:02:35.851214+00:00",
+    "completed_utc": "2026-11-13T21:02:56.941900+00:00",
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "local": {
+    "ok": true,
+    "release": "lean-reads-latency-20261114-v200",
+    "runtime": "G:\\els\\releases\\local\\unified-server-82be8348bd8f2dde-f68d2e19aa4a",
+    "signed_files": 2079,
+    "runtime_manifest_sha256": "37762f9e13679185e10f8cade74a58400229207b80a871276047b0fa3984974c",
+    "shared_server_files": 1541,
+    "observed_seconds": 122.17023449999999,
+    "ordinary_player_entry_open": false,
+    "stable_launcher_promoted": false,
+    "completed_utc": "2026-11-13T21:08:08.804197+00:00"
+  },
+  "updater": {
+    "ok": true,
+    "stable_parent": "launcher-v199-c853171df456fd9b",
+    "tag": "launcher-v200-c3c3f32483fcf523",
+    "exe_sha256": "c3c3f32483fcf52321a44a3c85171d1e4cbdc3698024afd97a0c8fd70bf87e85",
+    "signed_files": 2079,
+    "client_files": 108,
+    "server_addon_files": 1981,
+    "embedded_resources": 6,
+    "public_fresh_client": true,
+    "public_fresh_server_addon": true,
+    "public_upgrade": true,
+    "default_service_not_downloaded": true,
+    "full_and_chunk_cleanup": true,
+    "old_backup_preserved": true,
+    "game_started": false
+  }
+}
