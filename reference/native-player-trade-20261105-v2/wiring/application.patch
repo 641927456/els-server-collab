@@ -1,0 +1,19 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -67,6 +67,8 @@
+             return self.activity_reply(result+self._mailbox_messages())
+         from els_server.domain.friend_flow import handle as friend_handle
+         result=friend_handle(self,event,request_sequence)
++        if result is not None:return self.activity_reply(result+self._mailbox_messages())
++        result=self.application.world.player_trades.request(self,event,request_sequence)
+         if result is not None:return self.activity_reply(result+self._mailbox_messages())
+         result=self.application.world.racing.request(self,event,request_sequence)
+         if result is not None:return self.activity_reply(result+self._mailbox_messages())
+@@ -266,6 +268,7 @@
+ 
+     def _friends_periodic_steps(self,_rooms):
+         with self.application.world_lock if self.phase=='town_ready'else nullcontext():
++            self.application.world.player_trades.periodic(self)
+             self.application.world.racing.periodic(self)
+             self.application.world.pvp.periodic(self)
+             from els_server.domain.group_challenge import tick
