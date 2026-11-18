@@ -23,9 +23,30 @@ def run(command):
         command=command[:2]+['-c',_SCRIPT_RUNNER]+command[2:]
     subprocess.run(command,cwd=ROOT,check=True)
 
-def main(argv=None):
+def verify_runtime():
+    run([sys.executable,'-B','-m','unittest','tests.test_public_controller_rules'])
+    if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py'),'--with-runtime'])
+    if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py'),'--with-runtime'])
 
-    parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
+    run([sys.executable,'-B','-m','els_server','--config','config/server.toml','--check'])
+
+    run([sys.executable,'-B','-m','unittest','tests.test_retained_native_hp',
+         'tests.test_current_native_title_inputs'])
+    assert not (ROOT/'state/development.sqlite3').exists(),'CI must not create a player database'
+
+
+def main(argv=None):
+    parser=argparse.ArgumentParser()
+    runtime=parser.add_mutually_exclusive_group()
+    runtime.add_argument('--with-runtime',action='store_true')
+    runtime.add_argument('--runtime-only',action='store_true')
+    args=parser.parse_args(argv)
+    if args.runtime_only:
+        verify_runtime()
+        print(json.dumps(dict(ok=True,runtime_check=True,no_owner_data=True)))
+        return
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_ci_script_execution'])
@@ -74,6 +95,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'refs/cash-bag-page2-slots-20261104-v1/verify_contract.py')])
     if (ROOT/'references/pve-experience-20261105-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pve_experience_source_20261105.py')])
+    if (ROOT/'refs/quest-live-admission-20261107-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_quest_live_admission_20261107.py')])
     if (ROOT/'refs/server-latency-20261106-v7/source-bindings.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_20261106_v7.py')])
     if (ROOT/'refs/writer-scheduling-20261107-v1/source-bindings.json').is_file():
@@ -84,6 +107,28 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_writer_checkpoint_v87_integration.py')])
     if (ROOT/'refs/server-send-fairness-20261107-v1/source-bindings.json').is_file():
         run([sys.executable,'-B',str(ROOT/'refs/server-send-fairness-20261107-v1/verify_contract.py')])
+    if (ROOT/'references/pr771-firstbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_firstbatch.py')])
+    if (ROOT/'references/pr771-secondbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_secondbatch.py')])
+    if (ROOT/'references/pr771-thirdbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_thirdbatch.py')])
+    if (ROOT/'references/pr771-fourthbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_fourthbatch.py')])
+    if (ROOT/'references/pr771-fifthbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_fifthbatch.py')])
+    if (ROOT/'references/pr771-sixthbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_sixthbatch.py')])
+    if (ROOT/'references/pr771-native-followup-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_native_followup.py')])
+    if (ROOT/'references/pr771-racing-local-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_local.py')])
+    if (ROOT/'references/pr771-racing-reset-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_reset.py')])
+    if (ROOT/'references/pr771-racing-full-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_full.py')])
+    if (ROOT/'references/pr771-online-installed-20261103-v2/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_online_installed.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
@@ -299,17 +344,7 @@ def main(argv=None):
     assert decode_event(frame.plaintext)==event
 
     if args.with_runtime:
-        run([sys.executable,'-B','-m','unittest','tests.test_public_controller_rules'])
-        if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
-            run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py'),'--with-runtime'])
-        if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
-            run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py'),'--with-runtime'])
-
-        run([sys.executable,'-B','-m','els_server','--config','config/server.toml','--check'])
-
-        run([sys.executable,'-B','-m','unittest','tests.test_retained_native_hp',
-             'tests.test_current_native_title_inputs'])
-        assert not (ROOT/'state/development.sqlite3').exists(),'CI must not create a player database'
+        verify_runtime()
 
     print(json.dumps(dict(ok=True,python_sources_compiled=count,protocol_roundtrip=True,runtime_check=args.with_runtime,no_owner_data=True)))
 
