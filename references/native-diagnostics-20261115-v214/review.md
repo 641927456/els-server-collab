@@ -1,0 +1,1 @@
+Diagnostic classification and missing exception/startup/attach context fixed. Original native behavior preserved; root causes of player native failures remain unconfirmed. Independently reviewed in native-error-repair-20261115-v1.

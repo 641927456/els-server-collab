@@ -1,0 +1,68 @@
+{
+  "status": "PRIVATE_APP_TLS_QUALIFIED_NOT_INSTALLED",
+  "parent_Git_head": "f3bc5e764d0a8bba1dc74f3c39fb4768f420214a",
+  "parent_release": "native-achievement-equipped-set-history-20261107-v2",
+  "parent_installed_source_head": "0595805e21c40926332ba676a8d05d9f7a962c07",
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "522747c52236850812eb2736ccb6de9f6005eb110d6f484d174f3ce210522322",
+      "sha256": "7216d25abdb594c6036b633f8ae43fd19e573eb6c4ad2b5e16c124955d73cd87"
+    },
+    {
+      "path": "els_server/domain/town_dialogue.py",
+      "parent_sha256": "7592302c1739574f9788e6b775b4a763c98a6c8d7e22b5ce9779fad4bd0aa55d",
+      "sha256": "9df081ad86ece52a5ab51b05480d285a285d5b46c76bce4e0ea2167589057189"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "c27161c6cde476c2108f9baefac0e636323feb91fc3ed970f596b89a7df91a2d",
+      "sha256": "b94d2d6d57b9fd638eea0ffdb599374d07f0f31d1916a87e97696ed6f8df4f95"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "a037ea02a31543b3bcf644cc5be849ea0fd7a9093e105470eaa4087092b5012b",
+      "sha256": "4b3e66d4c0dfe65a74e365ea8dac2be55c3736faf0e9465fee09dd9e5762570f"
+    },
+    {
+      "path": "els_server/storage/town_dialogue.py",
+      "parent_sha256": "db95f0257c0cf0031362da94364426d9ef5258da4bad6bb7e42e44335d264492",
+      "sha256": "39ea71a4f3fa9a726ca0a5178f328c00f166750551e5ff10388f90967833617d"
+    }
+  ],
+  "source_subdirectory": "source-v1",
+  "source_review": "review.md",
+  "connected_source_types": 43,
+  "connected_definitions": 257,
+  "remaining_other_source_types": 17,
+  "unresolved_original_reward_groups": 53,
+  "substitute_reward": false,
+  "new_schema_definitions": 0,
+  "new_tables": [],
+  "new_indexes": [],
+  "install_DDL_statements": 0,
+  "startup_DDL_statements": 0,
+  "original_EXE_KOM_changes": 0,
+  "new_client_Hooks": 0,
+  "evidence": [
+    {
+      "file": "live-notebooks-1794055115018094300.json",
+      "sha256": "deb6a9ce9cdef9b7973b46d34ed4148dbb482dc80d68c5dde9b70bbbdf78365a"
+    },
+    {
+      "file": "calendar-days-1794055283422071900.json",
+      "sha256": "919225b2772b25ebd70c47aabdddc3f8808188abfb86fe57729a4bcbbb1d04a5"
+    },
+    {
+      "file": "delivery-scenario-1794055791123820100.json",
+      "sha256": "86e1cc7815dd7ad163422eba40bf408cfcfa9ec55d7184a9d0c454786d06c9c2"
+    }
+  ],
+  "tested_parent_composition": {
+    "file": "tested-parent-composition.json",
+    "sha256": "9c59b34462f131d72db9e1747babe7cdb3c1defcec3a45daba5dc4985b0427ff"
+  },
+  "natural_GUI": false,
+  "natural_battle": false,
+  "installed": false
+}

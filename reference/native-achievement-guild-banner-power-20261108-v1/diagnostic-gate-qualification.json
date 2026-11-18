@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "scope": "Read-only correction of the final diagnostic classification gate",
+  "original_scenario_ok": false,
+  "original_failure_retained": true,
+  "original_scenario": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\live-power-1794071939081593800.json",
+  "original_scenario_sha256": "9c65586c31eee2e39e3d676b5468d205c3fa6abc10281053f917c6ac14234156",
+  "original_script_sha256": "dc63f572e5b2c4723cc51a293df05c8a10336213ccd156aaaee4de11d2016fb8",
+  "corrected_script_sha256": "c39051452d0279532d45e6ebb5051a5652216d8f4eab2f8f07cc9be8ad9e87f5",
+  "source_sha256": {
+    "tools/raid_native_power.js": "543b3f97e44c6f0412e2f494b3115f0d887416d2a93b8a173e70385a8ba6f455",
+    "els_server/domain/achievement_flow.py": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+    "els_server/storage/achievement_profiles.py": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7"
+  },
+  "business_source_changed": false,
+  "reused_business_assertions_before_failure_line": 112,
+  "verified_before_failure": [
+    "Full native6BF payload",
+    "4199/4200/7000 thresholds",
+    "Bare6BE and lowerCP do not mint/regress",
+    "Final encoding rollback",
+    "Actual authoritative inventory changed between parse and writer rejected",
+    "ForeignUID rejected",
+    "Large/repeated CP unchanged",
+    "Cold two-family same-account sharing",
+    "Foreign account isolated"
+  ],
+  "corrected_log_gate_passed": true,
+  "expected_protocol_errors": 2,
+  "expected_injected_worker_errors": 1,
+  "unexpected_worker_notification_task_errors": 0,
+  "whole_scenario_not_rerun": true,
+  "no_second_database_or_economy_replay": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "owned_directory_removed": true
+}
