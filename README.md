@@ -100,3 +100,5 @@ V37 模式/Git/动效和 V38 一键本地服务端更新的完整启动器实现
 首次选角进城初始化与其他SQLite写者：[交付范围与验证](docs/initialization-readers-20261027.md)。默认重建已绑定实际验收双端，保留前序295762防护、V39和LOCAL差异。
 
 首次选角进城初始化与其他SQLite写者：[交付范围与验证](docs/PATH_PROJECTIONS_20261027.md)。默认重建已绑定实际验收双端，保留前序295762防护、V39和LOCAL差异。
+
+PR771选择性修复与本服坐骑赛车：[线上安装源码及核收](references/pr771-online-installed-20261103-v2/README.md)。最终59文件选择入口为该目录 `combined-files.json`，与已安装线上1474文件清单对齐；原候选、本服规则与61项相关用例保留在[前批归档](references/pr771-racing-full-20261103-v1/README.md)。四文件线上整合另有22项回归及六账号公网核收；自然GUI与完整自然多人实战待验，LOCAL和启动器未更新。

@@ -1,0 +1,28 @@
+{
+  "release": "pet-bag-inspect-spa-and-npc-menus-20261111-v176",
+  "source_manifest_sha256": "032db347a9326fe07c50d265e9026d37aeb69b9b45ccc218b8985c34e1bacde7",
+  "parents": {
+    "online": {
+      "release": "spa-and-npc-bag-sale-20261111-v175",
+      "manifest_sha256": "b1e39b1db7ec3c1ab19c8bc7fdee5f02adca0588761191b84977b787b575c063"
+    },
+    "local": {
+      "release": "unified-server-22c4515ef656d74b-ce14da0010b9",
+      "manifest_sha256": "cab97d73c44321af0d64e088993d13d455374c0462977a5d3d141620a88ec433"
+    },
+    "launchers": {
+      "release": "spa-and-npc-bag-sale-20261111-v175",
+      "manifest_sha256": "f64ff9d62b4098506d9f60b7dcaf4626cd46196deb16ffe76c83fb787cd27ffb"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "parent_sha256": "c74afc870f40b2ba07f7d88ac5a0a7eb54633cbae5d98ac75eeadb4c13dbbb51",
+      "sha256": "032db347a9326fe07c50d265e9026d37aeb69b9b45ccc218b8985c34e1bacde7",
+      "size": 10776,
+      "cohort": "spa-native-entry-code",
+      "scope": "server"
+    }
+  ]
+}

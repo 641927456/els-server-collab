@@ -1,0 +1,45 @@
+{
+  "status": "PRIVATE_NEXT_SOURCE_TEST_PENDING",
+  "parent_selected_runtime": "G:\\qa-ach104\\component-runtimes\\4df8a3429454a306-ef4d0d31aa8b",
+  "frozen_V104_unchanged": true,
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "sha256": "3df90439f366d4cc4dc28ed81b1c5906e1db55ae849448be3bc01482c1e89380",
+      "parent_sha256": "52a2ecfa63439ae8c3fd96d7d1373567ffc9f02cc70673b3b1cdf92953a4f4f2"
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "sha256": "52b6bfe79e8b33ef8bd4b40e1916f6e90b2c3ae82a31627fbb041d48fb8aefe3",
+      "parent_sha256": "04bb02d9d44adc595e7d2ce98abac97c45f2e9c44845378f3ea78fcf3732b8a4"
+    },
+    {
+      "path": "els_server/domain/guild_banner_flow.py",
+      "sha256": "dcb2713e8fd33570f6e33cac68d7d787a9874724a8946f098da4d7115d850e39",
+      "parent_sha256": "4a324aeb8ce7005267a297fb43833a0438ac2fee7ffda9c4f2c82b344ff01e53"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "sha256": "ff2ee09bfadb509b4772f14eb7a6b27b0a4d24cc025b2c01b35389d051375e82",
+      "parent_sha256": "64df708ff032e6e72502511ddbbe0ed48de05293f0e4829a561aacfd6dd959f8"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "sha256": "e99a5b81befa05648c3a63e1473d45d1b0b4ce29d831daa4d0c8a32425227ece",
+      "parent_sha256": "ede2d3651ad1a6322d3a9b705de80beabba9beb25eafed3496288cbe71593492"
+    }
+  ],
+  "source_type": 59,
+  "native_thresholds": [
+    10,
+    100,
+    500
+  ],
+  "new_tables": 0,
+  "new_indexes": 0,
+  "new_gameplay_rules": false,
+  "counter": "Only a committed accepted true transition; withdrawal, repeated true in the same actor scope and failures do not add a source",
+  "actor_lifecycle": "Existing town membership departure clears visibility; new guild-hall object, dungeon run or stage selects a fresh scope",
+  "official_default_parts": "Current CN guide CN-089 gives every newly created guild five default emblem parts; F1 in towns/dungeons",
+  "installed": false
+}

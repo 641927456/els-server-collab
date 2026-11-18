@@ -1,0 +1,18 @@
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -908,7 +908,14 @@
+ 
+             from els_server.domain.title_flow import enabled as titles_enabled,restore as restore_titles
+ 
+-            if titles_enabled(self):reply.extend(restore_titles(self))
++            if titles_enabled(self):
++                # The original selection handler uses 2C for the title book.
++                # Restore the owned rows and shortcut settings before 29
++                # completes character selection. C23 is the in-world refresh.
++                book,equipped,*preferences=restore_titles(self)
++                index=next(i for i,e in enumerate(reply) if e.kind==0x2c)
++                reply[index:index+1]=[Event(book.event_id,kind=0x2c,payload=book.payload),*preferences]
++                reply.append(equipped)
+ 
+         elif self.account.characters is not None and any(e.kind in (0xd9,0x29f,0xf5) for e in reply):
+ 

@@ -1,0 +1,56 @@
+{
+  "release": "quest-menu-blank-20261110-v143",
+  "patch_sha256": "e554390658330fdced8df01b3fad016beeee19e8f308a11f042fa1dd5099a467",
+  "parents": {
+    "online": {
+      "release": "camilla-training-ap-shop-20261110-v141",
+      "manifest_sha256": "39e964de9d7d662a33e0d93d0ad017ecc34e833501b14997057f79c4c4015111"
+    },
+    "local": {
+      "release": "unified-server-f4f187ed7411a8d8-c074caa6b050",
+      "manifest_sha256": "2735c45b1706612fa80be5314bb00085374110fa8c4ddffa7ce5d95711b9ac73"
+    },
+    "launchers": {
+      "release": "bridge-channel-timeout-20261110-v142",
+      "manifest_sha256": "8b2ecdf63aa9a37a53d989d5654751c61fdd47c270e0a6d9b7e0ced887c05621"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/adventure_checklist_flow.py",
+      "parent_sha256": null,
+      "sha256": "17a3f177a9b7f4930228e7beb97511ebdc6cfeeca00b22918004b84dd37c47c9",
+      "size": 3797
+    },
+    {
+      "path": "els_server/domain/ariel_attendance_flow.py",
+      "parent_sha256": "a93a2034935ae6e180b5cf72834a1db8f7bb5aac01c7552f79ced4a632dc2c36",
+      "sha256": "2ef970241dff28834f1633d2940f53bafe0a1b938df77c69d2d15dc2154e4404",
+      "size": 4791
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "b988578fc1b95c683549d907dc6277d6cec6bf8b1f948352d9923d5def08078e",
+      "sha256": "772e5203f91cd9edbd6735e66b8055b6db05d14de3b467068b481b383f0d9bee",
+      "size": 168323
+    },
+    {
+      "path": "els_server/domain/periodic_activities_flow.py",
+      "parent_sha256": "90b836efb9122869a98229cc3266fd8e00779cd147093400c5abe9c084f8527c",
+      "sha256": "0e7ddfa48d5ef85d523b30d10f3f95790332033fc84fb8e29a6a38a715fdad3e",
+      "size": 12126
+    },
+    {
+      "path": "els_server/protocol/adventure_checklist_messages.py",
+      "parent_sha256": null,
+      "sha256": "95df1f5994a2cfdc9da8deafd7dd7b73764f36417666a8c26fc3a0e75975a18c",
+      "size": 1146
+    },
+    {
+      "path": "els_server/protocol/ariel_daily_special_messages.py",
+      "parent_sha256": "94d57d229ac1136dcb0049a1f1dbb22d73022af851c3ad974a280c22a91dd51e",
+      "sha256": "df056469483256082eb636eb5674004fb48b2a3705b7a593c07366fcaede8118",
+      "size": 3262
+    }
+  ]
+}
