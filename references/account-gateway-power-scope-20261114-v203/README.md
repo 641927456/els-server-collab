@@ -1,0 +1,4 @@
+# Account gateway scope repair V203
+
+修复战力上下文误包裹账号网关，恢复状态查询和免密续登；保留技能栏资格优化及V201全部修复。
+AccountGateway status/resume were wrongly treated as dungeon session calls. Exact existing FriendsSession type boundary fixes the failure. Qualified actual TLS registration/status/password/resume and rejection tests are reused by exact candidate SHA. Combined TLS status/resume, actual FriendsSession Lu/Ciel raw CP/Greed replay and cold facts passed. Only one runtime leaf changes from installed V202; formal V201 signed upgrade includes the three earlier slot optimization leaves. Current databases remain separate and are never restored. V201 original-native MyBuff and launcher click evidence is reused for unchanged client bytes. Full new game entry, natural acceleration and long multiplayer capacity remain unverified.

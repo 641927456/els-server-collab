@@ -1,0 +1,69 @@
+{
+  "status": "INDEPENDENT_CODE_REVIEW_COMPLETE",
+  "reviewer": "/root/native_cp_independent_review",
+  "time_utc": "2026-11-07T17:47:16.568871+00:00",
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "sha256": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+      "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\domain\\achievement_flow.py",
+      "parent_sha256": "fb43385c086a316298b96b2328d99fc340f9f69b6f88ee3ea53591f14791b0da"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "sha256": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7",
+      "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\storage\\achievement_profiles.py",
+      "parent_sha256": "e99a5b81befa05648c3a63e1473d45d1b0b4ce29d831daa4d0c8a32425227ece"
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "parent": "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\tools\\raid_native_power.js",
+      "parent_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94"
+    }
+  ],
+  "source_pins_verified": true,
+  "changed_files": 3,
+  "added_lines": 35,
+  "removed_lines": 14,
+  "actionable_findings": [],
+  "recommendation": "APPROVE_CODE_SUBJECT_TO_ACTUAL_DELIVERY_QUALIFICATION",
+  "native_Game_reexecuted_by_reviewer": false,
+  "Git_approval": false,
+  "release_authorization": false,
+  "report": {
+    "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\independent-review-v1.md",
+    "sha256": "22d69d39f27e30a075dbd82bee7b84076d6a78eecf4654504771ac4311168cfc"
+  },
+  "evidence": [
+    {
+      "path": "review-scope.json",
+      "sha256": "f62f05cf5064acb343790fbcd168c2b01e812bb1007b51bc8346802d0f190582"
+    },
+    {
+      "path": "review-unified.diff",
+      "sha256": "73edfdc64ebc925865d32a22d0f3125a78626930851b3e3b53659327c3914076"
+    },
+    {
+      "path": "native-power-authorization.json",
+      "sha256": "43787be2c6967144eeed37c4494c19d68a384b3d458d4895994014f6e2004782"
+    },
+    {
+      "path": "projection-1794071658577240500.json",
+      "sha256": "a0c25dc83711fe1901e202c6c44823bd485aa4d539382f4cda668eeffdbaea63"
+    },
+    {
+      "path": "diagnostic-gate-qualification.json",
+      "sha256": "be8ae9bd3c35c451f1e349d069e8b610c2e294a0d017c90aa9ddf451d5c30c16"
+    },
+    {
+      "path": "native-power-abi-v2.json",
+      "sha256": "33cfabd9f00c405a5c16c018c519e13181f438f76eae9ed2aad9633e0af0ded3"
+    },
+    {
+      "path": "native-ui-v4/scenario-complete.json",
+      "sha256": "7c4d74fe5ca1169d65c3eaa2696de546f7a7cad7638fa21a17ed13dc1f274776"
+    }
+  ],
+  "review_boundary": "Three pinned files and named direct dependencies; future composition/build/install excluded"
+}
