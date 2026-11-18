@@ -1,0 +1,26 @@
+{
+  "release": "bridge-channel-timeout-20261110-v142",
+  "patch_sha256": "6d0d05bfa219d8e38fdd4aa76e85bbf1002e429b1276d6ddb03cb2c8528f2a19",
+  "parents": {
+    "online": {
+      "release": "camilla-training-ap-shop-20261110-v141",
+      "manifest_sha256": "39e964de9d7d662a33e0d93d0ad017ecc34e833501b14997057f79c4c4015111"
+    },
+    "local": {
+      "release": "unified-server-f4f187ed7411a8d8-c074caa6b050",
+      "manifest_sha256": "2735c45b1706612fa80be5314bb00085374110fa8c4ddffa7ce5d95711b9ac73"
+    },
+    "launchers": {
+      "release": "camilla-training-ap-shop-20261110-v141",
+      "manifest_sha256": "161af6ea9f6fe167c6c27f08b55c548fab051a04a5a8d476312d0dec18c0fa9c"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/friends_bridge.py",
+      "parent_sha256": "b968a6204c53a1e9c122a4bea96c6c60ddf9607015642b3f2f6a5e26e94d9c91",
+      "sha256": "44add4a8d6043ba1b8f9b4de83add747f61b250c8ab0fdfe68ae0bafb5346851",
+      "size": 16469
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "scope": "Installed October 31 ED repair and retained source in current unified runtime",
+  "use": "Git reference archive for selective integration",
+  "online_release": "daily-weekly-seasonpass-20261109-v131",
+  "online_manifest": "b2949331e0caedd443d9d74e1bf038c4d744d25b7d2e4057f115f51ef47c3026",
+  "local_release": "unified-server-e2efb71d45c43d14-479c9f839ca2",
+  "local_manifest": "ceab351b97957e4e2ca04658530019fd8b7e69892e7e6661663c3c22381433e4",
+  "same_source_both_targets": true,
+  "git_main": "8619b3a421d101158931ff32ef1ebfbf4b61683e",
+  "absent_paths_at_git_main": [
+    "els_server/data/secret_clear_rewards.json",
+    "els_server/data/secret_clear_rewards.manifest.json",
+    "els_server/domain/clear_ed_display.py",
+    "els_server/domain/dungeon_settlement_commands.py",
+    "els_server/domain/secret_clear_rewards.py",
+    "els_server/domain/silver_mirror_flow.py"
+  ],
+  "additional_import_targets_outside_git_main_and_archive": [
+    "els_server/domain/assembly_rules",
+    "els_server/domain/black_market_box_rules",
+    "els_server/domain/black_market_rules",
+    "els_server/domain/challenge_repeat_rewards",
+    "els_server/domain/consumable_extensions",
+    "els_server/domain/daily_ticket_rules",
+    "els_server/domain/devildom1_raid2_controllers",
+    "els_server/domain/dungeon_result_rules",
+    "els_server/domain/el_search_effects",
+    "els_server/domain/feta_coupon_rules",
+    "els_server/domain/feta_gauge_rules",
+    "els_server/domain/furniture_rules",
+    "els_server/domain/giant_daily_tasks",
+    "els_server/domain/giant_misc_loot",
+    "els_server/domain/ground_currency",
+    "els_server/domain/growth_guide",
+    "els_server/domain/growth_guide_boxes",
+    "els_server/domain/guild_coin_rules",
+    "els_server/domain/guild_effects",
+    "els_server/domain/guild_expedition",
+    "els_server/domain/guild_farm_items",
+    "els_server/domain/guild_quests",
+    "els_server/domain/guild_rename",
+    "els_server/domain/guild_shop_items",
+    "els_server/domain/guild_skins",
+    "els_server/domain/housing_expansion_rules",
+    "els_server/domain/job_reward_boxes",
+    "els_server/domain/life_potions_existing",
+    "els_server/domain/mentor_quests",
+    "els_server/domain/modern_ice",
+    "els_server/domain/mount_racing_items",
+    "els_server/domain/native_force_catalog",
+    "els_server/domain/native_line_triggers",
+    "els_server/domain/native_script_loot",
+    "els_server/domain/native_ticket_rules",
+    "els_server/domain/neblon_role_change_rules",
+    "els_server/domain/normal_fatigue_flow",
+    "els_server/domain/normal_fatigue_rules",
+    "els_server/domain/ordinary_misc_loot",
+    "els_server/domain/owned_reward_boxes",
+    "els_server/domain/owned_scroll_families",
+    "els_server/domain/periodic_item_readers",
+    "els_server/domain/pet_battle_quest",
+    "els_server/domain/pet_trainer_exchange",
+    "els_server/domain/photo_zone_catalog",
+    "els_server/domain/potion_choice_box",
+    "els_server/domain/promotion_reward_boxes",
+    "els_server/domain/pvp_material_exchange",
+    "els_server/domain/pvp_specialization",
+    "els_server/domain/regional_drop_materials",
+    "els_server/domain/relationship_boxes",
+    "els_server/domain/reselection_quest",
+    "els_server/domain/retained_box_openings",
+    "els_server/domain/retained_native_consumables",
+    "els_server/domain/teacher_elixir_boxes",
+    "els_server/domain/wedding_gifts",
+    "els_server/domain/wedding_items",
+    "els_server/domain/wisdom_potions",
+    "els_server/storage/collection_synergy",
+    "els_server/storage/henir_force_rewards"
+  ],
+  "source_count": 17,
+  "files": [
+    {
+      "path": "els_server/data/dungeon_loot_catalog.json",
+      "sha256": "b4d573b5d2eb868bdd9d7deaa717102c93b84527f43288b531458d5b92ab8054",
+      "historic_repair_sha256": "e38d43683ce04dc947b1a4c794ce79bb8fb723a6ba976438e6e872d8b1f583d6",
+      "git_main_sha256": "b835c7dc350dc80f5cf198f1c28b4a231daef35544aad4131ab48ace2ad5575f"
+    },
+    {
+      "path": "els_server/data/dungeon_material_loot_catalog.json",
+      "sha256": "acf681315d16524342e4f806d83c083c5b0b313357b348cad9f309ea28fe43ec",
+      "historic_repair_sha256": "7d0c804cdc7666f92152581a5f6acdcc79481e852a9ed627e4353f756fccee8c",
+      "git_main_sha256": "b936d1bb6c786475ac190a073902a823610dcc9847106dd52a8c46b988a7a2ef"
+    },
+    {
+      "path": "els_server/data/dungeon_source_loot.json",
+      "sha256": "44e502ed983dd86141f27e39a10aef15e9cbee1a6a2cfc0d9661f0d9d1be1fd8",
+      "historic_repair_sha256": "a74cfe1036d0e48dad91a7302cd4cd9fd082956a9b3da029efb7f7052c5b41a4",
+      "git_main_sha256": "26ed0aa4982d74aaca54ee58b2d244523150f18dcd58d72cb5bb50e9864828a6"
+    },
+    {
+      "path": "els_server/data/secret_clear_rewards.json",
+      "sha256": "e45e11e244f6a592f2bd00a2d2754f09ba8380ee0d2fe2f761eeda9f8206504a",
+      "historic_repair_sha256": "e45e11e244f6a592f2bd00a2d2754f09ba8380ee0d2fe2f761eeda9f8206504a",
+      "git_main_sha256": null
+    },
+    {
+      "path": "els_server/data/secret_clear_rewards.manifest.json",
+      "sha256": "9d3314e14883fdbff768270cdced86a742b236e197a88160955e731856a9ef12",
+      "historic_repair_sha256": "9d3314e14883fdbff768270cdced86a742b236e197a88160955e731856a9ef12",
+      "git_main_sha256": null
+    },
+    {
+      "path": "els_server/domain/clear_ed_display.py",
+      "sha256": "c0ed6c6540861b72b71e8cec2adf459c1bf3577b9ca1744a36d3d08a214a64c1",
+      "historic_repair_sha256": "c0ed6c6540861b72b71e8cec2adf459c1bf3577b9ca1744a36d3d08a214a64c1",
+      "git_main_sha256": null
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "sha256": "5d738f977a1e613aac6e19c8daf4ce1e4e56f83728bf0477f69d986131991548",
+      "historic_repair_sha256": "779913882c0863ae235b6e4108ca6f28cd07b69fdb16de152d143d63faa349e8",
+      "git_main_sha256": "5c88a24f14a54ee7c51b86a2a8d0d501ad62e473d7716e562d66374d167544d7"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "sha256": "05fc619b496ebd1a1e0d375c46137bc723172a96e44da540cb31ddd52b7d5ee9",
+      "historic_repair_sha256": "8b3942fc37e4f1f37ab928b639fd73f9f4c4d95c9879e1a0d68148eb168f775d",
+      "git_main_sha256": "e95beb3f082b3724dceaac07ca1d433a40ba63675d8dcee3af81dcf9c1ce70f9"
+    },
+    {
+      "path": "els_server/domain/dungeon_loot_catalog.py",
+      "sha256": "b1579f60fb608a06d2a4ca67b8cec376d98c3b10e470a444fc6c3f578f6ad2b7",
+      "historic_repair_sha256": "09a6e3f4f28ae817b0a73ef3c16f89f8724a35d5f6da3717c8cd7b18a81364ad",
+      "git_main_sha256": "685116c503d19b7a380228d1caa1c799e31282b170200f018fbb12e01f976925"
+    },
+    {
+      "path": "els_server/domain/dungeon_material_loot_catalog.py",
+      "sha256": "93829cd27114af30329d1a7707520996d935a892fbc0d08e4a793e56c47317fd",
+      "historic_repair_sha256": "37eb525e0c9deb5610f645895f93cf983c3acb5d8e38c2cc62f8175b8404a4e1",
+      "git_main_sha256": "53a367dc06475e458cb9462ab500195c7123386912a9b45429f5f5a2c6f797a9"
+    },
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "sha256": "85c6bf8314fc8ebcee6347cec60e1e1466f20b77cbd438dbc792e9a9dd7879d6",
+      "historic_repair_sha256": "ecc69528631a970421a2f6c27d16f0ca93be373d805d4c3a6c8f24eb273f0f3c",
+      "git_main_sha256": "047a05a2279d84110f34dc8fcc153260ee1a5dfcf8a4b23138ce358bed9f6e2f"
+    },
+    {
+      "path": "els_server/domain/dungeon_settlement_commands.py",
+      "sha256": "94014a6598cfa9b2d88984752b40d92372c8f299aff024226dc686fbe545c5be",
+      "historic_repair_sha256": "367f8c5a930b22e7754c984c7d98dee551a7d1d900e854dc97af38684565bd87",
+      "git_main_sha256": null
+    },
+    {
+      "path": "els_server/domain/dungeon_source_loot.py",
+      "sha256": "7d8ab389a45ad59af5a7831a5645d18a5f8b42950515f2bf9c98348f585b10e2",
+      "historic_repair_sha256": "4c859b251e9387f910214f167330e323c64228ff3418e8100608310ee2559fea",
+      "git_main_sha256": "17cd47e39b623023107e9115065d158eaf7cfb4734e2725311622e9020963a13"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "662b9d8b27a287d8ac93d98cf161e254ad92136254f384ff03bade5f0c4a99b5",
+      "historic_repair_sha256": "386b02232918de3b7a2ea565219b570075a1c3c56988faa60731cb64170a763f",
+      "git_main_sha256": "04afd614fb19e5ee60f2b5b28f72f17129a69275cf2a8c11a7ad88b6bf0fb526"
+    },
+    {
+      "path": "els_server/domain/secret_clear_rewards.py",
+      "sha256": "290889e41b7a8eaa9d9ca2be72038166cb6ba68df52e21252c3ad5ef2f2c9d4a",
+      "historic_repair_sha256": "8ec3aff99ff814eec1d67b2a64a099871d5bb4617187fed1ba1fd58474e1cb2d",
+      "git_main_sha256": null
+    },
+    {
+      "path": "els_server/domain/silver_mirror_flow.py",
+      "sha256": "0aa072bf44811942bbf85f739d64fb62a899a5f1004b4ef4028c668d3c92d90a",
+      "historic_repair_sha256": "5b7f900f4c6b3a1c442e797c791ef0cd2b2189c9de0045627c62509c52be31d1",
+      "git_main_sha256": null
+    },
+    {
+      "path": "els_server/domain/title_economy.py",
+      "sha256": "e4ad454c43c40f08d78283ed155b0d1fb52f4e26a3f65a0fc305bb48ec6dbd3a",
+      "historic_repair_sha256": "e925a60508d523facdfa7e7114d2b529bf43b8b1bf8a93426c8e6d2bdc8d3e3f",
+      "git_main_sha256": "d84b6c392f8831be180281220ca2db79fcce51b0ebe3c1cf69ae0e598ec58912"
+    }
+  ],
+  "native_GUI_qualified": false,
+  "runtime_install_needed": false,
+  "catalog_reader_counts": {
+    "normal": 22,
+    "material": 33,
+    "source": 53,
+    "secret": 10
+  },
+  "public_proof": "public-current-acceptance.json",
+  "owned_QA_cleanup": "public-current-cleanup.json"
+}

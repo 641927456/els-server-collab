@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "kind": "QA-only snapshot scheduling correction",
+  "source_head": "90295139039b4ba48b75498a4e1ee882e09f4e21",
+  "business_source_changed": false,
+  "signed_runtime_changed": false,
+  "actual_selected_runtime": "G:\\qa-ach96\\component-runtimes\\804f18a231412d2d-670bfa4c2988",
+  "runtime_sha256": "804f18a231412d2df7b603875da10f7e9c1c462220e536432f3bc0c829d3bbc4",
+  "reason": "Remote read-only snapshots must not block authenticated relay heartbeats on the async protocol event loop",
+  "scenario_sha256": {
+    "achievement_combat_client.py": "7d1f663b67b7fda843464dfe00a80eda96408bed683f030ae82266dc1d1743a6",
+    "achievement_fixture.py": "cebff1cde270ef2560646c0e26dfd2e369b2a40975cc19fc8c392aeda4d06cc6",
+    "achievement_protocol_client.py": "c3073f111fda41923ab86572bd6dcf3014476f932274fc2f9d1951848cb6f188",
+    "achievement_pvp_fixture.py": "049f80a5e5e50c2bc478f380bc7957ee1c7c400b98a86f449df19bffc4f2c603"
+  },
+  "qualification_sha256": "1028dc3f3df396c3efb9d1193f9a6bd26be2656255af200c059c6b63e8c5fb88",
+  "natural_GUI": false,
+  "natural_battle": false,
+  "production_clock_patch": false
+}
