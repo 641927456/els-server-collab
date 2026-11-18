@@ -1,0 +1,36 @@
+{
+  "checked_date": "2026-11-07",
+  "sources": [
+    {
+      "url": "https://elsword.koggames.com/wedding-revamp/",
+      "region": "NA",
+      "revision_date": "undated current page",
+      "applicability": "Only the achievement semantic change: actual ceremonies including reminder ceremonies; regional rewards and fees are not adopted"
+    },
+    {
+      "url": "https://els.ztgame.com/game/005-1687-0037c-677990.shtml?mf=892&ms=780&mt=890",
+      "region": "CN",
+      "applicability": "Existing approved current mutual acceptance, ring debit, reservation and ceremony rules reused"
+    }
+  ],
+  "native_conditions": {
+    "couple_type": 18,
+    "wedding_type": 19,
+    "definitions": 10,
+    "requirements": "Accepted pair generations and actual wedding ceremonies, one per original reservation"
+  },
+  "producer_files": [
+    "els_server/storage/relationships.py",
+    "els_server/storage/wedding_ceremonies.py",
+    "els_server/storage/weddings.py",
+    "els_server/domain/wedding_rooms.py",
+    "els_server/application.py"
+  ],
+  "existing_common_exit": "FriendsSession._mailbox_messages already reconciles each recipient after sender commit",
+  "new_rules": false,
+  "new_probabilities": false,
+  "new_economy": false,
+  "remaining_days_semantics": "Types20/71 retained pending verification; no elapsed-days formula guessed",
+  "original_rewards_recovered": 0,
+  "missing_original_reward_groups_still_deferred": 53
+}

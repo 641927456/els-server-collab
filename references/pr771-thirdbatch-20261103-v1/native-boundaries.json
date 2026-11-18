@@ -1,0 +1,60 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "private_Unicorn": true,
+  "live_process": false,
+  "original_functions_executed": true,
+  "results": [
+    {
+      "kind": "quest_initialization",
+      "reader": "DA3620/DB6070/DD6E80",
+      "count": 20,
+      "decoded": 20,
+      "consumed": 658
+    },
+    {
+      "kind": "quest_initialization",
+      "reader": "DA3620/DB6070/DD6E80",
+      "count": 50,
+      "decoded": 50,
+      "consumed": 1665
+    },
+    {
+      "kind": "quest_initialization",
+      "reader": "DA3620/DB6070/DD6E80",
+      "count": 51,
+      "decoded": 51,
+      "consumed": 1696
+    },
+    {
+      "kind": "quest_initialization",
+      "reader": "DA3620/DB6070/DD6E80",
+      "count": 100,
+      "decoded": 100,
+      "consumed": 3285
+    },
+    {
+      "kind": "essence_rejection",
+      "consumer": "1AAE720",
+      "result": 1836,
+      "text": "无效的操作。",
+      "consumed": 10,
+      "inventory_or_actor_mutation": false,
+      "shims": [
+        "wait removal confirms outstanding 461",
+        "751120 captured error result and returns failure; UI not rendered"
+      ]
+    },
+    {
+      "kind": "essence_rejection",
+      "consumer": "1AAE720",
+      "result": 2516,
+      "text": "艾尔精髓不足。",
+      "consumed": 10,
+      "inventory_or_actor_mutation": false,
+      "shims": [
+        "wait removal confirms outstanding 461",
+        "751120 captured error result and returns failure; UI not rendered"
+      ]
+    }
+  ]
+}

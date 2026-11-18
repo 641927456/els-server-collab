@@ -1,0 +1,77 @@
+{
+  "created_hkt": "2026-11-09T20:28:38.234689+08:00",
+  "sender_thread": "01a1c034-1088-7990-bb34-37fa758c4853",
+  "recipient_thread": "01a1be2b-1654-75b1-a3a4-616094c3e6fd",
+  "recipient_title": "排查游戏启动缓慢原因",
+  "human_instruction": "你继续排查这个副本的问题，有问题就修复，没问题就把之前漏的整合起来给这个会话进行安装和提交",
+  "new_runtime_files": [],
+  "new_runtime_patch": false,
+  "existing_source_PR": 981,
+  "existing_source_head": "9fa4e165b6af1fb0c2877fd9c686842fab71e789",
+  "runtime_binding": [
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "sha256": "85c6bf8314fc8ebcee6347cec60e1e1466f20b77cbd438dbc792e9a9dd7879d6",
+      "all_three_equal": true
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "sha256": "05fc619b496ebd1a1e0d375c46137bc723172a96e44da540cb31ddd52b7d5ee9",
+      "all_three_equal": true
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "sha256": "179ed6381c4735e3a7ee534590a05b41fd6fb6b02422591a69bacbdadc8a874c",
+      "all_three_equal": true
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "sha256": "d4d1c0ee0fe89799b538f17f31fadab7e52ae73e5f84f5a0e3f982d57d36503a",
+      "all_three_equal": true
+    },
+    {
+      "path": "els_server/data/client/dungeon_routes.json",
+      "sha256": "7c8ceb98bd748e30348ab26922ed8302d884dc2deb12475597f1bfbdb943751f",
+      "all_three_equal": true
+    },
+    {
+      "path": "els_server/data/client/npcs.json",
+      "sha256": "784818114f9ded59420aa32508b0bf05b3be799cb074345d3865082a699e3b6c",
+      "all_three_equal": true
+    },
+    {
+      "path": "tools/native_shadow_castle.js",
+      "sha256": "ba5b2d297b4cc5441298251eddaac5decda6cfb747ec42d84f69ca628fa14260",
+      "all_three_equal": true
+    },
+    {
+      "path": "tools/native_shadow_castle.json",
+      "sha256": "c7fe8f7ae540d7d89a63afbdc01baf274ae0ff715a46dfce1ff0d404c77f1fb1",
+      "all_three_equal": true
+    },
+    {
+      "path": "tools/native_hit_count_obstacles.py",
+      "sha256": "dd1025f1ef781d551acc0069543fa4862da95c40e844e534a8803789a6fde9ac",
+      "all_three_equal": true
+    }
+  ],
+  "source_tests": [
+    {
+      "path": "verify_integrated.py",
+      "sha256": "72fe8c4df37407e7585c4564ed693e39f55aba9ae7cc1eb97ea0a50efb6dac43",
+      "size": 9964
+    },
+    {
+      "path": "integrated-verification.json",
+      "sha256": "f56d50f288754b71d39a10f6134337e92e5d6bef6b8c779dbf64d2e3a62ab3fd",
+      "size": 3166
+    },
+    {
+      "path": "继续核查与交接.txt",
+      "sha256": "cc2aa3ec6d3ab711a98425100b221207197b1a3c9dc4f108fdf0b66344a39d4b",
+      "size": 4030
+    }
+  ],
+  "natural_full_battle_verified": false,
+  "temporary_directories_remaining": []
+}

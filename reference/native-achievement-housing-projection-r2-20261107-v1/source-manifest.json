@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "status": "ACTUAL_HOUSING_PRODUCER_REPAIRED_NOT_INSTALLED",
+  "foundation_head": "9e9e102004e278c95cb0a7f1110a0b57247fed89",
+  "actual_parent_release": "native-five-session-repairs-20261107-v1",
+  "actual_parent_manifest_sha256": "26cd040a9108517149d9249f7b51b9421f9c73f1c9afb9a9307b3cbb5d3b4fdb",
+  "actual_parent_Git_head": "4c66d239b7c38e526ff27a89c93fb5ca993e159b",
+  "actual_parent_PR": 927,
+  "source_files": [
+    {
+      "target": "els_server/application.py",
+      "source": "reference/native-achievement-parent-integration-20261107-v1/source/els_server/application.py",
+      "sha256": "3be27a208c472c2e257e44a52766e8d1116b0c47d456fc6897fa08a1a813a705",
+      "parent_sha256": "003f2748bc6e3f5ce654ff0e9caaa9ad8e5c01c4186a538daa447d5c9a279631"
+    },
+    {
+      "target": "els_server/data/ariel_attendance_preview.json",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/data/ariel_attendance_preview.json",
+      "sha256": "514c4937418c0bf336a53671c7e1dd5d9e580c804703c4ebbaed68b8ff7cf5a3",
+      "parent_sha256": "514c4937418c0bf336a53671c7e1dd5d9e580c804703c4ebbaed68b8ff7cf5a3"
+    },
+    {
+      "target": "els_server/data/client/achievement_rewards.json",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/data/client/achievement_rewards.json",
+      "sha256": "79fbcef402aad6626e55127c2f2eac5b64f6d6923fe0736e74dccf653f67bfdb",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/data/client/achievements.json",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/data/client/achievements.json",
+      "sha256": "0be7576396cfbd3d07d992916ff5674706cd67abb00fc44ac8e0d8a9efd86dee",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/domain/achievement_catalog.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/domain/achievement_catalog.py",
+      "sha256": "f80f5d79db5424a4071406b6579652c385715eacf53e7e8de3c76f4784024dbb",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/domain/achievement_flow.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/domain/achievement_flow.py",
+      "sha256": "6cb8d4190815854a5d5e0f1e7fc7f043425278f80985014202fa07b0bb17666c",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/domain/ariel_attendance_preview.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/domain/ariel_attendance_preview.py",
+      "sha256": "83c4097d6ee4c0bdd333d3e7b23cc4241886ce699e44e8f45af4998b3a975c02",
+      "parent_sha256": "618d1dc727e29d32e3ca3262d02c0b6a2b13c005e957d759f25f213c21c5de84"
+    },
+    {
+      "target": "els_server/protocol/achievement_messages.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/protocol/achievement_messages.py",
+      "sha256": "7b2ef09752c0324bd9a3209f180f397c8268d38cf3f308c8b9efd34229b25490",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/protocol/dungeon_messages.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/protocol/dungeon_messages.py",
+      "sha256": "184a05a8d5a0b40e47a1abd8be13d5ed54cfc1f9f1daa244f67518a3d06766ed",
+      "parent_sha256": "caab1d016cfea54954ae99736f498b4e8df3f26749bcc30834a7cda77e17e805"
+    },
+    {
+      "target": "els_server/protocol/guild_agit_messages.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/protocol/guild_agit_messages.py",
+      "sha256": "5f1a9b995009b060ab5a9b320d5275bbcd41fde8d69eb6b39f3e52013072e600",
+      "parent_sha256": "e0a77ce3260837ae6a476360e392d88d4ede44f8995b2449637288927100726e"
+    },
+    {
+      "target": "els_server/protocol/housing_population_messages.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/protocol/housing_population_messages.py",
+      "sha256": "2f0af39ee0790abdf31348eaa4310d531c512a41b40336cd6ad9aed32eed6387",
+      "parent_sha256": "a6472546c94f6c5a9d1d8294df0d9f097f1a9ac25f69a9b0bb1089c270ba6a88"
+    },
+    {
+      "target": "els_server/protocol/local_messages.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/protocol/local_messages.py",
+      "sha256": "ffea182c950273c4acc76150d46a31d1f3b9362dd5b8ae56ce3ca73cf38af5b3",
+      "parent_sha256": "0316a329db86556b214b96c85c2c4b22378e687e2803199c79b411e90c14bcb0"
+    },
+    {
+      "target": "els_server/protocol/social_messages.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/protocol/social_messages.py",
+      "sha256": "8495aa3e970c97133c785ac5b200015898c358256c9e8707c4a236bb7692dea8",
+      "parent_sha256": "8aa13dec6cc6b5717749b5427cf7b62ba82c6a0ebf884f25c2dc8f827e2c6e48"
+    },
+    {
+      "target": "els_server/storage/achievement_collections.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/storage/achievement_collections.py",
+      "sha256": "93846568f54857e35bd7153cc1c0ecdbffc8ce2734991c7dce7ef150784ac12d",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/storage/achievement_history.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/storage/achievement_history.py",
+      "sha256": "731ac2ffe52e939dc46c010cca7069ba7d6045e798f0a12dc46ad10e5ffe989a",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/storage/achievement_profiles.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/storage/achievement_profiles.py",
+      "sha256": "1f3832ab6f3a8a611b6438c9882a52690557b429f08150fda2ad29e46383a770",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/storage/achievements.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/storage/achievements.py",
+      "sha256": "151e50133b4888704024dd9f5ad89f2b090c49aec73c241697e29c2a95a1c495",
+      "parent_sha256": null
+    },
+    {
+      "target": "els_server/storage/career_shop.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/storage/career_shop.py",
+      "sha256": "999bd5169758cb34b57a2908c7ad059477f7d264a04ff7f1061f74512201949b",
+      "parent_sha256": "337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613"
+    },
+    {
+      "target": "els_server/storage/characters.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/storage/characters.py",
+      "sha256": "701c8240f534960cd0efe78bc81172501ca7ef96d8c3c573adaf01b1d50ecc1b",
+      "parent_sha256": "d87a17cbb982468a8db4413ccee0d8dc445cae043defa9d5d6e0e8b0e69964a1"
+    },
+    {
+      "target": "els_server/storage/player_mail.py",
+      "source": "reference/native-achievement-foundation-20261107-v1/source-v1/els_server/storage/player_mail.py",
+      "sha256": "b93ebcb20f17fdf4c5792b8f6ebbb2effc30531a4bb7b79176c39cc286b7ac00",
+      "parent_sha256": "5873a58a1cc6a83833dccc55034db5735963fe334718a992826a0529420248f0"
+    },
+    {
+      "target": "els_server/storage/seal_quests.py",
+      "source": "reference/native-achievement-parent-integration-20261107-v1/source/els_server/storage/seal_quests.py",
+      "sha256": "5ae48cc8bd10e9ba00225f6df757368959d502b8991f2cd4800f296fb685c841",
+      "parent_sha256": "bb46cafe8acd4af6449648c1a5fdf9a51caacd2301f8e03b862e82d21309cdf6"
+    },
+    {
+      "target": "els_server/storage/housing_rooms.py",
+      "source": "reference/native-achievement-housing-projection-r2-20261107-v1/source/els_server/storage/housing_rooms.py",
+      "sha256": "beaa39395dbabdba14133af95a1a71413d998470ef35aec7a048cb996a442e17",
+      "parent_sha256": "82b9132e2c71e409da082c5ed06f6fdf36eaea581defb265187b06e0bc8c8975"
+    }
+  ],
+  "qualification": "evidence/qualification-r2.json",
+  "production_installed": false,
+  "main_merged": false,
+  "superseded_delivery_source_head": "a3f0578150f5bd42cdd91dad3771b90b00f7b0f3"
+}
