@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "names": [
+    "native_achievement_completed",
+    "native_achievement_displays",
+    "native_achievement_expedition_account",
+    "native_achievement_fishing_account",
+    "native_achievement_guild_owner_kind",
+    "native_achievement_mail",
+    "native_achievement_operations",
+    "native_achievement_post_sender",
+    "native_achievement_progress",
+    "native_achievement_trade_account_a",
+    "native_achievement_trade_account_b"
+  ],
+  "activation": {
+    "online": {
+      "present": [
+        "native_achievement_progress",
+        "native_achievement_completed",
+        "native_achievement_displays",
+        "native_achievement_operations",
+        "native_achievement_mail",
+        "native_achievement_trade_account_a",
+        "native_achievement_trade_account_b",
+        "native_achievement_post_sender",
+        "native_achievement_expedition_account",
+        "native_achievement_guild_owner_kind"
+      ],
+      "lazy_not_created": [
+        "native_achievement_fishing_account"
+      ]
+    },
+    "local": {
+      "present": [
+        "native_achievement_progress",
+        "native_achievement_completed",
+        "native_achievement_displays",
+        "native_achievement_operations",
+        "native_achievement_mail",
+        "native_achievement_trade_account_a",
+        "native_achievement_trade_account_b",
+        "native_achievement_post_sender",
+        "native_achievement_expedition_account",
+        "native_achievement_guild_owner_kind"
+      ],
+      "lazy_not_created": [
+        "native_achievement_fishing_account"
+      ]
+    }
+  },
+  "declared_definitions_match": true,
+  "required_native_QA_tables_present": true,
+  "player_rows_read": false,
+  "schema_changed_by_this_check": false,
+  "original_databases_restored": false
+}

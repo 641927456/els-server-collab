@@ -1,0 +1,90 @@
+{
+  "release": "bag-rows-20261118-v271",
+  "parent_release": "server-fixes-20261118-v268",
+  "files": [
+    {
+      "path": "els_server/domain/bag_capacity.py",
+      "size": 3655,
+      "sha256": "9f03e909d9048b238aef8f5ebb6d8bad8ceaabf470ab867e39ec1e4f08345911",
+      "parent_sha256": "d38151f1c014eb10b4aed7e4b35c0df545bb279ae1ee73c259253502609d2a20",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "size": 104433,
+      "sha256": "ae9dd4491a49e7c7569d7a6d42641f89f4fcc2f61ec34c765e846728f20adb9e",
+      "parent_sha256": "f864371230c7380a765c53708b8b36e53773bec217847070c4fb5fc54fd3542b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/bag_capacity.py",
+      "size": 6426,
+      "sha256": "661a42ad9859497f6cb96f6592f5b81f1f0257b7cee4d5ddf887e72a38f3883c",
+      "parent_sha256": "fea8fbbbac75266d45c62142d30f64e17cd871c8073c53ca48e9207ead020abd",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/game_schema.py",
+      "size": 1469,
+      "sha256": "84bf46bef5dbac8b97b065acbf5724889430bbd9f580545c38f042e3310e035a",
+      "parent_sha256": "9972f692ce36a5a9481ac05e095f6588d5db983ffe72095927bb6b6d18d48108",
+      "scope": "server"
+    },
+    {
+      "path": "tools/original_index_pins.json",
+      "size": 20794,
+      "sha256": "a10bc4334477c867d7794f0ccf20c09c3a3ece03560c146e9f9c152aba246859",
+      "parent_sha256": "a74932d76f96654bac076f579e8660634c05c851a48ec34004599089ffaa8aac",
+      "scope": "support"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "size": 20854,
+      "sha256": "44985f567687e0e33a5ad63cce785d53fc3eec608c0a19a6856d1ccaffc348b0",
+      "parent_sha256": "2c9fc075d6cbe77f451183b5a509f8acebef709e0744bb31813063fa144aa913",
+      "scope": "support"
+    }
+  ],
+  "shared_files": [
+    {
+      "path": "els_server/domain/bag_capacity.py",
+      "size": 3655,
+      "sha256": "9f03e909d9048b238aef8f5ebb6d8bad8ceaabf470ab867e39ec1e4f08345911",
+      "parent_sha256": "d38151f1c014eb10b4aed7e4b35c0df545bb279ae1ee73c259253502609d2a20",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "size": 104433,
+      "sha256": "ae9dd4491a49e7c7569d7a6d42641f89f4fcc2f61ec34c765e846728f20adb9e",
+      "parent_sha256": "f864371230c7380a765c53708b8b36e53773bec217847070c4fb5fc54fd3542b",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/bag_capacity.py",
+      "size": 6426,
+      "sha256": "661a42ad9859497f6cb96f6592f5b81f1f0257b7cee4d5ddf887e72a38f3883c",
+      "parent_sha256": "fea8fbbbac75266d45c62142d30f64e17cd871c8073c53ca48e9207ead020abd",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/game_schema.py",
+      "size": 1469,
+      "sha256": "84bf46bef5dbac8b97b065acbf5724889430bbd9f580545c38f042e3310e035a",
+      "parent_sha256": "9972f692ce36a5a9481ac05e095f6588d5db983ffe72095927bb6b6d18d48108",
+      "scope": "server"
+    }
+  ],
+  "desktop_files": [],
+  "runtime_files": 2169,
+  "lazy_tables": [
+    "inventory_sort_pins"
+  ],
+  "rebuilt_tables": [
+    "character_bag_capacities",
+    "character_extra_bag_capacities"
+  ],
+  "installed_online": false,
+  "installed_local": false,
+  "natural_GUI": false
+}

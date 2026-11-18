@@ -1,0 +1,178 @@
+[
+  {
+    "result": "tests-1.json",
+    "tests": 7,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-2.json",
+    "tests": 4,
+    "ok": false,
+    "failures": 0,
+    "errors": 1,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.QuestLimits"
+    ],
+    "details": [
+      {
+        "test": "test_epic_after_reward_is_not_blocked_by_unrelated_task_count (test_gaps.QuestLimits.test_epic_after_reward_is_not_blocked_by_unrelated_task_count)",
+        "trace": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\pr771-gaps-20261103-v1\\test_gaps.py\", line 147, in test_epic_after_reward_is_not_blocked_by_unrelated_task_count\n    from els_server.storage.epic_followups import accept_after_reward,has_deferred_candidates\nImportError: cannot import name 'has_deferred_candidates' from 'els_server.storage.epic_followups' (G:\\els\\analysis\\pr771-firstbatch-20261103-v1\\runtime\\els_server\\storage\\epic_followups.py)\n"
+      }
+    ]
+  },
+  {
+    "result": "tests-3.json",
+    "tests": 1,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.QuestLimits.test_epic_after_reward_is_not_blocked_by_unrelated_task_count"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-4.json",
+    "tests": 1,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.QuestLimits.test_character_quests_are_accepted_above_fifty_and_cold_restore_keeps_them"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-5.json",
+    "tests": 4,
+    "ok": false,
+    "failures": 4,
+    "errors": 1,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.Reselection"
+    ],
+    "details": [
+      {
+        "test": "test_encoding_failure_and_owner_change_roll_back_ticket_and_career (test_gaps.Reselection.test_encoding_failure_and_owner_change_roll_back_ticket_and_career)",
+        "trace": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\pr771-gaps-20261103-v1\\test_gaps.py\", line 228, in test_encoding_failure_and_owner_change_roll_back_ticket_and_career\n    with self.assertRaisesRegex(ValueError,'owned encode failure'):self.s.handle(self.request(item),814)\n         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ValueError not raised\n"
+      },
+      {
+        "test": "test_selected_ticket_changes_career_and_cold_replay_does_not_reconsume (test_gaps.Reselection.test_selected_ticket_changes_career_and_cold_replay_does_not_reconsume)",
+        "trace": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\pr771-gaps-20261103-v1\\test_gaps.py\", line 204, in test_selected_ticket_changes_career_and_cold_replay_does_not_reconsume\n    self.assertEqual(struct.unpack_from('>i',messages[0].payload)[0],0)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1 != 0\n"
+      },
+      {
+        "test": "test_wrong_stage_level_target_and_expiry_are_real_refusals (test_gaps.Reselection.test_wrong_stage_level_target_and_expiry_are_real_refusals) (level=35, cls=10, chosen=11)",
+        "trace": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\pr771-gaps-20261103-v1\\test_gaps.py\", line 217, in test_wrong_stage_level_target_and_expiry_are_real_refusals\n    self.assertEqual(struct.unpack_from('>i',messages[0].payload)[0],1836)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1 != 1836\n"
+      },
+      {
+        "test": "test_wrong_stage_level_target_and_expiry_are_real_refusals (test_gaps.Reselection.test_wrong_stage_level_target_and_expiry_are_real_refusals)",
+        "trace": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\pr771-gaps-20261103-v1\\test_gaps.py\", line 222, in test_wrong_stage_level_target_and_expiry_are_real_refusals\n    self.assertEqual(struct.unpack_from('>i',messages[0].payload)[0],1836)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1 != 1836\n"
+      },
+      {
+        "test": "test_real_task_clear_claim_grants_both_original_timed_rewards_once (test_gaps.Reselection.test_real_task_clear_claim_grants_both_original_timed_rewards_once)",
+        "trace": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\pr771-gaps-20261103-v1\\test_gaps.py\", line 189, in test_real_task_clear_claim_grants_both_original_timed_rewards_once\n    state,result=self.quest()\n                 ~~~~~~~~~~^^\n  File \"G:\\els\\analysis\\pr771-gaps-20261103-v1\\test_gaps.py\", line 175, in quest\n    result=state.action('claim',dict(quest=39480,npc=10025,choices=()),'reselect-claim',lambda r:[],now=1800000010)\n  File \"G:\\els\\analysis\\pr771-firstbatch-20261103-v1\\runtime\\els_server\\storage\\seal_quests.py\", line 303, in action\n    if not skipping and any(active['objectives'][s['m_iID']]<target(s) for s in subs):raise QuestIncomplete('Quest objectives are incomplete')\n                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nels_server.storage.seal_quests.QuestIncomplete: Quest objectives are incomplete\n"
+      }
+    ]
+  },
+  {
+    "result": "tests-6.json",
+    "tests": 4,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.Reselection"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-7.json",
+    "tests": 3,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.QuestLimits.test_actual_side_writer_accepts_twentieth_and_refuses_twenty_first",
+      "test_gaps.QuestLimits.test_quick_start_uses_side_budget_and_keeps_character_tasks",
+      "test_gaps.Reselection.test_fixed_career_book_keeps_original_empty_selection_and_advancement"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-8.json",
+    "tests": 6,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.Reselection"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-9.json",
+    "tests": 7,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.Reselection"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-10.json",
+    "tests": 4,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_firstbatch.FirstBatch.test_consumable_session_dispatch_and_stage_gate",
+      "test_firstbatch.FirstBatch.test_each_pickup_alias_consumes_one_and_does_not_repeat",
+      "test_secondbatch.SecondBatch.test_all_eight_new_entries_require_real_predecessor_and_claim",
+      "test_secondbatch.SecondBatch.test_shared_early_requests_keep_all_member_barrier"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-11.json",
+    "tests": 2,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps.Reselection.test_selected_ticket_changes_career_and_cold_replay_does_not_reconsume",
+      "test_firstbatch.FirstBatch.test_each_pickup_alias_consumes_one_and_does_not_repeat"
+    ],
+    "details": []
+  },
+  {
+    "result": "tests-12.json",
+    "tests": 20,
+    "ok": true,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selected": [
+      "test_gaps"
+    ],
+    "details": []
+  }
+]
