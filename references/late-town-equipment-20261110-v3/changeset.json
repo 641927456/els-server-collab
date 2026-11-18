@@ -1,0 +1,363 @@
+{
+  "scope": "V3 shared server delta including ordinary circuit dismantling",
+  "parent": {
+    "online": {
+      "release": "coexistence-and-luciel-20261109-v135",
+      "path": "releases/online/coexistence-and-luciel-20261109-v135",
+      "manifest_sha256": "16aaad4e4f0502e9133294413e17c898106584206630df7862dc4b55a0319071"
+    },
+    "local": {
+      "release": "unified-server-23e1771b8b878c36-c0aa4459c1c3",
+      "path": "releases/local/unified-server-23e1771b8b878c36-c0aa4459c1c3",
+      "manifest_sha256": "74c899d6464e2cd691f0f5a22e7851494f422d7e7fba88649b48a32390d0f161"
+    }
+  },
+  "archive": "late-town-equipment-server-delta.zip",
+  "archive_sha256": "3692518730deed911cd389cb780dc1702adfcd3dbef944113b70f7005a228655",
+  "files": [
+    {
+      "path": "els_server/data/accessory_identification_groups.json",
+      "base_sha256": {
+        "online": "ab5683c81700d9542cf662665d5477bc4fe31f87b2311198145c2b94505d5e31",
+        "local": "ab5683c81700d9542cf662665d5477bc4fe31f87b2311198145c2b94505d5e31"
+      },
+      "sha256": "ab1525fdd29b5446b4cd4b21218fb6c3e3251a9b1af01877e615412c8af5b753"
+    },
+    {
+      "path": "els_server/data/atma_accessories.json",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "4f40c138f6482224a7f4998a7ad096d12f36f02363e1e0823e1e265fbe4572d2"
+    },
+    {
+      "path": "els_server/data/equipment_reforge.json",
+      "base_sha256": {
+        "online": "834a71545f7f9dec5a5d0e252b570c0a70c4feb19816864b6fd29af4aff92f9f",
+        "local": "834a71545f7f9dec5a5d0e252b570c0a70c4feb19816864b6fd29af4aff92f9f"
+      },
+      "sha256": "dbcb2d240e31b1b7985c2049764a8f2aa11aae6ef26c89aeefd0b27acffd06ce"
+    },
+    {
+      "path": "els_server/data/equipment_reforge_transfer.json",
+      "base_sha256": {
+        "online": "a1a71a88a35300ed7c3ed11800bcc3c9a7d6179391f0954b7e17a60cafd0b878",
+        "local": "a1a71a88a35300ed7c3ed11800bcc3c9a7d6179391f0954b7e17a60cafd0b878"
+      },
+      "sha256": "40561730723e3332db13c10c7ac9984d791f94724d70dc9bd80c841217f14420"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "base_sha256": {
+        "online": "d612104d6592b33fa64a19199a77ee51623df5dfed3d1dff808a42bdf658b799",
+        "local": "d612104d6592b33fa64a19199a77ee51623df5dfed3d1dff808a42bdf658b799"
+      },
+      "sha256": "66d404538c653919f806653a8a3ebc518e3749b0c8cbb2496675abb66c63aaa0"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "base_sha256": {
+        "online": "747656603a4aef2d5c51778f8372f7f8877e42a5b52e3ad2830a5bc1f84f8e85",
+        "local": "747656603a4aef2d5c51778f8372f7f8877e42a5b52e3ad2830a5bc1f84f8e85"
+      },
+      "sha256": "c07d66818e7eb689eb45f8b55e9c084f706f07007fdbb4f334357c5a7c223c84"
+    },
+    {
+      "path": "els_server/data/purifier_exchange.json",
+      "base_sha256": {
+        "online": "af2d7977902ef23d7e992afe6ebe1de0b751ba2e9a1b71d5cbdaf93817eb7865",
+        "local": "af2d7977902ef23d7e992afe6ebe1de0b751ba2e9a1b71d5cbdaf93817eb7865"
+      },
+      "sha256": "4a1895f0deacf26832791bdc47852710fa940ce57c5378f71a4ce37524ea303d"
+    },
+    {
+      "path": "els_server/data/standard_circuits.json",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "f9ca78b0b96882b7f507bd375e915d17f324e7ea8a43d26542eb9521c6e55ca2"
+    },
+    {
+      "path": "els_server/domain/accessory_identification.py",
+      "base_sha256": {
+        "online": "836933b7151fb44517835d09d0781c923dc78fb4464b7b81ecfd8a28d041fb7c",
+        "local": "836933b7151fb44517835d09d0781c923dc78fb4464b7b81ecfd8a28d041fb7c"
+      },
+      "sha256": "b37ce43f7b632930467bc48e021cabce4bc95b7976ea58d041c3d7ebf8655b85"
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "base_sha256": {
+        "online": "b6ed02dca84b20d955b37e418ce61fd9a664ebc4e10b080dc7916b052721c3cb",
+        "local": "b6ed02dca84b20d955b37e418ce61fd9a664ebc4e10b080dc7916b052721c3cb"
+      },
+      "sha256": "15b975cfb8e6714dd7673b859b0bb4e145f9c28b50cdf42c74551fb88d98d719"
+    },
+    {
+      "path": "els_server/domain/artifact_flow.py",
+      "base_sha256": {
+        "online": "721d5657ff78b1c3eb05fb16454d253b7b0e104fe97c33509dcc0364d080997c",
+        "local": "721d5657ff78b1c3eb05fb16454d253b7b0e104fe97c33509dcc0364d080997c"
+      },
+      "sha256": "74908f8ca662136f9c4f7062abcc53aaf817c2fea8ce76ed5f25c8ab4b65fbb8"
+    },
+    {
+      "path": "els_server/domain/atma_accessories.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "3bf75274ff83a945dfb7b39e0a1d846692aaa59854774b0b8778e8133415eeec"
+    },
+    {
+      "path": "els_server/domain/atma_temple_reward_flow.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "0bfb20bf4a14a64a5326c0d010538a271f95644a57ac473fa46844f1227cec22"
+    },
+    {
+      "path": "els_server/domain/decomposition_rules.py",
+      "base_sha256": {
+        "online": "cbed46d30aa155af90e46d186158f18ba79c9b58f2b846c4ed01a84d3ecb6d15",
+        "local": "cbed46d30aa155af90e46d186158f18ba79c9b58f2b846c4ed01a84d3ecb6d15"
+      },
+      "sha256": "c28ca6cc7cb36c738906efad97245c8eb9d455d7d30e1eacb62f24f967a3cd82"
+    },
+    {
+      "path": "els_server/domain/equipment_circuit_rules.py",
+      "base_sha256": {
+        "online": "98f0587fff962cd603ef78f0f40ecb0ca5735a20669a7c739c5955331b077ad1",
+        "local": "98f0587fff962cd603ef78f0f40ecb0ca5735a20669a7c739c5955331b077ad1"
+      },
+      "sha256": "c22d29bc1143753ba16345e55f2ee5a5ed1a0deae3835c907e553479da4489c3"
+    },
+    {
+      "path": "els_server/domain/equipment_reforge_rules.py",
+      "base_sha256": {
+        "online": "934ad2edb130bac97c7e22db809a4e1483c26eae42e86978cd9cc3200f966723",
+        "local": "934ad2edb130bac97c7e22db809a4e1483c26eae42e86978cd9cc3200f966723"
+      },
+      "sha256": "2d6e81d5d8b0e53d0752198b0f3c27106cc5efe525ddcf8a25ef39e9fe520506"
+    },
+    {
+      "path": "els_server/domain/equipment_reforge_transfer_flow.py",
+      "base_sha256": {
+        "online": "7e9bff7e4925b03a85879c2c5be626dfb3acb531e57e5311e64a6cc0bc8078e2",
+        "local": "7e9bff7e4925b03a85879c2c5be626dfb3acb531e57e5311e64a6cc0bc8078e2"
+      },
+      "sha256": "fe1bd0b6f0cc0b803bc347fab0c8b375b6f3511523ca5ed657e1eede3d3c80e8"
+    },
+    {
+      "path": "els_server/domain/equipment_reforge_transfer_preflight.py",
+      "base_sha256": {
+        "online": "4b0ce04570cd8a1058c8eb17e4d33809ba6ff7f5b578e68165861286d9faed88",
+        "local": "4b0ce04570cd8a1058c8eb17e4d33809ba6ff7f5b578e68165861286d9faed88"
+      },
+      "sha256": "d4876dd3fe55c75d13f69285a5c705d4e4387b7711e1befc2fb650877cdace22"
+    },
+    {
+      "path": "els_server/domain/equipment_reforge_transfer_rules.py",
+      "base_sha256": {
+        "online": "e88af4fcceda07b84cccbb4374a9abed331cf5d5ff30816740c7213b0100db24",
+        "local": "e88af4fcceda07b84cccbb4374a9abed331cf5d5ff30816740c7213b0100db24"
+      },
+      "sha256": "05b0eba8e3a1798b5e99f7b9d4d0993648c29a49903a7c4460d4e240073a7f30"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "base_sha256": {
+        "online": "662b9d8b27a287d8ac93d98cf161e254ad92136254f384ff03bade5f0c4a99b5",
+        "local": "662b9d8b27a287d8ac93d98cf161e254ad92136254f384ff03bade5f0c4a99b5"
+      },
+      "sha256": "8e9bd8a80d20ed5807e0dec54780c71cd80a4bb14ff459c56e6cfd239316ec30"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "base_sha256": {
+        "online": "7fb2824260a4193b255acaa12e6ef331cc1384bdd768e608d0bffcca99f4e0b3",
+        "local": "7fb2824260a4193b255acaa12e6ef331cc1384bdd768e608d0bffcca99f4e0b3"
+      },
+      "sha256": "fff27913dcc19d60094e7ffee950cd6b35259a3cf16603defdbf1e41440afdef"
+    },
+    {
+      "path": "els_server/domain/modern_synthesis_rules.py",
+      "base_sha256": {
+        "online": "e57185883393ee76257c7466e7b7b843de9c51d247855ba04ed04e5f9ba19fdd",
+        "local": "e57185883393ee76257c7466e7b7b843de9c51d247855ba04ed04e5f9ba19fdd"
+      },
+      "sha256": "338e1f43ccf6e7c0577a4e8df474f3e7e4a4ce84d953ac0d66b13548d1b7d38c"
+    },
+    {
+      "path": "els_server/domain/neblon_role_change_flow.py",
+      "base_sha256": {
+        "online": "a4947b847b69bc8557e858e14e1cdfa663d2dadaf1d641801ef9c943845ee17e",
+        "local": "a4947b847b69bc8557e858e14e1cdfa663d2dadaf1d641801ef9c943845ee17e"
+      },
+      "sha256": "77670a631d2eb71348191fa192f69c451a91e4c2724d99bc802dd241903494a8"
+    },
+    {
+      "path": "els_server/domain/neblon_role_change_rules.py",
+      "base_sha256": {
+        "online": "3d82920b691eacf69bc4249f03ba0fa508daae3b6f47ab55edc6eb5d57d83242",
+        "local": "3d82920b691eacf69bc4249f03ba0fa508daae3b6f47ab55edc6eb5d57d83242"
+      },
+      "sha256": "b787e69452d948e29ad628201ac8cc5af10505456cc6ab8742abfdfc81d8631e"
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "base_sha256": {
+        "online": "281b32ceebba51ec4c77859c96c6b4dc9ee753037b2305d093900c6ebee3ecdb",
+        "local": "281b32ceebba51ec4c77859c96c6b4dc9ee753037b2305d093900c6ebee3ecdb"
+      },
+      "sha256": "54b91021c55b53b9edd7b2299d0a13b07a6448dedc5da5fba6adf0722fd5bc88"
+    },
+    {
+      "path": "els_server/domain/purifier_exchange_flow.py",
+      "base_sha256": {
+        "online": "cacfbc68d99e442b41ca991232ab61dd0700ce9ae398c408fdfd34b826ee11ef",
+        "local": "cacfbc68d99e442b41ca991232ab61dd0700ce9ae398c408fdfd34b826ee11ef"
+      },
+      "sha256": "c6aa0f34db9489a017431926dbf4c87ffc046e8e6fc58bb8a52d3817b823f46b"
+    },
+    {
+      "path": "els_server/domain/purifier_exchange_rules.py",
+      "base_sha256": {
+        "online": "6ada85999819c378d85cd3894ec167d8ae7a9423238f39db176e7a5523bb250f",
+        "local": "6ada85999819c378d85cd3894ec167d8ae7a9423238f39db176e7a5523bb250f"
+      },
+      "sha256": "40ae1275865e5d9f48ce7334bcc0e0729d2a04a8b6ceb6e36321a993cc5c897c"
+    },
+    {
+      "path": "els_server/domain/raid_reward_items.py",
+      "base_sha256": {
+        "online": "196c16c461ac928e73942c22b5f73363796a431271337aeeffc9420898d24b09",
+        "local": "196c16c461ac928e73942c22b5f73363796a431271337aeeffc9420898d24b09"
+      },
+      "sha256": "5b126c3c4b44dfb39685ac20101216cb9ffaf0180d85f402e0fbf2c3b6d69ea2"
+    },
+    {
+      "path": "els_server/domain/session_dispatch.py",
+      "base_sha256": {
+        "online": "fb41b45090123ced4779aa8deaa3f706f3c6d5ccffaeb9bf90b1a011777176ca",
+        "local": "fb41b45090123ced4779aa8deaa3f706f3c6d5ccffaeb9bf90b1a011777176ca"
+      },
+      "sha256": "4308aa37668a957f5b5930c95ab3759462bacfbe0bee1fbdbbd40f40fe0e2e82"
+    },
+    {
+      "path": "els_server/domain/town_growth_exchange.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "dab7ebe8fb7d241015d0fa908cf00c93dc38dfa65a855c001ce70610593da509"
+    },
+    {
+      "path": "els_server/protocol/ariel_daily_special_messages.py",
+      "base_sha256": {
+        "online": "2ab1299ed06ac5cd617062969808f319943e96ea5ccdf0d4c408d759c1a5e85b",
+        "local": "2ab1299ed06ac5cd617062969808f319943e96ea5ccdf0d4c408d759c1a5e85b"
+      },
+      "sha256": "94d57d229ac1136dcb0049a1f1dbb22d73022af851c3ad974a280c22a91dd51e"
+    },
+    {
+      "path": "els_server/storage/ariel_daily_special.py",
+      "base_sha256": {
+        "online": "6f1504f494737eb9f466ab068b1d3fcb16b766b5350c939b1b23687fe9c4700b",
+        "local": "6f1504f494737eb9f466ab068b1d3fcb16b766b5350c939b1b23687fe9c4700b"
+      },
+      "sha256": "bae5ff5a9a41fda09c23a4b216591589da7164f633e1e8c9cc4761d039671c49"
+    },
+    {
+      "path": "els_server/storage/artifact_transfer.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "a4b97866aeac45b838f22f71b8fa3f11243262889a7fc84f7e48320fcdb10da6"
+    },
+    {
+      "path": "els_server/storage/atma_temple_weekly.py",
+      "base_sha256": {
+        "online": null,
+        "local": null
+      },
+      "sha256": "2e98812a5a1f1445cef668cf460138ea999ec7f63985bfada0b8210441ceab4d"
+    },
+    {
+      "path": "els_server/storage/decomposition.py",
+      "base_sha256": {
+        "online": "0fb7a59375e350e38127ceaa56f7e515fd51e0d38ca833eb71f41bd205cf34df",
+        "local": "0fb7a59375e350e38127ceaa56f7e515fd51e0d38ca833eb71f41bd205cf34df"
+      },
+      "sha256": "a1e37628bed711e68cbc4961f9408ecd0eb04c0bca703d11ab1eb5acbbc8dde2"
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "base_sha256": {
+        "online": "068bb20a5feaf60feeeaa2d3f3d82729395652476c8256fffedacd5b75468727",
+        "local": "068bb20a5feaf60feeeaa2d3f3d82729395652476c8256fffedacd5b75468727"
+      },
+      "sha256": "9e7383d238b4c2c806860443f5ed3008fe7db9ff8153d2faedaeda691d1eb881"
+    },
+    {
+      "path": "els_server/storage/equipment_reforge_transfer.py",
+      "base_sha256": {
+        "online": "ac65f005572b62596a21433cfd23c29d517cc475ede3d8e4832df723c34f82d4",
+        "local": "ac65f005572b62596a21433cfd23c29d517cc475ede3d8e4832df723c34f82d4"
+      },
+      "sha256": "67b484160b226ba176588e2c0ba16f879c8949584c3f79b2dae72392fdacbc40"
+    },
+    {
+      "path": "els_server/storage/equipment_reforge_transfer_cost.py",
+      "base_sha256": {
+        "online": "d9396caf788e7d14906eca308e44d92a8a104c7724e5e0480d444175efcb3d00",
+        "local": "d9396caf788e7d14906eca308e44d92a8a104c7724e5e0480d444175efcb3d00"
+      },
+      "sha256": "7352e85c9ea10f723cb3ea4cf61329ac0eeed52a68c1e39cce51881c156ccb45"
+    },
+    {
+      "path": "els_server/storage/market_conversion.py",
+      "base_sha256": {
+        "online": "8094298dd28310e16c442ea8952f3f86fe632c098a684327bff74b48f1911e40",
+        "local": "8094298dd28310e16c442ea8952f3f86fe632c098a684327bff74b48f1911e40"
+      },
+      "sha256": "2b1d80a9ced53630df14600a88cf60190a72a882ac3f5ef1b63d520aa66cc257"
+    },
+    {
+      "path": "els_server/storage/material_exchange.py",
+      "base_sha256": {
+        "online": "e113a97b1e5f08c70e32b21bd50c1955c26096d8c2821de3bd463fef2f04e0f7",
+        "local": "e113a97b1e5f08c70e32b21bd50c1955c26096d8c2821de3bd463fef2f04e0f7"
+      },
+      "sha256": "cc952e193a351bbff159170e48973b134466e04bdfd668202e51f756a0ab02f6"
+    },
+    {
+      "path": "els_server/storage/modern_synthesis.py",
+      "base_sha256": {
+        "online": "bcc58075ba1b931c4973a4a5465e96bacc85068b4ada189c2d70ee3ee74a96a7",
+        "local": "bcc58075ba1b931c4973a4a5465e96bacc85068b4ada189c2d70ee3ee74a96a7"
+      },
+      "sha256": "ca08c19fb4d1825747e2a645e74f5ebaa7919a94a589ed224a0857f34c87ae72"
+    },
+    {
+      "path": "els_server/storage/ordinary_misc_loot.py",
+      "base_sha256": {
+        "online": "d5fa2eb51de5f98e770cb983de01d36b083ee991664f82c3899777831b41af51",
+        "local": "d5fa2eb51de5f98e770cb983de01d36b083ee991664f82c3899777831b41af51"
+      },
+      "sha256": "b5d89c7ee058be9d693c48892cfcdb540d1f1a5ff4a818259b8fde48795d54ed"
+    },
+    {
+      "path": "els_server/storage/purifier_exchange.py",
+      "base_sha256": {
+        "online": "ff5e7dd96a3c2eefcc66f07e2414e9e2ec40af23857950ab5b25c13b58537010",
+        "local": "ff5e7dd96a3c2eefcc66f07e2414e9e2ec40af23857950ab5b25c13b58537010"
+      },
+      "sha256": "1a2a3a63a3eb9c21c665cfb18fab25072e9d62354dba617977c5821fb46454c5"
+    }
+  ]
+}

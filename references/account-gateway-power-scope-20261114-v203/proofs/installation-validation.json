@@ -1,0 +1,156 @@
+{
+  "online": {
+    "ok": true,
+    "release": "account-gateway-power-scope-20261114-v203",
+    "public": {
+      "ok": true,
+      "public_tls": true,
+      "actual_runtime_only": true,
+      "test": {
+        "ok": true,
+        "phase": "test",
+        "actual_TLS": true,
+        "public_network": true,
+        "cases": [
+          {
+            "account_API": {
+              "ok": true,
+              "status": true,
+              "token_resume": true,
+              "pinned_TLS": true
+            },
+            "power": {
+              "ok": true,
+              "actual_TLS": true,
+              "native_session": false,
+              "phase": "test",
+              "side": 0,
+              "fixture_raw": 3999.5,
+              "entry_boundaries": true,
+              "AD_replayed": true,
+              "natural_battle": false
+            }
+          }
+        ],
+        "natural_GUI": false,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2086,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "de73d23e13831ddb292e15cb5497e2ebba825c96f9561334618e9fc0ae502798",
+          "server-addon": "37db1d2b3212faec4a94aa1dae44fea1c40add6f9c378126a24a2ddbdea6c81d"
+        },
+        "signed_target_manifest_sha256": "299c77f63178545e8aeff2b485e72d993383ff6907776beb5eaee4cf2f1bdbd2"
+      },
+      "retire": {
+        "ok": true,
+        "phase": "retire",
+        "actual_TLS": true,
+        "public_network": true,
+        "cases": [
+          {
+            "account_API": {
+              "ok": true,
+              "status": true,
+              "token_resume": true,
+              "pinned_TLS": true
+            },
+            "power": {
+              "ok": true,
+              "actual_TLS": true,
+              "native_session": false,
+              "phase": "retire",
+              "side": 1,
+              "fixture_raw": 4000.5,
+              "entry_boundaries": false,
+              "AD_replayed": true,
+              "natural_battle": false
+            }
+          }
+        ],
+        "natural_GUI": false,
+        "actual_runtime_only": true,
+        "sqlite": "3.54.1",
+        "GIL_enabled": false,
+        "files_verified": 2086,
+        "runtime_layout": "client+server-addon",
+        "signed_module_identities": {
+          "client": "de73d23e13831ddb292e15cb5497e2ebba825c96f9561334618e9fc0ae502798",
+          "server-addon": "37db1d2b3212faec4a94aa1dae44fea1c40add6f9c378126a24a2ddbdea6c81d"
+        },
+        "signed_target_manifest_sha256": "299c77f63178545e8aeff2b485e72d993383ff6907776beb5eaee4cf2f1bdbd2"
+      },
+      "expected_game_authentications": 2,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "cold": {
+      "ok": true,
+      "read_only": true,
+      "retired": true,
+      "cases": [
+        {
+          "scenario": "client_power",
+          "ok": true,
+          "read_only": true,
+          "client_origin_fixture": true,
+          "native_session": false,
+          "current_form_unrounded": true,
+          "facts": [
+            {
+              "side": 0,
+              "raw": 3999.5,
+              "basis_points": 2000
+            },
+            {
+              "side": 1,
+              "raw": 4000.5,
+              "basis_points": 2500
+            }
+          ],
+          "ERP_level": 201,
+          "kill_receipts": 2,
+          "replayed_without_extra_fact": true
+        }
+      ]
+    },
+    "public_tls": true,
+    "candidate_pid": 5960,
+    "requirements_sha256": "0cf9c42dd909e0d45e0a73a701456e45197d65a40ca4b342d7f566fd5bd2e91a",
+    "started_utc": "2026-11-13T23:48:34.168844+00:00",
+    "completed_utc": "2026-11-13T23:48:50.725103+00:00",
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "local": {
+    "ok": true,
+    "release": "account-gateway-power-scope-20261114-v203",
+    "runtime": "G:\\els\\releases\\local\\unified-server-d4a021b93924df51-9ca4a688b56a",
+    "signed_files": 2086,
+    "runtime_manifest_sha256": "299c77f63178545e8aeff2b485e72d993383ff6907776beb5eaee4cf2f1bdbd2",
+    "shared_server_files": 1546,
+    "observed_seconds": 122.13663919999999,
+    "ordinary_player_entry_open": false,
+    "stable_launcher_promoted": false,
+    "completed_utc": "2026-11-13T23:52:04.382873+00:00"
+  },
+  "updater": {
+    "ok": true,
+    "stable_parent": "launcher-v201-5eb27b289546628f",
+    "tag": "launcher-v203-2069d6095f6f6385",
+    "exe_sha256": "2069d6095f6f63850c6914c10d9c98915770ff87c0d8f343816015d9d1101d98",
+    "signed_files": 2086,
+    "client_files": 110,
+    "server_addon_files": 1986,
+    "embedded_resources": 6,
+    "public_fresh_client": true,
+    "public_fresh_server_addon": true,
+    "public_upgrade": true,
+    "default_service_not_downloaded": true,
+    "full_and_chunk_cleanup": true,
+    "old_backup_preserved": true,
+    "game_started": false
+  }
+}
